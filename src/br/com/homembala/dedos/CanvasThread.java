@@ -6,8 +6,8 @@ import android.view.SurfaceHolder;
 public class CanvasThread extends Thread {
     private SurfaceHolder _surfaceHolder;
     private Panel _panel;
-    private boolean _run = false;
- 
+    private boolean _run = true;
+    private Canvas c;
     public CanvasThread(SurfaceHolder surfaceHolder, Panel panel) {
         _surfaceHolder = surfaceHolder;
         _panel = panel;
@@ -19,8 +19,7 @@ public class CanvasThread extends Thread {
  
     @Override
     public void run() {
-        Canvas c;
-        while (_run) {
+        //while (_run) {
             c = null;
             try {
                 c = _surfaceHolder.lockCanvas(null);
@@ -34,7 +33,8 @@ public class CanvasThread extends Thread {
                 if (c != null) {
                     _surfaceHolder.unlockCanvasAndPost(c);
                 }
-            }
+            //}
         }
+
     }
 }
