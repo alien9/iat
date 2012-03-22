@@ -3,5 +3,9 @@
 
     <string name="hello">Hello World, DedosActivity!</string>
     <string name="app_name">Dedos</string>
+    <string name="share">Share</string>
+    <string name="reset">Reset</string>
+    <string name="pensize">Pen Size</string>
+    <string name="start">Start</string>
 
 </resources>
