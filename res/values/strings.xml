@@ -7,5 +7,12 @@
     <string name="reset">Reset</string>
     <string name="pensize">Pen Size</string>
     <string name="start">Start</string>
+    <string name="full_name">Full Name</string>
+    <string name="tax_number">Tax Number</string>
+    <string name="email">email</string>
+    <string name="telephone_number">Telephone</string>
+    <string name="street_address">Street Address</string>
+    <string name="city">City</string>
+    <string name="send">Send</string>
 
 </resources>

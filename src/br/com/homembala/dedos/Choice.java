@@ -39,12 +39,13 @@ public class Choice extends Activity {
 				Button but=(Button) v;
 				Resources res=getResources();
 				String name=res.getResourceName(v.getId());
-				name=name.replaceAll("D", "");
-				//name=String.format("%05w", name);
+				name=name.replaceAll("\\D", "");
+				name=String.format("%02d", Integer.parseInt(name));
 				Bundle b=new Bundle();
-				int bgid=getResources().getIdentifier("thumb01", "drawable", getPackageName());
+				int bgid=getResources().getIdentifier("big"+name, "drawable", getPackageName());
 
 				b.putInt("background", bgid);
+				b.putInt("background_index", Integer.parseInt(name));
 				
 				Intent intent = new Intent(Choice.this, DedosActivity.class);
 				intent.putExtras(b);
