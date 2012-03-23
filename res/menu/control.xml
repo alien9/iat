@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
     <menu xmlns:android="http://schemas.android.com/apk/res/android">
         <group android:id="@+id/group1">
-            <item android:id="@+id/item1" android:title="@string/share">
+            <item android:id="@+id/share_image" android:title="@string/share">
             </item>
-            <item android:id="@+id/item2" android:title="@string/reset"></item>
+            <item android:id="@+id/reset_image" android:title="@string/reset"></item>
         </group>
     </menu>

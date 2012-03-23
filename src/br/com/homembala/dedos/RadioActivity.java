@@ -10,8 +10,8 @@ import android.view.View.OnClickListener;
 public class RadioActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
-    	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.logo);
         (findViewById(R.id.button1)).setOnClickListener(new OnClickListener(){
 			@Override

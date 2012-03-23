@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Alô!</string>
+    <string name="app_name">Dedos</string>
+    <string name="share">Enviar</string>
+    <string name="reset">Reiniciar</string>
+    <string name="pensize">Traço</string>
+    <string name="start">Início</string>
+    <string name="full_name">Nome Completo</string>
+    <string name="tax_number">CPF</string>
+    <string name="email">email</string>
+    <string name="telephone_number">Telefone</string>
+    <string name="street_address">Endereço</string>
+    <string name="city">Cidade</string>
+    <string name="send">Enviar</string>
+
+</resources>
