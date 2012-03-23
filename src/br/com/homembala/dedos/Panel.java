@@ -1,30 +1,25 @@
 package br.com.homembala.dedos;
 
 import java.util.ArrayList;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 
-class Panel extends View implements View.OnTouchListener {
+class Panel extends View implements View.OnTouchListener{
 	CanvasThread canvasthread;
 	private Canvas canvas;
 	private Path path;
 	private Paint paint;
 	private ArrayList<Path> paths = new ArrayList<Path>();
-
+	private ArrayList<Float> widths = new ArrayList<Float>();
     public void surfaceChanged(SurfaceHolder holder, int format, int width,
             int height) {
     // TODO Auto-generated method stub
@@ -37,13 +32,9 @@ class Panel extends View implements View.OnTouchListener {
         setFocusableInTouchMode(true);
         this.setOnTouchListener(this);
         paint = new Paint();
-        //paint.setStyle(Style.FILL);
-        //paint.setColor(Color.WHITE);
-        //canvas.drawPaint(paint);
         paint.setColor(Color.BLACK);
         paint.setAntiAlias(true);
         paint.setDither(true);
-        //paint.setColor(0xFFFFFFFF);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeJoin(Paint.Join.ROUND);
         paint.setStrokeCap(Paint.Cap.ROUND);
@@ -51,12 +42,7 @@ class Panel extends View implements View.OnTouchListener {
         canvas = new Canvas();
         path = new Path();
         paths.add(path);
-
-    	//final SurfaceHolder s = getHolder();
-	    //s.addCallback(this);
-	   // canvasthread = new CanvasThread(s, this);
-	    //setFocusable(true);
-
+        widths.add(new Float(6));
 	}       
     @Override
     public void onDraw(Canvas canvas) {
@@ -71,10 +57,13 @@ class Panel extends View implements View.OnTouchListener {
         canvas.drawBitmap(kangoo, 10, 10, null);
         canvas.drawText("pichorra", 10,400, paint);
         //canvasthread.setRunning(false);*/
+
+        int i=0;
 		for (Path p : paths){
+			paint.setStrokeWidth(widths.get(i));
+			i++;
 			canvas.drawPath(p, paint);
 		}
-		canvas.drawText(""+paths.size(),10,10, paint);
     }
     private float mX, mY;
     private static final float TOUCH_TOLERANCE = 4;
@@ -102,6 +91,7 @@ class Panel extends View implements View.OnTouchListener {
         // kill this so we don't double draw            
         path = new Path();
         paths.add(path);
+        widths.add(paint.getStrokeWidth());
     }
     @Override
     public boolean onTouch(View arg0, MotionEvent event) {
@@ -123,24 +113,36 @@ class Panel extends View implements View.OnTouchListener {
                 break;
         }
         return true;
-  }
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-	    if (keyCode == KeyEvent.KEYCODE_BACK) {
-	    	if(paths.size()>0){
-	    		path.reset();
-    			paths.remove(paths.size()-1);
-    			paths.remove(paths.size()-1);
-    			synchronized(this){
-    				canvas=new Canvas();
-    				canvas.save();
-    			}
-    			path=new Path();
-    			paths.add(path);
-    		}
-	    	invalidate();
-	        return true;
-	    }
-	    return super.onKeyDown(keyCode, event);
-	}
+    }
+    public float getStrokeWidth(){
+    	return paint.getStrokeWidth();
+    }
+
+    public void setStrokeWidth(float sw){
+    	if(sw<0) sw=1;
+    	if(sw>50) sw=50;
+    	paint.setStrokeWidth(sw);
+    	widths.set(widths.size()-1,sw);
+    }
+    public boolean back(){
+    	if(paths.size()>1){
+			float sw=paint.getStrokeWidth();
+			path.reset();
+			paths.remove(paths.size()-1);
+			paths.remove(paths.size()-1);
+			widths.remove(widths.size()-1);
+			widths.remove(widths.size()-1);
+			synchronized(this){
+				canvas=new Canvas();
+				canvas.save();
+			}
+			path=new Path();
+			paths.add(path);
+			widths.add(sw);
+			invalidate();
+		    return true;
+		}else{
+			return false;
+		}
+    }
 }
