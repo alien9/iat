@@ -14,7 +14,6 @@ import android.view.SurfaceHolder;
 import android.view.View;
 
 class Panel extends View implements View.OnTouchListener{
-	CanvasThread canvasthread;
 	private Canvas canvas;
 	private Path path;
 	private Paint paint;

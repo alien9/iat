@@ -48,6 +48,9 @@
             <include
                 android:id="@+id/cell2"
                 layout="@layout/page2" />
+            <include
+                android:id="@+id/cell3"
+                layout="@layout/page3" />
         </ViewFlipper>
 
         <Button
