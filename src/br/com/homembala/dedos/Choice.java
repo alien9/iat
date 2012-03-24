@@ -64,5 +64,6 @@ public class Choice extends Activity {
 		((Button) findViewById(R.id.Button10)).setOnClickListener(ic);
 		((Button) findViewById(R.id.Button11)).setOnClickListener(ic);
 		((Button) findViewById(R.id.Button12)).setOnClickListener(ic);
+		((Button) findViewById(R.id.Button0)).setOnClickListener(ic);
 	}
 }

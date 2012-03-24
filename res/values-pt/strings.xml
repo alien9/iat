@@ -14,5 +14,6 @@
     <string name="street_address">Endereço</string>
     <string name="city">Cidade</string>
     <string name="send">Enviar</string>
-
+<string name="sending">Enviando...</string>
+<string name="warning">Aviso</string>
 </resources>
