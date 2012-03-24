@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tableLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:weightSum="2" >
+
+    <TableRow style="@style/rowrowrow" >
+
+        <LinearLayout
+            style="@style/cell"
+            android:gravity="center" >
+
+            <Button
+                android:id="@+id/Button0"
+                style="@style/image_selector"
+                android:background="@drawable/thumb00" />
+        </LinearLayout>
+    </TableRow>
+
+</TableLayout>
