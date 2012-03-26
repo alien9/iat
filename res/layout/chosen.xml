@@ -22,7 +22,6 @@
         android:gravity="center|center_vertical"
         android:weightSum="2" >
 
-
         <Button
             android:id="@+id/pagedown"
             android:layout_width="49dp"
@@ -31,7 +30,7 @@
             android:background="@drawable/pag0"
             android:text=" " />
 
-        <ViewFlipper
+        <ViewAnimator
             android:id="@+id/ViewFlipper1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -51,7 +50,7 @@
             <include
                 android:id="@+id/cell3"
                 layout="@layout/page3" />
-        </ViewFlipper>
+        </ViewAnimator>
 
         <Button
             android:id="@+id/pageup"

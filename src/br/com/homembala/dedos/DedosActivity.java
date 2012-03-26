@@ -19,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.MeasureSpec;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -38,7 +39,7 @@ public class DedosActivity extends Activity {
 		Bundle b = this.getIntent().getExtras();
 		bg = b.getInt("background");
 		bgIndex = b.getInt("background_index");
-		((ImageView) findViewById(R.id.bgzinho)).setBackgroundResource(bg);
+		((LinearLayout) findViewById(R.id.bgzinho)).setBackgroundResource(bg);
 	}
 
 	@Override
@@ -57,9 +58,9 @@ public class DedosActivity extends Activity {
 			System.exit(0);
 			break;
 		case R.id.share_image:
+			((FrameLayout) findViewById(R.id.frameLayout1))
+					.removeView((LinearLayout) findViewById(R.id.bgzinho));
 			p.setDrawingCacheEnabled(true);
-			((ImageView) findViewById(R.id.bgzinho)).setBackgroundResource(0);
-
 			// this is the important code :)
 			// Without it the view will have a
 			// dimension of 0,0 and the bitmap will
@@ -85,7 +86,7 @@ public class DedosActivity extends Activity {
 	private class DownloadImage extends AsyncTask<Object, Object, Object> {
 		@Override
 		protected void onPostExecute(Object result) {
-			Bundle b=new Bundle();
+			Bundle b = new Bundle();
 			b.putInt("background_index", bgIndex);
 			b.putInt("background", bg);
 			Intent intent = new Intent(DedosActivity.this, Formic.class);
@@ -97,7 +98,8 @@ public class DedosActivity extends Activity {
 		@Override
 		protected Object doInBackground(Object... arg0) {
 			try {
-				String path = Environment.getExternalStorageDirectory().toString();
+				String path = Environment.getExternalStorageDirectory()
+						.toString();
 				OutputStream fOut = null;
 				File file = new File(path, "vivo_samsung_note");
 				file.mkdirs();
@@ -107,12 +109,6 @@ public class DedosActivity extends Activity {
 						.compress(Bitmap.CompressFormat.PNG, 85, fOut);
 				fOut.flush();
 				fOut.close();
-				Log.d("ImagePath",
-						"Image Path : "
-								+ MediaStore.Images.Media.insertImage(
-										getContentResolver(),
-										file.getAbsolutePath(), file.getName(),
-										file.getName()));
 				arg0 = null;
 			} catch (Exception e) {
 				e.printStackTrace();

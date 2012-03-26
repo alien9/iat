@@ -15,6 +15,7 @@
     <string name="city">City</string>
     <string name="send">Send</string>
     <string name="sending">Sending...</string>
+<string name="desire">Do you want to receive your cover at home?</string>
 
-<string name="warning">Warinig</string>
+<string name="warning">Warning</string>
 </resources>

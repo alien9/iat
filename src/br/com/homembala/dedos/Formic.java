@@ -23,14 +23,14 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.telephony.TelephonyManager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.CheckBox;
+
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 public class Formic extends Activity {
 	int bgIndex, background;
@@ -44,7 +44,7 @@ public class Formic extends Activity {
 		bgIndex = b.getInt("background_index");
 		background = b.getInt("background");
 		setContentView(R.layout.formic);
-		((ImageView) findViewById(R.id.bgzinho)).setImageResource(background);
+		((LinearLayout) findViewById(R.id.bgzinho)).setBackgroundResource(background);
 		final File file = new File(Environment.getExternalStorageDirectory()
 				.toString() + "/vivo_samsung_note/screentest.png");
 		Bitmap bm = BitmapFactory.decodeFile(Environment
@@ -61,7 +61,7 @@ public class Formic extends Activity {
 								me.getString(R.string.sending), true, false);
 						HttpClient client = new DefaultHttpClient();
 						HttpUriRequest request = new HttpPost(
-								"http://192.168.0.120/works/blumer/Dedos/backend/participantes_insere.php");
+								"http://galaxynotevivo.com.br/participantes_insere.php");
 						MultipartEntity form = new MultipartEntity();
 						// disable expect-continue handshake (lighttpd doesn't
 						// support
@@ -93,6 +93,8 @@ public class Formic extends Activity {
 							form.addPart("imei", new StringBody(
 									((EditText) findViewById(R.id.editText7))
 											.getText().toString()));
+							form.addPart("capa", new StringBody(
+									""+((CheckBox) findViewById(R.id.checkBox1)).isChecked()));
 							form.addPart("background", new StringBody(""
 									+ bgIndex));
 

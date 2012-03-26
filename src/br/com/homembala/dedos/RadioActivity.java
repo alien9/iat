@@ -12,7 +12,7 @@ public class RadioActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        setContentView(R.layout.logo);
+        setContentView(R.layout.start);
         (findViewById(R.id.button1)).setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
