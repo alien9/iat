@@ -114,7 +114,7 @@ public class Formic extends Activity {
 								HttpResponse response = null;
 
 								try {
-									((HttpClient) arg0[0])
+									response=((HttpClient) arg0[0])
 											.execute((HttpUriRequest) arg0[1]);
 								} catch (ClientProtocolException e) {
 								} catch (IOException ee) {
@@ -126,7 +126,7 @@ public class Formic extends Activity {
 							protected void onPostExecute(Object result) {
 								((LinearLayout) findViewById(R.id.overflow))
 										.setVisibility(View.VISIBLE);
-								((LinearLayout) findViewById(R.id.results))
+								((LinearLayout) findViewById(R.id.bgzinho))
 										.setVisibility(View.VISIBLE);
 								((LinearLayout) findViewById(R.id.success))
 										.setVisibility(View.VISIBLE);
