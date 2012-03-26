@@ -12,13 +12,14 @@ $tel = $_REQUEST["telefone"];
 $endereco = $_REQUEST["endereco"];
 $cidade = $_REQUEST["cidade"];
 $imei = $_REQUEST["imei"];
+if($_REQUEST["desejareceber"]){ $desejareceber=1; }else{ $desejareceber=0; }
 $background = $_REQUEST["background"];
 
 $img = isset($_FILES["imagem"]) ? $_FILES["imagem"] : FALSE;
 
-$sql = "INSERT INTO participantes (nome, cpf, email, tel, endereco, cidade, imei, background, inserido) VALUES (?, ?, ?, ?, ?, ?, ?, ?, now())";
+$sql = "INSERT INTO participantes (nome, cpf, email, tel, endereco, cidade, imei, desejareceber, background, inserido) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, now())";
 $stmt = $pdo->prepare($sql);
-$dados = array($nome, $cpf, $email, $tel, $endereco, $cidade, $imei, $background);
+$dados = array($nome, $cpf, $email, $tel, $endereco, $cidade, $imei, $desejareceber, $background);
 error_log(print_r($dados,1));
 error_log('antes');
 $consultou = $stmt->execute($dados);

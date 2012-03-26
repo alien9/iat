@@ -18,6 +18,7 @@
     <th>Endereço</th>
     <th>Cidade</th>
     <th>IMEI</th>
+    <th>Deseja receber</th>
     <th width="140">Inserido</th>
     <th width="140">Alterado</th> 
   </tr>
@@ -38,7 +39,8 @@
       <td><?=$r["tel"]?></td>
       <td><?=$r["endereco"]?></td>
       <td><?=$r["cidade"]?></td>
-      <td><?=$r["imei"]?></td>       
+      <td><?=$r["imei"]?></td> 
+      <td><?=$r["desejareceber"]?></td> 
       <td><?=date('d/m/Y H:i:s', strtotime($r["inserido"]));?></td>       
       <td><?=date('d/m/Y H:i:s', strtotime($r["alterado"]));?></td>       
     </tr>								
