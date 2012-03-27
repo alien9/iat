@@ -63,6 +63,7 @@ public class Choice extends Activity implements View.OnTouchListener {
 				Intent intent = new Intent(Choice.this, DedosActivity.class);
 				intent.putExtras(b);
 				startActivity(intent);
+				System.exit(0);
 			}
 		};
 		((Button) findViewById(R.id.Button1)).setOnClickListener(ic);
