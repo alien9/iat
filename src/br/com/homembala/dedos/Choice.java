@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -44,7 +45,9 @@ public class Choice extends Activity implements View.OnTouchListener {
 
 			@Override
 			public void onClick(View v) {
-				if(!v.getClass().toString().equals("class android.widget.Button")) return;
+				if (!v.getClass().toString()
+						.equals("class android.widget.Button"))
+					return;
 				Button but = (Button) v;
 				Resources res = getResources();
 				String name = res.getResourceName(v.getId());
@@ -160,6 +163,8 @@ public class Choice extends Activity implements View.OnTouchListener {
 		case MotionEvent.ACTION_MOVE:
 			if (here == 0)
 				break;
+			if (Math.abs(here - x) < 50)
+				break;
 			if (here < x)
 				pageUp();
 			else if (here > x)
@@ -174,5 +179,21 @@ public class Choice extends Activity implements View.OnTouchListener {
 			return true;
 		}
 		return true;
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		switch (keyCode) {
+		case KeyEvent.KEYCODE_BACK:
+			Intent intent = new Intent(Choice.this, RadioActivity.class);
+			startActivity(intent);
+			System.exit(0);
+			break;
+		case KeyEvent.KEYCODE_HOME:
+			System.exit(0);
+		}
+
+		return false;
+
 	}
 }
