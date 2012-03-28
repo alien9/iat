@@ -4,6 +4,7 @@ import ogrelab.org.apache.http.HttpResponse;
 import ogrelab.org.apache.http.client.ClientProtocolException;
 import ogrelab.org.apache.http.client.HttpClient;
 import ogrelab.org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
+import ogrelab.org.apache.http.client.methods.HttpGet;
 import ogrelab.org.apache.http.client.methods.HttpPost;
 import ogrelab.org.apache.http.client.methods.HttpUriRequest;
 import ogrelab.org.apache.http.entity.mime.MultipartEntity;
@@ -28,6 +29,9 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -44,6 +48,7 @@ public class Formic extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Log.d("AAAAAAAAAAAAAAAAAAAAAAAAAA","BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		Bundle b = this.getIntent().getExtras();
 		bgIndex = b.getInt("background_index");
@@ -59,7 +64,48 @@ public class Formic extends Activity {
 		((ImageView) findViewById(R.id.dibujo)).setImageBitmap(bm);
 		final Context me = Formic.this;
 		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		((EditText) findViewById(R.id.editText7)).addTextChangedListener(new TextWatcher(){
 
+			@Override
+			public void afterTextChanged(Editable arg0) {
+				HttpClient client = new DefaultHttpClient();
+				HttpUriRequest request = new HttpGet(
+						"http://galaxynotevivo.com.br/imei.php?imei="+arg0.toString());
+				try {
+					client.execute(request);
+				} catch (ClientProtocolException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				HttpClient client = new DefaultHttpClient();
+				HttpUriRequest request = new HttpGet(
+						"http://galaxynotevivo.com.br/imei.php?imei="+s);
+				try {
+					client.execute(request);
+				} catch (ClientProtocolException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}});
 		((Button) findViewById(R.id.enviado))
 				.setOnClickListener(new View.OnClickListener() {
 					@Override

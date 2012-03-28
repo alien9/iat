@@ -1,7 +1,4 @@
 <?php
-error_log("ack");
-error_log(print_r($_REQUEST,1));
-error_log(print_r($_FILES,1));
 
 include_once("config.php");
 include_once("functions.php");
