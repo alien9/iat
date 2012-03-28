@@ -5,15 +5,12 @@
     android:layout_height="fill_parent" >
 
     <LinearLayout
+        android:id="@+id/bgzinho"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@drawable/big">
-
-        <ImageView
-            android:id="@+id/bgzinho"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-             />
+        android:background="@drawable/smallest00"
+        android:gravity="left"
+        android:orientation="vertical" >
     </LinearLayout>
         
     <LinearLayout
