@@ -54,7 +54,7 @@ public class Choice extends Activity implements View.OnTouchListener {
 				name = name.replaceAll("\\D", "");
 				name = String.format("%02d", Integer.parseInt(name));
 				Bundle b = new Bundle();
-				int bgid = getResources().getIdentifier("smallest" + name,
+				int bgid = getResources().getIdentifier("cap" + name,
 						"drawable", getPackageName());
 
 				b.putInt("background", bgid);

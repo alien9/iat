@@ -2,8 +2,6 @@ package br.com.homembala.dedos;
 
 import java.util.ArrayList;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -21,8 +19,7 @@ class Panel extends View implements View.OnTouchListener{
 	private ArrayList<Float> widths = new ArrayList<Float>();
     public void surfaceChanged(SurfaceHolder holder, int format, int width,
             int height) {
-    // TODO Auto-generated method stub
-   
+  
 	}
     
     public Panel(Context context, AttributeSet attrs) {
@@ -46,17 +43,6 @@ class Panel extends View implements View.OnTouchListener{
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        /*Paint paint = new Paint();
-        paint.setColor(Color.WHITE);
-        paint.setStyle(Style.FILL);
-        canvas.drawPaint(paint);
-        paint.setColor(Color.BLACK);
-        Bitmap kangoo = BitmapFactory.decodeResource(getResources(), R.drawable.kangoo);
-        //canvas.drawColor(Color.BLACK);
-        canvas.drawBitmap(kangoo, 10, 10, null);
-        canvas.drawText("pichorra", 10,400, paint);
-        //canvasthread.setRunning(false);*/
-
         int i=0;
 		for (Path p : paths){
 			paint.setStrokeWidth(widths.get(i));
@@ -65,7 +51,7 @@ class Panel extends View implements View.OnTouchListener{
 		}
     }
     private float mX, mY;
-    private static final float TOUCH_TOLERANCE = 4;
+    private static final float TOUCH_TOLERANCE = 1;
 
     private void touch_start(float x, float y) {
         path.reset();
