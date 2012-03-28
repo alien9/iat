@@ -116,7 +116,7 @@ public class Formic extends Activity {
 							mess = "Preencha seu nome";
 						else if (((EditText) findViewById(R.id.editText2))
 								.getText().toString().length() < 11)
-							mess = "CPF deve ter 11 dígitos";
+							mess = "CPF deve ter 11 dígitos.";
 						else if (((EditText) findViewById(R.id.editText7))
 								.getText().toString().length() < 11)
 							mess = "IMEI inválido";
