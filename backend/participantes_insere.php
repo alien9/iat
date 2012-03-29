@@ -2,7 +2,7 @@
 
 include_once("config.php");
 include_once("functions.php");
-
+error_log(print_r($_REQUEST,1));
 $nome = $_REQUEST["nome"];
 $cpf = $_REQUEST["cpf"];
 $email = $_REQUEST["email"];

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
@@ -19,7 +20,7 @@ public class Choice extends Activity implements View.OnTouchListener {
 	float here = 0;
 	ViewAnimator vu;
 	View.OnClickListener ic;
-
+boolean clicked=false;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,7 +49,7 @@ public class Choice extends Activity implements View.OnTouchListener {
 				if (!v.getClass().toString()
 						.equals("class android.widget.Button"))
 					return;
-				Button but = (Button) v;
+				clicked=true;
 				Resources res = getResources();
 				String name = res.getResourceName(v.getId());
 				name = name.replaceAll("\\D", "");
@@ -63,9 +64,10 @@ public class Choice extends Activity implements View.OnTouchListener {
 				Intent intent = new Intent(Choice.this, DedosActivity.class);
 				intent.putExtras(b);
 				startActivity(intent);
-				System.exit(0);
+				Choice.this.finish();
 			}
 		};
+		/*
 		((Button) findViewById(R.id.Button1)).setOnClickListener(ic);
 		((Button) findViewById(R.id.Button2)).setOnClickListener(ic);
 		((Button) findViewById(R.id.Button3)).setOnClickListener(ic);
@@ -79,7 +81,7 @@ public class Choice extends Activity implements View.OnTouchListener {
 		((Button) findViewById(R.id.Button11)).setOnClickListener(ic);
 		((Button) findViewById(R.id.Button12)).setOnClickListener(ic);
 		((Button) findViewById(R.id.Button0)).setOnClickListener(ic);
-
+*/
 		((Button) findViewById(R.id.Button1)).setOnTouchListener(this);
 		((Button) findViewById(R.id.Button2)).setOnTouchListener(this);
 		((Button) findViewById(R.id.Button3)).setOnTouchListener(this);
@@ -173,8 +175,10 @@ public class Choice extends Activity implements View.OnTouchListener {
 			here = 0;
 			break;
 		case MotionEvent.ACTION_UP:
-			if (Math.abs(here - x) < 10)
+			if (!clicked && (Math.abs(here - x) < 10)){
+				
 				ic.onClick(arg0);
+			}
 			here = 0;
 			// break;
 			return true;
@@ -188,13 +192,14 @@ public class Choice extends Activity implements View.OnTouchListener {
 		case KeyEvent.KEYCODE_BACK:
 			Intent intent = new Intent(Choice.this, RadioActivity.class);
 			startActivity(intent);
-			System.exit(0);
+			Choice.this.finish();
 			break;
 		case KeyEvent.KEYCODE_HOME:
-			System.exit(0);
+			Choice.this.finish();
 		}
 
-		return false;
+		return super.onKeyDown(keyCode, event);
 
 	}
+	
 }
