@@ -17,7 +17,6 @@
     <string name="sending">Enviando...</string>
     <string name="warning">Aviso</string>
     <string name="desire">Deseja receber a capa em sua residência?</string>
-    <string name="at_home">Desejo receber a capa em sua residência</string>
-    <string name="at_store">Desejo retirar a capa na loja</string>
-
+    <string name="at_home">Desejo receber a capa em minha residência</string>
+    <string name="at_store">Já escolhi e retirei a capinha na loja</string>
 </resources>

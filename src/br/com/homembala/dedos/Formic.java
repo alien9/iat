@@ -78,8 +78,9 @@ public class Formic extends Activity {
 		((ImageView) findViewById(R.id.dibujo)).setImageBitmap(bm);
 		final Context me = Formic.this;
 		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		final InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-		//imm.hideSoftInputFromWindow(((Button) findViewById(R.id.enviado)).getWindowToken(), 0);
+		final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		// imm.hideSoftInputFromWindow(((Button)
+		// findViewById(R.id.enviado)).getWindowToken(), 0);
 		((Button) findViewById(R.id.enviado))
 				.setOnClickListener(new View.OnClickListener() {
 					@Override
@@ -87,16 +88,20 @@ public class Formic extends Activity {
 						HttpClient client = new DefaultHttpClient();
 						HttpUriRequest request;
 						String mess = "";
+						View foca=(View) findViewById(R.id.editText1);
 						if (((EditText) findViewById(R.id.editText1)).getText()
-								.toString().length() == 0)
+								.toString().length() == 0) {
 							mess = "Preencha seu nome";
-						else if (((EditText) findViewById(R.id.editText2))
-								.getText().toString().length() < 11)
+							foca=(View) findViewById(R.id.editText1);
+						} else if (((EditText) findViewById(R.id.editText2))
+								.getText().toString().length() < 11) {
 							mess = "CPF deve ter 11 dígitos.";
-						else if (((EditText) findViewById(R.id.editText7))
-								.getText().toString().length() != 15)
+							foca=(View) findViewById(R.id.editText2);
+						} else if (((EditText) findViewById(R.id.editText7))
+								.getText().toString().length() != 15) {
+							foca=(View) findViewById(R.id.editText7);
 							mess = "IMEI inválido";
-						else {
+						} else {
 							request = new HttpGet(
 									"http://galaxynotevivo.com.br/imei.php?imei="
 											+ ((EditText) findViewById(R.id.editText7))
@@ -131,6 +136,7 @@ public class Formic extends Activity {
 
 							AlertDialog alert = builder.create();
 							alert.show();
+							foca.requestFocus();
 							return;
 						}
 						imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
@@ -173,7 +179,11 @@ public class Formic extends Activity {
 									.getCheckedRadioButtonId())).getText()
 									.toString();
 
-							form.addPart("capa", new StringBody((t.equals(getString(R.string.at_home))?"1":"")));
+							form.addPart(
+									"capa",
+									new StringBody(
+											(t.equals(getString(R.string.at_home)) ? "1"
+													: "")));
 							form.addPart("background", new StringBody(""
 									+ bgIndex));
 

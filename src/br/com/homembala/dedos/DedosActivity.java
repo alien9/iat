@@ -79,7 +79,8 @@ public class DedosActivity extends Activity {
 				di.execute(new Object[] { bm });
 
 			}
-			bm.recycle();
+			p.setVisibility(View.INVISIBLE);
+			//bm.recycle();
 			// ((LinearLayout)
 			// findViewById(R.id.bgzinho)).setBackgroundResource(bg);
 		}
