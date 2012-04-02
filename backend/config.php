@@ -7,6 +7,7 @@ case '192.168.0.120':
 	$usuario = "root";
 	$senha = "ludovico";	
 	$opcoes="";
+	$convert='convert';
 	
 break;
 default:
@@ -14,6 +15,7 @@ default:
 	$dsn = "mysql:host=mysql01.galaxynotevivo.hospedagemdesites.ws;port=3306;dbname=galaxynotevivo";
 	$usuario = "galaxynotevivo";
 	$senha = "PwT41iBtif";
+	$convert='convert';
 }
 
 // Conexao via PDO

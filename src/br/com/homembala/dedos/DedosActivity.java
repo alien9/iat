@@ -7,25 +7,26 @@ import java.io.OutputStream;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.MeasureSpec;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 
 public class DedosActivity extends Activity {
-	Panel p;
 	int bg;
 	int bgIndex;
 
@@ -33,13 +34,13 @@ public class DedosActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		
 		setContentView(R.layout.frame);
-		p = (Panel) findViewById(R.id.SurfaceView01);
 		Bundle b = this.getIntent().getExtras();
 		bg = b.getInt("background");
 		bgIndex = b.getInt("background_index");
 		((LinearLayout) findViewById(R.id.bgzinho)).setBackgroundResource(bg);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	}
 
 	@Override
@@ -55,11 +56,12 @@ public class DedosActivity extends Activity {
 		case R.id.reset_image:
 			Intent intent = new Intent(DedosActivity.this, Choice.class);
 			startActivity(intent);
-			System.exit(0);
+			DedosActivity.this.finish();
 			break;
 		case R.id.share_image:
-			((FrameLayout) findViewById(R.id.frameLayout1))
-					.removeView((LinearLayout) findViewById(R.id.bgzinho));
+			// ((FrameLayout) findViewById(R.id.frameLayout1))
+			// .removeView((LinearLayout) findViewById(R.id.bgzinho));
+			Panel p = (Panel) findViewById(R.id.SurfaceView01);
 			p.setDrawingCacheEnabled(true);
 			// this is the important code :)
 			// Without it the view will have a
@@ -77,7 +79,9 @@ public class DedosActivity extends Activity {
 				di.execute(new Object[] { bm });
 
 			}
-			// ((ImageView)
+			p.setVisibility(View.INVISIBLE);
+			//bm.recycle();
+			// ((LinearLayout)
 			// findViewById(R.id.bgzinho)).setBackgroundResource(bg);
 		}
 		return true;
@@ -92,7 +96,7 @@ public class DedosActivity extends Activity {
 			Intent intent = new Intent(DedosActivity.this, Formic.class);
 			intent.putExtras(b);
 			startActivity(intent);
-			System.exit(0);
+			//DedosActivity.this.finish();
 		}
 
 		@Override
@@ -137,6 +141,7 @@ public class DedosActivity extends Activity {
 				return params;
 			}
 		}
+		Panel p = (Panel) findViewById(R.id.SurfaceView01);
 		float sw = p.getStrokeWidth();
 		boolean o = false;
 		switch (keyCode) {
@@ -152,7 +157,10 @@ public class DedosActivity extends Activity {
 			if (!p.back()) {
 				Intent intent = new Intent(DedosActivity.this, Choice.class);
 				startActivity(intent);
-				System.exit(0);
+				DedosActivity.this.finish();
+				return super.onKeyDown(keyCode, event);
+			} else {
+				return true;
 			}
 		}
 		if (o) {

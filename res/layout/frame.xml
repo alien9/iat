@@ -2,23 +2,40 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/frameLayout1"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent" android:background="#ffffffff" >
 
-    <LinearLayout
-        android:id="@+id/bgzinho"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@drawable/smallest00"
-        android:gravity="left"
-        android:orientation="vertical" >
-    </LinearLayout>
-        
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
         android:scaleType="center" >
+
+        <ImageView
+            android:id="@+id/imageView0"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:src="@drawable/desenhe" />
+
+        <LinearLayout
+            android:id="@+id/bgzinho"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:scaleType="center" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:src="@drawable/desenhe" />
 
         <br.com.homembala.dedos.Panel
             android:id="@+id/SurfaceView01"
