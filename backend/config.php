@@ -1,6 +1,6 @@
 <?php
 switch($_SERVER['SERVER_NAME']){
-case 'localhost':
+#case 'localhost':
 case '192.168.0.120':
 	//Local
 	$dsn = "mysql:localhost;port=3306;dbname=galaxynotevivo";

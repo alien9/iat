@@ -1,7 +1,7 @@
 <?php
 include_once("config.php");
 include_once("functions.php");
-error_log(print_r($_REQUEST,1));
+
 $nome = $_REQUEST["nome"];
 $cpf = $_REQUEST["cpf"];
 $email = $_REQUEST["email"];
@@ -15,6 +15,7 @@ $background = $_REQUEST["background"];
 $img = isset($_FILES["imagem"]) ? $_FILES["imagem"] : FALSE;
 
 $sql = "INSERT INTO participantes(nome, cpf, email, tel, endereco, cidade, imei, desejareceber, background, inserido) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, now())";
+
 $stmt = $pdo->prepare($sql);
 $dados = array($nome, $cpf, $email, $tel, $endereco, $cidade, $imei, $desejareceber, $background);
 error_log(print_r($dados,1));
@@ -94,7 +95,7 @@ Obrigado.</body>
         $mail->AddReplyTo('contato@galaxynotevivo.com.br', 'Galaxy Note VIVO');
         $mail->From = 'contato@galaxynotevivo.com.br';
         $mail->FromName = 'SAMSUNG GALAXY NOTE VIVO';
-        $mail->Subject = '=?UTF-8?B?{'.base64_encode("Galaxy Note").'}?=';
+        $mail->Subject = 'Galaxy Note';
         $mail->Body = $body;
         $mail->WordWrap = 50;
         $mail->AddAddress($email, $nome);
