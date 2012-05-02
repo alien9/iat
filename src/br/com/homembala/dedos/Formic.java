@@ -8,6 +8,7 @@ import ogrelab.org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import ogrelab.org.apache.http.client.methods.HttpGet;
 import ogrelab.org.apache.http.client.methods.HttpPost;
 import ogrelab.org.apache.http.client.methods.HttpUriRequest;
+import ogrelab.org.apache.http.entity.mime.HttpMultipartMode;
 import ogrelab.org.apache.http.entity.mime.MultipartEntity;
 import ogrelab.org.apache.http.entity.mime.content.StringBody;
 import ogrelab.org.apache.commons.logging.LogFactory;
@@ -18,6 +19,7 @@ import ogrelab.org.apache.http.impl.client.DefaultHttpClient;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -146,6 +148,7 @@ public class Formic extends Activity {
 
 						request = new HttpPost(
 								"http://galaxynotevivo.com.br/participantes_insere.php");
+						//MultipartEntity form = new MultipartEntity(HttpMultipartMode.STRICT,null,Charset.forName("UTF-8"));
 						MultipartEntity form = new MultipartEntity();
 						// disable expect-continue handshake (lighttpd doesn't
 						// support
