@@ -3,8 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Galaxy Note Vivo</title>
-<meta name="Keywords" content="" /> 
-<meta name="Description" content="" /> 
+<meta name="Keywords" content="Portabilidade, Liberdade, Criatividade, Personalizar, Desenhar, Escrita, Tela, Capturar, Recortar, Imagens, Vídeos, Aplicativos, Processador, Intuitivo, Calendário, Touch, S Pen, S Planner, S Memo, S Choice, Memória, Bateria" /> 
+<meta name="Description" content="Uma nova categoria que une os benefícios de um Tablet com a portabilidade de um
+Smartphone." /> 
 <meta name="robots" content="index, follow">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
@@ -31,10 +32,11 @@ h4{ color:#F7941D; margin:0 }
 #header{ position:absolute; top:0; height:168px; width:100% }
 #estrelinhas{ position:absolute; top:157px; left:40px; z-index:10 }
 #balao{ position:absolute; top:60px; right:40px; z-index:10 }
+#fale{ z-index:100 }
 #home{ position:absolute; top:267px; left:40px }
 #banner{ position:absolute; top:727px; left:90px }
-#capinhas{ position:absolute; top:950px; left:70px; padding-bottom:80px }
-#oucompre{ position:absolute; top:1016px; left:810px }
+#capinhas{ position:absolute; top:950px; left:180px; padding-bottom:80px }
+#oucompre{ position:absolute; top:1116px; left:910px }
 
 #pop_faleconosco{ position:absolute; left:220px; top:100px; z-index:20; display:none }
 #pop_regulamento{ position:absolute; left:220px; top:700px; z-index:30; display:none }
@@ -69,7 +71,7 @@ h4{ color:#F7941D; margin:0 }
 
     <div id="header">
     	<center><img src="img/logo.gif" /></center>
-        <a href="javascript:void(0)" style="color:#FFF; position:absolute; top:20px; right:20px" onclick="popUp('pop_faleconosco')">Fale conosco</a>
+        <a href="javascript:void(0)" id="fale" style="color:#0014A0; position:absolute; top:75px; right:84px; text-align:center; font-size:12px" onclick="popUp('pop_faleconosco')">Fale<br />conosco</a>
     	<img src="img/estrelinhas.png" id="estrelinhas" />
     	<img src="img/balao.png" id="balao" />
     </div>
@@ -93,7 +95,7 @@ h4{ color:#F7941D; margin:0 }
     </div>
     
     <div id="oucompre">
-    	<center><img src="img/oucompre.png" /></center>
+    	
         <a href="javascript:void(0)" style="color:#0014A0; position:absolute; top:240px" onclick="popUp('pop_regulamento')">Regulamento</a>
     </div>
     

@@ -3,7 +3,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Relatório Galaxy Note Vivo</title>
-<? include_once("config.php"); ?>
+Relatório fechado
+<? 
+exit();
+include_once("config.php"); 
+?>
 </head>
 
 <body>
@@ -19,8 +23,9 @@
     <th>Cidade</th>
     <th>IMEI</th>
     <th>Deseja receber</th>
+    <th>Link da imagem</th>
     <th width="140">Inserido</th>
-    <th width="140">Alterado</th> 
+    <!-- th width="140">Alterado</th --> 
   </tr>
   <?
   //''''''''''''''''''''''''''''''''''''''''''''''''''''''MONTAGEM DA LISTAGEM
@@ -41,8 +46,9 @@
       <td><?=$r["cidade"]?></td>
       <td><?=$r["imei"]?></td> 
       <td><?=$r["desejareceber"]?></td> 
-      <td><?=date('d/m/Y H:i:s', strtotime($r["inserido"]));?></td>       
-      <td><?=date('d/m/Y H:i:s', strtotime($r["alterado"]));?></td>       
+      <td><?=date('d/m/Y', strtotime($r["inserido"]));?></td>   
+      <td><a href="http://galaxynotevivo.com.br/imagens.php?id=<?=$r["id"]?>" target="_blank">Ver imagem</a></td>    
+      <!-- td><?=date('d/m/Y H:i:s', strtotime($r["alterado"]));?></td -->       
     </tr>								
     <?	
   }
