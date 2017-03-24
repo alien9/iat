@@ -1,5 +1,9 @@
 [
     {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/layout/page0.xml",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/layout/page0.xml"
+    },
+    {
         "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/layout/page0.xml",
         "source": "/home/tiago/works/dedos/app/src/main/res/layout/page0.xml"
     },
@@ -8,8 +12,16 @@
         "source": "/home/tiago/works/dedos/app/src/main/res/layout/logo.xml"
     },
     {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/layout/start.xml",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/layout/start.xml"
+    },
+    {
         "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/layout/start.xml",
         "source": "/home/tiago/works/dedos/app/src/main/res/layout/start.xml"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/layout/main.xml",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/layout/main.xml"
     },
     {
         "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/layout/formic.xml",
@@ -20,8 +32,20 @@
         "source": "/home/tiago/works/dedos/app/src/main/res/layout/chosen.xml"
     },
     {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/layout/logo.xml",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/layout/logo.xml"
+    },
+    {
         "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/layout/page2.xml",
         "source": "/home/tiago/works/dedos/app/src/main/res/layout/page2.xml"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/layout/page2.xml",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/layout/page2.xml"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/layout/page1.xml",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/layout/page1.xml"
     },
     {
         "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/layout/page1.xml",
@@ -32,11 +56,27 @@
         "source": "/home/tiago/works/dedos/app/src/main/res/layout/frame.xml"
     },
     {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/layout/frame.xml",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/layout/frame.xml"
+    },
+    {
         "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/layout/main.xml",
         "source": "/home/tiago/works/dedos/app/src/main/res/layout/main.xml"
     },
     {
         "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/layout/page3.xml",
         "source": "/home/tiago/works/dedos/app/src/main/res/layout/page3.xml"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/layout/page3.xml",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/layout/page3.xml"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/layout/formic.xml",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/layout/formic.xml"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/layout/chosen.xml",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/layout/chosen.xml"
     }
 ]

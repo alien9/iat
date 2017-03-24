@@ -1,5 +1,352 @@
 [
     {
+        "outputFile": "/home/tiago/works/Dedos/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-pt/values-pt.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 42,
+                    "endOffset": 93
+                },
+                "from": {
+                    "file": "/home/tiago/works/Dedos/app/src/main/res/values-pt/strings.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 95,
+                        "endColumn": 42,
+                        "endOffset": 133
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 98,
+                    "endColumn": 77,
+                    "endOffset": 171
+                },
+                "from": {
+                    "file": "/home/tiago/works/Dedos/app/src/main/res/values-pt/strings.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 793,
+                        "endColumn": 77,
+                        "endOffset": 866
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 176,
+                    "endColumn": 75,
+                    "endOffset": 247
+                },
+                "from": {
+                    "file": "/home/tiago/works/Dedos/app/src/main/res/values-pt/strings.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 871,
+                        "endColumn": 75,
+                        "endOffset": 942
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 252,
+                    "endColumn": 39,
+                    "endOffset": 287
+                },
+                "from": {
+                    "file": "/home/tiago/works/Dedos/app/src/main/res/values-pt/strings.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 547,
+                        "endColumn": 39,
+                        "endOffset": 582
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 292,
+                    "endColumn": 75,
+                    "endOffset": 363
+                },
+                "from": {
+                    "file": "/home/tiago/works/Dedos/app/src/main/res/values-pt/strings.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 4,
+                        "startOffset": 717,
+                        "endColumn": 75,
+                        "endOffset": 788
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 368,
+                    "endColumn": 39,
+                    "endOffset": 403
+                },
+                "from": {
+                    "file": "/home/tiago/works/Dedos/app/src/main/res/values-pt/strings.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 4,
+                        "startOffset": 401,
+                        "endColumn": 39,
+                        "endOffset": 436
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 408,
+                    "endColumn": 51,
+                    "endOffset": 455
+                },
+                "from": {
+                    "file": "/home/tiago/works/Dedos/app/src/main/res/values-pt/strings.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 306,
+                        "endColumn": 51,
+                        "endOffset": 353
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 460,
+                    "endColumn": 38,
+                    "endOffset": 494
+                },
+                "from": {
+                    "file": "/home/tiago/works/Dedos/app/src/main/res/values-pt/strings.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 56,
+                        "endColumn": 38,
+                        "endOffset": 90
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 499,
+                    "endColumn": 41,
+                    "endOffset": 536
+                },
+                "from": {
+                    "file": "/home/tiago/works/Dedos/app/src/main/res/values-pt/strings.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 223,
+                        "endColumn": 41,
+                        "endOffset": 260
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 541,
+                    "endColumn": 43,
+                    "endOffset": 580
+                },
+                "from": {
+                    "file": "/home/tiago/works/Dedos/app/src/main/res/values-pt/strings.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 179,
+                        "endColumn": 43,
+                        "endOffset": 218
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 585,
+                    "endColumn": 39,
+                    "endOffset": 620
+                },
+                "from": {
+                    "file": "/home/tiago/works/Dedos/app/src/main/res/values-pt/strings.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 587,
+                        "endColumn": 39,
+                        "endOffset": 622
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 625,
+                    "endColumn": 47,
+                    "endOffset": 668
+                },
+                "from": {
+                    "file": "/home/tiago/works/Dedos/app/src/main/res/values-pt/strings.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 627,
+                        "endColumn": 47,
+                        "endOffset": 670
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 673,
+                    "endColumn": 40,
+                    "endOffset": 709
+                },
+                "from": {
+                    "file": "/home/tiago/works/Dedos/app/src/main/res/values-pt/strings.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 138,
+                        "endColumn": 40,
+                        "endOffset": 174
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 714,
+                    "endColumn": 40,
+                    "endOffset": 750
+                },
+                "from": {
+                    "file": "/home/tiago/works/Dedos/app/src/main/res/values-pt/strings.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 265,
+                        "endColumn": 40,
+                        "endOffset": 301
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 755,
+                    "endColumn": 51,
+                    "endOffset": 802
+                },
+                "from": {
+                    "file": "/home/tiago/works/Dedos/app/src/main/res/values-pt/strings.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 495,
+                        "endColumn": 51,
+                        "endOffset": 542
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 17,
+                    "startColumn": 4,
+                    "startOffset": 807,
+                    "endColumn": 42,
+                    "endOffset": 845
+                },
+                "from": {
+                    "file": "/home/tiago/works/Dedos/app/src/main/res/values-pt/strings.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 358,
+                        "endColumn": 42,
+                        "endOffset": 396
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 850,
+                    "endColumn": 53,
+                    "endOffset": 899
+                },
+                "from": {
+                    "file": "/home/tiago/works/Dedos/app/src/main/res/values-pt/strings.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 441,
+                        "endColumn": 53,
+                        "endOffset": 490
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 19,
+                    "startColumn": 4,
+                    "startOffset": 904,
+                    "endColumn": 41,
+                    "endOffset": 941
+                },
+                "from": {
+                    "file": "/home/tiago/works/Dedos/app/src/main/res/values-pt/strings.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 4,
+                        "startOffset": 675,
+                        "endColumn": 41,
+                        "endOffset": 712
+                    }
+                }
+            }
+        ]
+    },
+    {
         "outputFile": "/home/tiago/works/dedos/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-pt/values-pt.xml",
         "map": [
             {

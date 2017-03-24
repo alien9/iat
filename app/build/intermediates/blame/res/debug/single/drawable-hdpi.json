@@ -2,5 +2,9 @@
     {
         "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/drawable-hdpi/ic_launcher.png",
         "source": "/home/tiago/works/dedos/app/src/main/res/drawable-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-hdpi/ic_launcher.png",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-hdpi/ic_launcher.png"
     }
 ]
