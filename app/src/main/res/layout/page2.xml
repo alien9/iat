@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tableLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:weightSum="2" >
+
+    <TableRow style="@style/rowrowrow" >
+
+        <LinearLayout style="@style/cell" >
+
+            <Button
+                android:id="@+id/Button9"
+                style="@style/image_selector"
+                android:background="@drawable/thumb09" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/cell" >
+
+            <Button
+                android:id="@+id/Button10"
+                style="@style/image_selector"
+                android:background="@drawable/thumb10" />
+        </LinearLayout>
+    </TableRow>
+
+    <TableRow style="@style/rowrowrow" >
+
+        <LinearLayout style="@style/cell" >
+
+            <Button
+                android:id="@+id/Button11"
+                style="@style/image_selector"
+                android:background="@drawable/thumb11" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/cell" >
+
+            <Button
+                android:id="@+id/Button12"
+                style="@style/image_selector"
+                android:background="@drawable/thumb12" />
+        </LinearLayout>
+    </TableRow>
+
+</TableLayout>

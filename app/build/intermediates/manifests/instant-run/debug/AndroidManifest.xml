@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="br.com.homembala.dedos"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="8" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <application
+        android:name="com.android.tools.fd.runtime.BootstrapApplication"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="NOTE VIVO"
+        android:largeHeap="true" >
+        <activity
+            android:name="br.com.homembala.dedos.RadioActivity"
+            android:hardwareAccelerated="false"
+            android:label="NOTE VIVO"
+            android:theme="@android:style/Theme.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="br.com.homembala.dedos.Choice"
+            android:hardwareAccelerated="false"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
+            android:name="br.com.homembala.dedos.DedosActivity"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
+            android:name="br.com.homembala.dedos.Formic"
+            android:hardwareAccelerated="false"
+            android:theme="@android:style/Theme.NoTitleBar" />
+    </application>
+
+</manifest>

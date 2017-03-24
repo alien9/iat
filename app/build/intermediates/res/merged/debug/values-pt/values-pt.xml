@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dedos</string>
+    <string name="at_home">Desejo receber a capa em minha residência</string>
+    <string name="at_store">Já escolhi e retirei a capinha na loja</string>
+    <string name="city">Cidade</string>
+    <string name="desire">Deseja receber a capa em sua residência?</string>
+    <string name="email">email</string>
+    <string name="full_name">Nome Completo</string>
+    <string name="hello">Alô!</string>
+    <string name="pensize">Traço</string>
+    <string name="reset">Reiniciar</string>
+    <string name="send">Enviar</string>
+    <string name="sending">Enviando...</string>
+    <string name="share">Enviar</string>
+    <string name="start">Início</string>
+    <string name="street_address">Endereço</string>
+    <string name="tax_number">CPF</string>
+    <string name="telephone_number">Telefone</string>
+    <string name="warning">Aviso</string>
+</resources>

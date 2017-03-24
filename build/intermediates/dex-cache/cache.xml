@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/home/tiago/works/dedos/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="9e66382e561ed92ac8e908d394e48c1e40858cab">
+        <dex dex="/home/tiago/works/dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_64de8b95d5ee30a97e221c3c94ad39818b2b28fe/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tiago/works/dedos/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ef335cf934dfa54d1b9a99ab08afe7366e2ff81e">
+        <dex dex="/home/tiago/works/dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_fbebc53474710650645e768c58811fc01a9a5c18/classes.dex" />
+    </item>
+
+</items>

@@ -1,0 +1,7 @@
+#Fri Mar 24 05:57:25 BRT 2017
+base.0=/home/tiago/works/dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_fbebc53474710650645e768c58811fc01a9a5c18
+renamed.1=classes2.dex
+renamed.0=classes.dex
+file.1=/home/tiago/works/dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_64de8b95d5ee30a97e221c3c94ad39818b2b28fe/classes.dex
+base.1=/home/tiago/works/dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_64de8b95d5ee30a97e221c3c94ad39818b2b28fe
+file.0=/home/tiago/works/dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_fbebc53474710650645e768c58811fc01a9a5c18/classes.dex

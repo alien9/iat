@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, DedosActivity!</string>
+    <string name="app_name">Dedos</string>
+    <string name="share">Share</string>
+    <string name="reset">Reset</string>
+    <string name="pensize">Pen Size</string>
+    <string name="start">Start</string>
+    <string name="full_name">Full Name</string>
+    <string name="tax_number">Tax Number</string>
+    <string name="email">email</string>
+    <string name="telephone_number">Telephone</string>
+    <string name="street_address">Street Address</string>
+    <string name="city">City</string>
+    <string name="send">Send</string>
+    <string name="sending">Sending...</string>
+    <string name="desire">Do you want to receive your cover at home?</string>
+    <string name="warning">Warning</string>
+    <string name="at_home">Send my cover to my home address</string>
+    <string name="at_store">Let me pick my cover at the store</string>
+        
+</resources>
