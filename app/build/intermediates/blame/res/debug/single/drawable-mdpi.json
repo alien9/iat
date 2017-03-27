@@ -1,93 +1,5 @@
 [
     {
-        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/thumb00.png",
-        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/thumb00.png"
-    },
-    {
-        "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/sucesso.png",
-        "source": "/home/tiago/works/dedos/app/src/main/res/drawable-mdpi/sucesso.png"
-    },
-    {
-        "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/pag1.png",
-        "source": "/home/tiago/works/dedos/app/src/main/res/drawable-mdpi/pag1.png"
-    },
-    {
-        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/boxes.png",
-        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/boxes.png"
-    },
-    {
-        "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/escolha.png",
-        "source": "/home/tiago/works/dedos/app/src/main/res/drawable-mdpi/escolha.png"
-    },
-    {
-        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/icone.png",
-        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/icone.png"
-    },
-    {
-        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/thumb06.png",
-        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/thumb06.png"
-    },
-    {
-        "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/kangoo.png",
-        "source": "/home/tiago/works/dedos/app/src/main/res/drawable-mdpi/kangoo.png"
-    },
-    {
-        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/thumb05.png",
-        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/thumb05.png"
-    },
-    {
-        "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/thumb01.png",
-        "source": "/home/tiago/works/dedos/app/src/main/res/drawable-mdpi/thumb01.png"
-    },
-    {
-        "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/ic_menu_send.png",
-        "source": "/home/tiago/works/dedos/app/src/main/res/drawable-mdpi/ic_menu_send.png"
-    },
-    {
-        "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/thumb07.png",
-        "source": "/home/tiago/works/dedos/app/src/main/res/drawable-mdpi/thumb07.png"
-    },
-    {
-        "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/thumb03.png",
-        "source": "/home/tiago/works/dedos/app/src/main/res/drawable-mdpi/thumb03.png"
-    },
-    {
-        "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/thumb00.png",
-        "source": "/home/tiago/works/dedos/app/src/main/res/drawable-mdpi/thumb00.png"
-    },
-    {
-        "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/thumb06.png",
-        "source": "/home/tiago/works/dedos/app/src/main/res/drawable-mdpi/thumb06.png"
-    },
-    {
-        "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/thumb09.png",
-        "source": "/home/tiago/works/dedos/app/src/main/res/drawable-mdpi/thumb09.png"
-    },
-    {
-        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/escolha.png",
-        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/escolha.png"
-    },
-    {
-        "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/thumb11.png",
-        "source": "/home/tiago/works/dedos/app/src/main/res/drawable-mdpi/thumb11.png"
-    },
-    {
-        "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/ic_menu_delete.png",
-        "source": "/home/tiago/works/dedos/app/src/main/res/drawable-mdpi/ic_menu_delete.png"
-    },
-    {
-        "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/customize.png",
-        "source": "/home/tiago/works/dedos/app/src/main/res/drawable-mdpi/customize.png"
-    },
-    {
-        "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/boxes.png",
-        "source": "/home/tiago/works/dedos/app/src/main/res/drawable-mdpi/boxes.png"
-    },
-    {
-        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/sucesso.png",
-        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/sucesso.png"
-    },
-    {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/ic_menu_delete.png",
         "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/ic_menu_delete.png"
     },
@@ -100,6 +12,10 @@
         "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/thumb03.png"
     },
     {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/thumb00.png",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/thumb00.png"
+    },
+    {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/pag0.png",
         "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/pag0.png"
     },
@@ -108,52 +24,44 @@
         "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/thumb09.png"
     },
     {
-        "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/loguinhos.png",
-        "source": "/home/tiago/works/dedos/app/src/main/res/drawable-mdpi/loguinhos.png"
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/boxes.png",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/boxes.png"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/icone.png",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/icone.png"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/thumb06.png",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/thumb06.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/thumb08.png",
         "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/thumb08.png"
     },
     {
-        "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/thumb12.png",
-        "source": "/home/tiago/works/dedos/app/src/main/res/drawable-mdpi/thumb12.png"
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/thumb05.png",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/thumb05.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/customize.png",
         "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/customize.png"
     },
     {
-        "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/logos.png",
-        "source": "/home/tiago/works/dedos/app/src/main/res/drawable-mdpi/logos.png"
-    },
-    {
-        "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/thumb04.png",
-        "source": "/home/tiago/works/dedos/app/src/main/res/drawable-mdpi/thumb04.png"
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/ic_menu_send.png",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/ic_menu_send.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/pag1.png",
         "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/pag1.png"
     },
     {
-        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/ic_menu_send.png",
-        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/ic_menu_send.png"
-    },
-    {
-        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/thumb10.png",
-        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/thumb10.png"
-    },
-    {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/thumb02.png",
         "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/thumb02.png"
     },
     {
-        "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/icone.png",
-        "source": "/home/tiago/works/dedos/app/src/main/res/drawable-mdpi/icone.png"
-    },
-    {
-        "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/ic_launcher.png",
-        "source": "/home/tiago/works/dedos/app/src/main/res/drawable-mdpi/ic_launcher.png"
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/thumb10.png",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/thumb10.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/thumb04.png",
@@ -164,24 +72,16 @@
         "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/kangoo.png"
     },
     {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/escolha.png",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/escolha.png"
+    },
+    {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/thumb01.png",
         "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/thumb01.png"
     },
     {
-        "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/thumb08.png",
-        "source": "/home/tiago/works/dedos/app/src/main/res/drawable-mdpi/thumb08.png"
-    },
-    {
-        "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/thumb05.png",
-        "source": "/home/tiago/works/dedos/app/src/main/res/drawable-mdpi/thumb05.png"
-    },
-    {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/logos.png",
         "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/logos.png"
-    },
-    {
-        "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/pag0.png",
-        "source": "/home/tiago/works/dedos/app/src/main/res/drawable-mdpi/pag0.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/loguinhos.png",
@@ -196,15 +96,11 @@
         "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/thumb12.png"
     },
     {
-        "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/thumb02.png",
-        "source": "/home/tiago/works/dedos/app/src/main/res/drawable-mdpi/thumb02.png"
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/sucesso.png",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/sucesso.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/thumb07.png",
         "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/thumb07.png"
-    },
-    {
-        "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/thumb10.png",
-        "source": "/home/tiago/works/dedos/app/src/main/res/drawable-mdpi/thumb10.png"
     }
 ]

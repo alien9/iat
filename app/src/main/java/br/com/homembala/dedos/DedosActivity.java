@@ -93,9 +93,9 @@ public class DedosActivity extends Activity {
 			Bundle b = new Bundle();
 			b.putInt("background_index", bgIndex);
 			b.putInt("background", bg);
-			Intent intent = new Intent(DedosActivity.this, Formic.class);
-			intent.putExtras(b);
-			startActivity(intent);
+			//Intent intent = new Intent(DedosActivity.this, Formic.class);
+			//intent.putExtras(b);
+			//startActivity(intent);
 			//DedosActivity.this.finish();
 		}
 

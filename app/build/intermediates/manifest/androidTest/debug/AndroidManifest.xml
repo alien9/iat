@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="net.alien9.iching.test">
+    package="br.com.homembala.dedos.test">
 
     <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="24" />
 
@@ -9,8 +9,8 @@
     </application>
 
     <instrumentation android:name="android.test.InstrumentationTestRunner"
-                     android:targetPackage="net.alien9.iching"
+                     android:targetPackage="br.com.homembala.dedos"
                      android:handleProfiling="false"
                      android:functionalTest="false"
-                     android:label="Tests for net.alien9.iching"/>
+                     android:label="Tests for br.com.homembala.dedos"/>
 </manifest>

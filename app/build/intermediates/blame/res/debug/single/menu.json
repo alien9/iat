@@ -4,7 +4,7 @@
         "source": "/home/tiago/works/Dedos/app/src/main/res/menu/control.xml"
     },
     {
-        "merged": "/home/tiago/works/dedos/app/build/intermediates/res/merged/debug/menu/control.xml",
-        "source": "/home/tiago/works/dedos/app/src/main/res/menu/control.xml"
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/menu/drawing_controls.xml",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/menu/drawing_controls.xml"
     }
 ]
