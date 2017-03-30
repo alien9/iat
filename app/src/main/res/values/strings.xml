@@ -21,5 +21,10 @@
     <string name="at_store">Let me pick my cover at the store</string>
     <string name="atualizar_bg">Atualizar Fundo</string>
     <string name="wms_url">http://bigrs.alien9.net:8080/geoserver/BIGRS/wms</string>
+    <string name="center_map">Centralizar</string>
+    <string name="show_labels">Nomes de ruas</string>
+    <string name="mode_map">Mapa</string>
+    <string name="mode_vehicles">Veículos</string>
+    <string name="mode_freehand">Desenho</string>
 
 </resources>

@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f0f">
+    android:id="@+id/background_map"
+    android:scaleType="centerCrop"
+    android:background="#fff">
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
@@ -10,9 +12,25 @@
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
-    <br.com.homembala.dedos.Panel
-        android:id="@+id/drawing_panel"
-        android:background="#0ff0"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" >
+        <ImageView
+            android:id="@+id/map_imageview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:maxHeight="0dp"
+            android:scaleType="centerCrop"
+            />
+        <org.osmdroid.views.MapView android:id="@+id/map"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+        <br.com.homembala.dedos.Panel
+            android:id="@+id/drawing_panel"
+            android:background="#0ff0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
 </LinearLayout>

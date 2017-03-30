@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:id="@+id/request_background" android:title="@string/atualizar_bg"/>
+    <item android:id="@+id/request_background" android:title="@string/atualizar_bg"/>
+    <item android:id="@+id/center_here" android:title="@string/center_map"/>
+    <item android:id="@+id/labels"
+        android:title="@string/show_labels"
+        android:checkable="true" />
+    <group>
+        <item android:id="@+id/mode_map" android:title="@string/mode_map" android:checkable="true"/>
+        <item android:id="@+id/mode_freehand" android:title="@string/mode_freehand" android:checkable="true"/>
+        <item android:id="@+id/mode_vehicles" android:title="@string/mode_vehicles" android:checkable="true"/>
+    </group>
 </menu>

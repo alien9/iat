@@ -75,6 +75,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.github.MKergall/osmbonuspack/6.3/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.0"
+        sha1="897b8239af23c38e7a57596063f9df285b1e1c41">
+        <dex dex="/home/tiago/works/Dedos/app/build/intermediates/pre-dexed/debug/com.github.MKergall-osmbonuspack-6.3_45a1cef9c8186fc3e67ffcf8725a97a57c68efb5.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/jars/classes.jar"
         jumboMode="false"
         optimize="true"
@@ -84,12 +93,39 @@
     </item>
     <item
         is-multidex="false"
+        jar="/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/org.osmdroid/osmdroid-android/5.6.4/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.0"
+        sha1="c14d049dc46260da1c76a9d18672d0636c5964a0">
+        <dex dex="/home/tiago/works/Dedos/app/build/intermediates/pre-dexed/debug/org.osmdroid-osmdroid-android-5.6.4_ccca3e3549c56e7e7d1d7e161d4b10f3b56061a9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/tiago/android-studio-2.10/gradle/m2repository/org/apache/commons/commons-lang3/3.3.2/commons-lang3-3.3.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.0"
+        sha1="90a3822c38ec8c996e84c16a3477ef632cbc87a3">
+        <dex dex="/home/tiago/works/Dedos/app/build/intermediates/pre-dexed/debug/commons-lang3-3.3.2_6500d9baf1727c58deed4f133c9de6d2934dbe8d.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/24.0.0/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="24.0.0"
         sha1="894922f67adeaaef51f077a29e315da21a3382d3">
         <dex dex="/home/tiago/works/Dedos/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-24.0.0_2ccbaf685ab34f8292d2adb506c1ccb16041d906.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/tiago/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.7/751f548c85fa49f330cecbb1875893f971b33c4e/gson-2.7.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.0"
+        sha1="751f548c85fa49f330cecbb1875893f971b33c4e">
+        <dex dex="/home/tiago/works/Dedos/app/build/intermediates/pre-dexed/debug/gson-2.7_c093b6db0e31338244a3efcf92c69e0cf1be59a4.jar" />
     </item>
     <item
         is-multidex="false"
