@@ -56,12 +56,12 @@
         "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/layout/select_dialog_multichoice_material.xml"
     },
     {
-        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/layout/csi.xml",
-        "source": "/home/tiago/works/Dedos/app/src/main/res/layout/csi.xml"
-    },
-    {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_layout.xml",
         "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/layout/abc_list_menu_item_layout.xml"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/layout/csi.xml",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/layout/csi.xml"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/layout/abc_action_mode_close_item_material.xml",

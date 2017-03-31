@@ -32,16 +32,20 @@
         "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/drawable/abc_item_background_holo_light.xml"
     },
     {
-        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_ic_voice_search_api_material.xml",
-        "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/drawable/abc_ic_voice_search_api_material.xml"
-    },
-    {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/zoom_in.png",
         "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/org.osmdroid/osmdroid-android/5.6.4/res/drawable/zoom_in.png"
     },
     {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_ic_voice_search_api_material.xml",
+        "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/drawable/abc_ic_voice_search_api_material.xml"
+    },
+    {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/marker_default.png",
         "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/org.osmdroid/osmdroid-android/5.6.4/res/drawable/marker_default.png"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/carro.png",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable/carro.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/play.png",

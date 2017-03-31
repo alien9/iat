@@ -1,6 +1,5 @@
 package br.com.homembala.dedos;
 
-import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -8,14 +7,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DrawableUtils;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.DragEvent;
@@ -24,17 +20,17 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.ViewGroup;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.osmdroid.bonuspack.overlays.GroundOverlay;
 import org.osmdroid.config.Configuration;
+import org.osmdroid.events.DelayedMapListener;
+import org.osmdroid.events.MapListener;
+import org.osmdroid.events.ScrollEvent;
+import org.osmdroid.events.ZoomEvent;
 import org.osmdroid.tileprovider.MapTile;
-import org.osmdroid.tileprovider.tilesource.ITileSource;
 import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase;
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
@@ -43,12 +39,10 @@ import org.osmdroid.views.overlay.Overlay;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 
 import java.io.IOException;
-import java.util.Locale;
 
-import okhttp3.MultipartBody;
+import br.com.homembala.dedos.util.Vehicle;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
@@ -65,6 +59,9 @@ public class CsiActivity extends AppCompatActivity {
     private static final int VEHICLES = 2;
 
     private int current_mode;
+    private boolean is_updating_labels;
+    private boolean update_labels_after;
+    private boolean is_drawing;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,9 +70,8 @@ public class CsiActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         ((Iat) getApplicationContext()).startGPS(this);
-        findViewById(R.id.map_imageview).setOnTouchListener(new DragTouchListener());
-        findViewById(R.id.map_imageview).getRootView().setOnDragListener(new DropListener());
         ((Panel) findViewById(R.id.drawing_panel)).setVisibility(View.GONE);
+        findViewById(R.id.vehicles_canvas).setVisibility(View.GONE);
         MapView map = (MapView) findViewById(R.id.map);
         String u="http://bigrs.alien9.net:8080/geoserver/gwc/service/tms/1.0.0/";
         map.setTileSource(new GeoServerTileSource("geoserver", 17, 22, 256, ".png", new String[]{u}));
@@ -83,14 +79,11 @@ public class CsiActivity extends AppCompatActivity {
         map.setMultiTouchControls(true);
         map.setClickable(true);
         map.setUseDataConnection(true);
-
         ScaleBarOverlay sbo = new ScaleBarOverlay(map);
         sbo.setCentred(false);
-//play around with these values to get the location on screen in the right place for your applicatio
         sbo.setScaleBarOffset(10, 10);
         map.getOverlays().add(sbo);
-
-        map.getController().setZoom(16);
+        map.getController().setZoom(22);
         JSONObject point = ((Iat) getApplicationContext()).getLastKnownPosition();
         if(!point.has("latitude")){
             try {
@@ -100,7 +93,45 @@ public class CsiActivity extends AppCompatActivity {
         }
         Double[] center = degrees2meters(point.optDouble("latitude"), point.optDouble("longitude"));
         map.getController().setCenter(new GeoPoint(point.optDouble("latitude"), point.optDouble("longitude")));
+        map.setMapListener(new DelayedMapListener(new MapListener() {
+            public boolean onZoom(final ZoomEvent e) {
+                if(show_labels){
+                    updateLabels();
+                }
+                return true;
+            }
+            public boolean onScroll(final ScrollEvent e) {
+                if(show_labels){
+                    updateLabels();
+                }
+                return true;
+            }
+        }, 1000 ));
+        is_updating_labels =false;
+        update_labels_after =false;
+        findViewById(R.id.vehicles_canvas).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(current_mode==FREEHAND) return false;
+                return true;
+            }
+        });
+        //carros vêm na intention
+        int width= (int) (2.2*256*Math.pow(2.0,map.getZoomLevel())/(2*20037508.34));
+        int height= (int) (4.0*256*Math.pow(2.0,map.getZoomLevel())/(2*20037508.34));
+        Vehicle carrinho=new Vehicle(this, findViewById(R.id.vehicles_canvas),width,height);
+        ((ViewGroup)findViewById(R.id.vehicles_canvas)).addView(carrinho);
+        carrinho=new Vehicle(this, findViewById(R.id.vehicles_canvas),width,height);
+        ((ViewGroup)findViewById(R.id.vehicles_canvas)).addView(carrinho);
         current_mode=MAP;
+    }
+
+    private void updateLabels() {
+        if(is_updating_labels){
+            update_labels_after =true;
+            return;
+        }
+        setLabels(show_labels);
     }
 
     @Override
@@ -121,6 +152,9 @@ public class CsiActivity extends AppCompatActivity {
         menu.findItem(R.id.mode_map).setChecked(current_mode==MAP);
         menu.findItem(R.id.mode_freehand).setChecked(current_mode==FREEHAND);
         menu.findItem(R.id.mode_vehicles).setChecked(current_mode==VEHICLES);
+        int z = ((MapView) findViewById(R.id.map)).getZoomLevel();
+        menu.findItem(R.id.mode_freehand).setEnabled(z>20);
+        menu.findItem(R.id.mode_vehicles).setEnabled(z>20);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -149,20 +183,39 @@ public class CsiActivity extends AppCompatActivity {
             case R.id.mode_map:
                 current_mode=MAP;
                 findViewById(R.id.drawing_panel).setVisibility(View.GONE);
+                findViewById(R.id.vehicles_canvas).setVisibility(View.GONE);
                 break;
             case R.id.mode_freehand:
                 current_mode=FREEHAND;
                 findViewById(R.id.drawing_panel).setVisibility(View.VISIBLE);
+                findViewById(R.id.vehicles_canvas).setVisibility(View.VISIBLE);
+                ((Panel)findViewById(R.id.drawing_panel)).setLigado(true);
+                ligaCarros(false);
                 break;
             case R.id.mode_vehicles:
                 current_mode=VEHICLES;
+                findViewById(R.id.drawing_panel).setVisibility(View.VISIBLE);
+                findViewById(R.id.vehicles_canvas).setVisibility(View.VISIBLE);
+                ((Panel)findViewById(R.id.drawing_panel)).setLigado(false);
+                ligaCarros(true);
                 break;
-
         }
         return super.onOptionsItemSelected(item);
     }
 
+    private void ligaCarros(boolean b) {
+        int z=((MapView)findViewById(R.id.map)).getZoomLevel();
+        ViewGroup cv = (ViewGroup) findViewById(R.id.vehicles_canvas);
+        for(int i=0;i<cv.getChildCount();i++){
+            View car = cv.getChildAt(i);
+            if(car.getClass().getCanonicalName().equals(Vehicle.class.getCanonicalName())){
+                ((Vehicle)car).liga(b);
+            }
+        }
+    }
+
     private void setLabels(boolean b) {
+        if(is_updating_labels) return;
         MapView map = (MapView) findViewById(R.id.map);
         if (b) {
             BoundingBox bb = map.getBoundingBox();
@@ -179,7 +232,6 @@ public class CsiActivity extends AppCompatActivity {
             Projection po = map.getProjection();
             Point nw = po.toPixels(new GeoPoint(bb.getLonWest(), bb.getLatNorth()), null);
             Point sw=po.toPixels(new GeoPoint(bb.getLonEast(), bb.getLatSouth()), null);
-
             new LabelLoader(url, bb).execute();//degrees2pixels(bb.getLonWest(), bb.getLatNorth(),map.getZoomLevel()),degrees2pixels(bb.getLonEast(), bb.getLatSouth(),map.getZoomLevel())).execute();
         }else{
             if(olabels!=null) {
@@ -195,66 +247,6 @@ public class CsiActivity extends AppCompatActivity {
         double y = Math.log(Math.tan((90 + lat) * Math.PI / 360)) / (Math.PI / 180);
         y = y * 20037508.34 / 180;
         return new Double[]{x, y};
-    }
-
-    private final class DragTouchListener implements View.OnTouchListener {
-        View.DragShadowBuilder shadowBuilder;
-
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                shadowBuilder = new View.DragShadowBuilder(v);
-                ClipData data = null;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    v.startDragAndDrop(data, null, v, 0);
-                } else {
-                    v.startDrag(data, null, v, 0);
-                }
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-    }
-
-    private class DropListener implements View.OnDragListener {
-        View draggedView;
-        private float x = 0;
-        private float y = 0;
-
-        @Override
-        public boolean onDrag(View v, DragEvent event) {
-            switch (event.getAction()) {
-                case DragEvent.ACTION_DRAG_STARTED:
-                    draggedView = (View) event.getLocalState();
-                    x = event.getX() - draggedView.getLeft();
-                    y = event.getY() - draggedView.getTop();
-                    Log.d("IAT drag", String.format("INICIANDO OS TRABALHOS em %s %s", "" + event.getX(), "" + event.getY()));
-                    //dropped = (TextView) draggedView;
-                    //draggedView.setVisibility(View.INVISIBLE);
-                    break;
-                case DragEvent.ACTION_DRAG_ENTERED:
-                    break;
-                case DragEvent.ACTION_DRAG_EXITED:
-                    break;
-                case DragEvent.ACTION_DROP:
-                    //TextView dropTarget = (TextView) v;
-                    //dropTarget.setText(dropped.getText().toString());
-                    break;
-                case DragEvent.ACTION_DRAG_ENDED:
-                    break;
-                case DragEvent.ACTION_DRAG_LOCATION:
-                    draggedView.setTop((int) (event.getY() - y));
-                    draggedView.setLeft((int) (event.getX() - x));
-                    //Log.d("IAT drag", String.format("LOCATION %s %s",""+event.getX(),""+event.getY()));
-                    break;
-                default:
-                    break;
-            }
-            return true;
-        }
-
     }
 
     public void onResume() {
@@ -307,7 +299,10 @@ public class CsiActivity extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(final Boolean success) {
+            is_updating_labels=false;
             final MapView map = (MapView) findViewById(R.id.map);
+            if(olabels!=null)
+                map.getOverlays().remove(olabels);
             olabels = new Overlay() {
                 @Override
                 public void draw(Canvas canvas, MapView mapView, boolean b) {
@@ -324,7 +319,10 @@ public class CsiActivity extends AppCompatActivity {
 
             map.getOverlays().add(olabels);
             map.invalidate();
-
+            if(update_labels_after){
+                update_labels_after=false;
+                setLabels(show_labels);
+            }
         }
     }
     @Override

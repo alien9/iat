@@ -15,14 +15,6 @@
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
-        <ImageView
-            android:id="@+id/map_imageview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:maxHeight="0dp"
-            android:scaleType="centerCrop"
-            />
         <org.osmdroid.views.MapView android:id="@+id/map"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent" />
@@ -31,6 +23,21 @@
             android:background="#0ff0"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/vehicles_canvas"
+            android:orientation="vertical"
+            android:background="#00ff0000">
+            <RelativeLayout
+                android:visibility="gone"
+                android:id="@+id/vehicles_pallete"
+                android:layout_width="match_parent"
+                android:background="#fff"
+                android:layout_height="130dp"
+                android:layout_margin="5dp">
+            </RelativeLayout>
+        </RelativeLayout>
     </FrameLayout>
 
 </LinearLayout>

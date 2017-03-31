@@ -17,9 +17,10 @@ class Panel extends View implements View.OnTouchListener{
 	private Paint paint;
 	private ArrayList<Path> paths = new ArrayList<Path>();
 	private ArrayList<Float> widths = new ArrayList<Float>();
+    private boolean ligado;
+
     public void surfaceChanged(SurfaceHolder holder, int format, int width,
             int height) {
-  
 	}
     
     public Panel(Context context, AttributeSet attrs) {
@@ -80,6 +81,7 @@ class Panel extends View implements View.OnTouchListener{
     }
     @Override
     public boolean onTouch(View arg0, MotionEvent event) {
+        if(!ligado)return false;
         float x = event.getX();
         float y = event.getY();
 
@@ -129,5 +131,9 @@ class Panel extends View implements View.OnTouchListener{
 		}else{
 			return false;
 		}
+    }
+
+    public void setLigado(boolean l) {
+        ligado = l;
     }
 }

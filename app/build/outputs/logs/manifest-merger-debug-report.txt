@@ -22,9 +22,8 @@ MERGED from [com.android.support:recyclerview-v7:24.0.0] /home/tiago/works/Dedos
 MERGED from [com.android.support:appcompat-v7:24.0.0] /home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/AndroidManifest.xml:21:5-23:78
 MERGED from [com.android.support:animated-vector-drawable:24.0.0] /home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/24.0.0/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-vector-drawable:24.0.0] /home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/24.0.0/AndroidManifest.xml:21:5-43
-MERGED from [com.android.volley:volley:1.0.0] /home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.volley/volley/1.0.0/AndroidManifest.xml:7:5-43
-MERGED from [com.github.MKergall:osmbonuspack:6.3] /home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.github.MKergall/osmbonuspack/6.3/AndroidManifest.xml:7:5-9:41
 MERGED from [com.android.support:support-v4:24.0.0] /home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.volley:volley:1.0.0] /home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.volley/volley/1.0.0/AndroidManifest.xml:7:5-43
 MERGED from [org.osmdroid:osmdroid-android:5.6.4] /home/tiago/works/Dedos/app/build/intermediates/exploded-aar/org.osmdroid/osmdroid-android/5.6.4/AndroidManifest.xml:7:5-9:41
 	tools:overrideLibrary
 		ADDED from [com.android.support:appcompat-v7:24.0.0] /home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/AndroidManifest.xml:23:9-75
@@ -80,9 +79,8 @@ MERGED from [com.android.support:design:24.0.0] /home/tiago/works/Dedos/app/buil
 MERGED from [com.android.support:appcompat-v7:24.0.0] /home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:animated-vector-drawable:24.0.0] /home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/24.0.0/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:support-vector-drawable:24.0.0] /home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/24.0.0/AndroidManifest.xml:23:5-20
-MERGED from [com.android.volley:volley:1.0.0] /home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.volley/volley/1.0.0/AndroidManifest.xml:9:5-20
-MERGED from [com.github.MKergall:osmbonuspack:6.3] /home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.github.MKergall/osmbonuspack/6.3/AndroidManifest.xml:11:5-20
 MERGED from [com.android.support:support-v4:24.0.0] /home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/AndroidManifest.xml:25:5-20
+MERGED from [com.android.volley:volley:1.0.0] /home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.volley/volley/1.0.0/AndroidManifest.xml:9:5-20
 	android:label
 		ADDED from /home/tiago/works/Dedos/app/src/main/AndroidManifest.xml:20:9-32
 	android:hardwareAccelerated
