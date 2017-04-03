@@ -24,32 +24,32 @@
         "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/drawable-mdpi-v4/abc_spinner_mtrl_am_alpha.9.png"
     },
     {
-        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi-v4/abc_list_longpressed_holo.9.png",
-        "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/drawable-mdpi-v4/abc_list_longpressed_holo.9.png"
-    },
-    {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi-v4/abc_btn_switch_to_on_mtrl_00012.9.png",
         "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/drawable-mdpi-v4/abc_btn_switch_to_on_mtrl_00012.9.png"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi-v4/abc_list_longpressed_holo.9.png",
+        "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/drawable-mdpi-v4/abc_list_longpressed_holo.9.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi-v4/small03.jpg",
         "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/small03.jpg"
     },
     {
-        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi-v4/small10.jpg",
-        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/small10.jpg"
-    },
-    {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi-v4/small11.jpg",
         "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/small11.jpg"
     },
     {
-        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi-v4/grad.xml",
-        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/grad.xml"
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi-v4/small10.jpg",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/small10.jpg"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi-v4/abc_list_pressed_holo_light.9.png",
         "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/drawable-mdpi-v4/abc_list_pressed_holo_light.9.png"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi-v4/grad.xml",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/grad.xml"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi-v4/abc_cab_background_top_mtrl_alpha.9.png",

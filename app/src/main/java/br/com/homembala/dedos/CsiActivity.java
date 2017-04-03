@@ -1,6 +1,5 @@
 package br.com.homembala.dedos;
 
-import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,13 +7,11 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.DragEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,8 +19,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.events.DelayedMapListener;
 import org.osmdroid.events.MapListener;
@@ -39,6 +38,9 @@ import org.osmdroid.views.overlay.Overlay;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
 
 import br.com.homembala.dedos.util.Vehicle;
 import okhttp3.OkHttpClient;
@@ -53,6 +55,8 @@ public class CsiActivity extends AppCompatActivity {
     private static final double[] TILE_ORIGIN = {-20037508.34789244,20037508.34789244};
     private boolean show_labels=false;
     private Overlay olabels;
+    private Overlay closeup;
+    private Hashtable<String,Overlay> overlays;
 
     private static final int FREEHAND = 1;
     private static final int MAP = 0;
@@ -63,6 +67,9 @@ public class CsiActivity extends AppCompatActivity {
     private boolean update_labels_after;
     private boolean is_drawing;
 
+    private boolean is_updating_closeup;
+    private JSONArray vehicles;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,9 +79,9 @@ public class CsiActivity extends AppCompatActivity {
         ((Iat) getApplicationContext()).startGPS(this);
         ((Panel) findViewById(R.id.drawing_panel)).setVisibility(View.GONE);
         findViewById(R.id.vehicles_canvas).setVisibility(View.GONE);
-        MapView map = (MapView) findViewById(R.id.map);
+        final MapView map = (MapView) findViewById(R.id.map);
         String u="http://bigrs.alien9.net:8080/geoserver/gwc/service/tms/1.0.0/";
-        map.setTileSource(new GeoServerTileSource("geoserver", 17, 22, 256, ".png", new String[]{u}));
+        map.setTileSource(new GeoServerTileSource("geoserver", 17, 22, 512, ".png", new String[]{u}));
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
         map.setClickable(true);
@@ -82,8 +89,11 @@ public class CsiActivity extends AppCompatActivity {
         ScaleBarOverlay sbo = new ScaleBarOverlay(map);
         sbo.setCentred(false);
         sbo.setScaleBarOffset(10, 10);
+        map.getController().setZoom(20);
+        map.setMaxZoomLevel(22);
+        map.setTilesScaledToDpi(true);
         map.getOverlays().add(sbo);
-        map.getController().setZoom(22);
+        overlays=new Hashtable<>();
         JSONObject point = ((Iat) getApplicationContext()).getLastKnownPosition();
         if(!point.has("latitude")){
             try {
@@ -91,13 +101,22 @@ public class CsiActivity extends AppCompatActivity {
                 point.put("latitude",-23.533773);
             } catch (JSONException ignore) {}
         }
-        Double[] center = degrees2meters(point.optDouble("latitude"), point.optDouble("longitude"));
         map.getController().setCenter(new GeoPoint(point.optDouble("latitude"), point.optDouble("longitude")));
         map.setMapListener(new DelayedMapListener(new MapListener() {
             public boolean onZoom(final ZoomEvent e) {
                 if(show_labels){
                     updateLabels();
                 }
+                if(map.getZoomLevel()>22){
+                    updateCloseUp();
+                }else{
+                    if(overlays.containsKey("closeup")) {
+                        map.getOverlays().remove(overlays.get("closeup"));
+                        overlays.remove("closeup");
+                        map.invalidate();
+                    }
+                }
+                loadVehicles();
                 return true;
             }
             public boolean onScroll(final ScrollEvent e) {
@@ -109,6 +128,7 @@ public class CsiActivity extends AppCompatActivity {
         }, 1000 ));
         is_updating_labels =false;
         update_labels_after =false;
+        is_updating_closeup=false;
         findViewById(R.id.vehicles_canvas).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -117,18 +137,50 @@ public class CsiActivity extends AppCompatActivity {
             }
         });
         //carros vêm na intention
-        int width= (int) (2.2*256*Math.pow(2.0,map.getZoomLevel())/(2*20037508.34));
-        int height= (int) (4.0*256*Math.pow(2.0,map.getZoomLevel())/(2*20037508.34));
-        Vehicle carrinho=new Vehicle(this, findViewById(R.id.vehicles_canvas),width,height);
-        ((ViewGroup)findViewById(R.id.vehicles_canvas)).addView(carrinho);
-        carrinho=new Vehicle(this, findViewById(R.id.vehicles_canvas),width,height);
-        ((ViewGroup)findViewById(R.id.vehicles_canvas)).addView(carrinho);
+        vehicles=new JSONArray();
+
+        for(int i=0;i<4;i++) {
+            JSONObject v = new JSONObject();
+            try {
+                v.put("model", Vehicle.CARRO);
+                v.put("width", 2.0);
+                v.put("length", 3.9);
+            } catch (JSONException e) {}
+            vehicles.put(v);
+        }
+
+        loadVehicles();
+        //Vehicle carrinho=new Vehicle(this, findViewById(R.id.vehicles_canvas),width,height);
+        //((ViewGroup)findViewById(R.id.vehicles_canvas)).addView(carrinho);
+        //carrinho=new Vehicle(this, findViewById(R.id.vehicles_canvas),width,height);
+        //((ViewGroup)findViewById(R.id.vehicles_canvas)).addView(carrinho);
         current_mode=MAP;
+    }
+
+    private void updateCloseUp() {
+        MapView map = (MapView) findViewById(R.id.map);
+        if(closeup!=null){
+            map.getOverlays().remove(closeup);
+            closeup=null;
+        }
+        if(is_updating_closeup) return;
+        BoundingBox bb = map.getBoundingBox();
+        Double[] northwest = degrees2meters(bb.getLonWest(), bb.getLatNorth());
+        Double[] southeast = degrees2meters(bb.getLonEast(), bb.getLatSouth());
+        String url = String.format("%s?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image/png&TRANSPARENT=true&STYLES&LAYERS=BIGRS:quadras_e_logradouros&SRS=EPSG:3857&WIDTH=%s&HEIGHT=%s&BBOX=%s,%s,%s,%s",
+                getResources().getString(R.string.wms_url),
+                map.getWidth(),map.getHeight(),
+                northwest[0],
+                southeast[1],
+                southeast[0],
+                northwest[1]
+        );
+        new LayerLoader(url, bb, "closeup").execute();//degrees2pixels(bb.getLonWest(), bb.getLatNorth(),map.getZoomLevel()),degrees2pixels(bb.getLonEast(), bb.getLatSouth(),map.getZoomLevel())).execute();
     }
 
     private void updateLabels() {
         if(is_updating_labels){
-            update_labels_after =true;
+            update_labels_after=true;
             return;
         }
         setLabels(show_labels);
@@ -182,11 +234,13 @@ public class CsiActivity extends AppCompatActivity {
                 break;
             case R.id.mode_map:
                 current_mode=MAP;
+                saveVehicles();
                 findViewById(R.id.drawing_panel).setVisibility(View.GONE);
                 findViewById(R.id.vehicles_canvas).setVisibility(View.GONE);
                 break;
             case R.id.mode_freehand:
                 current_mode=FREEHAND;
+                saveVehicles();
                 findViewById(R.id.drawing_panel).setVisibility(View.VISIBLE);
                 findViewById(R.id.vehicles_canvas).setVisibility(View.VISIBLE);
                 ((Panel)findViewById(R.id.drawing_panel)).setLigado(true);
@@ -194,6 +248,7 @@ public class CsiActivity extends AppCompatActivity {
                 break;
             case R.id.mode_vehicles:
                 current_mode=VEHICLES;
+                loadVehicles();
                 findViewById(R.id.drawing_panel).setVisibility(View.VISIBLE);
                 findViewById(R.id.vehicles_canvas).setVisibility(View.VISIBLE);
                 ((Panel)findViewById(R.id.drawing_panel)).setLigado(false);
@@ -216,6 +271,7 @@ public class CsiActivity extends AppCompatActivity {
 
     private void setLabels(boolean b) {
         if(is_updating_labels) return;
+        is_updating_labels=true;
         MapView map = (MapView) findViewById(R.id.map);
         if (b) {
             BoundingBox bb = map.getBoundingBox();
@@ -229,15 +285,14 @@ public class CsiActivity extends AppCompatActivity {
                     southeast[0],
                     northwest[1]
             );
-            Projection po = map.getProjection();
-            Point nw = po.toPixels(new GeoPoint(bb.getLonWest(), bb.getLatNorth()), null);
-            Point sw=po.toPixels(new GeoPoint(bb.getLonEast(), bb.getLatSouth()), null);
-            new LabelLoader(url, bb).execute();//degrees2pixels(bb.getLonWest(), bb.getLatNorth(),map.getZoomLevel()),degrees2pixels(bb.getLonEast(), bb.getLatSouth(),map.getZoomLevel())).execute();
+            new LayerLoader(url, bb, "labels").execute();//degrees2pixels(bb.getLonWest(), bb.getLatNorth(),map.getZoomLevel()),degrees2pixels(bb.getLonEast(), bb.getLatSouth(),map.getZoomLevel())).execute();
         }else{
-            if(olabels!=null) {
-                map.getOverlays().remove(olabels);
-                olabels=null;
-                map.invalidate();
+            if(overlays.containsKey("labels")) {
+                if (overlays.get("labels") != null) {
+                    map.getOverlays().remove(overlays.get("labels"));
+                    overlays.remove("labels");
+                    map.invalidate();
+                }
             }
         }
     }
@@ -272,15 +327,17 @@ public class CsiActivity extends AppCompatActivity {
         }
     }
 
-    private class LabelLoader extends AsyncTask<String,String,Boolean>{
+    private class LayerLoader extends AsyncTask<String,String,Boolean>{
         private final String url;
         private final BoundingBox box;
+        private final String overlay;
         private Bitmap mapbit;
 
 
-        public LabelLoader(String u, BoundingBox bb) {
+        public LayerLoader(String u, BoundingBox bb,String o) {
             box=bb;
             url=u;
+            overlay=o;
         }
 
         @Override
@@ -301,9 +358,11 @@ public class CsiActivity extends AppCompatActivity {
         protected void onPostExecute(final Boolean success) {
             is_updating_labels=false;
             final MapView map = (MapView) findViewById(R.id.map);
-            if(olabels!=null)
-                map.getOverlays().remove(olabels);
-            olabels = new Overlay() {
+            if(overlays.containsKey(overlay)) {
+                map.getOverlays().remove(overlays.get(overlay));
+                overlays.remove(overlay);
+            }
+            overlays.put(overlay,new Overlay() {
                 @Override
                 public void draw(Canvas canvas, MapView mapView, boolean b) {
                     if(mapbit==null)return;
@@ -315,9 +374,9 @@ public class CsiActivity extends AppCompatActivity {
                     Log.d("IAT DRAW", ""+pixel_nw.toString());
                     canvas.drawBitmap(mapbit,null,new Rect(pixel_nw.x,pixel_nw.y,pixel_se.x,pixel_se.y),null);
                 }
-            };
+            });
 
-            map.getOverlays().add(olabels);
+            map.getOverlays().add(overlays.get(overlay));
             map.invalidate();
             if(update_labels_after){
                 update_labels_after=false;
@@ -329,5 +388,46 @@ public class CsiActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults){
         Intent intent=new Intent(this,CsiActivity.class);
         startActivity(intent);
+    }
+
+    protected void saveVehicles() {
+        try {
+            ViewGroup o = ((ViewGroup) findViewById(R.id.vehicles_canvas));
+            MapView map = (MapView) findViewById(R.id.map);
+            for (int i = 0; i < vehicles.length(); i++) {
+                JSONObject v = vehicles.optJSONObject(i);
+                JSONObject position = ((Vehicle) o.getChildAt(i + 1)).getPosition();
+                IGeoPoint latlng = map.getProjection().fromPixels(position.getInt("x"), position.getInt("y"));
+                v.put("latitude", latlng.getLatitude());
+                v.put("longitude", latlng.getLongitude());
+                v.put("position",position);
+                vehicles.put(i,v);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    protected void loadVehicles() {
+        ViewGroup o = ((ViewGroup) findViewById(R.id.vehicles_canvas));
+        MapView map = (MapView) findViewById(R.id.map);
+        for (int i = o.getChildCount()-1; i >=0; i--) {
+            if (o.getChildAt(i).getClass().getCanonicalName().equals(Vehicle.class.getCanonicalName())) {
+                o.removeView(o.getChildAt(i));
+            }
+        }
+        for (int i = 0; i < vehicles.length(); i++) {
+            int width = (int) (2.2 * 1512 * Math.pow(2.0, map.getZoomLevel()) / (2 * 20037508.34));
+            int height = (int) (4.0 * 1512 * Math.pow(2.0, map.getZoomLevel()) / (2 * 20037508.34));
+            Vehicle v = new Vehicle(this, findViewById(R.id.vehicles_canvas), width, height);
+            ((ViewGroup) findViewById(R.id.vehicles_canvas)).addView((View) v);
+            if(vehicles.optJSONObject(i).has("latitude") && vehicles.optJSONObject(i).has("longitude")){
+                Point pix = map.getProjection().toPixels(new GeoPoint(vehicles.optJSONObject(i).optDouble("latitude"), vehicles.optJSONObject(i).optDouble("longitude")), null);
+                v.setX(pix.x);
+                v.setY(pix.y);
+            }
+            if(vehicles.optJSONObject(i).has("position")){
+                v.setRotation((float) vehicles.optJSONObject(i).optJSONObject("position").optDouble("heading"));
+            }
+        }
     }
 }

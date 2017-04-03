@@ -16,6 +16,9 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.LinearLayout;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import br.com.homembala.dedos.R;
 
 
@@ -24,6 +27,12 @@ import br.com.homembala.dedos.R;
  */
 
 public class Vehicle extends View {
+    public static final int CARRO = 0;
+    public static final int CAMINHAO = 1;
+    public static final int ONIBUS = 2;
+    public static final int MOTO = 3;
+    public static final int PEDESTRE = 4;
+
     private final double width;
     private final double height;
     private View background;
@@ -36,6 +45,17 @@ public class Vehicle extends View {
         this.setOnTouchListener(new VehicleTouchListener());
         height = 4;
         width=2.2;
+    }
+
+    public JSONObject getPosition(){
+        JSONObject p=new JSONObject();
+        try {
+            p.put("heading", this.getRotation());
+            p.put("x", this.getX());
+            p.put("y",this.getY());
+        } catch (JSONException ignore) {
+        }
+        return p;
     }
 
     public Vehicle(Context context, View bg,int w, int h) {
@@ -97,7 +117,6 @@ public class Vehicle extends View {
 
     private class VehicleDragListener implements OnDragListener {
         private Float[] previousPoint;
-
         @Override
         public boolean onDrag(View v, DragEvent event) {
             switch (event.getAction()) {
@@ -126,7 +145,6 @@ public class Vehicle extends View {
                     double angulo = Math.acos(-1*delta[1]/(Math.sqrt(Math.pow(delta[0],2.0)+Math.pow(delta[1],2.0))));
                     angulo=angulo/(2.0*Math.PI)*360.0;
                     if(delta[0]<0) angulo*=-1;
-                    Log.d("IAT DRAW", ""+angulo);
                     previousPoint=new Float[]{event.getX(),event.getY()};
                     view = (View) event.getLocalState();
                     view.setRotation((float) angulo);
