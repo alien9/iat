@@ -6,19 +6,16 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.LinearLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import br.com.homembala.dedos.Iat;
 import br.com.homembala.dedos.R;
 
 
@@ -35,17 +32,14 @@ public class Vehicle extends View {
 
     private final double width;
     private final double height;
+    private final Context context;
+    private final int model;
+    private boolean mexido;
+    private int roll;
     private View background;
     private Float[] inicio;
     private DragShadowBuilder shadowBuilder;
     private boolean ligado;
-
-    public Vehicle(Context context) {
-        super(context);
-        this.setOnTouchListener(new VehicleTouchListener());
-        height = 4;
-        width=2.2;
-    }
 
     public JSONObject getPosition(){
         JSONObject p=new JSONObject();
@@ -58,23 +52,76 @@ public class Vehicle extends View {
         return p;
     }
 
-    public Vehicle(Context context, View bg,int w, int h) {
-        super(context);
+    public Vehicle(Context c, View bg,int w, int h,int m,int p) {
+        super(c);
+        context=c;
         background=bg;
         height = h;
         width=w;
-        this.setBackground(ContextCompat.getDrawable(context,R.drawable.carro));
+        model=m;
+        roll = p;
+        setCustomBackground();
         this.setOnTouchListener(new VehicleTouchListener());
         this.setLayoutParams(new LinearLayout.LayoutParams((int)Math.round(width), (int)Math.round(height)));
         background.setOnDragListener(new VehicleDragListener());
         ligado=true;
+        mexido=false;
     }
 
-    protected boolean OnDrag(View v, DragEvent event){
-        return true;
+    private void setCustomBackground() {
+        switch(model){
+            case CARRO:
+                switch(roll) {
+                    case 0:
+                        this.setBackground(ContextCompat.getDrawable(context, R.drawable.carro_000));
+                        break;
+                    case 1:
+                        this.setBackground(ContextCompat.getDrawable(context, R.drawable.carro_090));
+                        break;
+                    case 2:
+                        this.setBackground(ContextCompat.getDrawable(context, R.drawable.carro_180));
+                        break;
+                    case 3:
+                        this.setBackground(ContextCompat.getDrawable(context, R.drawable.carro_270));
+                        break;
+                }
+                break;
+            case MOTO:
+                switch(roll) {
+                    case 0:
+                        this.setBackground(ContextCompat.getDrawable(context, R.drawable.motorcycle_000));
+                        break;
+                    case 1:
+                        this.setBackground(ContextCompat.getDrawable(context, R.drawable.motorcycle_090));
+                        break;
+                    case 2:
+                        this.setBackground(ContextCompat.getDrawable(context, R.drawable.motorcycle_180));
+                        break;
+                    case 3:
+                        this.setBackground(ContextCompat.getDrawable(context, R.drawable.motorcycle_270));
+                        break;
+                }
+                break;
+        }
+
     }
+
     public void liga(boolean l){
         ligado=l;
+    }
+
+    public void vira() {
+        roll++;
+        if(roll>3)roll=0;
+        setCustomBackground();
+    }
+
+    public int getRoll() {
+        return roll;
+    }
+
+    public boolean getMexido() {
+        return mexido;
     }
 
     private class VehicleTouchListener implements OnTouchListener {
@@ -82,9 +129,9 @@ public class Vehicle extends View {
         public boolean onTouch(final View view, MotionEvent motionEvent) {
             if(!ligado) return true;
             if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                mexido=true;
                 inicio=new Float[]{motionEvent.getX(),motionEvent.getY()};
                 ClipData data = ClipData.newPlainText("", "");
-
                 shadowBuilder = new View.DragShadowBuilder(view) {
                     @Override
                     public void onDrawShadow(Canvas canvas) {
@@ -119,6 +166,7 @@ public class Vehicle extends View {
         private Float[] previousPoint;
         @Override
         public boolean onDrag(View v, DragEvent event) {
+            Log.d("IAT ESTRANHO", "drag"+event.getAction());
             switch (event.getAction()) {
                 case DragEvent.ACTION_DRAG_STARTED:
                     previousPoint=new Float[]{event.getX(),event.getY()};
@@ -132,8 +180,13 @@ public class Vehicle extends View {
                 case DragEvent.ACTION_DROP:
                     View view = (View) event.getLocalState();
                     Log.d("IAT DRAW",""+event.getX());
-                    view.setX(event.getX()-inicio[0]);
-                    view.setY(event.getY()-inicio[1]);
+                    if(inicio!=null) {
+                        view.setX(event.getX()-inicio[0]);
+                        view.setY(event.getY()-inicio[1]);
+                    }else{
+                        view.setX(event.getX());
+                        view.setY(event.getY());
+                    }
                     view.setVisibility(VISIBLE);
                     break;
                 case DragEvent.ACTION_DRAG_ENDED:
@@ -148,9 +201,15 @@ public class Vehicle extends View {
                     previousPoint=new Float[]{event.getX(),event.getY()};
                     view = (View) event.getLocalState();
                     view.setRotation((float) angulo);
-                    view.setX(event.getX()-inicio[0]);
-                    view.setY(event.getY()-inicio[1]);
+                    if(inicio!=null) {
+                        view.setX(event.getX() - inicio[0]);
+                        view.setY(event.getY() - inicio[1]);
+                    }else{
+                        view.setX(event.getX());
+                        view.setY(event.getY());
+                    }
                     view.invalidate();
+                    ((Iat)context.getApplicationContext()).setSelectedVehicle((Vehicle)view);
                     break;
                 default:
                     break;

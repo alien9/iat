@@ -17,6 +17,8 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import br.com.homembala.dedos.util.Vehicle;
+
 /**
  * Created by tiago on 27/03/17.
  */
@@ -25,6 +27,7 @@ public class Iat extends Application {
     private static JSONObject lastKnownPosition;
     private static LocationManager locationManager;
     private static Iat singleton;
+    private Vehicle selectedVehicle;
 
     public static Iat getInstance() {
         return singleton;
@@ -75,5 +78,13 @@ public class Iat extends Application {
         Intent intent = new Intent();
         intent.setClass(getApplicationContext(), LocationService.class);
         startService(intent);
+    }
+
+    public void setSelectedVehicle(Vehicle sv) {
+        selectedVehicle = sv;
+    }
+
+    public Vehicle getSelectedVehicle() {
+        return selectedVehicle;
     }
 }

@@ -48,12 +48,12 @@
         "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/customize.png"
     },
     {
-        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/pag1.png",
-        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/pag1.png"
-    },
-    {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/ic_menu_send.png",
         "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/ic_menu_send.png"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/pag1.png",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable-mdpi/pag1.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable-mdpi/thumb02.png",

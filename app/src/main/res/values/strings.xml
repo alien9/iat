@@ -26,5 +26,7 @@
     <string name="mode_map">Mapa</string>
     <string name="mode_vehicles">Veículos</string>
     <string name="mode_freehand">Desenho</string>
+    <string name="turn_vehicle">virar veículo</string>
+    <string name="reset_vehicles">Reiniciar edição</string>
 
 </resources>

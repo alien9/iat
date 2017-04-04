@@ -132,7 +132,6 @@ class Panel extends View implements View.OnTouchListener{
 			return false;
 		}
     }
-
     public void setLigado(boolean l) {
         ligado = l;
     }
