@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="hello">Hello World, DedosActivity!</string>
     <string name="app_name">Dedos</string>
     <string name="share">Share</string>
@@ -28,5 +27,4 @@
     <string name="mode_freehand">Desenho</string>
     <string name="turn_vehicle">virar veículo</string>
     <string name="reset_vehicles">Reiniciar edição</string>
-
 </resources>

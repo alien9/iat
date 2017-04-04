@@ -6,12 +6,14 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -435,9 +437,20 @@ public class CsiActivity extends AppCompatActivity {
             }
         }
         int auto_increment_position = 10;
+        //diagonal do mapa
+        BoundingBox b = map.getBoundingBox();
+        float[] results = new float[1];
+        Location.distanceBetween(b.getLatNorth(),b.getLonWest(),b.getLatSouth(),b.getLonEast(),results);
+        //resolução
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        double diagonal = Math.sqrt(Math.pow(size.x,2.0) + Math.pow(size.y,2.0));
+
+        double pixels_per_m = diagonal / results[0];
         for (int i = 0; i < vehicles.length(); i++) {
-            int width = (int) (vehicles.optJSONObject(i).optDouble("width") * 1000 * Math.pow(2.0, map.getZoomLevel()) / (2 * 20037508.34));
-            int height = (int) (vehicles.optJSONObject(i).optDouble("length") * 1000 * Math.pow(2.0, map.getZoomLevel()) / (2 * 20037508.34));
+            int width = (int) (vehicles.optJSONObject(i).optDouble("width") * pixels_per_m);//1000 * Math.pow(2.0, map.getZoomLevel()) / (2 * 20037508.34));
+            int height = (int) (vehicles.optJSONObject(i).optDouble("length") * pixels_per_m); //1000 * Math.pow(2.0, map.getZoomLevel()) / (2 * 20037508.34));
             Vehicle v = new Vehicle(this, findViewById(R.id.vehicles_canvas), width, height, vehicles.optJSONObject(i).optInt("model"),vehicles.optJSONObject(i).optInt("roll"));
             ((ViewGroup) findViewById(R.id.vehicles_canvas)).addView((View) v);
             if(vehicles.optJSONObject(i).has("latitude") && vehicles.optJSONObject(i).has("longitude")){

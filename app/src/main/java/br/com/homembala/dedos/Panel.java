@@ -11,7 +11,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.View;
 
-class Panel extends View implements View.OnTouchListener{
+public class Panel extends View implements View.OnTouchListener{
 	private Canvas canvas;
 	private Path path;
 	private Paint paint;
@@ -40,7 +40,7 @@ class Panel extends View implements View.OnTouchListener{
         path = new Path();
         paths.add(path);
         widths.add(new Float(6));
-	}       
+	}
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);

@@ -25,7 +25,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.0"
-        sha1="ca23373f1828ff8fa4c7a2b3dc4f8eb74a7d7b9c">
+        sha1="8d585941225212d792353c55a9318967580bbdcf">
         <dex dex="/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_6c334f26a5e6be7045e2fd0d92f1764da835e3c1/classes.dex" />
     </item>
     <item
@@ -34,7 +34,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.0"
-        sha1="19a19e59c0577913113914295b5f4f00ea357c4e">
+        sha1="5097c068b86849ff6e30b1475054066ab8b4f2f3">
         <dex dex="/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_3d1fa48b874ef67739fe1c30f20c279e6c8b1a6c/classes.dex" />
     </item>
     <item
