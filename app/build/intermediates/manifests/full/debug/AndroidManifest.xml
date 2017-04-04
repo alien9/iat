@@ -48,7 +48,8 @@
         <activity
             android:name="br.com.homembala.dedos.CsiActivity"
             android:hardwareAccelerated="false"
-            android:label="IAT" >
+            android:label="IAT"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
