@@ -220,6 +220,10 @@
         "source": "/home/tiago/works/Dedos/app/src/main/res/layout/page2.xml"
     },
     {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/layout/pallette.xml",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/layout/pallette.xml"
+    },
+    {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/layout/abc_action_bar_up_container.xml",
         "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/layout/abc_action_bar_up_container.xml"
     },

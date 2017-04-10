@@ -24,20 +24,20 @@
         "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/drawable/abc_ic_go_search_api_material.xml"
     },
     {
-        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/ic_menu_offline.png",
-        "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/org.osmdroid/osmdroid-android/5.6.4/res/drawable/ic_menu_offline.png"
-    },
-    {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_item_background_holo_light.xml",
         "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/drawable/abc_item_background_holo_light.xml"
     },
     {
-        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/zoom_in.png",
-        "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/org.osmdroid/osmdroid-android/5.6.4/res/drawable/zoom_in.png"
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/ic_menu_offline.png",
+        "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/org.osmdroid/osmdroid-android/5.6.4/res/drawable/ic_menu_offline.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_ic_voice_search_api_material.xml",
         "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/drawable/abc_ic_voice_search_api_material.xml"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/zoom_in.png",
+        "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/org.osmdroid/osmdroid-android/5.6.4/res/drawable/zoom_in.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/marker_default.png",
@@ -56,12 +56,28 @@
         "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/drawable/abc_ratingbar_small_material.xml"
     },
     {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/down.png",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable/down.png"
+    },
+    {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/marker_default_focused_base.png",
         "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/org.osmdroid/osmdroid-android/5.6.4/res/drawable/marker_default_focused_base.png"
     },
     {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/bus_000.png",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable/bus_000.png"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/bici270.png",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable/bici270.png"
+    },
+    {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_textfield_search_material.xml",
         "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/drawable/abc_textfield_search_material.xml"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/truck_090.png",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable/truck_090.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_ic_search_api_material.xml",
@@ -76,8 +92,20 @@
         "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/drawable/abc_item_background_holo_dark.xml"
     },
     {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/bus_090.png",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable/bus_090.png"
+    },
+    {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_ic_arrow_drop_right_black_24dp.xml",
         "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/drawable/abc_ic_arrow_drop_right_black_24dp.xml"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/bici.png",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable/bici.png"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/truck.png",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable/truck.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_spinner_textfield_background_material.xml",
@@ -108,8 +136,16 @@
         "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/org.osmdroid/osmdroid-android/5.6.4/res/drawable/person.png"
     },
     {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/bici090.png",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable/bici090.png"
+    },
+    {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/center.png",
         "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/org.osmdroid/osmdroid-android/5.6.4/res/drawable/center.png"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/pessoa.png",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable/pessoa.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/direction_arrow.png",
@@ -118,6 +154,14 @@
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/motorcycle_180.png",
         "source": "/home/tiago/works/Dedos/app/src/main/res/drawable/motorcycle_180.png"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/truckinho.jpg",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable/truckinho.jpg"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/trucks.jpg",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable/trucks.jpg"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/design_fab_background.xml",
@@ -156,6 +200,10 @@
         "source": "/home/tiago/works/Dedos/app/src/main/res/drawable/carro_180.png"
     },
     {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/people.jpg",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable/people.jpg"
+    },
+    {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_tick_mark_material.xml",
         "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/drawable/abc_seekbar_tick_mark_material.xml"
     },
@@ -184,6 +232,10 @@
         "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/drawable/abc_btn_default_mtrl_shape.xml"
     },
     {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/bus_180.png",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable/bus_180.png"
+    },
+    {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/carro_000.png",
         "source": "/home/tiago/works/Dedos/app/src/main/res/drawable/carro_000.png"
     },
@@ -204,16 +256,32 @@
         "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/drawable/abc_switch_thumb_material.xml"
     },
     {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/motorcycle.png",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable/motorcycle.png"
+    },
+    {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_thumb_material.xml",
         "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/drawable/abc_seekbar_thumb_material.xml"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/round.xml",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable/round.xml"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/ic_menu_mylocation.png",
         "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/org.osmdroid/osmdroid-android/5.6.4/res/drawable/ic_menu_mylocation.png"
     },
     {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/truck_270.png",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable/truck_270.png"
+    },
+    {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/carro_090.png",
         "source": "/home/tiago/works/Dedos/app/src/main/res/drawable/carro_090.png"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/bus.png",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable/bus.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/bonuspack_bubble.9.png",
@@ -232,8 +300,16 @@
         "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/org.osmdroid/osmdroid-android/5.6.4/res/drawable/navto_small.png"
     },
     {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/bus_270.png",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable/bus_270.png"
+    },
+    {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_dialog_material_background.xml",
         "source": "/home/tiago/works/Dedos/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.0.0/res/drawable/abc_dialog_material_background.xml"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/truck_000.png",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable/truck_000.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_cab_background_top_material.xml",

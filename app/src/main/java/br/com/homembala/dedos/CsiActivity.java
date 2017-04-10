@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -78,7 +79,7 @@ public class CsiActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         ((Iat) getApplicationContext()).startGPS(this);
         ((Panel) findViewById(R.id.drawing_panel)).setVisibility(View.GONE);
-        findViewById(R.id.vehicles_canvas).setVisibility(View.GONE);
+        //findViewById(R.id.vehicles_canvas).setVisibility(View.GONE);
         final MapView map = (MapView) findViewById(R.id.map);
         String u="http://bigrs.alien9.net:8080/geoserver/gwc/service/tms/1.0.0/";
         map.setTileSource(new GeoServerTileSource("geoserver", 17, 21, 512, ".png", new String[]{u}));
@@ -129,13 +130,13 @@ public class CsiActivity extends AppCompatActivity {
         is_updating_labels =false;
         update_labels_after =false;
         is_updating_closeup=false;
-        findViewById(R.id.vehicles_canvas).setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(current_mode==FREEHAND) return false;
-                return true;
-            }
-        });
+        //findViewById(R.id.vehicles_canvas).setOnTouchListener(new View.OnTouchListener() {
+            //@Override
+            //public boolean onTouch(View view, MotionEvent motionEvent) {
+                //if(current_mode==FREEHAND) return false;
+          //      return true;
+        //    }
+        //});
         //carros vêm na intention
         vehicles=new JSONArray();
 
@@ -164,6 +165,41 @@ public class CsiActivity extends AppCompatActivity {
         //carrinho=new Vehicle(this, findViewById(R.id.vehicles_canvas),width,height);
         //((ViewGroup)findViewById(R.id.vehicles_canvas)).addView(carrinho);
         current_mode=MAP;
+        ((ImageButton)findViewById(R.id.show_pallette)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                findViewById(R.id.show_pallette).setVisibility(View.GONE);
+                findViewById(R.id.palette_layout).setVisibility(View.VISIBLE);
+            }
+        });
+        findViewById(R.id.palette_layout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                findViewById(R.id.show_pallette).setVisibility(View.VISIBLE);
+                findViewById(R.id.palette_layout).setVisibility(View.GONE);
+            }
+        });
+        findViewById(R.id.palette_layout).setVisibility(View.GONE);
+        View.OnClickListener cl = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                findViewById(R.id.show_pallette).setVisibility(View.VISIBLE);
+                findViewById(R.id.palette_layout).setVisibility(View.GONE);
+            }
+        };
+        setDescendentOnClickListener((ViewGroup) findViewById(R.id.palette_layout),cl);
+
+    }
+
+    private void setDescendentOnClickListener(ViewGroup gw, View.OnClickListener cl) {
+        for(int i=0;i<gw.getChildCount();i++) {
+            try {
+                ViewGroup vg = (ViewGroup) gw.getChildAt(i);
+                setDescendentOnClickListener(vg,cl);
+            }catch (RuntimeException x){
+                gw.getChildAt(i).setOnClickListener(cl);
+            }
+        }
     }
 
     private void updateCloseUp() {
@@ -247,7 +283,7 @@ public class CsiActivity extends AppCompatActivity {
                 current_mode=MAP;
                 saveVehicles();
                 findViewById(R.id.drawing_panel).setVisibility(View.GONE);
-                findViewById(R.id.vehicles_canvas).setVisibility(View.GONE);
+                //findViewById(R.id.vehicles_canvas).setVisibility(View.GONE);
                 break;
             case R.id.mode_freehand:
                 current_mode=FREEHAND;
@@ -437,11 +473,9 @@ public class CsiActivity extends AppCompatActivity {
             }
         }
         int auto_increment_position = 10;
-        //diagonal do mapa
         BoundingBox b = map.getBoundingBox();
         float[] results = new float[1];
         Location.distanceBetween(b.getLatNorth(),b.getLonWest(),b.getLatSouth(),b.getLonEast(),results);
-        //resolução
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -477,4 +511,9 @@ public class CsiActivity extends AppCompatActivity {
         }
         loadVehicles();
     }
+    protected void renderPalette(){
+
+    }
+
+
 }

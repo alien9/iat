@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/palette_layout"
+    android:background="#ffcccccc"
+    android:clickable="true">
+    <LinearLayout
+        android:gravity="bottom"
+        android:weightSum="10"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:scaleType="fitCenter"
+            android:layout_weight="6"
+            app:srcCompat="@drawable/carro"
+            android:id="@+id/imageButton"
+            android:layout_height="80dp"
+            android:layout_width="0dp" />
+        <ImageButton
+            android:scaleType="fitCenter"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            app:srcCompat="@drawable/motorcycle"
+            android:id="@+id/imageButton2"
+            android:layout_weight="2" />
+        <ImageButton
+            android:scaleType="fitCenter"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            app:srcCompat="@drawable/bici"
+            android:id="@+id/imageButton4"
+            android:layout_weight="2" />
+    </LinearLayout>
+    <LinearLayout
+        android:weightSum="10"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:scaleType="fitCenter"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="80dp"
+            app:srcCompat="@drawable/bus"
+            android:id="@+id/imageButton3" />
+
+        <ImageButton
+            android:scaleType="fitCenter"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="4"
+            app:srcCompat="@drawable/truck"
+            android:id="@+id/imageButton5" />
+        <ImageButton
+            android:scaleType="fitCenter"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/pessoa"
+            android:id="@+id/imageButton6" />
+
+
+    </LinearLayout>
+</LinearLayout>
