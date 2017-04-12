@@ -16,19 +16,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
         <org.osmdroid.views.MapView android:id="@+id/map"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
         <br.com.homembala.dedos.Panel
             android:id="@+id/drawing_panel"
             android:background="#0ff0"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/vehicles_canvas"
             android:orientation="vertical"
-            android:background="#00ff0000">
+            android:background="#00ff0000"
+            android:animateLayoutChanges="true"
+            >
+            <ImageButton
+                android:id="@+id/show_pallette"
+                android:layout_margin="10dp"
+                android:src="@drawable/down"
+                android:background="@drawable/round"
+                android:layout_width="32dp"
+                android:layout_height="32dp" />
+            <include layout="@layout/pallette"/>
             <RelativeLayout
                 android:visibility="gone"
                 android:id="@+id/vehicles_pallete"
@@ -37,7 +47,7 @@
                 android:layout_height="130dp"
                 android:layout_margin="5dp">
             </RelativeLayout>
-        </RelativeLayout>
+        </LinearLayout>
     </FrameLayout>
 
 </LinearLayout>
