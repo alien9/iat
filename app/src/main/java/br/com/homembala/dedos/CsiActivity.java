@@ -5,11 +5,19 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -27,6 +35,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.osmdroid.api.IGeoPoint;
+import org.osmdroid.bonuspack.overlays.GroundOverlay;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.events.DelayedMapListener;
 import org.osmdroid.events.MapListener;
@@ -41,6 +50,8 @@ import org.osmdroid.views.Projection;
 import org.osmdroid.views.overlay.Overlay;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Hashtable;
 
@@ -82,7 +93,7 @@ public class CsiActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         ((Iat) getApplicationContext()).startGPS(this);
         ((Panel) findViewById(R.id.drawing_panel)).setVisibility(View.GONE);
-        //findViewById(R.id.vehicles_canvas).setVisibility(View.GONE);
+        findViewById(R.id.vehicles_canvas).setDrawingCacheEnabled(true);
         final MapView map = (MapView) findViewById(R.id.map);
         String u="http://bigrs.alien9.net:8080/geoserver/gwc/service/tms/1.0.0/";
         map.setTileSource(new GeoServerTileSource("geoserver", 17, 21, 512, ".png", new String[]{u}));
@@ -143,7 +154,7 @@ public class CsiActivity extends AppCompatActivity {
         //carros vêm na intention
         vehicles=new JSONArray();
 
-        for(int i=0;i<2;i++) {
+        /*for(int i=0;i<2;i++) {
             JSONObject v = new JSONObject();
             try {
                 v.put("model", Vehicle.CARRO);
@@ -160,7 +171,7 @@ public class CsiActivity extends AppCompatActivity {
                 v.put("length", 2.5);
             } catch (JSONException e) {}
             vehicles.put(v);
-        }
+        }*/
 
         //loadVehicles();
 
@@ -186,8 +197,10 @@ public class CsiActivity extends AppCompatActivity {
                 int id=view.getId();
                 switch(id){
                     case R.id.imageButton_carro:
-                        loadVehicle(Vehicle.CARRO,2.8,4.4);
-
+                        loadVehicle(Vehicle.CARRO,2.8,5.4);
+                        break;
+                    case R.id.imageButton_moto:
+                        loadVehicle(Vehicle.MOTO,2.8,4.4);
                         break;
 
 
@@ -453,6 +466,8 @@ public class CsiActivity extends AppCompatActivity {
     protected void saveVehicles() {
         try {
             ViewGroup o = ((ViewGroup) findViewById(R.id.vehicles_canvas));
+            Bitmap bi = o.getDrawingCache();
+            bi.compress(Bitmap.CompressFormat.PNG, 95, new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + "/screen.png"));
             MapView map = (MapView) findViewById(R.id.map);
             for (int i = 0; i < vehicles.length(); i++) {
                 JSONObject v = vehicles.optJSONObject(i);
@@ -467,7 +482,28 @@ public class CsiActivity extends AppCompatActivity {
                     vehicles.put(i, v);
                 }
             }
+
+            BoundingBox b = map.getBoundingBox();
+            Double[] p1 = degrees2meters(b.getLonEast(), b.getLatSouth());
+            Double[] p2 = degrees2meters(b.getLonWest(), b.getLatNorth());
+
+            GroundOverlay over = new GroundOverlay();
+            IGeoPoint position = map.getMapCenter();
+            over.setPosition((GeoPoint) position);
+            over.setImage(new BitmapDrawable(getResources(),bi));
+            Point point_se = null;
+            point_se=map.getProjection().toPixels(new GeoPoint(b.getLatSouth(),b.getLonEast()),point_se);
+            Point point_nw = null;
+            point_nw=map.getProjection().toPixels(new GeoPoint(b.getLatNorth(),b.getLonWest()),point_nw);
+            //over.setDimensions((float) b.getLongitudeSpan(),(float)b.getLatitudeSpan());
+//            over.setDimensions((float) (map.getWidth()*Math.pow(2.0f, map.getZoomLevel()) / (20037508.34)));
+            map.getOverlays().add(over);
+            over.setDimensions((float)(p1[0]-p2[0]),(float) (p2[1]-p1[1]));
+            map.getOverlays().add(over);
+            map.invalidate();
         } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         ((Iat)getApplicationContext()).setSelectedVehicle(null);

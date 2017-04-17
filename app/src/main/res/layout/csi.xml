@@ -23,10 +23,10 @@
             android:background="#0ff0"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/vehicles_canvas"
+            android:id="@+id/vehicles_layout"
             android:orientation="vertical"
             android:background="#00ff0000"
             android:animateLayoutChanges="true"
@@ -39,15 +39,23 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp" />
             <include layout="@layout/pallette"/>
-            <RelativeLayout
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/vehicles_canvas"
+                />
+
+            <LinearLayout
+                android:orientation="vertical"
                 android:visibility="gone"
                 android:id="@+id/vehicles_pallete"
                 android:layout_width="match_parent"
                 android:background="#fff"
                 android:layout_height="130dp"
                 android:layout_margin="5dp">
-            </RelativeLayout>
-        </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
     </FrameLayout>
 
 </LinearLayout>

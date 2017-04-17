@@ -36,7 +36,7 @@
         android:name="android.hardware.wifi"
         android:required="false" />
 
-    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name="br.com.homembala.dedos.Iat"
