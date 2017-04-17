@@ -1,5 +1,6 @@
 package br.com.homembala.dedos;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -70,11 +71,13 @@ public class CsiActivity extends AppCompatActivity {
 
     private boolean is_updating_closeup;
     private JSONArray vehicles;
+    private Context context;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.csi);
+        context=this;
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         ((Iat) getApplicationContext()).startGPS(this);
@@ -159,11 +162,8 @@ public class CsiActivity extends AppCompatActivity {
             vehicles.put(v);
         }
 
-        loadVehicles();
-        //Vehicle carrinho=new Vehicle(this, findViewById(R.id.vehicles_canvas),width,height);
-        //((ViewGroup)findViewById(R.id.vehicles_canvas)).addView(carrinho);
-        //carrinho=new Vehicle(this, findViewById(R.id.vehicles_canvas),width,height);
-        //((ViewGroup)findViewById(R.id.vehicles_canvas)).addView(carrinho);
+        //loadVehicles();
+
         current_mode=MAP;
         ((ImageButton)findViewById(R.id.show_pallette)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,6 +183,15 @@ public class CsiActivity extends AppCompatActivity {
         View.OnClickListener cl = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int id=view.getId();
+                switch(id){
+                    case R.id.imageButton_carro:
+                        loadVehicle(Vehicle.CARRO,2.8,4.4);
+
+                        break;
+
+
+                }
                 findViewById(R.id.show_pallette).setVisibility(View.VISIBLE);
                 findViewById(R.id.palette_layout).setVisibility(View.GONE);
             }
@@ -295,7 +304,7 @@ public class CsiActivity extends AppCompatActivity {
                 break;
             case R.id.mode_vehicles:
                 current_mode=VEHICLES;
-                loadVehicles();
+                //loadVehicles();
                 findViewById(R.id.drawing_panel).setVisibility(View.VISIBLE);
                 findViewById(R.id.vehicles_canvas).setVisibility(View.VISIBLE);
                 ((Panel)findViewById(R.id.drawing_panel)).setLigado(false);
@@ -463,6 +472,23 @@ public class CsiActivity extends AppCompatActivity {
         }
         ((Iat)getApplicationContext()).setSelectedVehicle(null);
     }
+    protected void loadVehicle(int model,double width,double length){
+        MapView map = (MapView) findViewById(R.id.map);
+        BoundingBox b = map.getBoundingBox();
+        float[] results = new float[1];
+        Location.distanceBetween(b.getLatNorth(),b.getLonWest(),b.getLatSouth(),b.getLonEast(),results);
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        double diagonal = Math.sqrt(Math.pow(size.x,2.0) + Math.pow(size.y,2.0));
+        double pixels_per_m = diagonal / results[0];
+        int w = (int) (width * pixels_per_m);
+        int l = (int) (length * pixels_per_m);
+        Vehicle v = new Vehicle(context, findViewById(R.id.vehicles_canvas), w, l, model,0);
+        ((ViewGroup) findViewById(R.id.vehicles_canvas)).addView((View) v);
+
+    }
+
     protected void loadVehicles() {
         ((Iat)getApplicationContext()).setSelectedVehicle(null);
         ViewGroup o = ((ViewGroup) findViewById(R.id.vehicles_canvas));
@@ -480,7 +506,6 @@ public class CsiActivity extends AppCompatActivity {
         Point size = new Point();
         display.getSize(size);
         double diagonal = Math.sqrt(Math.pow(size.x,2.0) + Math.pow(size.y,2.0));
-
         double pixels_per_m = diagonal / results[0];
         for (int i = 0; i < vehicles.length(); i++) {
             int width = (int) (vehicles.optJSONObject(i).optDouble("width") * pixels_per_m);//1000 * Math.pow(2.0, map.getZoomLevel()) / (2 * 20037508.34));

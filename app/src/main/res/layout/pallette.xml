@@ -15,24 +15,27 @@
         android:layout_height="wrap_content">
         <ImageButton
             android:scaleType="fitCenter"
+            android:background="@color/transparent"
             android:layout_weight="6"
             app:srcCompat="@drawable/carro"
-            android:id="@+id/imageButton"
+            android:id="@+id/imageButton_carro"
             android:layout_height="80dp"
             android:layout_width="0dp" />
         <ImageButton
             android:scaleType="fitCenter"
+            android:background="@color/transparent"
             android:layout_width="0dp"
             android:layout_height="80dp"
             app:srcCompat="@drawable/motorcycle"
-            android:id="@+id/imageButton2"
+            android:id="@+id/imageButton_moto"
             android:layout_weight="2" />
         <ImageButton
             android:scaleType="fitCenter"
+            android:background="@color/transparent"
             android:layout_width="0dp"
             android:layout_height="80dp"
             app:srcCompat="@drawable/bici"
-            android:id="@+id/imageButton4"
+            android:id="@+id/imageButton_bici"
             android:layout_weight="2" />
     </LinearLayout>
     <LinearLayout
@@ -42,27 +45,28 @@
         android:layout_height="wrap_content">
         <ImageButton
             android:scaleType="fitCenter"
+            android:background="@color/transparent"
             android:layout_width="0dp"
             android:layout_weight="5"
             android:layout_height="80dp"
             app:srcCompat="@drawable/bus"
-            android:id="@+id/imageButton3" />
+            android:id="@+id/imageButton_onibus" />
 
         <ImageButton
             android:scaleType="fitCenter"
+            android:background="@color/transparent"
             android:layout_width="0dp"
             android:layout_height="80dp"
             android:layout_weight="4"
             app:srcCompat="@drawable/truck"
-            android:id="@+id/imageButton5" />
+            android:id="@+id/imageButton_caminhao" />
         <ImageButton
             android:scaleType="fitCenter"
+            android:background="@color/transparent"
             android:layout_width="0dp"
             android:layout_height="80dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/pessoa"
-            android:id="@+id/imageButton6" />
-
-
+            android:id="@+id/imageButton_vitima" />
     </LinearLayout>
 </LinearLayout>
