@@ -5,14 +5,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.Paint;
 import android.graphics.Point;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -83,6 +77,7 @@ public class CsiActivity extends AppCompatActivity {
     private boolean is_updating_closeup;
     private JSONArray vehicles;
     private Context context;
+    private GroundOverlay vehicles_zooming_over;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -141,6 +136,22 @@ public class CsiActivity extends AppCompatActivity {
                 return true;
             }
         }, 1000 ));
+        map.setMapListener(new MapListener() {
+            @Override
+            public boolean onScroll(ScrollEvent scrollEvent) {
+                if(vehicles_zooming_over==null)
+                    saveVehicles();
+                return false;
+            }
+
+            @Override
+            public boolean onZoom(ZoomEvent zoomEvent) {
+                if(vehicles_zooming_over==null)
+                    saveVehicles();
+                return false;
+            }
+        });
+
         is_updating_labels =false;
         update_labels_after =false;
         is_updating_closeup=false;
@@ -210,8 +221,7 @@ public class CsiActivity extends AppCompatActivity {
             }
         };
         setDescendentOnClickListener((ViewGroup) findViewById(R.id.palette_layout),cl);
-
-    }
+   }
 
     private void setDescendentOnClickListener(ViewGroup gw, View.OnClickListener cl) {
         for(int i=0;i<gw.getChildCount();i++) {
@@ -317,10 +327,7 @@ public class CsiActivity extends AppCompatActivity {
                 break;
             case R.id.mode_vehicles:
                 current_mode=VEHICLES;
-                //loadVehicles();
-                findViewById(R.id.drawing_panel).setVisibility(View.VISIBLE);
-                findViewById(R.id.vehicles_canvas).setVisibility(View.VISIBLE);
-                ((Panel)findViewById(R.id.drawing_panel)).setLigado(false);
+                loadVehicles();
                 ligaCarros(true);
                 break;
             case R.id.tombar_veiculo:
@@ -465,13 +472,22 @@ public class CsiActivity extends AppCompatActivity {
     }
     protected void saveVehicles() {
         try {
+            MapView map = (MapView) findViewById(R.id.map);
+            if(vehicles_zooming_over!=null){
+                map.getOverlays().remove(vehicles_zooming_over);
+                vehicles_zooming_over=null;
+            }
             ViewGroup o = ((ViewGroup) findViewById(R.id.vehicles_canvas));
             Bitmap bi = o.getDrawingCache();
+            if(bi==null)return;
             bi.compress(Bitmap.CompressFormat.PNG, 95, new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + "/screen.png"));
-            MapView map = (MapView) findViewById(R.id.map);
-            for (int i = 0; i < vehicles.length(); i++) {
+            for (int i = 0; i < o.getChildCount(); i++) {
                 JSONObject v = vehicles.optJSONObject(i);
-                Vehicle vw = (Vehicle) o.getChildAt(i + 1);
+                if(v==null){
+                    v=new JSONObject();
+                    vehicles.put(i,v);
+                }
+                Vehicle vw = (Vehicle) o.getChildAt(i);
                 if(vw.getMexido()) {
                     JSONObject position = vw.getPosition();
                     IGeoPoint latlng = map.getProjection().fromPixels(position.getInt("x"), position.getInt("y"));
@@ -482,24 +498,19 @@ public class CsiActivity extends AppCompatActivity {
                     vehicles.put(i, v);
                 }
             }
+            o.removeAllViews();
 
             BoundingBox b = map.getBoundingBox();
             Double[] p1 = degrees2meters(b.getLonEast(), b.getLatSouth());
             Double[] p2 = degrees2meters(b.getLonWest(), b.getLatNorth());
+            Double[] p3 = degrees2meters(b.getLonWest(), b.getLatSouth());
 
-            GroundOverlay over = new GroundOverlay();
+            vehicles_zooming_over = new CsiGroundOverlay().setBounds(b);
             IGeoPoint position = map.getMapCenter();
-            over.setPosition((GeoPoint) position);
-            over.setImage(new BitmapDrawable(getResources(),bi));
-            Point point_se = null;
-            point_se=map.getProjection().toPixels(new GeoPoint(b.getLatSouth(),b.getLonEast()),point_se);
-            Point point_nw = null;
-            point_nw=map.getProjection().toPixels(new GeoPoint(b.getLatNorth(),b.getLonWest()),point_nw);
-            //over.setDimensions((float) b.getLongitudeSpan(),(float)b.getLatitudeSpan());
-//            over.setDimensions((float) (map.getWidth()*Math.pow(2.0f, map.getZoomLevel()) / (20037508.34)));
-            map.getOverlays().add(over);
-            over.setDimensions((float)(p1[0]-p2[0]),(float) (p2[1]-p1[1]));
-            map.getOverlays().add(over);
+
+            vehicles_zooming_over.setImage(new BitmapDrawable(getResources(),bi));
+            vehicles_zooming_over.setPosition((GeoPoint) position);
+            map.getOverlays().add(vehicles_zooming_over);
             map.invalidate();
         } catch (JSONException e) {
             e.printStackTrace();
