@@ -3,6 +3,15 @@
 
     <item
         is-multidex="true"
+        jar="/home/tiago/.android/build-cache/fa4f16a14b68c08e3279edfd79ffd61d48a03750/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="fc29308a7a8f6d4407b34634eb48fb8b817f9b23">
+        <dex dex="/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_8d38273538c2601eb5f2d7903d772aec8a941c5f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/home/tiago/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.3.2/90a3822c38ec8c996e84c16a3477ef632cbc87a3/commons-lang3-3.3.2.jar"
         jumboMode="true"
         optimize="true"
@@ -30,6 +39,42 @@
     </item>
     <item
         is-multidex="true"
+        jar="/home/tiago/.android/build-cache/caefebb038d2bd55e5837afbb90e9f761ca3ebbf/output/jars/libs/internal_impl-24.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="fcaf463e10e69c1923ccf1edeba3b4196d239e00">
+        <dex dex="/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.0.0_47cfcc7b4260cdb3c791da98b6066dbdd551743f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tiago/.android/build-cache/caefebb038d2bd55e5837afbb90e9f761ca3ebbf/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="2f7e6e2dad1bccaf68a8820820adc6c0d5b96d37">
+        <dex dex="/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_479d6d9fd19c8263a314dd1e1754439c8efb972a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="0874286cc2fd88d54fdf130e9d5372730da6de97">
+        <dex dex="/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_32ffa4e6ad6a9e3dda0ef1306cfe30a27de185b5/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tiago/.android/build-cache/77873f83fab43603878d11dab26df72ed010b4a6/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="894922f67adeaaef51f077a29e315da21a3382d3">
+        <dex dex="/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_54b54be036e97581fe1ed711469544ce8dd6827c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/home/tiago/.android/build-cache/127975131e48a7011e757a565e3509d091b8da84/output/jars/classes.jar"
         jumboMode="true"
         optimize="true"
@@ -45,6 +90,24 @@
         revision="25.0.0"
         sha1="751f548c85fa49f330cecbb1875893f971b33c4e">
         <dex dex="/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10/gson-2.7_c093b6db0e31338244a3efcf92c69e0cf1be59a4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tiago/.android/build-cache/8ea3d0449742a4ad59ce30069eebb88cf301d4aa/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e70f608219ed6b974644c333249ab2bb7b71de98">
+        <dex dex="/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_2b4fb76e658cafa48cc4ebd8ae7d499995719f0f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tiago/.android/build-cache/8df0f9847151af3f5bf037ff1fe9965b8f3f74e5/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3bd97cfefd783e9de1dd1c30574a6adb44b4409b">
+        <dex dex="/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_47be69339484832f81c72bdac2a86eb048ade671/classes.dex" />
     </item>
     <item
         is-multidex="true"

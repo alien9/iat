@@ -17,17 +17,17 @@ ADDED from /home/tiago/works/Dedos/app/src/main/AndroidManifest.xml:2:1-41:12
 		ADDED from /home/tiago/works/Dedos/app/src/main/AndroidManifest.xml:2:11-69
 uses-sdk
 ADDED from /home/tiago/works/Dedos/app/src/main/AndroidManifest.xml:6:5-44
-MERGED from [com.android.support:design:24.0.0] /home/tiago/.android/build-cache/64f8acadbdf62be019b50539e3ba3b29bac3a8c3/output/AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:recyclerview-v7:24.0.0] /home/tiago/.android/build-cache/330a792fecca0b61598e0817dcf9ec71c5172fc5/output/AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:appcompat-v7:24.0.0] /home/tiago/.android/build-cache/560a5f3c8f04ce74b9919c7ec1611dd61ba59d9d/output/AndroidManifest.xml:21:5-23:78
-MERGED from [com.android.support:animated-vector-drawable:24.0.0] /home/tiago/.android/build-cache/b31edf7b74f80740c5308345d6a098af627ea24f/output/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-vector-drawable:24.0.0] /home/tiago/.android/build-cache/06c007987ceacc7ebcdca49b07720b9090069761/output/AndroidManifest.xml:21:5-43
+MERGED from [com.android.support:design:24.0.0] /home/tiago/.android/build-cache/fa4f16a14b68c08e3279edfd79ffd61d48a03750/output/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:24.0.0] /home/tiago/.android/build-cache/77873f83fab43603878d11dab26df72ed010b4a6/output/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:appcompat-v7:24.0.0] /home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:animated-vector-drawable:24.0.0] /home/tiago/.android/build-cache/8ea3d0449742a4ad59ce30069eebb88cf301d4aa/output/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:24.0.0] /home/tiago/.android/build-cache/8df0f9847151af3f5bf037ff1fe9965b8f3f74e5/output/AndroidManifest.xml:21:5-43
 MERGED from [com.android.volley:volley:1.0.0] /home/tiago/.android/build-cache/8d842b94b36063b1a4a9ac2ccdb82b2f7331f8e9/output/AndroidManifest.xml:7:5-43
 MERGED from [com.github.MKergall:osmbonuspack:6.3] /home/tiago/.android/build-cache/81226720d48fee0927a8e41c2ed90f5adefd8e7b/output/AndroidManifest.xml:7:5-9:41
-MERGED from [com.android.support:support-v4:24.0.0] /home/tiago/.android/build-cache/4afa70f6eaa1bd5308d4597f6f88b60db5cef2b3/output/AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-v4:24.0.0] /home/tiago/.android/build-cache/caefebb038d2bd55e5837afbb90e9f761ca3ebbf/output/AndroidManifest.xml:21:5-23:54
 MERGED from [org.osmdroid:osmdroid-android:5.6.4] /home/tiago/.android/build-cache/127975131e48a7011e757a565e3509d091b8da84/output/AndroidManifest.xml:7:5-9:41
 	tools:overrideLibrary
-		ADDED from [com.android.support:appcompat-v7:24.0.0] /home/tiago/.android/build-cache/560a5f3c8f04ce74b9919c7ec1611dd61ba59d9d/output/AndroidManifest.xml:23:9-75
+		ADDED from [com.android.support:appcompat-v7:24.0.0] /home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/AndroidManifest.xml:23:9-75
 	android:targetSdkVersion
 		INJECTED from /home/tiago/works/Dedos/app/src/main/AndroidManifest.xml
 		INJECTED from /home/tiago/works/Dedos/app/src/main/AndroidManifest.xml
@@ -76,13 +76,13 @@ MERGED from [org.osmdroid:osmdroid-android:5.6.4] /home/tiago/.android/build-cac
 		ADDED from /home/tiago/works/Dedos/app/src/main/AndroidManifest.xml:15:19-63
 application
 ADDED from /home/tiago/works/Dedos/app/src/main/AndroidManifest.xml:16:5-40:19
-MERGED from [com.android.support:design:24.0.0] /home/tiago/.android/build-cache/64f8acadbdf62be019b50539e3ba3b29bac3a8c3/output/AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:appcompat-v7:24.0.0] /home/tiago/.android/build-cache/560a5f3c8f04ce74b9919c7ec1611dd61ba59d9d/output/AndroidManifest.xml:25:5-20
-MERGED from [com.android.support:animated-vector-drawable:24.0.0] /home/tiago/.android/build-cache/b31edf7b74f80740c5308345d6a098af627ea24f/output/AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:support-vector-drawable:24.0.0] /home/tiago/.android/build-cache/06c007987ceacc7ebcdca49b07720b9090069761/output/AndroidManifest.xml:23:5-20
+MERGED from [com.android.support:design:24.0.0] /home/tiago/.android/build-cache/fa4f16a14b68c08e3279edfd79ffd61d48a03750/output/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:appcompat-v7:24.0.0] /home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:animated-vector-drawable:24.0.0] /home/tiago/.android/build-cache/8ea3d0449742a4ad59ce30069eebb88cf301d4aa/output/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-vector-drawable:24.0.0] /home/tiago/.android/build-cache/8df0f9847151af3f5bf037ff1fe9965b8f3f74e5/output/AndroidManifest.xml:23:5-20
 MERGED from [com.android.volley:volley:1.0.0] /home/tiago/.android/build-cache/8d842b94b36063b1a4a9ac2ccdb82b2f7331f8e9/output/AndroidManifest.xml:9:5-20
 MERGED from [com.github.MKergall:osmbonuspack:6.3] /home/tiago/.android/build-cache/81226720d48fee0927a8e41c2ed90f5adefd8e7b/output/AndroidManifest.xml:11:5-20
-MERGED from [com.android.support:support-v4:24.0.0] /home/tiago/.android/build-cache/4afa70f6eaa1bd5308d4597f6f88b60db5cef2b3/output/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-v4:24.0.0] /home/tiago/.android/build-cache/caefebb038d2bd55e5837afbb90e9f761ca3ebbf/output/AndroidManifest.xml:25:5-20
 	android:label
 		ADDED from /home/tiago/works/Dedos/app/src/main/AndroidManifest.xml:20:9-32
 	android:hardwareAccelerated
