@@ -2735,7 +2735,7 @@ containing a value of this type.
         public static final int showCustom=0x7f0b0011;
         public static final int showHome=0x7f0b0012;
         public static final int showTitle=0x7f0b0013;
-        public static final int show_pallette=0x7f0b0081;
+        public static final int show_pallette=0x7f0b0082;
         public static final int snackbar_action=0x7f0b0087;
         public static final int snackbar_text=0x7f0b0086;
         public static final int snap=0x7f0b0019;
@@ -2770,7 +2770,7 @@ containing a value of this type.
         public static final int touch_outside=0x7f0b0084;
         public static final int up=0x7f0b0009;
         public static final int useLogo=0x7f0b0014;
-        public static final int vehicles_canvas=0x7f0b0082;
+        public static final int vehicles_canvas=0x7f0b0081;
         public static final int vehicles_layout=0x7f0b0080;
         public static final int vehicles_pallete=0x7f0b0083;
         public static final int view_offset_helper=0x7f0b000a;
