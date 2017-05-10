@@ -4,7 +4,7 @@
     <item android:id="@+id/labels"
         android:title="@string/show_labels"
         android:checkable="true" />
-    <group>
+    <group android:checkableBehavior="single">
         <item android:id="@+id/mode_map" android:title="@string/mode_map" android:checkable="true"/>
         <item android:id="@+id/mode_freehand" android:title="@string/mode_freehand" android:checkable="true"/>
         <item android:id="@+id/mode_vehicles" android:title="@string/mode_vehicles" android:checkable="true"/>

@@ -29,6 +29,8 @@ public class Vehicle extends View {
     public static final int ONIBUS = 2;
     public static final int MOTO = 3;
     public static final int PEDESTRE = 4;
+    public static final int BICI = 5;
+
 
     private final double width;
     private final double height;
@@ -89,21 +91,56 @@ public class Vehicle extends View {
             case MOTO:
                 switch(roll) {
                     case 0:
-                        this.setBackground(ContextCompat.getDrawable(context, R.drawable.motorcycle_000));
-                        break;
-                    case 1:
                         this.setBackground(ContextCompat.getDrawable(context, R.drawable.motorcycle_090));
                         break;
-                    case 2:
+                    case 1:
                         this.setBackground(ContextCompat.getDrawable(context, R.drawable.motorcycle_180));
                         break;
-                    case 3:
+                    case 2:
                         this.setBackground(ContextCompat.getDrawable(context, R.drawable.motorcycle_270));
+                        break;
+                    case 3:
+                        this.setBackground(ContextCompat.getDrawable(context, R.drawable.motorcycle_000));
                         break;
                 }
                 break;
-        }
+            case ONIBUS:
+                switch(roll){
+                    case 0:
+                        this.setBackground(ContextCompat.getDrawable(context,R.drawable.bus_000));
+                        break;
+                    case 1:
+                        this.setBackground(ContextCompat.getDrawable(context,R.drawable.bus_090));
+                        break;
+                    case 2:
+                        this.setBackground(ContextCompat.getDrawable(context,R.drawable.bus_180));
+                        break;
+                    case 3:
+                        this.setBackground(ContextCompat.getDrawable(context,R.drawable.bus_270));
+                        break;
 
+                }
+                break;
+            case CAMINHAO:
+                switch(roll){
+                    case 0:
+                        this.setBackground(ContextCompat.getDrawable(context,R.drawable.truck_000));
+                        break;
+                    case 1:
+                        this.setBackground(ContextCompat.getDrawable(context,R.drawable.truck_090));
+                        break;
+                    case 2:
+                        this.setBackground(ContextCompat.getDrawable(context,R.drawable.truck_000));
+                        break;
+                    case 3:
+                        this.setBackground(ContextCompat.getDrawable(context,R.drawable.truck_270));
+                        break;
+                }
+                break;
+            case PEDESTRE:
+                this.setBackground(ContextCompat.getDrawable(context,R.drawable.pessoa));
+                break;
+        }
     }
 
     public void liga(boolean l){

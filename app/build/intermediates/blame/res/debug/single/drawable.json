@@ -1,6 +1,7 @@
 [
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_holo_light.xml",
+<<<<<<< HEAD
         "source": "/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/res/drawable/abc_list_selector_holo_light.xml"
     },
     {
@@ -10,13 +11,25 @@
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_background_transition_holo_light.xml",
         "source": "/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/res/drawable/abc_list_selector_background_transition_holo_light.xml"
+=======
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_list_selector_holo_light.xml"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_tab_indicator_material.xml",
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_tab_indicator_material.xml"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_background_transition_holo_light.xml",
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_list_selector_background_transition_holo_light.xml"
+>>>>>>> 6e728f589dab7ca7e85f4ecb868dfd46e01bd0c6
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/ic_menu_compass.png",
-        "source": "/home/tiago/.android/build-cache/127975131e48a7011e757a565e3509d091b8da84/output/res/drawable/ic_menu_compass.png"
+        "source": "/home/tiago/.android/build-cache/e35316bdf0b9f8b386086913580d62f2e5e34b4c/output/res/drawable/ic_menu_compass.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_ic_ab_back_material.xml",
+<<<<<<< HEAD
         "source": "/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/res/drawable/abc_ic_ab_back_material.xml"
     },
     {
@@ -26,22 +39,37 @@
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_item_background_holo_light.xml",
         "source": "/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/res/drawable/abc_item_background_holo_light.xml"
+=======
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_ic_ab_back_material.xml"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_ic_go_search_api_material.xml",
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_ic_go_search_api_material.xml"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_item_background_holo_light.xml",
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_item_background_holo_light.xml"
+>>>>>>> 6e728f589dab7ca7e85f4ecb868dfd46e01bd0c6
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/ic_menu_offline.png",
-        "source": "/home/tiago/.android/build-cache/127975131e48a7011e757a565e3509d091b8da84/output/res/drawable/ic_menu_offline.png"
+        "source": "/home/tiago/.android/build-cache/e35316bdf0b9f8b386086913580d62f2e5e34b4c/output/res/drawable/ic_menu_offline.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_ic_voice_search_api_material.xml",
+<<<<<<< HEAD
         "source": "/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/res/drawable/abc_ic_voice_search_api_material.xml"
+=======
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_ic_voice_search_api_material.xml"
+>>>>>>> 6e728f589dab7ca7e85f4ecb868dfd46e01bd0c6
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/zoom_in.png",
-        "source": "/home/tiago/.android/build-cache/127975131e48a7011e757a565e3509d091b8da84/output/res/drawable/zoom_in.png"
+        "source": "/home/tiago/.android/build-cache/e35316bdf0b9f8b386086913580d62f2e5e34b4c/output/res/drawable/zoom_in.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/marker_default.png",
-        "source": "/home/tiago/.android/build-cache/127975131e48a7011e757a565e3509d091b8da84/output/res/drawable/marker_default.png"
+        "source": "/home/tiago/.android/build-cache/e35316bdf0b9f8b386086913580d62f2e5e34b4c/output/res/drawable/marker_default.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/carro.png",
@@ -53,7 +81,11 @@
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_ratingbar_small_material.xml",
+<<<<<<< HEAD
         "source": "/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/res/drawable/abc_ratingbar_small_material.xml"
+=======
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_ratingbar_small_material.xml"
+>>>>>>> 6e728f589dab7ca7e85f4ecb868dfd46e01bd0c6
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/down.png",
@@ -61,7 +93,7 @@
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/marker_default_focused_base.png",
-        "source": "/home/tiago/.android/build-cache/127975131e48a7011e757a565e3509d091b8da84/output/res/drawable/marker_default_focused_base.png"
+        "source": "/home/tiago/.android/build-cache/e35316bdf0b9f8b386086913580d62f2e5e34b4c/output/res/drawable/marker_default_focused_base.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/bus_000.png",
@@ -73,7 +105,11 @@
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_textfield_search_material.xml",
+<<<<<<< HEAD
         "source": "/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/res/drawable/abc_textfield_search_material.xml"
+=======
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_textfield_search_material.xml"
+>>>>>>> 6e728f589dab7ca7e85f4ecb868dfd46e01bd0c6
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/truck_090.png",
@@ -81,7 +117,11 @@
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_ic_search_api_material.xml",
+<<<<<<< HEAD
         "source": "/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/res/drawable/abc_ic_search_api_material.xml"
+=======
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_ic_search_api_material.xml"
+>>>>>>> 6e728f589dab7ca7e85f4ecb868dfd46e01bd0c6
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/motorcycle_090.png",
@@ -89,7 +129,11 @@
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_item_background_holo_dark.xml",
+<<<<<<< HEAD
         "source": "/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/res/drawable/abc_item_background_holo_dark.xml"
+=======
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_item_background_holo_dark.xml"
+>>>>>>> 6e728f589dab7ca7e85f4ecb868dfd46e01bd0c6
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/bus_090.png",
@@ -97,7 +141,11 @@
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_ic_arrow_drop_right_black_24dp.xml",
+<<<<<<< HEAD
         "source": "/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/res/drawable/abc_ic_arrow_drop_right_black_24dp.xml"
+=======
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_ic_arrow_drop_right_black_24dp.xml"
+>>>>>>> 6e728f589dab7ca7e85f4ecb868dfd46e01bd0c6
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/bici.png",
@@ -109,15 +157,23 @@
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_spinner_textfield_background_material.xml",
+<<<<<<< HEAD
         "source": "/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/res/drawable/abc_spinner_textfield_background_material.xml"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_track_material.xml",
         "source": "/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/res/drawable/abc_seekbar_track_material.xml"
+=======
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_spinner_textfield_background_material.xml"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_track_material.xml",
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_seekbar_track_material.xml"
+>>>>>>> 6e728f589dab7ca7e85f4ecb868dfd46e01bd0c6
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/zoom_out.png",
-        "source": "/home/tiago/.android/build-cache/127975131e48a7011e757a565e3509d091b8da84/output/res/drawable/zoom_out.png"
+        "source": "/home/tiago/.android/build-cache/e35316bdf0b9f8b386086913580d62f2e5e34b4c/output/res/drawable/zoom_out.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/motorcycle_270.png",
@@ -125,15 +181,19 @@
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/previous.png",
-        "source": "/home/tiago/.android/build-cache/127975131e48a7011e757a565e3509d091b8da84/output/res/drawable/previous.png"
+        "source": "/home/tiago/.android/build-cache/e35316bdf0b9f8b386086913580d62f2e5e34b4c/output/res/drawable/previous.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_holo_dark.xml",
+<<<<<<< HEAD
         "source": "/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/res/drawable/abc_list_selector_holo_dark.xml"
+=======
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_list_selector_holo_dark.xml"
+>>>>>>> 6e728f589dab7ca7e85f4ecb868dfd46e01bd0c6
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/person.png",
-        "source": "/home/tiago/.android/build-cache/127975131e48a7011e757a565e3509d091b8da84/output/res/drawable/person.png"
+        "source": "/home/tiago/.android/build-cache/e35316bdf0b9f8b386086913580d62f2e5e34b4c/output/res/drawable/person.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/bici090.png",
@@ -141,7 +201,7 @@
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/center.png",
-        "source": "/home/tiago/.android/build-cache/127975131e48a7011e757a565e3509d091b8da84/output/res/drawable/center.png"
+        "source": "/home/tiago/.android/build-cache/e35316bdf0b9f8b386086913580d62f2e5e34b4c/output/res/drawable/center.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/pessoa.png",
@@ -149,7 +209,7 @@
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/direction_arrow.png",
-        "source": "/home/tiago/.android/build-cache/127975131e48a7011e757a565e3509d091b8da84/output/res/drawable/direction_arrow.png"
+        "source": "/home/tiago/.android/build-cache/e35316bdf0b9f8b386086913580d62f2e5e34b4c/output/res/drawable/direction_arrow.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/motorcycle_180.png",
@@ -165,6 +225,7 @@
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/design_fab_background.xml",
+<<<<<<< HEAD
         "source": "/home/tiago/.android/build-cache/fa4f16a14b68c08e3279edfd79ffd61d48a03750/output/res/drawable/design_fab_background.xml"
     },
     {
@@ -174,6 +235,17 @@
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_ic_menu_overflow_material.xml",
         "source": "/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/res/drawable/abc_ic_menu_overflow_material.xml"
+=======
+        "source": "/home/tiago/.android/build-cache/d362b4aed135b23ff3909a89db1ac8aa41ae5691/output/res/drawable/design_fab_background.xml"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_ratingbar_indicator_material.xml",
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_ratingbar_indicator_material.xml"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_ic_menu_overflow_material.xml",
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_ic_menu_overflow_material.xml"
+>>>>>>> 6e728f589dab7ca7e85f4ecb868dfd46e01bd0c6
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/motorcycle_000.png",
@@ -181,19 +253,23 @@
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/btn_moreinfo.xml",
-        "source": "/home/tiago/.android/build-cache/127975131e48a7011e757a565e3509d091b8da84/output/res/drawable/btn_moreinfo.xml"
+        "source": "/home/tiago/.android/build-cache/e35316bdf0b9f8b386086913580d62f2e5e34b4c/output/res/drawable/btn_moreinfo.xml"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/next.png",
-        "source": "/home/tiago/.android/build-cache/127975131e48a7011e757a565e3509d091b8da84/output/res/drawable/next.png"
+        "source": "/home/tiago/.android/build-cache/e35316bdf0b9f8b386086913580d62f2e5e34b4c/output/res/drawable/next.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/ic_menu_mapmode.png",
-        "source": "/home/tiago/.android/build-cache/127975131e48a7011e757a565e3509d091b8da84/output/res/drawable/ic_menu_mapmode.png"
+        "source": "/home/tiago/.android/build-cache/e35316bdf0b9f8b386086913580d62f2e5e34b4c/output/res/drawable/ic_menu_mapmode.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_cab_background_internal_bg.xml",
+<<<<<<< HEAD
         "source": "/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/res/drawable/abc_cab_background_internal_bg.xml"
+=======
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_cab_background_internal_bg.xml"
+>>>>>>> 6e728f589dab7ca7e85f4ecb868dfd46e01bd0c6
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/carro_180.png",
@@ -205,15 +281,23 @@
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_tick_mark_material.xml",
+<<<<<<< HEAD
         "source": "/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/res/drawable/abc_seekbar_tick_mark_material.xml"
+=======
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_seekbar_tick_mark_material.xml"
+>>>>>>> 6e728f589dab7ca7e85f4ecb868dfd46e01bd0c6
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/moreinfo_arrow_pressed.png",
-        "source": "/home/tiago/.android/build-cache/127975131e48a7011e757a565e3509d091b8da84/output/res/drawable/moreinfo_arrow_pressed.png"
+        "source": "/home/tiago/.android/build-cache/e35316bdf0b9f8b386086913580d62f2e5e34b4c/output/res/drawable/moreinfo_arrow_pressed.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_background_transition_holo_dark.xml",
+<<<<<<< HEAD
         "source": "/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/res/drawable/abc_list_selector_background_transition_holo_dark.xml"
+=======
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_list_selector_background_transition_holo_dark.xml"
+>>>>>>> 6e728f589dab7ca7e85f4ecb868dfd46e01bd0c6
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/carro_270.png",
@@ -221,6 +305,7 @@
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_btn_check_material.xml",
+<<<<<<< HEAD
         "source": "/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/res/drawable/abc_btn_check_material.xml"
     },
     {
@@ -230,6 +315,17 @@
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_btn_default_mtrl_shape.xml",
         "source": "/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/res/drawable/abc_btn_default_mtrl_shape.xml"
+=======
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_btn_check_material.xml"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/design_snackbar_background.xml",
+        "source": "/home/tiago/.android/build-cache/d362b4aed135b23ff3909a89db1ac8aa41ae5691/output/res/drawable/design_snackbar_background.xml"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_btn_default_mtrl_shape.xml",
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_btn_default_mtrl_shape.xml"
+>>>>>>> 6e728f589dab7ca7e85f4ecb868dfd46e01bd0c6
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/bus_180.png",
@@ -241,19 +337,31 @@
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_text_cursor_material.xml",
+<<<<<<< HEAD
         "source": "/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/res/drawable/abc_text_cursor_material.xml"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_ratingbar_material.xml",
         "source": "/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/res/drawable/abc_ratingbar_material.xml"
+=======
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_text_cursor_material.xml"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_ratingbar_material.xml",
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_ratingbar_material.xml"
+>>>>>>> 6e728f589dab7ca7e85f4ecb868dfd46e01bd0c6
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/moreinfo_arrow.png",
-        "source": "/home/tiago/.android/build-cache/127975131e48a7011e757a565e3509d091b8da84/output/res/drawable/moreinfo_arrow.png"
+        "source": "/home/tiago/.android/build-cache/e35316bdf0b9f8b386086913580d62f2e5e34b4c/output/res/drawable/moreinfo_arrow.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_switch_thumb_material.xml",
+<<<<<<< HEAD
         "source": "/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/res/drawable/abc_switch_thumb_material.xml"
+=======
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_switch_thumb_material.xml"
+>>>>>>> 6e728f589dab7ca7e85f4ecb868dfd46e01bd0c6
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/motorcycle.png",
@@ -261,7 +369,11 @@
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_thumb_material.xml",
+<<<<<<< HEAD
         "source": "/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/res/drawable/abc_seekbar_thumb_material.xml"
+=======
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_seekbar_thumb_material.xml"
+>>>>>>> 6e728f589dab7ca7e85f4ecb868dfd46e01bd0c6
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/round.xml",
@@ -269,7 +381,7 @@
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/ic_menu_mylocation.png",
-        "source": "/home/tiago/.android/build-cache/127975131e48a7011e757a565e3509d091b8da84/output/res/drawable/ic_menu_mylocation.png"
+        "source": "/home/tiago/.android/build-cache/e35316bdf0b9f8b386086913580d62f2e5e34b4c/output/res/drawable/ic_menu_mylocation.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/truck_270.png",
@@ -285,19 +397,27 @@
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/bonuspack_bubble.9.png",
-        "source": "/home/tiago/.android/build-cache/127975131e48a7011e757a565e3509d091b8da84/output/res/drawable/bonuspack_bubble.9.png"
+        "source": "/home/tiago/.android/build-cache/e35316bdf0b9f8b386086913580d62f2e5e34b4c/output/res/drawable/bonuspack_bubble.9.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_btn_borderless_material.xml",
+<<<<<<< HEAD
         "source": "/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/res/drawable/abc_btn_borderless_material.xml"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_ic_clear_material.xml",
         "source": "/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/res/drawable/abc_ic_clear_material.xml"
+=======
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_btn_borderless_material.xml"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_ic_clear_material.xml",
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_ic_clear_material.xml"
+>>>>>>> 6e728f589dab7ca7e85f4ecb868dfd46e01bd0c6
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/navto_small.png",
-        "source": "/home/tiago/.android/build-cache/127975131e48a7011e757a565e3509d091b8da84/output/res/drawable/navto_small.png"
+        "source": "/home/tiago/.android/build-cache/e35316bdf0b9f8b386086913580d62f2e5e34b4c/output/res/drawable/navto_small.png"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/bus_270.png",
@@ -305,7 +425,11 @@
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_dialog_material_background.xml",
+<<<<<<< HEAD
         "source": "/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/res/drawable/abc_dialog_material_background.xml"
+=======
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_dialog_material_background.xml"
+>>>>>>> 6e728f589dab7ca7e85f4ecb868dfd46e01bd0c6
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/truck_000.png",
@@ -313,10 +437,18 @@
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_cab_background_top_material.xml",
+<<<<<<< HEAD
         "source": "/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/res/drawable/abc_cab_background_top_material.xml"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_btn_radio_material.xml",
         "source": "/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/res/drawable/abc_btn_radio_material.xml"
+=======
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_cab_background_top_material.xml"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_btn_radio_material.xml",
+        "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_btn_radio_material.xml"
+>>>>>>> 6e728f589dab7ca7e85f4ecb868dfd46e01bd0c6
     }
 ]

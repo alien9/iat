@@ -31,6 +31,13 @@
             android:background="#00ff0000"
             android:animateLayoutChanges="true"
             >
+            <RelativeLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/vehicles_canvas"
+                />
+
             <ImageButton
                 android:id="@+id/show_pallette"
                 android:layout_margin="10dp"
@@ -39,12 +46,6 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp" />
             <include layout="@layout/pallette"/>
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/vehicles_canvas"
-                />
 
             <LinearLayout
                 android:orientation="vertical"
