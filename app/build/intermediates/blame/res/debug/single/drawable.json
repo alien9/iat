@@ -128,6 +128,10 @@
         "source": "/home/tiago/.android/build-cache/e35316bdf0b9f8b386086913580d62f2e5e34b4c/output/res/drawable/previous.png"
     },
     {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/rectangle.xml",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable/rectangle.xml"
+    },
+    {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_holo_dark.xml",
         "source": "/home/tiago/.android/build-cache/ce726a83b8be8bfd8493016891d380a614592ace/output/res/drawable/abc_list_selector_holo_dark.xml"
     },
@@ -178,6 +182,10 @@
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/motorcycle_000.png",
         "source": "/home/tiago/works/Dedos/app/src/main/res/drawable/motorcycle_000.png"
+    },
+    {
+        "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/circle.xml",
+        "source": "/home/tiago/works/Dedos/app/src/main/res/drawable/circle.xml"
     },
     {
         "merged": "/home/tiago/works/Dedos/app/build/intermediates/res/merged/debug/drawable/btn_moreinfo.xml",
