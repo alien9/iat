@@ -8,8 +8,8 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:layout_height="42dp"
+        android:background="@color/white"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -45,7 +45,13 @@
                 android:background="@drawable/round"
                 android:layout_width="32dp"
                 android:layout_height="32dp" />
-            <include layout="@layout/pallette"/>
+            <br.com.homembala.dedos.util.Pega
+                android:id="@+id/pegador"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content" />
+            <include
+                layout="@layout/pallette"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:orientation="vertical"
@@ -54,7 +60,8 @@
                 android:layout_width="match_parent"
                 android:background="#fff"
                 android:layout_height="130dp"
-                android:layout_margin="5dp">
+                android:layout_margin="5dp"
+                >
             </LinearLayout>
         </RelativeLayout>
     </FrameLayout>

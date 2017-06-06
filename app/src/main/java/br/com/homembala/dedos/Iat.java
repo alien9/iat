@@ -17,7 +17,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-import br.com.homembala.dedos.util.Vehicle;
+import br.com.homembala.dedos.util.VehicleFix;
 
 /**
  * Created by tiago on 27/03/17.
@@ -27,7 +27,7 @@ public class Iat extends Application {
     private static JSONObject lastKnownPosition;
     private static LocationManager locationManager;
     private static Iat singleton;
-    private Vehicle selectedVehicle;
+    private VehicleFix selectedVehicle;
 
     public static Iat getInstance() {
         return singleton;
@@ -80,11 +80,15 @@ public class Iat extends Application {
         startService(intent);
     }
 
-    public void setSelectedVehicle(Vehicle sv) {
+    public void setSelectedVehicle(VehicleFix sv) {
         selectedVehicle = sv;
     }
 
-    public Vehicle getSelectedVehicle() {
+    public VehicleFix getSelectedVehicle() {
         return selectedVehicle;
+    }
+
+    public void updateSelectedVehicle(VehicleFix view) {
+
     }
 }

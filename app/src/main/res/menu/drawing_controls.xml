@@ -4,6 +4,9 @@
     <item android:id="@+id/labels"
         android:title="@string/show_labels"
         android:checkable="true" />
+    <item android:id="@+id/semaforos"
+        android:title="@string/show_semaforos"
+        android:checkable="true" />
     <group android:checkableBehavior="single">
         <item android:id="@+id/mode_map" android:title="@string/mode_map" android:checkable="true"/>
         <item android:id="@+id/mode_freehand" android:title="@string/mode_freehand" android:checkable="true"/>

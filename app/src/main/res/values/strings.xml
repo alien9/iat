@@ -27,4 +27,5 @@
     <string name="mode_freehand">Desenho</string>
     <string name="turn_vehicle">virar veículo</string>
     <string name="reset_vehicles">Reiniciar edição</string>
+    <string name="show_semaforos">Semáforos</string>
 </resources>

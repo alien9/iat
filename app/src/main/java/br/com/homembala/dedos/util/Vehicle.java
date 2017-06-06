@@ -246,7 +246,7 @@ public class Vehicle extends View {
                         view.setY(event.getY());
                     }
                     view.invalidate();
-                    ((Iat)context.getApplicationContext()).setSelectedVehicle((Vehicle)view);
+                    ((Iat)context.getApplicationContext()).setSelectedVehicle((VehicleFix) view);
                     break;
                 default:
                     break;

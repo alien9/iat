@@ -3,21 +3,12 @@
 
     <item
         is-multidex="true"
-        jar="/home/tiago/.android/build-cache/fa4f16a14b68c08e3279edfd79ffd61d48a03750/output/jars/classes.jar"
+        jar="/home/tiago/works/Dedos/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="fc29308a7a8f6d4407b34634eb48fb8b817f9b23">
-        <dex dex="/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_8d38273538c2601eb5f2d7903d772aec8a941c5f/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tiago/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.3.2/90a3822c38ec8c996e84c16a3477ef632cbc87a3/commons-lang3-3.3.2.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="90a3822c38ec8c996e84c16a3477ef632cbc87a3">
-        <dex dex="/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10/commons-lang3-3.3.2_383cc18f54a124b50d2ab17cdd52ed50260b2c1c/classes.dex" />
+        sha1="b4dfa492ae72fd8180dc25a83e74c29bde5d3f52">
+        <dex dex="/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_3d1fa48b874ef67739fe1c30f20c279e6c8b1a6c/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -25,98 +16,8 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
+        sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
         <dex dex="/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_6c334f26a5e6be7045e2fd0d92f1764da835e3c1/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tiago/works/Dedos/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="1b54877f4cbbbcb3a0d830d84660f5ff84d48ce8">
-        <dex dex="/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_3d1fa48b874ef67739fe1c30f20c279e6c8b1a6c/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tiago/.android/build-cache/caefebb038d2bd55e5837afbb90e9f761ca3ebbf/output/jars/libs/internal_impl-24.0.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="fcaf463e10e69c1923ccf1edeba3b4196d239e00">
-        <dex dex="/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.0.0_47cfcc7b4260cdb3c791da98b6066dbdd551743f/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tiago/.android/build-cache/caefebb038d2bd55e5837afbb90e9f761ca3ebbf/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="2f7e6e2dad1bccaf68a8820820adc6c0d5b96d37">
-        <dex dex="/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_479d6d9fd19c8263a314dd1e1754439c8efb972a/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tiago/.android/build-cache/30addd1ba2847bf667794e756626a7a76cef42c9/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="0874286cc2fd88d54fdf130e9d5372730da6de97">
-        <dex dex="/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_32ffa4e6ad6a9e3dda0ef1306cfe30a27de185b5/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tiago/.android/build-cache/77873f83fab43603878d11dab26df72ed010b4a6/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="894922f67adeaaef51f077a29e315da21a3382d3">
-        <dex dex="/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_54b54be036e97581fe1ed711469544ce8dd6827c/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tiago/.android/build-cache/127975131e48a7011e757a565e3509d091b8da84/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="c14d049dc46260da1c76a9d18672d0636c5964a0">
-        <dex dex="/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_688f76496deb9395111f962d17a1f99e4d202d22/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tiago/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.7/751f548c85fa49f330cecbb1875893f971b33c4e/gson-2.7.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="751f548c85fa49f330cecbb1875893f971b33c4e">
-        <dex dex="/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10/gson-2.7_c093b6db0e31338244a3efcf92c69e0cf1be59a4/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tiago/.android/build-cache/8ea3d0449742a4ad59ce30069eebb88cf301d4aa/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="e70f608219ed6b974644c333249ab2bb7b71de98">
-        <dex dex="/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_2b4fb76e658cafa48cc4ebd8ae7d499995719f0f/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tiago/.android/build-cache/8df0f9847151af3f5bf037ff1fe9965b8f3f74e5/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="3bd97cfefd783e9de1dd1c30574a6adb44b4409b">
-        <dex dex="/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_47be69339484832f81c72bdac2a86eb048ade671/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tiago/.android/build-cache/81226720d48fee0927a8e41c2ed90f5adefd8e7b/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="897b8239af23c38e7a57596063f9df285b1e1c41">
-        <dex dex="/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_2b0db4ee02f2d009fb40e59bfa43615443abb78d/classes.dex" />
     </item>
 
 </items>
