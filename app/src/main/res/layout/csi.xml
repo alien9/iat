@@ -35,15 +35,14 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/vehicles_canvas"
-                />
-
+                android:id="@+id/vehicles_canvas" />
             <ImageButton
                 android:id="@+id/show_pallette"
                 android:layout_margin="10dp"
                 android:src="@drawable/down"
                 android:background="@drawable/round"
                 android:layout_width="32dp"
+<<<<<<< HEAD
                 android:layout_height="32dp" />
             <br.com.homembala.dedos.util.Pega
                 android:id="@+id/pegador"
@@ -53,6 +52,11 @@
                 layout="@layout/pallette"
                 android:visibility="gone" />
 
+=======
+                android:layout_height="32dp"
+                android:contentDescription="" />
+            <include layout="@layout/pallette"/>
+>>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
             <LinearLayout
                 android:orientation="vertical"
                 android:visibility="gone"
@@ -63,6 +67,9 @@
                 android:layout_margin="5dp"
                 >
             </LinearLayout>
+            <br.com.homembala.dedos.util.Lever
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
         </RelativeLayout>
     </FrameLayout>
 
