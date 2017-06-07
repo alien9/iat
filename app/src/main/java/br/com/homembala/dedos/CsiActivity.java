@@ -12,6 +12,8 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -24,6 +26,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -457,30 +460,9 @@ public class CsiActivity extends AppCompatActivity {
 
     public void updatePegadorForSelectedVehicle(VehicleFix view, MotionEvent motionEvent) {
         Pega pegador=(Pega)findViewById(R.id.pegador);
-        pegador.findViewById(R.id.rod).setRotation(view.getRotation());
-        pegador.invalidate();
-        float[] ponta = pegador.getPonta(new float[]{motionEvent.getRawX(), motionEvent.getRawY()},pegador.getRodRotation());
-        if(ponta!=null){
-            Log.d("IAT","valendo "+motionEvent.getRawX()+" "+motionEvent.getRawY());
-            Log.d("IAT","ponta pegada "+ponta[0]+" "+ponta[1]);
-            Log.d("IAT","tamanhos "+pegador.getWidth()+" "+pegador.getHeight());
+        //pegador.findViewById(R.id.rod).setRotation(view.getRotation());
+        pegador.setPontaPosition(view.getX(),view.getY(),view.getRotation());
 
-            float[] center = pegador.getCenter(new float[]{
-                    motionEvent.getRawX(), motionEvent.getRawY()
-            });
-            int[] pos = new int[2];
-            Log.d("IAT","cento "+center[0]+" "+center[1]);
-
-
-            pegador.findViewById(R.id.floatingActionButton).getLocationOnScreen(pos);
-
-            pegador.setX(ponta[0]);// -  pegador.getPonta()[0]);
-            pegador.setY(ponta[1]); //-  pegador.getPonta()[1]);
-        }
-        else {
-            pegador.setX(view.getX() - pegador.getWidth() / 2 - view.getWidth() / 2);
-            pegador.setY(view.getY() - pegador.getHeight() / 2 - view.getHeight() / 2);
-        }
         pegador.invalidate();
     }
 
@@ -491,7 +473,7 @@ public class CsiActivity extends AppCompatActivity {
         float[] ce = {l.getX(),l.getY()};
 
         Log.d("IAT","ponta pegada "+ponta[0]+" "+ponta[1]+" centro "+ce[0]+" "+ce[1]);
-       v.setRotation(l.getRodRotation());
+        v.setRotation(l.getRodRotation());
         v.setX(ponta[0]);
         v.setY(ponta[1]);
         v.invalidate();
@@ -644,6 +626,8 @@ public class CsiActivity extends AppCompatActivity {
         int w = (int) (width * pixels_per_m);
         int l = (int) (length * pixels_per_m);
         VehicleFix v = new VehicleFix(context, findViewById(R.id.vehicles_canvas), w, l, model,0);
+        v.addOrRemoveProperty(RelativeLayout.CENTER_IN_PARENT,true);
+
         ((ViewGroup) findViewById(R.id.vehicles_canvas)).addView((View) v);
         IGeoPoint c = map.getMapCenter();
         Point pix = map.getProjection().toPixels(c, null);
@@ -716,6 +700,4 @@ public class CsiActivity extends AppCompatActivity {
     protected void renderPalette(){
 
     }
-
-
 }

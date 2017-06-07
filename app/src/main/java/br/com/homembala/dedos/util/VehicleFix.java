@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,7 +18,7 @@ import br.com.homembala.dedos.R;
  * Created by tiago on 01/06/17.
  */
 
-public class VehicleFix extends LinearLayout {
+public class VehicleFix extends RelativeLayout{
     public static final int CARRO = 0;
     public static final int CAMINHAO = 1;
     public static final int ONIBUS = 2;
@@ -27,8 +27,8 @@ public class VehicleFix extends LinearLayout {
     public static final int BICI = 5;
 
 
-    private final double width;
-    private final double height;
+    private final float width;
+    private final float height;
     private final Context context;
     private final int model;
     private boolean mexido;
@@ -48,7 +48,7 @@ public class VehicleFix extends LinearLayout {
         return p;
     }
 
-    public VehicleFix(Context c, View bg,int w, int h,int m,int p) {
+    public VehicleFix(Context c, View bg,float w, float h,int m,int p) {
         super(c);
         context=c;
         background=bg;
@@ -57,11 +57,13 @@ public class VehicleFix extends LinearLayout {
         model=m;
         roll = p;
         setCustomBackground();
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) Math.round(width), (int) Math.round(height));
-        params.gravity=Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL;
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int) Math.round(width), (int) Math.round(height));
+        //params.gravity=Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL;
         this.setLayoutParams(params);
         ligado=true;
         mexido=false;
+        setPivotX(width/2);
+        setPivotX(height/2);
     }
 
     private void setCustomBackground() {
@@ -182,4 +184,15 @@ public class VehicleFix extends LinearLayout {
     public int getRoll() {
         return roll;
     }
+
+    public void addOrRemoveProperty(int property, boolean flag){
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) getLayoutParams();
+        if(flag){
+            layoutParams.addRule(property);
+        }else {
+            layoutParams.removeRule(property);
+        }
+        setLayoutParams(layoutParams);
+    }
+
 }

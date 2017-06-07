@@ -1,26 +1,20 @@
 #Internal package file, do not edit.
-<<<<<<< HEAD
-#Wed May 31 18:40:40 BRT 2017
+#Wed Jun 07 15:25:18 BRT 2017
 210.set=ANDROID_RESOURCE
-282.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_btn_switch_to_on_mtrl_00001.9.png
-=======
-#Tue May 16 17:46:59 BRT 2017
-210.set=ANDROID_RESOURCE
-282.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/start.xml
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
+282.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_scrubber_control_to_pressed_mtrl_005.png
 14.set=ANDROID_RESOURCE
 180.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_ab_share_pack_mtrl_alpha.9.png
 118.set=ANDROID_RESOURCE
 60.set=ANDROID_RESOURCE
 2.set=ANDROID_RESOURCE
 164.set=ANDROID_RESOURCE
-26.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/motorcycle_090.png
+26.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_cab_background_top_material.xml
 209.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 78.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_ic_voice_search_api_material.xml
 21.set=JAVA_RESOURCE
-53.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/round.xml
+53.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/thumb09.png
 107.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-236.base=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar
+236.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 159.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 125.set=ANDROID_RESOURCE
 288.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
@@ -29,12 +23,12 @@
 134.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 263.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 186.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-277.set=ANDROID_RESOURCE
+277.set=JAVA_RESOURCE
 161.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 290.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-192.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/thumb07.png
+192.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_list_menu_item_radio.xml
 132.set=ANDROID_RESOURCE
-238.set=ANDROID_RESOURCE
+238.set=JAVA_RESOURCE
 179.set=ANDROID_RESOURCE
 59.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 284.set=ANDROID_RESOURCE
@@ -43,44 +37,28 @@
 86.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 65.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/design_layout_tab_icon.xml
 61.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-217.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/menu/drawing_controls.xml
+217.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/person.png
+304.set=ANDROID_RESOURCE
 40.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/thumb05.png
 245.set=ANDROID_RESOURCE
-<<<<<<< HEAD
-269.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/motorcycle_000.png
-=======
-269.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color-v23/abc_tint_btn_checkable.xml
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
+269.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_list_menu_item_checkbox.xml
 186.set=ANDROID_RESOURCE
 115.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_ic_menu_selectall_mtrl_alpha.png
 49.set=ANDROID_RESOURCE
 92.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/notification_template_lines.xml
-<<<<<<< HEAD
-244.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/AndroidManifest.xml
-167.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/carro_180.png
-275.base=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar
-198.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-121.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-296.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_switch_thumb_material.xml
-=======
-244.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_alert_dialog_material.xml
+244.file=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar/junit/runner/logo.gif
 167.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/bici.png
 275.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 198.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 121.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-296.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/notification_template_media.xml
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
+296.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/ic_menu_compass.png
 291.set=ANDROID_RESOURCE
 142.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/ic_menu_delete.png
 250.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 173.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 95.set=ANDROID_RESOURCE
 100.set=ANDROID_RESOURCE
-<<<<<<< HEAD
-271.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color-v23/abc_tint_btn_checkable.xml
-=======
-271.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_ratingbar_small_material.xml
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
+271.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/motorcycle_000.png
 206.set=ANDROID_RESOURCE
 0.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/bonuspack_bubble.9.png
 252.set=ANDROID_RESOURCE
@@ -94,36 +72,22 @@
 21.base=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar
 17.set=ANDROID_RESOURCE
 73.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-229.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_seekbar_track_material.xml
-<<<<<<< HEAD
+229.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_list_selector_background_transition_holo_light.xml
 302.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-=======
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
 225.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 204.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/switch_thumb_material_light.xml
 127.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/small11.jpg
 63.set=ANDROID_RESOURCE
 6.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 5.set=ANDROID_RESOURCE
-<<<<<<< HEAD
-256.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_btn_radio_to_on_mtrl_015.png
-179.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_tab_indicator_material.xml
+256.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/abc_primary_text_material_light.xml
+179.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color-v23/abc_tint_edittext.xml
 102.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/grad.xml
-231.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/marker_cluster.png
-154.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/thumb02.png
+231.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_seekbar_track_material.xml
+154.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/truck_000.png
 167.set=ANDROID_RESOURCE
 220.set=ANDROID_RESOURCE
-283.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/carro.png
-=======
-256.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_text_cursor_material.xml
-179.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_ab_share_pack_mtrl_alpha.9.png
-102.file=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar/org/osmdroid/previous.png
-231.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/marker_cluster.png
-154.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/bus_000.png
-167.set=ANDROID_RESOURCE
-220.set=ANDROID_RESOURCE
-283.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/bonuspack_bubble.xml
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
+283.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/notification_template_part_chronometer.xml
 24.set=ANDROID_RESOURCE
 181.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_action_mode_close_item_material.xml
 128.set=ANDROID_RESOURCE
@@ -131,7 +95,7 @@
 27.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_popup_background_mtrl_mult.9.png
 79.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/chosen.xml
 31.set=ANDROID_RESOURCE
-54.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/thumb09.png
+54.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/round.xml
 108.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 237.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 135.set=ANDROID_RESOURCE
@@ -139,7 +103,7 @@
 212.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 81.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/ic_menu_mapmode.png
 135.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-264.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
+264.base=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar
 187.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 110.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 287.set=ANDROID_RESOURCE
@@ -157,7 +121,7 @@
 87.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 10.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 66.file=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar/org/osmdroid/ic_menu_compass.png
-218.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/anim-v21/design_appbar_state_list_animator.xml
+218.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/small01.jpg
 41.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/bus_270.png
 255.set=ANDROID_RESOURCE
 196.set=ANDROID_RESOURCE
@@ -165,35 +129,21 @@
 93.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_action_bar_view_list_nav_layout.xml
 147.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 59.set=ANDROID_RESOURCE
-245.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/anim/abc_fade_in.xml
-<<<<<<< HEAD
-168.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/bici.png
+245.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_seekbar_thumb_material.xml
+168.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/carro_180.png
 276.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 199.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 122.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-297.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/ic_menu_compass.png
-220.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_btn_check_to_on_mtrl_000.png
-143.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_dialog_material_background.xml
-251.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-174.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-110.set=ANDROID_RESOURCE
-272.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/abc_tint_switch_track.xml
-=======
-168.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/notification_media_action.xml
-276.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-199.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-122.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-297.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color-v23/abc_tint_default.xml
-220.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_btn_check_to_on_mtrl_000.png
+297.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_btn_radio_material.xml
+220.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/anim-v21/design_appbar_state_list_animator.xml
 143.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/main.xml
 251.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 174.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 110.set=ANDROID_RESOURCE
-272.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/anim/abc_popup_enter.xml
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
-216.set=ANDROID_RESOURCE
-1.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/switch_thumb_material_dark.xml
-262.set=JAVA_RESOURCE
+272.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_list_menu_item_icon.xml
+216.set=JAVA_RESOURCE
+1.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/truckinho.jpg
+262.set=ANDROID_RESOURCE
 66.set=JAVA_RESOURCE
 8.set=ANDROID_RESOURCE
 16.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_ratingbar_indicator_material.xml
@@ -209,23 +159,13 @@
 128.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_ic_clear_material.xml
 73.set=ANDROID_RESOURCE
 7.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-<<<<<<< HEAD
-257.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_text_cursor_material.xml
+257.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/carro_000.png
 103.file=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar/org/osmdroid/previous.png
-232.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_ic_star_black_48dp.png
+232.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_action_bar_title_item.xml
 155.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/bus_000.png
 230.set=ANDROID_RESOURCE
-284.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/start.xml
+284.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_btn_switch_to_on_mtrl_00001.9.png
 130.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/abc_btn_colored_borderless_text_material.xml
-=======
-257.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_ic_star_black_36dp.png
-103.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/notification_template_big_media_narrow.xml
-232.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_ic_star_black_48dp.png
-155.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-v21/abc_edit_text_material.xml
-230.set=ANDROID_RESOURCE
-284.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_textfield_search_activated_mtrl_alpha.9.png
-130.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/escolha.png
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
 171.set=ANDROID_RESOURCE
 34.set=ANDROID_RESOURCE
 182.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/icone.png
@@ -235,8 +175,8 @@
 41.set=ANDROID_RESOURCE
 55.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/bici270.png
 109.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-238.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-30.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/desenhe.jpg
+238.base=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar
+30.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/anim/design_snackbar_in.xml
 145.set=ANDROID_RESOURCE
 213.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 82.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/resources.arsc
@@ -260,37 +200,26 @@
 88.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 11.base=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar
 67.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/select_dialog_multichoice_material.xml
-219.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/abc_primary_text_disable_only_material_dark.xml
+219.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/menu/drawing_controls.xml
 42.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/notification_template_big_media.xml
 265.set=ANDROID_RESOURCE
 117.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/marker_default_focused_base.png
-94.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_textfield_activated_mtrl_alpha.9.png
+94.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/anim-v21/design_bottom_sheet_slide_out.xml
 148.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 69.set=ANDROID_RESOURCE
-<<<<<<< HEAD
-246.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_alert_dialog_material.xml
+246.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/AndroidManifest.xml
 169.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/notification_media_action.xml
-=======
-246.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/carro_090.png
-169.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/bus_180.png
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
-277.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
+277.base=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar
 200.base=/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_6c334f26a5e6be7045e2fd0d92f1764da835e3c1
 123.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-<<<<<<< HEAD
-298.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/notification_template_media.xml
-221.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/boxes.png
-144.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/main.xml
-=======
-298.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/ic_menu_offline.png
-221.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/boxes.png
+298.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/thumb08.png
+221.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/abc_primary_text_disable_only_material_dark.xml
 144.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_dialog_material_background.xml
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
 252.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 175.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 120.set=ANDROID_RESOURCE
 226.set=ANDROID_RESOURCE
-2.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/truckinho.jpg
+2.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/switch_thumb_material_dark.xml
 150.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 272.set=ANDROID_RESOURCE
 76.set=JAVA_RESOURCE
@@ -300,67 +229,48 @@
 23.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 37.set=JAVA_RESOURCE
 75.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
+304.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 227.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 50.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-206.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/truck_270.png
+206.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/abc_tint_spinner.xml
 129.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_list_selector_holo_dark.xml
 83.set=ANDROID_RESOURCE
 8.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-<<<<<<< HEAD
-258.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_ic_star_black_36dp.png
+258.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_btn_radio_to_on_mtrl_015.png
 104.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/pessoa.png
-233.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/abc_search_url_text.xml
+233.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/marker_cluster.png
 156.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-v21/abc_edit_text_material.xml
 240.set=ANDROID_RESOURCE
-285.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/bonuspack_bubble.xml
+285.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/carro.png
 131.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/escolha.png
 181.set=ANDROID_RESOURCE
 44.set=ANDROID_RESOURCE
-260.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/formic.xml
+260.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_ic_star_black_36dp.png
 183.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color-v23/abc_tint_spinner.xml
-=======
-258.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/design_menu_item_action_area.xml
-104.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/pessoa.png
-233.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/abc_search_url_text.xml
-156.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_list_longpressed_holo.9.png
-240.set=ANDROID_RESOURCE
-285.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/small09.jpg
-131.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_ic_star_half_black_48dp.png
-181.set=ANDROID_RESOURCE
-44.set=ANDROID_RESOURCE
-260.file=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar/org/osmdroid/ic_menu_offline.png
-183.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_ic_arrow_drop_right_black_24dp.xml
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
 148.set=ANDROID_RESOURCE
 90.set=ANDROID_RESOURCE
 201.set=ANDROID_RESOURCE
 29.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/abc_tint_seek_thumb.xml
 109.set=ANDROID_RESOURCE
 51.set=ANDROID_RESOURCE
-<<<<<<< HEAD
-56.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_select_dialog_material.xml
-239.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-31.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/anim/design_snackbar_in.xml
-=======
 56.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/logo.xml
 239.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 31.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/desenhe.jpg
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
 155.set=ANDROID_RESOURCE
 62.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-214.base=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar
+214.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 83.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_screen_toolbar.xml
 137.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 12.set=ANDROID_RESOURCE
 266.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 189.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 112.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-241.base=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar
+241.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 164.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 116.set=ANDROID_RESOURCE
 293.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 0.set=ANDROID_RESOURCE
-195.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_list_selector_holo_light.xml
+195.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/csi.xml
 191.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 170.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/bus_180.png
 162.set=ANDROID_RESOURCE
@@ -372,33 +282,23 @@
 12.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 68.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/small04.jpg
 43.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/anim/abc_grow_fade_in_from_bottom.xml
-275.set=JAVA_RESOURCE
-118.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/design_fab_background.xml
-95.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/anim-v21/design_bottom_sheet_slide_out.xml
+275.set=ANDROID_RESOURCE
+118.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/pag0.png
+95.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_textfield_activated_mtrl_alpha.9.png
 149.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 79.set=ANDROID_RESOURCE
-<<<<<<< HEAD
-247.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/carro_090.png
-=======
-247.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color-v23/abc_tint_switch_thumb.xml
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
+247.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/anim/abc_fade_in.xml
 278.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 201.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 70.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/bici090.png
 124.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-<<<<<<< HEAD
-299.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color-v23/abc_tint_default.xml
-222.file=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar/org/osmdroid/marker_default.png
+299.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_switch_thumb_material.xml
+222.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_btn_check_to_on_mtrl_000.png
 145.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_ic_ab_back_material.xml
-=======
-299.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/abc_primary_text_material_dark.xml
-222.file=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar/org/osmdroid/marker_default.png
-145.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/menu/control.xml
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
 253.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 176.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 130.set=ANDROID_RESOURCE
-236.set=JAVA_RESOURCE
+236.set=ANDROID_RESOURCE
 177.set=ANDROID_RESOURCE
 3.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_cab_background_internal_bg.xml
 151.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
@@ -412,43 +312,30 @@
 24.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 47.set=JAVA_RESOURCE
 76.base=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar
+305.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 51.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-207.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/abc_tint_spinner.xml
+207.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/truck_270.png
 93.set=ANDROID_RESOURCE
 204.set=ANDROID_RESOURCE
 9.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-<<<<<<< HEAD
 259.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/design_menu_item_action_area.xml
 105.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/notification_template_big_media_narrow.xml
-234.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-ldrtl-xxhdpi-v17/abc_ic_menu_cut_mtrl_alpha.png
+234.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_ic_star_black_48dp.png
 157.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_list_longpressed_holo.9.png
 250.set=ANDROID_RESOURCE
-286.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_textfield_search_activated_mtrl_alpha.9.png
-=======
-259.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/formic.xml
-105.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_switch_track_mtrl_alpha.9.png
-234.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-ldrtl-xxhdpi-v17/abc_ic_menu_cut_mtrl_alpha.png
-157.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/thumb10.png
-250.set=ANDROID_RESOURCE
-286.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/zoom_in.png
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
+286.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/start.xml
 191.set=ANDROID_RESOURCE
 132.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_ic_star_half_black_48dp.png
 54.set=ANDROID_RESOURCE
-<<<<<<< HEAD
-261.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/red_round.xml
+261.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_text_cursor_material.xml
 184.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_ic_arrow_drop_right_black_24dp.xml
-=======
-261.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/thumb11.png
-184.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_action_mode_bar.xml
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
 158.set=ANDROID_RESOURCE
 211.set=ANDROID_RESOURCE
 15.set=ANDROID_RESOURCE
 119.set=ANDROID_RESOURCE
 61.set=ANDROID_RESOURCE
 3.set=ANDROID_RESOURCE
-57.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/logo.xml
+57.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_select_dialog_material.xml
 32.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/home.jpg
 165.set=ANDROID_RESOURCE
 63.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
@@ -459,51 +346,38 @@
 267.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 113.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 90.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-242.base=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar
+242.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 165.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 126.set=ANDROID_RESOURCE
 294.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 140.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-<<<<<<< HEAD
-273.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_ratingbar_small_material.xml
-196.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/csi.xml
+273.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color-v23/abc_tint_btn_checkable.xml
+196.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_list_selector_holo_light.xml
 171.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_popup_menu_header_item_layout.xml
-=======
-273.file=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar/org/osmdroid/direction_arrow.png
-196.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/down.png
-171.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_ic_menu_cut_mtrl_alpha.png
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
 278.set=ANDROID_RESOURCE
 38.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 133.set=ANDROID_RESOURCE
 239.set=ANDROID_RESOURCE
-17.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_ic_search_api_material.xml
+17.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/design_layout_tab_text.xml
 13.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 69.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/anim/design_fab_in.xml
-44.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/design_layout_snackbar.xml
+44.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/trucks.jpg
 285.set=ANDROID_RESOURCE
-119.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/pag0.png
+119.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/design_fab_background.xml
 96.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/small08.jpg
 89.set=ANDROID_RESOURCE
-<<<<<<< HEAD
-248.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color-v23/abc_tint_switch_thumb.xml
-=======
-248.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/navto_small.png
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
+248.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_alert_dialog_material.xml
 279.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 202.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 71.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/abc_secondary_text_material_dark.xml
 125.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-<<<<<<< HEAD
-300.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/ic_menu_offline.png
-=======
-300.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/page1.xml
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
-223.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_item_background_holo_light.xml
-146.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/small00.jpg
+300.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/notification_template_media.xml
+223.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/boxes.png
+146.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/menu/control.xml
 254.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 177.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 100.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
+305.set=ANDROID_RESOURCE
 140.set=ANDROID_RESOURCE
 246.set=ANDROID_RESOURCE
 187.set=ANDROID_RESOURCE
@@ -520,36 +394,21 @@
 57.set=ANDROID_RESOURCE
 77.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 52.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-<<<<<<< HEAD
 208.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/design_bottom_sheet_dialog.xml
-=======
-208.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_btn_switch_to_on_mtrl_00012.9.png
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
-214.set=JAVA_RESOURCE
+214.set=ANDROID_RESOURCE
 106.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/truck_090.png
 18.set=ANDROID_RESOURCE
-235.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/small06.jpg
-<<<<<<< HEAD
+235.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/abc_search_url_text.xml
 158.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/thumb10.png
 260.set=ANDROID_RESOURCE
-287.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/small09.jpg
+287.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/bonuspack_bubble.xml
 210.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_btn_switch_to_on_mtrl_00012.9.png
 133.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_item_background_holo_dark.xml
 64.set=ANDROID_RESOURCE
-262.file=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar/org/osmdroid/ic_menu_offline.png
+262.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/red_round.xml
 185.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_action_mode_bar.xml
-=======
-158.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/anim/abc_slide_out_top.xml
-260.set=JAVA_RESOURCE
-287.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/abc_tint_default.xml
-210.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/bus.png
-133.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/motorcycle_180.png
-64.set=ANDROID_RESOURCE
-262.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_search_view.xml
-185.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/ic_menu_mylocation.png
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
 6.set=ANDROID_RESOURCE
-160.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/anim/abc_slide_out_top.xml
+160.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_action_menu_layout.xml
 168.set=ANDROID_RESOURCE
 221.set=ANDROID_RESOURCE
 25.set=ANDROID_RESOURCE
@@ -558,7 +417,7 @@
 58.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_spinner_mtrl_am_alpha.9.png
 33.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/kangoo.png
 64.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-216.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
+216.base=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar
 85.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_ic_star_half_black_36dp.png
 139.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 32.set=ANDROID_RESOURCE
@@ -571,13 +430,8 @@
 136.set=ANDROID_RESOURCE
 295.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 141.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-<<<<<<< HEAD
-274.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/anim/abc_popup_enter.xml
+274.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/abc_tint_switch_track.xml
 197.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/down.png
-=======
-274.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_ic_go_search_api_material.xml
-197.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_activity_chooser_view_list_item.xml
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
 120.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/thumb06.png
 270.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 172.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_ic_menu_cut_mtrl_alpha.png
@@ -585,7 +439,7 @@
 39.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 143.set=ANDROID_RESOURCE
 249.set=ANDROID_RESOURCE
-18.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/design_layout_tab_text.xml
+18.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_ic_search_api_material.xml
 14.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 45.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_expanded_menu_layout.xml
 295.set=ANDROID_RESOURCE
@@ -594,16 +448,12 @@
 104.set=ANDROID_RESOURCE
 97.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/thumb03.png
 20.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_alert_dialog_button_bar_material.xml
-249.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/anim/abc_shrink_fade_out_from_bottom.xml
+249.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/carro_090.png
 203.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 72.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_action_bar_up_container.xml
 126.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-<<<<<<< HEAD
-301.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/abc_primary_text_material_dark.xml
-=======
-301.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_scrubber_control_off_mtrl_alpha.png
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
-224.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_btn_check_to_on_mtrl_015.png
+301.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color-v23/abc_tint_default.xml
+224.file=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar/org/osmdroid/marker_default.png
 255.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 178.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 101.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
@@ -624,34 +474,22 @@
 78.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 53.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 209.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/select_dialog_item_material.xml
-224.set=ANDROID_RESOURCE
+224.set=JAVA_RESOURCE
 107.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_switch_track_mtrl_alpha.9.png
 28.set=ANDROID_RESOURCE
 80.base=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar
-236.file=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar/org/osmdroid/center.png
-159.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_screen_content_include.xml
+236.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-ldrtl-xxhdpi-v17/abc_ic_menu_cut_mtrl_alpha.png
+159.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/anim/abc_slide_out_top.xml
 270.set=ANDROID_RESOURCE
-<<<<<<< HEAD
-288.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/zoom_in.png
-211.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/bus.png
+288.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_textfield_search_activated_mtrl_alpha.9.png
+211.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/marker_default.png
 134.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/motorcycle_180.png
 74.set=ANDROID_RESOURCE
-263.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/thumb11.png
+263.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/formic.xml
 186.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/ic_menu_mylocation.png
-161.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_action_menu_layout.xml
+161.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_screen_content_include.xml
 192.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-290.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/notification_media_cancel_action.xml
-=======
-288.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/notification_media_cancel_action.xml
-211.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color-v23/abc_color_highlight_material.xml
-134.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/pallette.xml
-74.set=ANDROID_RESOURCE
-263.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_list_focused_holo.9.png
-186.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_screen_simple_overlay_action_mode.xml
-161.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color-v23/abc_tint_seek_thumb.xml
-192.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-290.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/thumb01.png
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
+290.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/zoom_in.png
 231.set=ANDROID_RESOURCE
 172.set=ANDROID_RESOURCE
 35.set=ANDROID_RESOURCE
@@ -668,28 +506,18 @@
 61.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/small03.jpg
 115.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 92.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-244.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
+244.base=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar
 167.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 146.set=ANDROID_RESOURCE
 296.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 142.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-<<<<<<< HEAD
-275.file=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar/org/osmdroid/direction_arrow.png
+275.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_ratingbar_small_material.xml
 198.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_activity_chooser_view_list_item.xml
 121.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/bus_090.png
 271.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 0.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-250.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/navto_small.png
+250.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color-v23/abc_tint_switch_thumb.xml
 173.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/notification_template_part_time.xml
-=======
-275.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_textfield_search_default_mtrl_alpha.9.png
-198.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/logos.png
-121.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/design_navigation_item.xml
-271.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-0.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-250.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_list_selector_disabled_holo_dark.9.png
-173.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_list_pressed_holo_dark.9.png
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
 298.set=ANDROID_RESOURCE
 107.set=ANDROID_RESOURCE
 153.set=ANDROID_RESOURCE
@@ -697,7 +525,7 @@
 19.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color-v11/abc_background_cache_hint_selector_material_light.xml
 15.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 10.set=ANDROID_RESOURCE
-46.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/trucks.jpg
+46.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/design_layout_snackbar.xml
 229.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 114.set=ANDROID_RESOURCE
 98.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_textfield_search_material.xml
@@ -705,11 +533,8 @@
 204.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 73.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_ic_menu_overflow_material.xml
 127.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-<<<<<<< HEAD
-302.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/page1.xml
-=======
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
-225.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/small05.jpg
+302.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/ic_menu_offline.png
+225.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_item_background_holo_light.xml
 256.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 179.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 102.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
@@ -722,13 +547,8 @@
 181.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 121.set=ANDROID_RESOURCE
 227.set=ANDROID_RESOURCE
-<<<<<<< HEAD
-count=304
+count=306
 273.set=ANDROID_RESOURCE
-=======
-count=302
-273.set=JAVA_RESOURCE
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
 27.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 77.set=ANDROID_RESOURCE
 79.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
@@ -738,35 +558,20 @@ count=302
 108.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout-sw600dp-v13/design_layout_snackbar.xml
 38.set=ANDROID_RESOURCE
 81.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-237.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/center.png
+237.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/small06.jpg
 280.set=ANDROID_RESOURCE
-<<<<<<< HEAD
-289.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/abc_tint_default.xml
-212.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/marker_default.png
+289.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/small09.jpg
+212.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/bus.png
 135.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/pallette.xml
 84.set=ANDROID_RESOURCE
-264.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_search_view.xml
+264.file=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar/org/osmdroid/ic_menu_offline.png
 187.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_screen_simple_overlay_action_mode.xml
-110.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/select_dialog_singlechoice_material.xml
+110.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_btn_default_mtrl_shape.xml
 162.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color-v23/abc_tint_seek_thumb.xml
 193.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 300.set=ANDROID_RESOURCE
-291.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/design_navigation_item_subheader.xml
+291.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/abc_tint_default.xml
 241.set=ANDROID_RESOURCE
-=======
-289.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/design_navigation_item_subheader.xml
-212.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/circle.xml
-135.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/moreinfo_arrow.png
-84.set=ANDROID_RESOURCE
-264.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/small02.jpg
-187.file=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar/org/osmdroid/next.png
-110.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/sucesso.png
-162.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_ic_menu_copy_mtrl_am_alpha.png
-193.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-300.set=ANDROID_RESOURCE
-291.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/frame.xml
-241.set=JAVA_RESOURCE
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
 182.set=ANDROID_RESOURCE
 45.set=ANDROID_RESOURCE
 149.set=ANDROID_RESOURCE
@@ -784,28 +589,18 @@ count=302
 245.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 168.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 156.set=ANDROID_RESOURCE
-147.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/menu/control.xml
+147.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/small00.jpg
 297.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 220.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 143.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-<<<<<<< HEAD
-276.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_textfield_search_default_mtrl_alpha.9.png
+276.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/anim/abc_popup_enter.xml
 199.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/logos.png
 122.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/design_navigation_item.xml
-=======
-276.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/design_snackbar_background.xml
-199.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_list_divider_mtrl_alpha.9.png
-122.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-v21/abc_action_bar_item_background_material.xml
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
 272.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 13.set=ANDROID_RESOURCE
 1.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-251.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/carro_270.png
-<<<<<<< HEAD
+251.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/navto_small.png
 174.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_list_pressed_holo_dark.9.png
-=======
-174.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/loguinhos.png
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
 117.set=ANDROID_RESOURCE
 1.set=ANDROID_RESOURCE
 163.set=ANDROID_RESOURCE
@@ -817,20 +612,16 @@ count=302
 124.set=ANDROID_RESOURCE
 99.file=/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_3d1fa48b874ef67739fe1c30f20c279e6c8b1a6c/classes.dex
 205.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-74.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/anim/abc_popup_exit.xml
+74.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/abc_secondary_text_material_light.xml
 128.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-<<<<<<< HEAD
-303.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_scrubber_control_off_mtrl_alpha.png
-226.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_cab_background_top_mtrl_alpha.9.png
-=======
-226.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_list_selector_background_transition_holo_light.xml
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
+303.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/abc_primary_text_material_dark.xml
+226.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_btn_check_to_on_mtrl_015.png
 257.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 103.base=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar
 276.set=ANDROID_RESOURCE
 232.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 155.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-7.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color-v23/abc_tint_switch_track.xml
+7.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/anim/abc_fade_out.xml
 284.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 130.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 182.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
@@ -842,39 +633,25 @@ count=302
 87.set=ANDROID_RESOURCE
 55.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 303.set=ANDROID_RESOURCE
-244.set=ANDROID_RESOURCE
+244.set=JAVA_RESOURCE
 30.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 185.set=ANDROID_RESOURCE
 109.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_screen_simple.xml
 48.set=ANDROID_RESOURCE
 82.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-238.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/play.png
+238.file=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar/org/osmdroid/center.png
 290.set=ANDROID_RESOURCE
-<<<<<<< HEAD
-213.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color-v23/abc_color_highlight_material.xml
+213.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/circle.xml
 136.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/moreinfo_arrow.png
 94.set=ANDROID_RESOURCE
 205.set=ANDROID_RESOURCE
-265.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_list_focused_holo.9.png
+265.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_search_view.xml
 188.file=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar/org/osmdroid/next.png
-111.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/sucesso.png
-240.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_btn_radio_to_on_mtrl_000.png
+111.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/select_dialog_singlechoice_material.xml
+240.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/play.png
 163.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_ic_menu_copy_mtrl_am_alpha.png
 194.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-292.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/thumb01.png
-=======
-213.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/rectangle.xml
-136.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/previous.png
-94.set=ANDROID_RESOURCE
-205.set=ANDROID_RESOURCE
-265.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_list_menu_item_checkbox.xml
-188.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/abc_tint_switch_thumb.xml
-111.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/select_dialog_singlechoice_material.xml
-240.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_btn_radio_to_on_mtrl_000.png
-163.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_scrubber_control_to_pressed_mtrl_000.png
-194.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-292.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/thumb08.png
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
+292.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/notification_media_cancel_action.xml
 251.set=ANDROID_RESOURCE
 192.set=ANDROID_RESOURCE
 55.set=ANDROID_RESOURCE
@@ -899,25 +676,14 @@ count=302
 298.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 221.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 144.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-<<<<<<< HEAD
-277.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_ic_go_search_api_material.xml
+277.file=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar/org/osmdroid/direction_arrow.png
 200.file=/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_6c334f26a5e6be7045e2fd0d92f1764da835e3c1/classes.dex
 123.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-v21/abc_action_bar_item_background_material.xml
 23.set=ANDROID_RESOURCE
 2.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-252.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_list_selector_disabled_holo_dark.9.png
+252.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/anim/abc_shrink_fade_out_from_bottom.xml
 175.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/loguinhos.png
 150.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_activity_chooser_view.xml
-=======
-277.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_ic_menu_paste_mtrl_am_alpha.png
-200.file=/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main/classes.dex
-123.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_action_menu_item_layout.xml
-23.set=ANDROID_RESOURCE
-2.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-252.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/design_navigation_menu.xml
-175.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/small10.jpg
-150.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/btn_moreinfo.xml
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
 127.set=ANDROID_RESOURCE
 279.set=ANDROID_RESOURCE
 30.set=ANDROID_RESOURCE
@@ -925,13 +691,10 @@ count=302
 23.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color-v11/abc_background_cache_hint_selector_material_dark.xml
 134.set=ANDROID_RESOURCE
 206.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-75.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/abc_secondary_text_material_light.xml
+75.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/anim/abc_popup_exit.xml
 129.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-<<<<<<< HEAD
-227.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_list_selector_background_transition_holo_light.xml
-=======
-227.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_cab_background_top_mtrl_alpha.9.png
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
+304.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/page1.xml
+227.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/small05.jpg
 258.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 50.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/design_navigation_menu_item.xml
 104.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
@@ -941,7 +704,7 @@ count=302
 8.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/page2.xml
 285.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 131.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-260.base=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar
+260.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 183.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 141.set=ANDROID_RESOURCE
 247.set=ANDROID_RESOURCE
@@ -957,37 +720,26 @@ count=302
 31.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 58.set=ANDROID_RESOURCE
 83.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-239.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/direction_arrow.png
-62.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_scrubber_track_mtrl_alpha.9.png
-214.file=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar/org/osmdroid/navto_small.png
-137.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_list_menu_item_layout.xml
+239.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/center.png
+62.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_ic_star_half_black_16dp.png
+214.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/rectangle.xml
+137.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/previous.png
 215.set=ANDROID_RESOURCE
-<<<<<<< HEAD
-266.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/small02.jpg
+266.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/thumb11.png
 189.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/abc_tint_switch_thumb.xml
-112.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_btn_default_mtrl_shape.xml
+112.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/sucesso.png
 19.set=ANDROID_RESOURCE
-241.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/vehicle_handler.xml
-164.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_scrubber_control_to_pressed_mtrl_000.png
-195.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-293.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/frame.xml
-=======
-266.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-v21/abc_btn_colored_material.xml
-189.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/zoom_out.png
-112.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/thumb12.png
-19.set=ANDROID_RESOURCE
-241.file=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar/junit/runner/logo.gif
+241.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/direction_arrow.png
 164.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_dialog_title_material.xml
 195.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-293.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/ic_menu_compass.png
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
+293.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/design_navigation_item_subheader.xml
 261.set=ANDROID_RESOURCE
 170.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 65.set=ANDROID_RESOURCE
-191.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_list_menu_item_radio.xml
+191.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/thumb07.png
 7.set=ANDROID_RESOURCE
 169.set=ANDROID_RESOURCE
-222.set=JAVA_RESOURCE
+222.set=ANDROID_RESOURCE
 26.set=ANDROID_RESOURCE
 37.file=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar/org/osmdroid/ic_menu_mapmode.png
 68.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
@@ -1001,32 +753,19 @@ count=302
 70.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 149.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-hdpi-v4/ic_launcher.png
 299.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-222.base=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar
+222.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 145.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 170.set=ANDROID_RESOURCE
-<<<<<<< HEAD
-278.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/design_snackbar_background.xml
+278.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_textfield_search_default_mtrl_alpha.9.png
 201.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/login.jpg
 124.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_action_menu_item_layout.xml
 33.set=ANDROID_RESOURCE
 3.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-253.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/design_navigation_menu.xml
+253.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_list_selector_disabled_holo_dark.9.png
 176.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/small10.jpg
-151.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_list_selector_disabled_holo_light.9.png
+151.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/btn_moreinfo.xml
 137.set=ANDROID_RESOURCE
-280.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_scrubber_control_to_pressed_mtrl_005.png
-=======
-278.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_scrubber_control_to_pressed_mtrl_005.png
-201.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/anim/abc_slide_in_bottom.xml
-124.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_ic_commit_search_api_mtrl_alpha.png
-33.set=ANDROID_RESOURCE
-3.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-253.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/abc_primary_text_material_light.xml
-176.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/page0.xml
-151.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_list_selector_disabled_holo_light.9.png
-137.set=ANDROID_RESOURCE
-280.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_btn_switch_to_on_mtrl_00001.9.png
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
+280.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_ic_menu_paste_mtrl_am_alpha.png
 289.set=ANDROID_RESOURCE
 40.set=ANDROID_RESOURCE
 49.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/design_navigation_item_separator.xml
@@ -1034,16 +773,13 @@ count=302
 144.set=ANDROID_RESOURCE
 207.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 76.file=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar/junit/runner/smalllogo.gif
+305.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_scrubber_control_off_mtrl_alpha.png
 259.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 51.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/design_navigation_item_header.xml
 105.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 296.set=ANDROID_RESOURCE
 234.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-<<<<<<< HEAD
-9.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/anim/abc_fade_out.xml
-=======
-9.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/page2.xml
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
+9.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color-v23/abc_tint_switch_track.xml
 157.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 105.set=ANDROID_RESOURCE
 286.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
@@ -1056,37 +792,23 @@ count=302
 112.set=ANDROID_RESOURCE
 218.set=ANDROID_RESOURCE
 57.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-264.set=ANDROID_RESOURCE
+264.set=JAVA_RESOURCE
 32.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 68.set=ANDROID_RESOURCE
 84.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-63.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_ic_star_half_black_16dp.png
-215.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/person.png
-<<<<<<< HEAD
-138.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/previous.png
+63.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_scrubber_track_mtrl_alpha.9.png
+215.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color-v23/abc_color_highlight_material.xml
+138.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_list_menu_item_layout.xml
 225.set=ANDROID_RESOURCE
-267.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_list_menu_item_checkbox.xml
+267.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_list_focused_holo.9.png
 113.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/thumb12.png
 29.set=ANDROID_RESOURCE
-90.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/pag1.png
-242.file=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar/junit/runner/logo.gif
-165.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_dialog_title_material.xml
+90.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_list_pressed_holo_light.9.png
+242.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/vehicle_handler.xml
+165.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_scrubber_control_to_pressed_mtrl_000.png
 273.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 196.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-294.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/thumb08.png
-=======
-138.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_menu_hardkey_panel_mtrl_mult.9.png
-225.set=ANDROID_RESOURCE
-267.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/motorcycle_000.png
-113.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/anim/abc_slide_out_bottom.xml
-29.set=ANDROID_RESOURCE
-90.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_list_pressed_holo_light.9.png
-242.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_seekbar_thumb_material.xml
-165.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/customize.png
-273.base=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar
-196.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-294.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_switch_thumb_material.xml
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
+294.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/thumb01.png
 271.set=ANDROID_RESOURCE
 140.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-ldrtl-xxhdpi-v17/abc_spinner_mtrl_am_alpha.9.png
 171.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
@@ -1108,37 +830,22 @@ count=302
 223.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 146.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 180.set=ANDROID_RESOURCE
-<<<<<<< HEAD
-279.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_ic_menu_paste_mtrl_am_alpha.png
+279.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_ic_go_search_api_material.xml
 202.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_list_divider_mtrl_alpha.9.png
 125.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_ic_commit_search_api_mtrl_alpha.png
 43.set=ANDROID_RESOURCE
 4.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-254.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/carro_000.png
+254.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/carro_270.png
 177.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/page0.xml
 100.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_ic_star_black_16dp.png
-=======
-279.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/notification_template_part_chronometer.xml
-202.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/switch_thumb_material_light.xml
-125.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/small11.jpg
-43.set=ANDROID_RESOURCE
-4.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-254.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/carro_000.png
-177.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_tab_indicator_material.xml
-100.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/support_simple_spinner_dropdown_item.xml
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
 147.set=ANDROID_RESOURCE
-152.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/btn_moreinfo.xml
+152.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_list_selector_disabled_holo_light.9.png
 200.set=DEX
-<<<<<<< HEAD
-281.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/notification_template_part_chronometer.xml
-=======
-281.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/carro.png
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
+281.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/design_snackbar_background.xml
 299.set=ANDROID_RESOURCE
 108.set=ANDROID_RESOURCE
 50.set=ANDROID_RESOURCE
-25.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_cab_background_top_material.xml
+25.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/motorcycle_090.png
 154.set=ANDROID_RESOURCE
 208.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 77.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/moreinfo_arrow_pressed.png
@@ -1151,7 +858,7 @@ count=302
 287.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 210.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 133.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-262.base=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar
+262.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 185.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 161.set=ANDROID_RESOURCE
 267.set=ANDROID_RESOURCE
@@ -1165,43 +872,27 @@ count=302
 85.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 64.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-v23/abc_control_background_material.xml
 60.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-216.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/small01.jpg
-<<<<<<< HEAD
+216.file=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar/org/osmdroid/navto_small.png
 139.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_menu_hardkey_panel_mtrl_mult.9.png
 235.set=ANDROID_RESOURCE
-268.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-v21/abc_btn_colored_material.xml
-=======
-139.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/ic_menu_delete.png
-235.set=ANDROID_RESOURCE
-268.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/abc_tint_switch_track.xml
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
+268.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/small02.jpg
 176.set=ANDROID_RESOURCE
 114.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/anim/abc_slide_out_bottom.xml
 39.set=ANDROID_RESOURCE
-<<<<<<< HEAD
-91.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_list_pressed_holo_light.9.png
-243.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_seekbar_thumb_material.xml
-166.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/customize.png
-=======
 91.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/pag1.png
-243.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/AndroidManifest.xml
-166.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/carro_180.png
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
+243.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_btn_radio_to_on_mtrl_000.png
+166.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/customize.png
 274.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 197.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 120.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-295.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_btn_radio_material.xml
+295.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/frame.xml
 281.set=ANDROID_RESOURCE
 141.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_spinner_textfield_background_material.xml
 172.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 85.set=ANDROID_RESOURCE
-270.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_list_menu_item_icon.xml
+270.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-v21/abc_btn_colored_material.xml
 301.set=ANDROID_RESOURCE
-<<<<<<< HEAD
-242.set=JAVA_RESOURCE
-=======
 242.set=ANDROID_RESOURCE
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
 183.set=ANDROID_RESOURCE
 46.set=ANDROID_RESOURCE
 18.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
@@ -1214,25 +905,17 @@ count=302
 20.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 249.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
 72.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-228.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-ldrtl-xxhdpi-v17/abc_ic_menu_copy_mtrl_am_alpha.png
+228.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_cab_background_top_mtrl_alpha.9.png
 301.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-224.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
+224.base=/home/tiago/works/Dedos/app/build/intermediates/transforms/mergeJavaRes/debug/jars/2/1f/main.jar
 190.set=ANDROID_RESOURCE
 203.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/anim/abc_slide_in_bottom.xml
 126.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/page3.xml
 53.set=ANDROID_RESOURCE
 5.base=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_
-<<<<<<< HEAD
-255.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/abc_primary_text_material_light.xml
-178.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color-v23/abc_tint_edittext.xml
+255.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/design_navigation_menu.xml
+178.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/abc_tab_indicator_material.xml
 101.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/support_simple_spinner_dropdown_item.xml
-230.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_action_bar_title_item.xml
-153.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable/truck_000.png
-=======
-255.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-xxhdpi-v4/abc_btn_radio_to_on_mtrl_015.png
-178.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color-v23/abc_tint_edittext.xml
-101.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/grad.xml
-230.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/layout/abc_action_bar_title_item.xml
+230.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-ldrtl-xxhdpi-v17/abc_ic_menu_copy_mtrl_am_alpha.png
 153.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/drawable-mdpi-v4/thumb02.png
->>>>>>> d79df888f24f8bc75ed477d6db8948193a7b098b
 157.set=ANDROID_RESOURCE
