@@ -19,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,7 +27,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -85,12 +88,14 @@ public class CsiActivity extends AppCompatActivity {
     private GeoServerTileSource clear_source;
     private GeoServerTileSource great_source;
     private boolean show_semaforos=true;
-    private VehicleFix selectedVehicle;
+    private View selectedVehicle;
+    private String[] mess;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.csi);
+        mess=new String[]{"","","","","","","","","","","","","","",""};
         context=this;
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -175,6 +180,7 @@ public class CsiActivity extends AppCompatActivity {
                 return true;
             }
         });
+        /*
         findViewById(R.id.drawing_panel).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -184,6 +190,7 @@ public class CsiActivity extends AppCompatActivity {
                 return true;
             }
         });
+        */
         //carros vêm na intention
         vehicles=new JSONArray();
         Pega pegador=(Pega)findViewById(R.id.pegador);
@@ -247,6 +254,13 @@ public class CsiActivity extends AppCompatActivity {
                         break;
                     case R.id.imageButton_vitima:
                         loadVehicle(VehicleFix.PEDESTRE,2.0,2.5);
+                        break;
+                    case R.id.imageButton_draw:
+                        current_mode=FREEHAND;
+                        saveVehicles();
+                        findViewById(R.id.show_pallette).setVisibility(View.GONE);
+                        findViewById(R.id.drawing_panel).setVisibility(View.VISIBLE);
+                        ((Panel)findViewById(R.id.drawing_panel)).setLigado(true);
                         break;
                 }
                 findViewById(R.id.show_pallette).setVisibility(View.VISIBLE);
@@ -386,9 +400,9 @@ public class CsiActivity extends AppCompatActivity {
                 ligaCarros(true);
                 break;
             case R.id.tombar_veiculo:
-                VehicleFix v = ((CsiActivity)context).getSelectedVehicle();
+                View v = ((CsiActivity)context).getSelectedVehicle();
                 if(v!=null){
-                    v.vira();
+                    //v.vira();
                 }
                 break;
             case R.id.reset_veiculo:
@@ -467,23 +481,30 @@ public class CsiActivity extends AppCompatActivity {
     }
 
     public void updateVehiclePosition(Pega l, float[] ponta) {
-        VehicleFix v = getSelectedVehicle();
-        if(v==null)return;
-
+        View r = getSelectedVehicle();
+        if(r==null) return;
+        LinearLayout body = (LinearLayout) r.findViewById(R.id.vehicle_body);
+        if(body==null)return;
         float[] ce = {l.getX(),l.getY()};
-
-        Log.d("IAT","ponta pegada "+ponta[0]+" "+ponta[1]+" centro "+ce[0]+" "+ce[1]);
-        v.setRotation(l.getRodRotation());
-        v.setX(ponta[0]);
-        v.setY(ponta[1]);
-        v.invalidate();
+        Log.d("IAT","POSICAO: "+body.getX()+", "+body.getY()+" - ponta pegada "+ponta[0]+" "+ponta[1]+" centro "+ce[0]+" "+ce[1]);
+        body.setRotation(l.getRodRotation());
+        body.setX(ponta[0]-Math.round(body.getWidth()/2));
+        body.setY(ponta[1]-Math.round(body.getHeight()/2));
+        body.invalidate();
     }
 
-    public void setSelectedVehicle(VehicleFix sv) {
+    public void setSelectedVehicle(View sv) {
         selectedVehicle = sv;
+        if(sv!=null) {
+            Pega pegador = (Pega) findViewById(R.id.pegador);
+            View bod = sv.findViewById(R.id.vehicle_body);
+            log("rotação do carro na hora da pegada:" + bod.getRotation(), 1);
+
+            pegador.setPontaPosition(bod.getX(), bod.getY(), bod.getRotation());
+        }
     }
 
-    public VehicleFix getSelectedVehicle() {
+    public View getSelectedVehicle() {
         return selectedVehicle;
     }
 
@@ -625,14 +646,28 @@ public class CsiActivity extends AppCompatActivity {
         double pixels_per_m = diagonal / results[0];
         int w = (int) (width * pixels_per_m);
         int l = (int) (length * pixels_per_m);
-        VehicleFix v = new VehicleFix(context, findViewById(R.id.vehicles_canvas), w, l, model,0);
-        v.addOrRemoveProperty(RelativeLayout.CENTER_IN_PARENT,true);
-
-        ((ViewGroup) findViewById(R.id.vehicles_canvas)).addView((View) v);
+        //LayoutInflater inflater = LayoutInflater.from(context);
+        View v=new VehicleFix(context);
+        ((ViewGroup) findViewById(R.id.vehicles_canvas)).addView(v);
+        //v.setLa
+                //inflater.inflate(R.layout.vehicle, (ViewGroup) findViewById(R.id.vehicles_canvas));
+        setSelectedVehicle(v);
         IGeoPoint c = map.getMapCenter();
         Point pix = map.getProjection().toPixels(c, null);
-        v.setX(pix.x);
-        v.setY(pix.y);
+        View body = v.findViewById(R.id.vehicle_body);
+        body.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setSelectedVehicle((View) view.getParent());
+            }
+        });
+        //body.setPivotX(0f);
+        //body.setPivotY(0f);
+
+        //RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int) Math.round(w), (int) Math.round(l));
+        //body.setLayoutParams(params);
+        //body.invalidate();
+
         JSONObject veiculo = new JSONObject();
         try {
             veiculo.put("model", model);
@@ -640,7 +675,6 @@ public class CsiActivity extends AppCompatActivity {
             veiculo.put("length", length);
         } catch (JSONException e) {}
         vehicles.put(veiculo);
-        setSelectedVehicle(v);
     }
 
     protected void loadVehicles() {
@@ -669,21 +703,7 @@ public class CsiActivity extends AppCompatActivity {
         for (int i = 0; i < vehicles.length(); i++) {
             int width = (int) (vehicles.optJSONObject(i).optDouble("width") * pixels_per_m);//1000 * Math.pow(2.0, map.getZoomLevel()) / (2 * 20037508.34));
             int height = (int) (vehicles.optJSONObject(i).optDouble("length") * pixels_per_m); //1000 * Math.pow(2.0, map.getZoomLevel()) / (2 * 20037508.34));
-            VehicleFix v = new VehicleFix(this, findViewById(R.id.vehicles_canvas), width, height, vehicles.optJSONObject(i).optInt("model"),vehicles.optJSONObject(i).optInt("roll"));
-
-            if(vehicles.optJSONObject(i).has("latitude") && vehicles.optJSONObject(i).has("longitude")){
-                Point pix = map.getProjection().toPixels(new GeoPoint(vehicles.optJSONObject(i).optDouble("latitude"), vehicles.optJSONObject(i).optDouble("longitude")), null);
-                v.setX(pix.x);
-                v.setY(pix.y);
-            }else{
-                v.setX(auto_increment_position);
-                auto_increment_position+=width;
-            }
-            if(vehicles.optJSONObject(i).has("position")){
-                v.setRotation((float) vehicles.optJSONObject(i).optJSONObject("position").optDouble("heading"));
-            }
-            ((ViewGroup) findViewById(R.id.vehicles_canvas)).addView((View) v);
-            ((ViewGroup) findViewById(R.id.vehicles_canvas)).invalidate();
+//ADICIONA AQUI SEU VEICULO
         }
     }
     protected void resetVehicles(){
@@ -699,5 +719,13 @@ public class CsiActivity extends AppCompatActivity {
     }
     protected void renderPalette(){
 
+    }
+    public void log(String text, int line){
+        mess[line]=text;
+        String fim="";
+        for(int i=0;i<mess.length;i++){
+            fim+="\n"+mess[i];
+        }
+        ((TextView)findViewById(R.id.messageria)).setText(fim);
     }
 }

@@ -2,18 +2,12 @@ package br.com.homembala.dedos.util;
 
 import android.content.Context;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringDef;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.RotateAnimation;
 import android.widget.LinearLayout;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import br.com.homembala.dedos.CsiActivity;
 import br.com.homembala.dedos.R;
@@ -30,8 +24,11 @@ public class Pega extends LinearLayout {
     private int[] center;
     private float[] ponta_atual;
     int rod_length=dpToPx(153);
-    int ball_size=dpToPx(13);
+    int rod_width=dpToPx(1);
+
+    int ball_radius =dpToPx(13);
     private Handler handler;
+    private float[] posicao_atual;
 
     public Pega(Context context) {
         super(context);
@@ -56,7 +53,7 @@ public class Pega extends LinearLayout {
         if(vetor[1]==0){
             return 270-((vetor[0]>0)?90:270);
         }
-        return ((vetor[1]>0)?180:360)-180*Math.atan(vetor[0]/vetor[1])/Math.PI;
+        return ((vetor[1]>0)?180:0)-180*Math.atan(vetor[0]/vetor[1])/Math.PI;
     }
     public float[] getPonta(){
         return getPonta(new float[]{getX(),getY()}, rotation);
@@ -88,7 +85,6 @@ public class Pega extends LinearLayout {
         rod.setPivotX(0);
         rod.setPivotY(0);
         final View bolinha = v.findViewById(R.id.floatingActionButton);
-
         v.findViewById(R.id.floatingActionButton).setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -97,18 +93,22 @@ public class Pega extends LinearLayout {
                     case MotionEvent.ACTION_DOWN:
                         //inicia arrasto
                         Log.d("IAT","Iniciando o movimento o maus");
-                        tamanho = new int[]{v.findViewById(R.id.floatingActionButton).getWidth()/2
-                                , v.findViewById(R.id.floatingActionButton).getHeight()/2};
                         center = new int[]{
-                                bolinha.getWidth()/2,
-                                bolinha.getHeight()/2
+                                ball_radius,
+                                ball_radius
                         };
-                        int[] pos = new int[2];
-                        bolinha.getLocationInWindow(pos);
-                        ponta_atual=getPonta(new float[]{
-                                pos[0],
-                                pos[1]
-                        },rotation*Math.PI/180);
+                        //int[] pos = new int[2];
+                        //bolinha.getLocationInWindow(pos);
+                        posicao_atual=new float[]{
+                                posicao_atual[0] + motionEvent.getX(),
+                                posicao_atual[1] + motionEvent.getY()
+                        };
+                        ponta_atual=getPonta(posicao_atual,rotation*Math.PI/180);
+
+                        ((CsiActivity)context).log("posicao da ponta "+posicao_atual[0]+" "+posicao_atual[1],3);
+                        ((CsiActivity)context).log("posicao da bolinha "+posicao_atual[0]+" "+posicao_atual[1],5);
+                        ((CsiActivity)context).log("posicao da ponta do dedo "+motionEvent.getX()+" "+motionEvent.getY(),6);
+
                         break;
                     case MotionEvent.ACTION_UP:
                         //finaliza arrasto
@@ -120,8 +120,9 @@ public class Pega extends LinearLayout {
 
                         //posicao da bolinha:
                         float[] position = new float[]{
-                            bolinha.getX()+tamanho[0],bolinha.getY()+tamanho[0]
+                                bolinha.getX()+ball_radius,bolinha.getY()+ball_radius
                         };
+                        position=posicao_atual;
                         //bolinha.getLocationOnScreen(position);
 
                         float[] centerposition=new float[]{
@@ -138,9 +139,9 @@ public class Pega extends LinearLayout {
                                 centerposition[0]+move[0],
                                 centerposition[1]+move[1]
                         };
-                        bolinha.setX(prox[0]-tamanho[0]);
-                        bolinha.setY(prox[1]-tamanho[0]);
-                        rod.setX(prox[0]);
+                        bolinha.setX(prox[0]-ball_radius);
+                        bolinha.setY(prox[1]-ball_radius);
+                        rod.setX(prox[0]-rod_width);
                         rod.setY(prox[1]);
 
                         float[] vetor = new float[] {
@@ -148,8 +149,7 @@ public class Pega extends LinearLayout {
                                 prox[1]-ponta_atual[1]
                         };
 
-                        double angle = getAngle(vetor);
-                        rotation=(float) angle;
+                        rotation=(float) getAngle(vetor);
                         ponta_atual=getPonta(new float[]{
                                 prox[0],
                                 prox[1]
@@ -159,6 +159,9 @@ public class Pega extends LinearLayout {
                         rod.setX(prox[0]);
                         rod.setY(prox[1]);
                         ((CsiActivity)context).updateVehiclePosition(pegador,getPonta(prox, rotation*Math.PI/180));
+                        ((CsiActivity)context).log("posicao da bolinha "+posicao_atual[0]+" "+posicao_atual[1],9);
+                        posicao_atual=prox;
+
                         break;
                 }
 
@@ -170,12 +173,19 @@ public class Pega extends LinearLayout {
     public float getRodRotation() {
         return findViewById(R.id.rod).getRotation();
     }
+    public void setRodRotation(float r) {
+        findViewById(R.id.rod).setRotation(r);
+    }
 
     public void setPontaPosition(float x, float y, float rotation) {
-        float[] po = getHandlerCenter(new float[]{x, y}, rotation);
+        ((CsiActivity)context).log("desenhar a ponta em "+x+" "+y,2);
+        posicao_atual = getHandlerCenter(new float[]{x, y}, rotation*Math.PI/180);
         View bolinha = findViewById(R.id.floatingActionButton);
-        bolinha.setX(po[0]);
-        bolinha.setY(po[1]);
-        findViewById(R.id.rod).setRotation(rotation);
+        View rod = findViewById(R.id.rod);
+        bolinha.setX(posicao_atual[0]);
+        bolinha.setY(posicao_atual[1]);
+        rod.setX(posicao_atual[0]+ball_radius);
+        rod.setY(posicao_atual[1]+ball_radius);
+        rod.setRotation(rotation);
     }
 }

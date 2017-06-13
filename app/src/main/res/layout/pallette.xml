@@ -69,4 +69,17 @@
             app:srcCompat="@drawable/pessoa"
             android:id="@+id/imageButton_vitima" />
     </LinearLayout>
+    <LinearLayout
+        android:weightSum="10"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/imageButton_draw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/btn_moreinfo" />
+    </LinearLayout>
+
+
 </LinearLayout>
