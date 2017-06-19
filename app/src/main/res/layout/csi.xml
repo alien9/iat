@@ -12,13 +12,17 @@
         android:background="@color/white"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
+
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
         <org.osmdroid.views.MapView android:id="@+id/map"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" />
-
+        <br.com.homembala.dedos.Panel
+            android:id="@+id/drawing_panel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -52,26 +56,17 @@
                 android:layout_margin="5dp"
                 >
             </LinearLayout>
-
-
         </RelativeLayout>
         <br.com.homembala.dedos.util.Pega
-        android:id="@+id/pegador"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent" />
-
-        <br.com.homembala.dedos.Panel
-            android:background="#cc11ff00"
-            android:id="@+id/drawing_panel"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
+            android:id="@+id/pegador"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent" />
         <TextView
-                android:layout_gravity="bottom"
-                android:id="@+id/messageria"
-                android:text="mensagens"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+            android:layout_gravity="bottom"
+            android:id="@+id/messageria"
+            android:text="mensagens"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </FrameLayout>
 
 </LinearLayout>

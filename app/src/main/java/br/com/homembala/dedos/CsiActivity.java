@@ -235,6 +235,7 @@ public class CsiActivity extends AppCompatActivity {
         View.OnClickListener cl = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setSelectedVehicle(null);
                 int id=view.getId();
                 switch(id){
                     case R.id.imageButton_carro:
@@ -255,13 +256,27 @@ public class CsiActivity extends AppCompatActivity {
                     case R.id.imageButton_vitima:
                         loadVehicle(VehicleFix.PEDESTRE,2.0,2.5);
                         break;
-                    case R.id.imageButton_draw:
+                    case R.id.imageButton_skid:
                         current_mode=FREEHAND;
                         saveVehicles();
                         findViewById(R.id.show_pallette).setVisibility(View.GONE);
                         findViewById(R.id.drawing_panel).setVisibility(View.VISIBLE);
+                        ((Panel)findViewById(R.id.drawing_panel)).setStyle(Panel.SKID);
                         ((Panel)findViewById(R.id.drawing_panel)).setLigado(true);
                         break;
+                    case R.id.imageButton_zebra:
+                        current_mode=FREEHAND;
+                        saveVehicles();
+                        findViewById(R.id.show_pallette).setVisibility(View.GONE);
+                        findViewById(R.id.drawing_panel).setVisibility(View.VISIBLE);
+                        ((Panel)findViewById(R.id.drawing_panel)).setStyle(Panel.ZEBRA);
+                        ((Panel)findViewById(R.id.drawing_panel)).setLigado(true);
+                        break;
+                    case R.id.imageButton_draw:
+                        current_mode=MAP;
+                        ((Panel)findViewById(R.id.drawing_panel)).setLigado(false);
+                        saveVehicles();
+
                 }
                 findViewById(R.id.show_pallette).setVisibility(View.VISIBLE);
                 findViewById(R.id.palette_layout).setVisibility(View.GONE);
@@ -495,12 +510,14 @@ public class CsiActivity extends AppCompatActivity {
 
     public void setSelectedVehicle(View sv) {
         selectedVehicle = sv;
+        Pega pegador = (Pega) findViewById(R.id.pegador);
         if(sv!=null) {
-            Pega pegador = (Pega) findViewById(R.id.pegador);
+            pegador.setVisibility(View.VISIBLE);
             View bod = sv.findViewById(R.id.vehicle_body);
             log("rotação do carro na hora da pegada:" + bod.getRotation(), 1);
-
             pegador.setPontaPosition(bod.getX(), bod.getY(), bod.getRotation());
+        }else{
+            pegador.setVisibility(View.GONE);
         }
     }
 
@@ -663,7 +680,6 @@ public class CsiActivity extends AppCompatActivity {
         });
         //body.setPivotX(0f);
         //body.setPivotY(0f);
-
         //RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int) Math.round(w), (int) Math.round(l));
         //body.setLayoutParams(params);
         //body.invalidate();

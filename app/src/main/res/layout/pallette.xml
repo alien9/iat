@@ -76,10 +76,22 @@
         android:layout_height="wrap_content">
         <ImageButton
             android:id="@+id/imageButton_draw"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/btn_moreinfo" />
+        <ImageButton
+            android:id="@+id/imageButton_skid"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:scaleType="fitCenter"
+            android:background="@color/transparent"
+            app:srcCompat="@drawable/btn_skid" />
+        <ImageButton
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:scaleType="fitCenter"
+            android:id="@+id/imageButton_zebra"
+            android:background="@color/transparent"
+            app:srcCompat="@drawable/btn_faixa" />
     </LinearLayout>
-
-
 </LinearLayout>
