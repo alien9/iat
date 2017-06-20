@@ -2,6 +2,7 @@ package br.com.homembala.dedos;
 
 import java.util.ArrayList;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
@@ -35,6 +36,7 @@ public class Panel extends View implements View.OnTouchListener{
         setFocusableInTouchMode(true);
         this.setOnTouchListener(this);
         canvas = new Canvas();
+        setDrawingCacheEnabled(true);
     }
     @Override
     public void onDraw(Canvas canvas) {
@@ -68,8 +70,8 @@ public class Panel extends View implements View.OnTouchListener{
     private void touch_up() {
         paths.get(paths.size()-1).lineTo(mX, mY);
         // commit the path to our offscreen
-        canvas.drawPath(paths.get(paths.size()-1), getPaint());
-        canvas.save();
+        //canvas.drawPath(paths.get(paths.size()-1), getPaint());
+        //canvas.save();
         // kill this so we don't double draw            
         //path = new Path();
 
@@ -147,5 +149,10 @@ public class Panel extends View implements View.OnTouchListener{
                 break;
         }
         return paint;
+    }
+    public void reset(){
+        paths=new ArrayList<>();
+        paints=new ArrayList<>();
+        invalidate();
     }
 }

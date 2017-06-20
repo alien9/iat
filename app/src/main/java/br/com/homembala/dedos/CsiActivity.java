@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
@@ -85,6 +86,7 @@ public class CsiActivity extends AppCompatActivity {
     private JSONArray vehicles;
     private Context context;
     private GroundOverlay vehicles_zooming_over;
+    private GroundOverlay drawing_zooming_over;
     private GeoServerTileSource clear_source;
     private GeoServerTileSource great_source;
     private boolean show_semaforos=true;
@@ -95,6 +97,7 @@ public class CsiActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.csi);
+        findViewById(R.id.messageria).setVisibility(View.GONE);
         mess=new String[]{"","","","","","","","","","","","","","",""};
         context=this;
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -151,23 +154,6 @@ public class CsiActivity extends AppCompatActivity {
                 return true;
             }
         }, 1000 ));
-        /*
-        map.setMapListener(new MapListener() {
-            @Override
-            public boolean onScroll(ScrollEvent scrollEvent) {
-                if(vehicles_zooming_over==null)
-                    saveVehicles();
-                return false;
-            }
-
-            @Override
-            public boolean onZoom(ZoomEvent zoomEvent) {
-                if(vehicles_zooming_over==null)
-                    saveVehicles();
-                return false;
-            }
-        });*/
-
         is_updating_labels =false;
         update_labels_after =false;
         is_updating_closeup=false;
@@ -180,20 +166,10 @@ public class CsiActivity extends AppCompatActivity {
                 return true;
             }
         });
-        /*
-        findViewById(R.id.drawing_panel).setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(motionEvent.getAction()==MotionEvent.ACTION_DOWN){
-                    if(current_mode!=FREEHAND) return false;
-                }
-                return true;
-            }
-        });
-        */
         //carros vêm na intention
         vehicles=new JSONArray();
         Pega pegador=(Pega)findViewById(R.id.pegador);
+        pegador.setVisibility(View.GONE);
         //pegador.setPivotY(pegador.getHeight());
         /*for(int i=0;i<2;i++) {
             JSONObject v = new JSONObject();
@@ -256,26 +232,35 @@ public class CsiActivity extends AppCompatActivity {
                     case R.id.imageButton_vitima:
                         loadVehicle(VehicleFix.PEDESTRE,2.0,2.5);
                         break;
+                    case R.id.imageButton_xplosion:
+                        loadVehicle(VehicleFix.COLISAO,2.0,2.0);
+                        break;
                     case R.id.imageButton_skid:
                         current_mode=FREEHAND;
-                        saveVehicles();
+                        //saveVehicles();
+                        map.getController().setZoom(20);
                         findViewById(R.id.show_pallette).setVisibility(View.GONE);
                         findViewById(R.id.drawing_panel).setVisibility(View.VISIBLE);
                         ((Panel)findViewById(R.id.drawing_panel)).setStyle(Panel.SKID);
                         ((Panel)findViewById(R.id.drawing_panel)).setLigado(true);
+                        ((Panel)findViewById(R.id.drawing_panel)).setVisibility(View.VISIBLE);
                         break;
                     case R.id.imageButton_zebra:
                         current_mode=FREEHAND;
-                        saveVehicles();
+                        //saveVehicles();
+                        map.getController().setZoom(20);
                         findViewById(R.id.show_pallette).setVisibility(View.GONE);
                         findViewById(R.id.drawing_panel).setVisibility(View.VISIBLE);
                         ((Panel)findViewById(R.id.drawing_panel)).setStyle(Panel.ZEBRA);
                         ((Panel)findViewById(R.id.drawing_panel)).setLigado(true);
+                        ((Panel)findViewById(R.id.drawing_panel)).setVisibility(View.VISIBLE);
                         break;
                     case R.id.imageButton_draw:
                         current_mode=MAP;
                         ((Panel)findViewById(R.id.drawing_panel)).setLigado(false);
                         saveVehicles();
+                        ((Panel)findViewById(R.id.drawing_panel)).reset();
+                        break;
 
                 }
                 findViewById(R.id.show_pallette).setVisibility(View.VISIBLE);
@@ -397,7 +382,7 @@ public class CsiActivity extends AppCompatActivity {
                 current_mode=MAP;
                 saveVehicles();
                 //findViewById(R.id.drawing_panel).setVisibility(View.GONE);
-                findViewById(R.id.show_pallette).setVisibility(View.GONE);
+                //findViewById(R.id.show_pallette).setVisibility(View.GONE);
                 //findViewById(R.id.vehicles_canvas).setVisibility(View.GONE);
                 break;
             case R.id.mode_freehand:
@@ -411,7 +396,8 @@ public class CsiActivity extends AppCompatActivity {
             case R.id.mode_vehicles:
                 current_mode=VEHICLES;
                 findViewById(R.id.show_pallette).setVisibility(View.VISIBLE);
-                loadVehicles();
+                findViewById(R.id.vehicles_canvas).setVisibility(View.VISIBLE);
+                reloadVehicles();
                 ligaCarros(true);
                 break;
             case R.id.tombar_veiculo:
@@ -487,12 +473,17 @@ public class CsiActivity extends AppCompatActivity {
         Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this));
     }
 
-    public void updatePegadorForSelectedVehicle(VehicleFix view, MotionEvent motionEvent) {
+    public void updatePegadorForSelectedVehicle(MotionEvent motionEvent) {
         Pega pegador=(Pega)findViewById(R.id.pegador);
-        //pegador.findViewById(R.id.rod).setRotation(view.getRotation());
-        pegador.setPontaPosition(view.getX(),view.getY(),view.getRotation());
 
-        pegador.invalidate();
+        VehicleFix fu = (VehicleFix)getSelectedVehicle();
+        if(fu!=null) {
+            //pegador.findViewById(R.id.rod).setRotation(view.getRotation());
+            View bode = fu.findViewById(R.id.vehicle_body);
+            pegador.setPontaPosition(bode.getX()+bode.getWidth()/2, bode.getY()+bode.getHeight()/2, bode.getRotation());
+            pegador.invalidate();
+        }
+
     }
 
     public void updateVehiclePosition(Pega l, float[] ponta) {
@@ -501,10 +492,11 @@ public class CsiActivity extends AppCompatActivity {
         LinearLayout body = (LinearLayout) r.findViewById(R.id.vehicle_body);
         if(body==null)return;
         float[] ce = {l.getX(),l.getY()};
-        Log.d("IAT","POSICAO: "+body.getX()+", "+body.getY()+" - ponta pegada "+ponta[0]+" "+ponta[1]+" centro "+ce[0]+" "+ce[1]);
+        //Log.d("IAT","POSICAO: "+body.getX()+", "+body.getY()+" - ponta pegada "+ponta[0]+" "+ponta[1]+" centro "+ce[0]+" "+ce[1]);
         body.setRotation(l.getRodRotation());
         body.setX(ponta[0]-Math.round(body.getWidth()/2));
         body.setY(ponta[1]-Math.round(body.getHeight()/2));
+        log("POSICAO em pixels no momento do movimento:"+body.getX()+" "+body.getY(),11);
         body.invalidate();
     }
 
@@ -515,7 +507,7 @@ public class CsiActivity extends AppCompatActivity {
             pegador.setVisibility(View.VISIBLE);
             View bod = sv.findViewById(R.id.vehicle_body);
             log("rotação do carro na hora da pegada:" + bod.getRotation(), 1);
-            pegador.setPontaPosition(bod.getX(), bod.getY(), bod.getRotation());
+            pegador.setPontaPosition(bod.getX()+bod.getWidth()/2, bod.getY()+bod.getHeight()/2, bod.getRotation());
         }else{
             pegador.setVisibility(View.GONE);
         }
@@ -523,6 +515,13 @@ public class CsiActivity extends AppCompatActivity {
 
     public View getSelectedVehicle() {
         return selectedVehicle;
+    }
+
+    public Point getDisplaySize() {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size;
     }
 
     public class GeoServerTileSource extends OnlineTileSourceBase {
@@ -610,9 +609,9 @@ public class CsiActivity extends AppCompatActivity {
                 map.invalidate();
             }
             ViewGroup o = ((ViewGroup) findViewById(R.id.vehicles_canvas));
-            Bitmap bi = o.getDrawingCache();
+            Bitmap bi = o.getDrawingCache().copy(o.getDrawingCache().getConfig(),true);
             if (bi == null) return;
-            bi.compress(Bitmap.CompressFormat.PNG, 95, new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + "/screen.png"));
+            bi.compress(Bitmap.CompressFormat.PNG, 95, new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + "/vehicle_screen.png"));
             for (int i = 0; i < o.getChildCount(); i++) {
                 JSONObject v = vehicles.optJSONObject(i);
                 if (v == null) {
@@ -622,27 +621,41 @@ public class CsiActivity extends AppCompatActivity {
                 VehicleFix vw = (VehicleFix) o.getChildAt(i);
                 //if(vw.getMexido()) {
                 JSONObject position = vw.getPosition();
-                IGeoPoint latlng = map.getProjection().fromPixels(position.getInt("x"), position.getInt("y"));
+                View bode = vw.findViewById(R.id.vehicle_body);
+                IGeoPoint latlng = map.getProjection().fromPixels(
+                        Math.round(bode.getX()), Math.round(bode.getY())
+                );
                 v.put("latitude", latlng.getLatitude());
                 v.put("longitude", latlng.getLongitude());
                 v.put("position", position);
                 v.put("roll", vw.getRoll());
+                v.put("rotation",bode.getRotation());
+
                 vehicles.put(i, v);
+                log("salva: "+v.toString(),10);
                 //}
             }
-            o.removeAllViews();
-
+            //o.removeAllViews();
+            o.setVisibility(View.GONE);
             BoundingBox b = map.getBoundingBox();
             Double[] p1 = degrees2meters(b.getLonEast(), b.getLatSouth());
             Double[] p2 = degrees2meters(b.getLonWest(), b.getLatNorth());
             Double[] p3 = degrees2meters(b.getLonWest(), b.getLatSouth());
-
             vehicles_zooming_over = new CsiGroundOverlay().setBounds(b);
             IGeoPoint position = map.getMapCenter();
-
             vehicles_zooming_over.setImage(new BitmapDrawable(getResources(), bi));
             vehicles_zooming_over.setPosition((GeoPoint) position);
             map.getOverlays().add(vehicles_zooming_over);
+
+            View p = findViewById(R.id.drawing_panel);
+            Bitmap bii = p.getDrawingCache().copy(p.getDrawingCache().getConfig(),true);
+            if (bii == null) return;
+            ((Panel)p).reset();
+            bii.compress(Bitmap.CompressFormat.PNG, 95, new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + "/drawing_screen.png"));
+            drawing_zooming_over = new CsiGroundOverlay().setBounds(b);
+            drawing_zooming_over.setImage(new BitmapDrawable(getResources(), bii));
+            drawing_zooming_over.setPosition((GeoPoint) position);
+            map.getOverlays().add(drawing_zooming_over);
             map.invalidate();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -656,34 +669,26 @@ public class CsiActivity extends AppCompatActivity {
         BoundingBox b = map.getBoundingBox();
         float[] results = new float[1];
         Location.distanceBetween(b.getLatNorth(),b.getLonWest(),b.getLatSouth(),b.getLonEast(),results);
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
+        Point size = getDisplaySize();
         double diagonal = Math.sqrt(Math.pow(size.x,2.0) + Math.pow(size.y,2.0));
         double pixels_per_m = diagonal / results[0];
         int w = (int) (width * pixels_per_m);
         int l = (int) (length * pixels_per_m);
-        //LayoutInflater inflater = LayoutInflater.from(context);
         View v=new VehicleFix(context);
         ((ViewGroup) findViewById(R.id.vehicles_canvas)).addView(v);
-        //v.setLa
-                //inflater.inflate(R.layout.vehicle, (ViewGroup) findViewById(R.id.vehicles_canvas));
+        ((VehicleFix)v).zinit(model,0);
         setSelectedVehicle(v);
-        IGeoPoint c = map.getMapCenter();
-        Point pix = map.getProjection().toPixels(c, null);
         View body = v.findViewById(R.id.vehicle_body);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int) Math.round(w), (int) Math.round(l));
+        body.setX((size.x-w)/2);
+        body.setY((size.y-l)/2);
+        body.setLayoutParams(params);
         body.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setSelectedVehicle((View) view.getParent());
             }
         });
-        //body.setPivotX(0f);
-        //body.setPivotY(0f);
-        //RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int) Math.round(w), (int) Math.round(l));
-        //body.setLayoutParams(params);
-        //body.invalidate();
-
         JSONObject veiculo = new JSONObject();
         try {
             veiculo.put("model", model);
@@ -693,7 +698,7 @@ public class CsiActivity extends AppCompatActivity {
         vehicles.put(veiculo);
     }
 
-    protected void loadVehicles() {
+    protected void reloadVehicles() {
         ((Iat)getApplicationContext()).setSelectedVehicle(null);
         ViewGroup o = ((ViewGroup) findViewById(R.id.vehicles_canvas));
         MapView map = (MapView) findViewById(R.id.map);
@@ -702,24 +707,35 @@ public class CsiActivity extends AppCompatActivity {
             map.invalidate();
             vehicles_zooming_over=null;
         }
-        for (int i = o.getChildCount()-1; i >=0; i--) {
-            if (o.getChildAt(i).getClass().getCanonicalName().equals(VehicleFix.class.getCanonicalName())) {
-                o.removeView(o.getChildAt(i));
-            }
-        }
-        int auto_increment_position = 10;
         BoundingBox b = map.getBoundingBox();
         float[] results = new float[1];
         Location.distanceBetween(b.getLatNorth(),b.getLonWest(),b.getLatSouth(),b.getLonEast(),results);
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
+        Point size = getDisplaySize();
         double diagonal = Math.sqrt(Math.pow(size.x,2.0) + Math.pow(size.y,2.0));
         double pixels_per_m = diagonal / results[0];
         for (int i = 0; i < vehicles.length(); i++) {
-            int width = (int) (vehicles.optJSONObject(i).optDouble("width") * pixels_per_m);//1000 * Math.pow(2.0, map.getZoomLevel()) / (2 * 20037508.34));
-            int height = (int) (vehicles.optJSONObject(i).optDouble("length") * pixels_per_m); //1000 * Math.pow(2.0, map.getZoomLevel()) / (2 * 20037508.34));
-//ADICIONA AQUI SEU VEICULO
+            int w = (int) (vehicles.optJSONObject(i).optDouble("width") * pixels_per_m);//1000 * Math.pow(2.0, map.getZoomLevel()) / (2 * 20037508.34));
+            int l = (int) (vehicles.optJSONObject(i).optDouble("length") * pixels_per_m); //1000 * Math.pow(2.0, map.getZoomLevel()) / (2 * 20037508.34));
+            View v=((ViewGroup) findViewById(R.id.vehicles_canvas)).getChildAt(i);
+            Point position = new Point();
+            map.getProjection().toPixels(new GeoPoint(vehicles.optJSONObject(i).optDouble("latitude"),vehicles.optJSONObject(i).optDouble("longitude")),position);
+            View body = v.findViewById(R.id.vehicle_body);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int) Math.round(w), (int) Math.round(l));
+            body.setLayoutParams(params);
+            if(position!=null) {
+                body.setX(position.x);
+                body.setY(position.y);
+            }
+            body.setRotation((float) vehicles.optJSONObject(i).optDouble("rotation"));
+            setSelectedVehicle(v);
+            body.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    setSelectedVehicle((View) view.getParent());
+                }
+            });
+            log("conforme:"+body.getX(),11);
+            v.invalidate();
         }
     }
     protected void resetVehicles(){
@@ -731,7 +747,7 @@ public class CsiActivity extends AppCompatActivity {
             v.remove("position");
             v.remove("roll");
         }
-        loadVehicles();
+        reloadVehicles();
     }
     protected void renderPalette(){
 

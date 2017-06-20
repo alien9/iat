@@ -30,7 +30,6 @@
             android:orientation="vertical"
             android:animateLayoutChanges="true"
             >
-
             <RelativeLayout
                 android:id="@+id/vehicles_canvas"
                 android:layout_width="match_parent"

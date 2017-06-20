@@ -5,15 +5,16 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical">
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
-        android:layout_centerInParent="true"
         android:layout_width="26dp"
         android:layout_height="26dp"
-        android:clickable="true"
+        android:layout_centerInParent="true"
         android:layout_gravity="center_vertical"
-        app:fabSize="mini"
-        app:srcCompat="@drawable/red_round" />
+        android:clickable="true"
+        app:backgroundTint="#ffff0000"
+        app:fabSize="mini" />
     <LinearLayout
         android:layout_centerInParent="true"
         android:orientation="vertical"

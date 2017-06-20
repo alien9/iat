@@ -2,9 +2,9 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/vehicle_body"
-    android:layout_width="20dp"
-    android:layout_height="20dp"
+    android:layout_width="60dp"
+    android:layout_height="60dp"
     android:layout_centerInParent="true"
     android:layout_gravity="center_vertical|center_horizontal"
-    android:background="#ff000066"
+    android:background="#cc000066"
     android:orientation="vertical" />

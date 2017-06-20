@@ -93,5 +93,12 @@
             android:id="@+id/imageButton_zebra"
             android:background="@color/transparent"
             app:srcCompat="@drawable/btn_faixa" />
+        <ImageButton
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:scaleType="fitCenter"
+            android:id="@+id/imageButton_xplosion"
+            android:background="@color/transparent"
+            app:srcCompat="@drawable/path3001" />
     </LinearLayout>
 </LinearLayout>

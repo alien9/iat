@@ -1,12 +1,15 @@
 package br.com.homembala.dedos.util;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,29 +28,32 @@ public class VehicleFix extends RelativeLayout {
     public static final int MOTO = 3;
     public static final int PEDESTRE = 4;
     public static final int BICI = 5;
+    public static final int COLISAO = 6;
 
     private float width;
     private float height;
     private Context context;
     private int model;
-    private boolean mexido;
     private int roll;
     private View background;
     private float[] inicio;
     private boolean ligado;
+    private Point position;
+    private float[] posicao_atual;
 
     public JSONObject getPosition(){
         JSONObject p=new JSONObject();
         try {
             p.put("heading", this.getRotation());
             p.put("x", this.findViewById(R.id.vehicle_body).getX());
-            p.put("y",this.findViewById(R.id.vehicle_body).getY());
+            p.put("y", this.findViewById(R.id.vehicle_body).getY());
         } catch (JSONException ignore) {
         }
         return p;
     }
-    public VehicleFix(Context context) {
-        super(context);
+    public VehicleFix(Context c) {
+        super(c);
+        context=c;
         init(context);
     }
     public VehicleFix(Context c, AttributeSet attrs) {
@@ -91,11 +97,7 @@ public class VehicleFix extends RelativeLayout {
         setPivotX(height/2);
     }
 */
-    public void zinit(View bg,float w, float h,int m,int p) {
-
-        background=bg;
-        height = h;
-        width=w;
+    public void zinit(int m,int p) {
         model=m;
         roll = p;
         View body = findViewById(R.id.vehicle_body);
@@ -168,17 +170,37 @@ public class VehicleFix extends RelativeLayout {
             case PEDESTRE:
                 body.setBackground(ContextCompat.getDrawable(context,R.drawable.pessoa));
                 break;
+            case COLISAO:
+                body.setBackground(ContextCompat.getDrawable(context,R.drawable.path3001));
+                break;
         }
         body.setOnTouchListener(new OnTouchListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
+            public boolean onTouch(View bode, MotionEvent motionEvent) {
                 switch(motionEvent.getAction()){
                     case MotionEvent.ACTION_DOWN:
-                        inicio=new float[]{(float) (motionEvent.getX()+width*0.5), (float) (motionEvent.getY()-view.getHeight())};
-                        ((CsiActivity)context).setSelectedVehicle((VehicleFix) view);
+                        inicio=new float[]{(float) (motionEvent.getX()), (float) (motionEvent.getY())};
+
+                        posicao_atual=new float[]{
+                                bode.getX(),
+                                bode.getY()
+                        };
+                        ((CsiActivity)context).setSelectedVehicle((VehicleFix) bode.getParent());
                         break;
 
                     case MotionEvent.ACTION_MOVE:
+
+                        float[] move=new float[]{
+                                motionEvent.getX(),motionEvent.getY()
+                        };
+
+                        posicao_atual=new float[]{
+                                posicao_atual[0]+move[0],
+                                posicao_atual[1]+move[1]
+                        };
+                        bode.setX(posicao_atual[0]-inicio[0]);
+                        bode.setY(posicao_atual[1]-inicio[1]);
+
                     /*    int[] position = new int[2];
                         view.getLocationInWindow(position);
 
@@ -194,7 +216,8 @@ public class VehicleFix extends RelativeLayout {
                         break;
                     */
                     case MotionEvent.ACTION_UP:
-                        ((CsiActivity)context).updatePegadorForSelectedVehicle((VehicleFix) view,motionEvent);
+                        ((CsiActivity)context).setSelectedVehicle((VehicleFix) bode.getParent());
+                        //((CsiActivity)context).updatePegadorForSelectedVehicle(motionEvent);
 
                         break;
                 }
