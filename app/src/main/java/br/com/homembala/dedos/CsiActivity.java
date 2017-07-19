@@ -97,7 +97,7 @@ public class CsiActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.csi);
-        findViewById(R.id.messageria).setVisibility(View.GONE);
+        //findViewById(R.id.messageria).setVisibility(View.GONE);
         mess=new String[]{"","","","","","","","","","","","","","",""};
         context=this;
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -496,7 +496,7 @@ public class CsiActivity extends AppCompatActivity {
         body.setRotation(l.getRodRotation());
         body.setX(ponta[0]-Math.round(body.getWidth()/2));
         body.setY(ponta[1]-Math.round(body.getHeight()/2));
-        log("POSICAO em pixels no momento do movimento:"+body.getX()+" "+body.getY(),11);
+        log("POSICAO geral em pixels \nno momento do movimento:"+body.getX()+" "+body.getY(),11);
         body.invalidate();
     }
 

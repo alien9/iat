@@ -40,6 +40,7 @@ public class VehicleFix extends RelativeLayout {
     private boolean ligado;
     private Point position;
     private float[] posicao_atual;
+    private double current_rotation;
 
     public JSONObject getPosition(){
         JSONObject p=new JSONObject();
@@ -185,40 +186,24 @@ public class VehicleFix extends RelativeLayout {
                                 bode.getX(),
                                 bode.getY()
                         };
+                        current_rotation=bode.getRotation()/180*Math.PI;
                         ((CsiActivity)context).setSelectedVehicle((VehicleFix) bode.getParent());
                         break;
 
                     case MotionEvent.ACTION_MOVE:
-
                         float[] move=new float[]{
-                                motionEvent.getX(),motionEvent.getY()
+                                (float) (motionEvent.getX()*Math.cos(current_rotation)-motionEvent.getY()*Math.sin(current_rotation)),
+                                (float) (motionEvent.getX()*Math.sin(current_rotation)+motionEvent.getY()*Math.cos(current_rotation))
                         };
-
+                        Log.d("DEDOS MOVE",motionEvent.getX()+":"+motionEvent.getY()+" rotação "+bode.getRotation());
                         posicao_atual=new float[]{
                                 posicao_atual[0]+move[0],
                                 posicao_atual[1]+move[1]
                         };
                         bode.setX(posicao_atual[0]-inicio[0]);
                         bode.setY(posicao_atual[1]-inicio[1]);
-
-                    /*    int[] position = new int[2];
-                        view.getLocationInWindow(position);
-
-                        if(inicio!=null) {
-                            Log.d("IAT",String.format("inicidando em %s",inicio[1]));
-                            view.setX(motionEvent.getX() +position[0]- inicio[0]);
-                            view.setY(motionEvent.getY() +position[1]+inicio[1]-200);
-                        }else{
-                            view.setX(motionEvent.getX()+position[0]);
-                            view.setY(motionEvent.getY()+position[1]);
-                        }
-                        view.invalidate();
-                        break;
-                    */
                     case MotionEvent.ACTION_UP:
                         ((CsiActivity)context).setSelectedVehicle((VehicleFix) bode.getParent());
-                        //((CsiActivity)context).updatePegadorForSelectedVehicle(motionEvent);
-
                         break;
                 }
                 return true;
