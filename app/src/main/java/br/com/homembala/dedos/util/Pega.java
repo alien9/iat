@@ -104,11 +104,6 @@ public class Pega extends LinearLayout {
                                 posicao_atual[1] + motionEvent.getY()
                         };
                         ponta_atual=getPonta(posicao_atual,getRodRotation()*Math.PI/180); // quem poderia imaginar uma coisa dessas
-
-                        ((CsiActivity)context).log("posicao da ponta "+posicao_atual[0]+" "+posicao_atual[1],3);
-                        ((CsiActivity)context).log("posicao da bolinha "+posicao_atual[0]+" "+posicao_atual[1],5);
-                        ((CsiActivity)context).log("posicao da ponta do dedo "+motionEvent.getX()+" "+motionEvent.getY(),6);
-
                         break;
                     case MotionEvent.ACTION_UP:
                         //finaliza arrasto
@@ -159,7 +154,6 @@ public class Pega extends LinearLayout {
                         rod.setX(prox[0]);
                         rod.setY(prox[1]);
                         ((CsiActivity)context).updateVehiclePosition(pegador,getPonta(prox, rotation*Math.PI/180));
-                        ((CsiActivity)context).log("posicao da bolinha "+posicao_atual[0]+" "+posicao_atual[1],9);
                         posicao_atual=prox;
 
                         break;
@@ -178,7 +172,6 @@ public class Pega extends LinearLayout {
     }
 
     public void setPontaPosition(float x, float y, float rotation) {
-        ((CsiActivity)context).log("desenhar a ponta em "+x+" "+y,2);
         posicao_atual = getHandlerCenter(new float[]{x, y}, rotation*Math.PI/180);
         View bolinha = findViewById(R.id.floatingActionButton);
         View rod = findViewById(R.id.rod);

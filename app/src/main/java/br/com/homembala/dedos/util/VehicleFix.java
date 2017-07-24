@@ -101,7 +101,7 @@ public class VehicleFix extends RelativeLayout {
     public void zinit(int m,int p) {
         model=m;
         roll = p;
-        View body = findViewById(R.id.vehicle_body);
+        View body = this.findViewById(R.id.vehicle_body);
         switch(model){
             case CARRO:
                 switch(roll) {
@@ -132,6 +132,22 @@ public class VehicleFix extends RelativeLayout {
                         break;
                     case 3:
                         body.setBackground(ContextCompat.getDrawable(context, R.drawable.motorcycle_000));
+                        break;
+                }
+                break;
+            case BICI:
+                switch(roll) {
+                    case 0:
+                        body.setBackground(ContextCompat.getDrawable(context, R.drawable.bici090));
+                        break;
+                    case 1:
+                        body.setBackground(ContextCompat.getDrawable(context, R.drawable.bici));
+                        break;
+                    case 2:
+                        body.setBackground(ContextCompat.getDrawable(context, R.drawable.bici270));
+                        break;
+                    case 3:
+                        body.setBackground(ContextCompat.getDrawable(context, R.drawable.bici));
                         break;
                 }
                 break;
@@ -172,7 +188,7 @@ public class VehicleFix extends RelativeLayout {
                 body.setBackground(ContextCompat.getDrawable(context,R.drawable.pessoa));
                 break;
             case COLISAO:
-                body.setBackground(ContextCompat.getDrawable(context,R.drawable.path3001));
+                body.setBackground(ContextCompat.getDrawable(context,R.drawable.explode));
                 break;
         }
         body.setOnTouchListener(new OnTouchListener() {
@@ -219,6 +235,9 @@ public class VehicleFix extends RelativeLayout {
         roll++;
         if(roll>3)roll=0;
         //init(); REDRAW
+    }
+    public float getRotation(){
+        return this.findViewById(R.id.vehicle_body).getRotation();
     }
 
     public int getRoll() {

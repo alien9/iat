@@ -28,4 +28,23 @@
     <string name="turn_vehicle">virar veículo</string>
     <string name="reset_vehicles">Reiniciar edição</string>
     <string name="show_semaforos">Semáforos</string>
+    <string name="carro">Automóvel</string>
+    <string name="motocicleta">Motocicleta</string>
+    <string name="busao">Ônibus</string>
+    <string name="caminhao">Caminhão</string>
+    <string name="bicicleta">Bicicleta</string>
+    <string name="pessoa">Pedestre</string>
+    <string name="crosswalk">Faixa de Pedestre</string>
+    <string name="poste">Poste</string>
+    <string name="obstaculo">Barreira / Obstáculo</string>
+    <string name="collision">Local da Colisão</string>
+    <string name="movemap">Mover mapa</string>
+    <string name="trajetoria">Trajeto aparente</string>
+    <string name="freada">Freada</string>
+    <string name="edit">Editar veículos</string>
+    <string name="comprimento">Comprimento</string>
+    <string name="metro">m</string>
+    <string name="largura">Largura</string>
+    <string name="placa">Placa</string>
+    <string name="marca">Marca / modelo</string>
 </resources>

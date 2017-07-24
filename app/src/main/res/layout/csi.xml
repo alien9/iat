@@ -12,7 +12,6 @@
         android:background="@color/white"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
-
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
@@ -35,7 +34,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
-                android:background="@drawable/grid"
                 android:orientation="vertical" />
             <ImageButton
                 android:id="@+id/show_pallette"
@@ -45,7 +43,7 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp" />
             <include
-                layout="@layout/pallette"
+                layout="@layout/tools"
                 android:visibility="gone" />
             <LinearLayout
                 android:orientation="vertical"
@@ -68,5 +66,4 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </FrameLayout>
-
 </LinearLayout>
