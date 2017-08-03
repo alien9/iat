@@ -158,6 +158,10 @@ public class CsiActivity extends AppCompatActivity {
                 if(motionEvent.getAction()==MotionEvent.ACTION_DOWN){
                     if(current_mode!=VEHICLES) return false;
                 }
+                View v = getSelectedVehicle();
+                if(v==null) return false;
+
+
                 return true;
             }
         });
@@ -477,6 +481,7 @@ public class CsiActivity extends AppCompatActivity {
         }else{
             pegador.setVisibility(View.GONE);
         }
+        ((Panel) findViewById(R.id.drawing_panel)).setLigado(false);
     }
 
     public View getSelectedVehicle() {
@@ -504,6 +509,10 @@ public class CsiActivity extends AppCompatActivity {
                 saveVehicles();
                 findViewById(R.id.show_pallette).setVisibility(View.GONE);
                 ((Panel) findViewById(R.id.drawing_panel)).setLigado(true);
+                findViewById(R.id.vehicles_canvas).setVisibility(View.VISIBLE);
+                reloadVehicles();
+                ligaCarros(true);
+                setSelectedVehicle(null);
                 break;
             case MAP:
                 ((Panel) findViewById(R.id.drawing_panel)).setLigado(false);
@@ -668,12 +677,12 @@ public class CsiActivity extends AppCompatActivity {
         body.setX((size.x-w)/2);
         body.setY((size.y-l)/2);
         body.setLayoutParams(params);
-        body.setOnClickListener(new View.OnClickListener() {
+        /*body.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setSelectedVehicle((View) view.getParent());
             }
-        });
+        });*/
         JSONObject veiculo = new JSONObject();
         try {
             veiculo.put("model", model);

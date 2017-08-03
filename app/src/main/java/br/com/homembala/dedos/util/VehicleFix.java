@@ -203,21 +203,28 @@ public class VehicleFix extends RelativeLayout {
                                 bode.getY()
                         };
                         current_rotation=bode.getRotation()/180*Math.PI;
-                        ((CsiActivity)context).setSelectedVehicle((VehicleFix) bode.getParent());
+                        //((CsiActivity)context).setSelectedVehicle((VehicleFix) bode.getParent());
                         break;
 
                     case MotionEvent.ACTION_MOVE:
+                        View sv = ((CsiActivity) context).getSelectedVehicle();
+                        if(sv==null)
+                            break;
+                        if(!sv.equals((VehicleFix) bode.getParent()))
+                            break;
                         float[] move=new float[]{
                                 (float) (motionEvent.getX()*Math.cos(current_rotation)-motionEvent.getY()*Math.sin(current_rotation)),
                                 (float) (motionEvent.getX()*Math.sin(current_rotation)+motionEvent.getY()*Math.cos(current_rotation))
                         };
                         Log.d("DEDOS MOVE",motionEvent.getX()+":"+motionEvent.getY()+" rotação "+bode.getRotation());
+                        Log.d("DEDOS MOVE PONTO INI",inicio[0]+" X "+inicio[1]);
                         posicao_atual=new float[]{
                                 posicao_atual[0]+move[0],
                                 posicao_atual[1]+move[1]
                         };
                         bode.setX(posicao_atual[0]-inicio[0]);
                         bode.setY(posicao_atual[1]-inicio[1]);
+
                     case MotionEvent.ACTION_UP:
                         ((CsiActivity)context).setSelectedVehicle((VehicleFix) bode.getParent());
                         break;
