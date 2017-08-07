@@ -598,6 +598,7 @@
     <string name="street_address">Street Address</string>
     <string name="tax_number">Tax Number</string>
     <string name="telephone_number">Telephone</string>
+    <string name="tipo_de_obstaculo">Obstáculo</string>
     <string name="topo">Topographic</string>
     <string name="trajetoria">Trajeto aparente</string>
     <string name="turn_vehicle">virar veículo</string>

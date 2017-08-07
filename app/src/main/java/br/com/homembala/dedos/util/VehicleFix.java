@@ -74,9 +74,10 @@ public class VehicleFix extends RelativeLayout {
     }
 
     private void init(Context context) {
+        Log.d("IAT","inicializandoo veiculo");
         inflate(context, R.layout.vehicle, this);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
-        setLayoutParams(params);
+        //RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
+        //setLayoutParams(params);
         // setup all your Views from here with calls to getViewById(...);
     }
     /*
@@ -101,6 +102,7 @@ public class VehicleFix extends RelativeLayout {
     public void zinit(int m,int p) {
         model=m;
         roll = p;
+        final VehicleFix vu = this;
         View body = this.findViewById(R.id.vehicle_body);
         switch(model){
             case CARRO:
@@ -205,7 +207,7 @@ public class VehicleFix extends RelativeLayout {
                         current_rotation=bode.getRotation()/180*Math.PI;
                         //((CsiActivity)context).setSelectedVehicle((VehicleFix) bode.getParent());
                         break;
-
+/*
                     case MotionEvent.ACTION_MOVE:
                         View sv = ((CsiActivity) context).getSelectedVehicle();
                         if(sv==null)
@@ -224,9 +226,9 @@ public class VehicleFix extends RelativeLayout {
                         };
                         bode.setX(posicao_atual[0]-inicio[0]);
                         bode.setY(posicao_atual[1]-inicio[1]);
-
+*/
                     case MotionEvent.ACTION_UP:
-                        ((CsiActivity)context).setSelectedVehicle((VehicleFix) bode.getParent());
+                        ((CsiActivity)context).setSelectedVehicle(vu);
                         break;
                 }
                 return true;

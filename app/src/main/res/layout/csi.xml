@@ -23,18 +23,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
         <RelativeLayout
+            android:id="@+id/vehicles_canvas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" />
+        <br.com.homembala.dedos.util.Pega
+            android:id="@+id/pegador"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent" />
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/vehicles_layout"
             android:orientation="vertical"
             android:animateLayoutChanges="true"
             >
-            <RelativeLayout
-                android:id="@+id/vehicles_canvas"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                android:orientation="vertical" />
             <ImageButton
                 android:id="@+id/show_pallette"
                 android:layout_margin="10dp"
@@ -54,11 +57,7 @@
                 android:layout_margin="5dp"
                 >
             </LinearLayout>
-        </RelativeLayout>
-        <br.com.homembala.dedos.util.Pega
-            android:id="@+id/pegador"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent" />
+        </LinearLayout>
         <TextView
             android:layout_gravity="bottom"
             android:id="@+id/messageria"
