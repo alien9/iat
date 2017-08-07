@@ -17,6 +17,8 @@ import org.json.JSONObject;
 import br.com.homembala.dedos.CsiActivity;
 import br.com.homembala.dedos.R;
 
+import static android.view.MotionEvent.ACTION_MOVE;
+
 /**
  * Created by tiago on 01/06/17.
  */
@@ -74,9 +76,10 @@ public class VehicleFix extends RelativeLayout {
     }
 
     private void init(Context context) {
+        Log.d("IAT","inicializandoo veiculo");
         inflate(context, R.layout.vehicle, this);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
-        setLayoutParams(params);
+        //RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
+        //setLayoutParams(params);
         // setup all your Views from here with calls to getViewById(...);
     }
     /*
@@ -101,6 +104,7 @@ public class VehicleFix extends RelativeLayout {
     public void zinit(int m,int p) {
         model=m;
         roll = p;
+        final VehicleFix vu = this;
         View body = this.findViewById(R.id.vehicle_body);
         switch(model){
             case CARRO:
@@ -191,6 +195,8 @@ public class VehicleFix extends RelativeLayout {
                 body.setBackground(ContextCompat.getDrawable(context,R.drawable.explode));
                 break;
         }
+        final View chassi = this.findViewById(R.id.vehicle_chassi);
+
         body.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View bode, MotionEvent motionEvent) {
@@ -210,7 +216,7 @@ public class VehicleFix extends RelativeLayout {
                         };
                         //((CsiActivity)context).setSelectedVehicle((VehicleFix) bode.getParent());
                         break;
-
+/*
                     case MotionEvent.ACTION_MOVE:
                         View sv = ((CsiActivity) context).getSelectedVehicle();
                         if(sv==null)
@@ -229,12 +235,40 @@ public class VehicleFix extends RelativeLayout {
                         };
                         bode.setX(posicao_atual[0]-inicio[0]);
                         bode.setY(posicao_atual[1]-inicio[1]);
-
+*/
                     case MotionEvent.ACTION_UP:
-                        ((CsiActivity)context).setSelectedVehicle((VehicleFix) bode.getParent());
+                        ((CsiActivity)context).setSelectedVehicle(vu);
                         break;
                 }
-                return true;
+                return false;
+            }
+        });
+
+        chassi.setOnTouchListener(new OnTouchListener() {
+            public float currentY;
+            public float currentX;
+            public float y;
+            public float x;
+
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                Log.d("IAT", "touching things "+motionEvent.getX()+"   "+motionEvent.getY());
+
+                switch(motionEvent.getActionMasked()){
+                    case MotionEvent.ACTION_DOWN:
+                        x=motionEvent.getX();
+                        y=motionEvent.getY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        currentX=motionEvent.getX();
+                        currentY=motionEvent.getY();
+                        view.setY(view.getY()+currentY-y);
+                        view.setX(view.getX()+currentX-x);
+                        x=currentX;
+                        y=currentY;
+                        break;
+                }
+                return false;
             }
         });
     }

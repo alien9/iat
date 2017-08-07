@@ -2,6 +2,7 @@ package br.com.homembala.dedos;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -15,6 +16,7 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
@@ -195,6 +197,7 @@ public class CsiActivity extends AppCompatActivity {
                 switch(id){
                     case R.id.tools_carro:
                         createVehicle(VehicleFix.CARRO,1.9,3.8);
+                        Log.d("IAT","deve ter criado");
                         break;
                     case R.id.tools_moto:
                         createVehicle(VehicleFix.MOTO,2.8,4.4);
@@ -244,6 +247,7 @@ public class CsiActivity extends AppCompatActivity {
                 findViewById(R.id.palette_layout).setVisibility(View.GONE);
             }
         };
+        Log.d("IAT","veiculo criado!");
         setDescendentOnClickListener((ViewGroup) findViewById(R.id.palette_container),cl);
         findViewById(R.id.vehicles_layout).setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -454,12 +458,13 @@ public class CsiActivity extends AppCompatActivity {
         View r = getSelectedVehicle();
         if(r==null) return;
         LinearLayout body = (LinearLayout) r.findViewById(R.id.vehicle_body);
+        LinearLayout chassi = (LinearLayout) r.findViewById(R.id.vehicle_chassi);
         if(body==null)return;
         float[] ce = {l.getX(),l.getY()};
         //Log.d("IAT","POSICAO: "+body.getX()+", "+body.getY()+" - ponta pegada "+ponta[0]+" "+ponta[1]+" centro "+ce[0]+" "+ce[1]);
         body.setRotation(l.getRodRotation());
-        body.setX(ponta[0]-Math.round(body.getWidth()/2));
-        body.setY(ponta[1]-Math.round(body.getHeight()/2));
+        chassi.setX(ponta[0]-convertDpToPixel(40));
+        chassi.setY(ponta[1]-convertDpToPixel(40));
         body.invalidate();
     }
     public void setSelectedVehicle(View v) {
@@ -467,20 +472,28 @@ public class CsiActivity extends AppCompatActivity {
     }
 
     public void setSelectedVehicle(View sv, boolean reset) {
+        Log.d("IAT", "tentando selecionar o veiciulo");
         selectedVehicle = sv;
         Pega pegador = (Pega) findViewById(R.id.pegador);
         if(sv!=null) {
+            Log.d("IAT", "tentando pegar o pegador");
             pegador.setVisibility(View.VISIBLE);
             View bod = sv.findViewById(R.id.vehicle_body);
+            View chassi = sv.findViewById(R.id.vehicle_chassi);
+            float pix = convertDpToPixel(40);
+
             if(!reset) {
-                pegador.setPontaPosition(bod.getX() + bod.getWidth() / 2, bod.getY() + bod.getHeight() / 2, bod.getRotation());
+                Log.d("IAT", "tentando resetar o pegador");
+                pegador.setPontaPosition(chassi.getX() + pix, chassi.getY() + pix, bod.getRotation());
             }else{
                 Point size = getDisplaySize();
                 pegador.setPontaPosition(size.x/2,size.y/2, 0);
             }
         }else{
+            Log.d("IAT", "nada a fazer aqui");
             pegador.setVisibility(View.GONE);
         }
+        Log.d("IAT","selecionouy o veiculo");
         ((Panel) findViewById(R.id.drawing_panel)).setLigado(false);
     }
 
@@ -502,6 +515,7 @@ public class CsiActivity extends AppCompatActivity {
                 ((Panel) findViewById(R.id.drawing_panel)).setLigado(false);
                 findViewById(R.id.show_pallette).setVisibility(View.VISIBLE);
                 findViewById(R.id.vehicles_canvas).setVisibility(View.VISIBLE);
+                Log.d("IAT","will reload");
                 reloadVehicles();
                 ligaCarros(true);
                 break;
@@ -619,8 +633,10 @@ public class CsiActivity extends AppCompatActivity {
                 VehicleFix vw = (VehicleFix) o.getChildAt(i);
                 JSONObject position = vw.getPosition();
                 View bode = vw.findViewById(R.id.vehicle_body);
+                View chassi = vw.findViewById(R.id.vehicle_chassi);
+                float pix = convertDpToPixel(40);
                 IGeoPoint latlng = map.getProjection().fromPixels(
-                        Math.round(bode.getX()), Math.round(bode.getY())
+                        Math.round(chassi.getX()+pix), Math.round(chassi.getY()+pix)
                 );
                 veiculo.put("latitude", latlng.getLatitude());
                 veiculo.put("longitude", latlng.getLongitude());
@@ -672,25 +688,32 @@ public class CsiActivity extends AppCompatActivity {
         View v=new VehicleFix(context);
         ((ViewGroup) findViewById(R.id.vehicles_canvas)).addView(v);
         ((VehicleFix)v).zinit(model,0);
-        View body = v.findViewById(R.id.vehicle_body);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int) Math.round(w), (int) Math.round(l));
-        body.setX((size.x-w)/2);
-        body.setY((size.y-l)/2);
+        RelativeLayout.LayoutParams rparams = new RelativeLayout.LayoutParams(10*Math.round(w),10*Math.round(l));
+        Log.d("IAT QUEBRADO ","mais");
+        View chassis = v.findViewById(R.id.vehicle_chassi);
+        float pix = convertDpToPixel(80);
+        chassis.setY((size.y-pix)/2);
+        chassis.setX((size.x-pix)/2);
+        LinearLayout body = (LinearLayout) v.findViewById(R.id.vehicle_body);
+        Log.d("IAT QUEBRADO ","até aquii veio");
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) Math.round(w), (int) Math.round(l));
         body.setLayoutParams(params);
-        /*body.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setSelectedVehicle((View) view.getParent());
-            }
-        });*/
+        Log.d("IAT QUEBRADO ","opa");
         JSONObject veiculo = new JSONObject();
+        IGeoPoint center = map.getMapCenter();
         try {
             veiculo.put("model", model);
             veiculo.put("width", width);
             veiculo.put("length", length);
+            veiculo.put("latitude", center.getLatitude());
+            veiculo.put("longitude", center.getLongitude());
+            veiculo.put("position", ((VehicleFix) v).getPosition());
+            veiculo.put("roll", 0);
+            veiculo.put("rotation",0.0);
         } catch (JSONException e) {}
         vehicles.put(veiculo);
         setSelectedVehicle(v, true);
+        v.invalidate();
     }
 
     protected void reloadVehicles() {
@@ -715,11 +738,13 @@ public class CsiActivity extends AppCompatActivity {
             Point position = new Point();
             map.getProjection().toPixels(new GeoPoint(vehicles.optJSONObject(i).optDouble("latitude"),vehicles.optJSONObject(i).optDouble("longitude")),position);
             View body = v.findViewById(R.id.vehicle_body);
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams((int) Math.round(w), (int) Math.round(l));
+            View chassi = v.findViewById(R.id.vehicle_chassi);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) Math.round(w), (int) Math.round(l));
             body.setLayoutParams(params);
+            float pix = convertDpToPixel(40);
             if(position!=null) {
-                body.setX(position.x);
-                body.setY(position.y);
+                chassi.setX(position.x-pix);
+                chassi.setY(position.y-pix);
             }
             body.setRotation((float) vehicles.optJSONObject(i).optDouble("rotation"));
             setSelectedVehicle(v);
@@ -751,4 +776,11 @@ public class CsiActivity extends AppCompatActivity {
         }
         ((TextView)findViewById(R.id.messageria)).setText(fim);
     }
+    public float convertDpToPixel(float dp){
+        Resources resources = getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float px = dp * ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        return px;
+    }
+
 }

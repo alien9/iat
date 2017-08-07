@@ -1,4 +1,4 @@
-#Thu Aug 03 18:07:50 BRT 2017
+#Mon Aug 07 15:43:03 BRT 2017
 base.0=/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main
 renamed.0=classes.dex
 file.0=/home/tiago/works/Dedos/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main/classes.dex

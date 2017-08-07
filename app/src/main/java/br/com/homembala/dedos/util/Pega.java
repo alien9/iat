@@ -172,7 +172,9 @@ public class Pega extends LinearLayout {
     }
 
     public void setPontaPosition(float x, float y, float rotation) {
+        Log.d("IAT", "setando a posiocao da pornta");
         posicao_atual = getHandlerCenter(new float[]{x, y}, rotation*Math.PI/180);
+        Log.d("IAT", "pegou posiocao da pornta");
         View bolinha = findViewById(R.id.floatingActionButton);
         View rod = findViewById(R.id.rod);
         bolinha.setX(posicao_atual[0]-ball_radius);
