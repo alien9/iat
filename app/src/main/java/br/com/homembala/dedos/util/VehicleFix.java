@@ -43,6 +43,7 @@ public class VehicleFix extends RelativeLayout {
     private Point position;
     private float[] posicao_atual;
     private double current_rotation;
+    private boolean selectedVehicle;
 
     public JSONObject getPosition(){
         JSONObject p=new JSONObject();
@@ -253,8 +254,12 @@ public class VehicleFix extends RelativeLayout {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 Log.d("IAT", "touching things "+motionEvent.getX()+"   "+motionEvent.getY());
-
+                if(!selectedVehicle)return false;
                 switch(motionEvent.getActionMasked()){
+                    case MotionEvent.ACTION_HOVER_ENTER:
+                        x=motionEvent.getX();
+                        y=motionEvent.getY();
+                        break;
                     case MotionEvent.ACTION_DOWN:
                         x=motionEvent.getX();
                         y=motionEvent.getY();
@@ -264,8 +269,7 @@ public class VehicleFix extends RelativeLayout {
                         currentY=motionEvent.getY();
                         view.setY(view.getY()+currentY-y);
                         view.setX(view.getX()+currentX-x);
-                        x=currentX;
-                        y=currentY;
+                        ((CsiActivity)context).updatePegadorForSelectedVehicle();
                         break;
                 }
                 return false;
@@ -300,4 +304,8 @@ public class VehicleFix extends RelativeLayout {
         setLayoutParams(layoutParams);
     }
 
+    public void setSelectedVehicle(boolean s) {
+        selectedVehicle = s;
+        this.findViewById(R.id.vehicle_body).setClickable(!s);
+    }
 }

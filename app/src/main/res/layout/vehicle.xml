@@ -10,7 +10,6 @@
         android:id="@+id/vehicle_chassi"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:background="@color/red"
         android:gravity="center"
         android:clickable="true"
         >
@@ -24,6 +23,7 @@
             android:background="#cc000066"
             android:orientation="vertical"
             android:clickable="true"
+            android:focusableInTouchMode="false"
             />
     </LinearLayout>
 </RelativeLayout>
