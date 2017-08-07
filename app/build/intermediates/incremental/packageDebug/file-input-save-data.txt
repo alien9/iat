@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Thu Aug 03 16:14:36 BRT 2017
+#Thu Aug 03 18:07:50 BRT 2017
 210.set=ANDROID_RESOURCE
 282.file=/home/tiago/works/Dedos/app/build/intermediates/res/resources-debug.ap_/res/color/abc_tint_switch_track.xml
 14.set=ANDROID_RESOURCE

@@ -196,13 +196,18 @@ public class VehicleFix extends RelativeLayout {
             public boolean onTouch(View bode, MotionEvent motionEvent) {
                 switch(motionEvent.getAction()){
                     case MotionEvent.ACTION_DOWN:
-                        inicio=new float[]{(float) (motionEvent.getX()), (float) (motionEvent.getY())};
+//                        inicio=new float[]{(float) (motionEvent.getX()), (float) (motionEvent.getY())};
+
+                        current_rotation=bode.getRotation()/180*Math.PI;
+                        inicio=new float[]{
+                                (float) (motionEvent.getX()*Math.cos(current_rotation)-motionEvent.getY()*Math.sin(current_rotation)),
+                                (float) (motionEvent.getX()*Math.sin(current_rotation)+motionEvent.getY()*Math.cos(current_rotation))
+                        };
 
                         posicao_atual=new float[]{
-                                bode.getX(),
-                                bode.getY()
+                                bode.getX()+inicio[0],
+                                bode.getY()+inicio[1]
                         };
-                        current_rotation=bode.getRotation()/180*Math.PI;
                         //((CsiActivity)context).setSelectedVehicle((VehicleFix) bode.getParent());
                         break;
 
