@@ -733,7 +733,7 @@ public class CsiActivity extends AppCompatActivity {
         double pixels_per_m = diagonal / results[0];
         for (int i = 0; i < vehicles.length(); i++) {
             int w = (int) (vehicles.optJSONObject(i).optDouble("width") * pixels_per_m);//1000 * Math.pow(2.0, map.getZoomLevel()) / (2 * 20037508.34));
-            int l = (int) (vehicles.optJSONObject(i).optDouble("length") * pixels_per_m); //1000 * Math.pow(2.0, map.getZoomLevel()) / (2 * 20037508.34));
+            int l = (int) (vehicles.optJSONObject(i).optDouble("length") * pixels_per_m);//1000 * Math.pow(2.0, map.getZoomLevel()) / (2 * 20037508.34));
             View v=((ViewGroup) findViewById(R.id.vehicles_canvas)).getChildAt(i);
             Point position = new Point();
             map.getProjection().toPixels(new GeoPoint(vehicles.optJSONObject(i).optDouble("latitude"),vehicles.optJSONObject(i).optDouble("longitude")),position);
