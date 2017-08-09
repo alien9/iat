@@ -1,6 +1,8 @@
 package br.com.homembala.dedos;
 
 import java.util.ArrayList;
+import java.util.Deque;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -14,6 +16,10 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.View;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Panel extends View implements View.OnTouchListener{
     public static final int SKID = 1;
     public static final int ZEBRA = 2;
@@ -23,8 +29,10 @@ public class Panel extends View implements View.OnTouchListener{
     private ArrayList<Path> paths = new ArrayList<Path>();
     private ArrayList<Float> widths = new ArrayList<Float>();
     private ArrayList<Paint> paints = new ArrayList<Paint>();
+    private ArrayList<Quad> serializable = new ArrayList<>();
     private boolean ligado;
     private int style;
+    private ArrayList<Integer> styles=new ArrayList<>();
 
     public void surfaceChanged(SurfaceHolder holder, int format, int width,
                                int height) {
@@ -54,7 +62,8 @@ public class Panel extends View implements View.OnTouchListener{
         path.moveTo(x, y);
         paths.add(path);
         paints.add(getPaint());
-
+        styles.add(style);
+        serializable.add(new Quad());
         mX = x;
         mY = y;
     }
@@ -65,6 +74,7 @@ public class Panel extends View implements View.OnTouchListener{
             paths.get(paths.size()-1).quadTo(mX, mY, (x + mX)/2, (y + mY)/2);
             mX = x;
             mY = y;
+            serializable.get(serializable.size()-1).add(x,y);
         }
     }
     private void touch_up() {
@@ -128,7 +138,6 @@ public class Panel extends View implements View.OnTouchListener{
 
     public void setStyle(int s) {
         style = s;
-
     }
     private Paint getPaint(){
         paint = new Paint();
@@ -153,6 +162,52 @@ public class Panel extends View implements View.OnTouchListener{
     public void reset(){
         paths=new ArrayList<>();
         paints=new ArrayList<>();
+        styles=new ArrayList<>();
         invalidate();
+    }
+    public String serialize(){
+        for(int i=0;i<paths.size();i++){
+
+        }
+        return "";
+    }
+
+    public ArrayList<Path> getPaths() {
+        return paths;
+    }
+
+    public JSONArray getJSONPaths() {
+        JSONArray res = new JSONArray();
+        try {
+            for(int i=0;i<paths.size();i++){
+                JSONObject item = new JSONObject();
+                item.put("style",styles.get(i));
+                item.put("points",serializable.get(i).getPoints());
+                res.put(item);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
+    private class Quad {
+        private JSONArray points;
+        public Quad(){
+            points=new JSONArray();
+        }
+        public void add(float x, float y) {
+            JSONArray p = new JSONArray();
+            try {
+                p.put(x);
+                p.put(y);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            points.put(p);
+        }
+        public JSONArray getPoints(){
+            return points;
+        }
     }
 }

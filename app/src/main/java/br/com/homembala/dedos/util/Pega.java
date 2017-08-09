@@ -86,6 +86,10 @@ public class Pega extends LinearLayout {
         rod.setPivotY(0);
         final View bolinha = v.findViewById(R.id.floatingActionButton);
         v.findViewById(R.id.floatingActionButton).setOnTouchListener(new OnTouchListener() {
+            public float currentX;
+            public float currentY;
+            public float y;
+            public float x;
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 float[] ponta_position = new float[2];
@@ -97,13 +101,18 @@ public class Pega extends LinearLayout {
                                 ball_radius,
                                 ball_radius
                         };
+                        x = motionEvent.getX();
+                        y = motionEvent.getY();
                         //int[] pos = new int[2];
                         //bolinha.getLocationInWindow(pos);
                         posicao_atual=new float[]{
                                 posicao_atual[0] + motionEvent.getX(),
                                 posicao_atual[1] + motionEvent.getY()
                         };
-                        ponta_atual=getPonta(posicao_atual,getRodRotation()*Math.PI/180); // quem poderia imaginar uma coisa dessas
+                        //ponta_atual=getPonta(posicao_atual,getRodRotation()*Math.PI/180); // quem poderia imaginar uma coisa dessas
+                        ponta_atual=getPonta(new float[]{
+                                posicao_atual[0]-ball_radius,posicao_atual[1]-ball_radius
+                        },getRodRotation()*Math.PI/180); // quem poderia imaginar uma coisa dessas
                         break;
                     case MotionEvent.ACTION_UP:
                         //finaliza arrasto
@@ -111,33 +120,14 @@ public class Pega extends LinearLayout {
                         Log.d("IAT","parando o maus");
                         break;
                     case MotionEvent.ACTION_MOVE:
-                        //Log.d("IAT",String.format("mexendo o maus %s %s",motionEvent.getX(),motionEvent.getY()));
-
-                        //posicao da bolinha:
-                        float[] position = new float[]{
-                                bolinha.getX()+ball_radius,bolinha.getY()+ball_radius
-                        };
-                        position=posicao_atual;
-                        //bolinha.getLocationOnScreen(position);
-
-                        float[] centerposition=new float[]{
-                                position[0],
-                                position[1]
-                        };
-                        //Log.d("IAT",String.format("centro %s %s - ponta %s %s para rotten %s",centerposition[0],centerposition[1],ponta_atual[0],ponta_atual[1],rotation));
-                        Log.d("IAT",String.format("centro %s %s - ponta %s %s para rotten %s",centerposition[0],centerposition[1],ponta_atual[0],ponta_atual[1],rotation));
-                        float[] move=new float[]{
-                                motionEvent.getX(),motionEvent.getY()
-                        };
-
+                        currentX=motionEvent.getX();
+                        currentY=motionEvent.getY();
                         float[] prox=new float[]{
-                                centerposition[0]+move[0],
-                                centerposition[1]+move[1]
+                                bolinha.getX()+currentX-x+ball_radius,
+                                bolinha.getY()+currentY-y+ball_radius
                         };
                         bolinha.setX(prox[0]-ball_radius);
                         bolinha.setY(prox[1]-ball_radius);
-                        //rod.setX(prox[0]-rod_width);
-                        //rod.setY(prox[1]);
 
                         float[] vetor = new float[] {
                                 prox[0]-ponta_atual[0],

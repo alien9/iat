@@ -89,6 +89,7 @@ public class CsiActivity extends AppCompatActivity {
     private View selectedVehicle;
     private String[] mess;
     private int mode;
+    private JSONArray paths;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -441,14 +442,14 @@ public class CsiActivity extends AppCompatActivity {
         Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this));
     }
 
-    public void updatePegadorForSelectedVehicle(MotionEvent motionEvent) {
+    public void updatePegadorForSelectedVehicle() {
         Pega pegador=(Pega)findViewById(R.id.pegador);
 
         VehicleFix fu = (VehicleFix)getSelectedVehicle();
         if(fu!=null) {
             //pegador.findViewById(R.id.rod).setRotation(view.getRotation());
-            View bode = fu.findViewById(R.id.vehicle_body);
-            pegador.setPontaPosition(bode.getX()+bode.getWidth()/2, bode.getY()+bode.getHeight()/2, bode.getRotation());
+            View bode = fu.findViewById(R.id.vehicle_chassi);
+            pegador.setPontaPosition(bode.getX()+bode.getWidth()/2, bode.getY()+bode.getHeight()/2, fu.findViewById(R.id.vehicle_body).getRotation());
             pegador.invalidate();
         }
 
@@ -473,9 +474,12 @@ public class CsiActivity extends AppCompatActivity {
 
     public void setSelectedVehicle(View sv, boolean reset) {
         Log.d("IAT", "tentando selecionar o veiciulo");
+        ViewGroup canvas= (ViewGroup) findViewById(R.id.vehicles_canvas);
+        for(int i=0;i<canvas.getChildCount();i++) ((VehicleFix) canvas.getChildAt(i)).setSelectedVehicle(false);
         selectedVehicle = sv;
         Pega pegador = (Pega) findViewById(R.id.pegador);
         if(sv!=null) {
+            ((VehicleFix)sv).setSelectedVehicle(true);
             Log.d("IAT", "tentando pegar o pegador");
             pegador.setVisibility(View.VISIBLE);
             View bod = sv.findViewById(R.id.vehicle_body);
@@ -530,11 +534,31 @@ public class CsiActivity extends AppCompatActivity {
                 break;
             case MAP:
                 ((Panel) findViewById(R.id.drawing_panel)).setLigado(false);
+                savePaths((Panel) findViewById(R.id.drawing_panel));
                 ((MapView)findViewById(R.id.map)).setBuiltInZoomControls(true);
                 saveVehicles();
                 break;
         }
 
+    }
+
+    private void savePaths(Panel panel) {
+        paths=panel.getJSONPaths();
+        MapView map= (MapView) findViewById(R.id.map);
+        try {
+            for(int i=0;i<paths.length();i++){
+                JSONArray pts = paths.getJSONObject(i).optJSONArray("points");
+                for(int j=0;j<pts.length();j++){
+                    IGeoPoint latlng = map.getProjection().fromPixels(
+                            (int) pts.getJSONArray(j).getDouble(0),
+                            (int) pts.getJSONArray(j).getDouble(1)
+                    );
+                    pts.put(j,latlng);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public class GeoServerTileSource extends OnlineTileSourceBase {

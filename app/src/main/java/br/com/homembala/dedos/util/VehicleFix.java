@@ -17,6 +17,8 @@ import org.json.JSONObject;
 import br.com.homembala.dedos.CsiActivity;
 import br.com.homembala.dedos.R;
 
+import static android.view.MotionEvent.ACTION_MOVE;
+
 /**
  * Created by tiago on 01/06/17.
  */
@@ -41,6 +43,7 @@ public class VehicleFix extends RelativeLayout {
     private Point position;
     private float[] posicao_atual;
     private double current_rotation;
+    private boolean selectedVehicle;
 
     public JSONObject getPosition(){
         JSONObject p=new JSONObject();
@@ -193,18 +196,25 @@ public class VehicleFix extends RelativeLayout {
                 body.setBackground(ContextCompat.getDrawable(context,R.drawable.explode));
                 break;
         }
+        final View chassi = this.findViewById(R.id.vehicle_chassi);
+
         body.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View bode, MotionEvent motionEvent) {
                 switch(motionEvent.getAction()){
                     case MotionEvent.ACTION_DOWN:
-                        inicio=new float[]{(float) (motionEvent.getX()), (float) (motionEvent.getY())};
+//                        inicio=new float[]{(float) (motionEvent.getX()), (float) (motionEvent.getY())};
+
+                        current_rotation=bode.getRotation()/180*Math.PI;
+                        inicio=new float[]{
+                                (float) (motionEvent.getX()*Math.cos(current_rotation)-motionEvent.getY()*Math.sin(current_rotation)),
+                                (float) (motionEvent.getX()*Math.sin(current_rotation)+motionEvent.getY()*Math.cos(current_rotation))
+                        };
 
                         posicao_atual=new float[]{
-                                bode.getX(),
-                                bode.getY()
+                                bode.getX()+inicio[0],
+                                bode.getY()+inicio[1]
                         };
-                        current_rotation=bode.getRotation()/180*Math.PI;
                         //((CsiActivity)context).setSelectedVehicle((VehicleFix) bode.getParent());
                         break;
 /*
@@ -231,7 +241,38 @@ public class VehicleFix extends RelativeLayout {
                         ((CsiActivity)context).setSelectedVehicle(vu);
                         break;
                 }
-                return true;
+                return false;
+            }
+        });
+
+        chassi.setOnTouchListener(new OnTouchListener() {
+            public float currentY;
+            public float currentX;
+            public float y;
+            public float x;
+
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                Log.d("IAT", "touching things "+motionEvent.getX()+"   "+motionEvent.getY());
+                if(!selectedVehicle)return false;
+                switch(motionEvent.getActionMasked()){
+                    case MotionEvent.ACTION_HOVER_ENTER:
+                        x=motionEvent.getX();
+                        y=motionEvent.getY();
+                        break;
+                    case MotionEvent.ACTION_DOWN:
+                        x=motionEvent.getX();
+                        y=motionEvent.getY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        currentX=motionEvent.getX();
+                        currentY=motionEvent.getY();
+                        view.setY(view.getY()+currentY-y);
+                        view.setX(view.getX()+currentX-x);
+                        ((CsiActivity)context).updatePegadorForSelectedVehicle();
+                        break;
+                }
+                return false;
             }
         });
     }
@@ -263,4 +304,8 @@ public class VehicleFix extends RelativeLayout {
         setLayoutParams(layoutParams);
     }
 
+    public void setSelectedVehicle(boolean s) {
+        selectedVehicle = s;
+        this.findViewById(R.id.vehicle_body).setClickable(!s);
+    }
 }
