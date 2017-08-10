@@ -20,7 +20,6 @@
             android:layout_height="60dp"
             android:layout_centerInParent="true"
             android:layout_gravity="center_vertical|center_horizontal"
-            android:background="#cc000066"
             android:orientation="vertical"
             android:clickable="true"
             android:focusableInTouchMode="false"

@@ -25,8 +25,12 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -219,9 +223,9 @@ public class CsiActivity extends AppCompatActivity {
                         createVehicle(VehicleFix.COLISAO,2.0,2.0);
                         break;
                     case R.id.tools_freada:
+                        ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
                         setCurrentMode(FREEHAND);
-                        //saveVehicles();
-                        map.getController().setZoom(20);
+                        //map.getController().setZoom(20);
                         findViewById(R.id.show_pallette).setVisibility(View.GONE);
                         findViewById(R.id.drawing_panel).setVisibility(View.VISIBLE);
                         ((Panel)findViewById(R.id.drawing_panel)).setStyle(Panel.SKID);
@@ -229,8 +233,9 @@ public class CsiActivity extends AppCompatActivity {
                         ((Panel)findViewById(R.id.drawing_panel)).setVisibility(View.VISIBLE);
                         break;
                     case R.id.tools_zebra:
+                        ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
                         setCurrentMode(FREEHAND);
-                        map.getController().setZoom(20);
+                        //map.getController().setZoom(20);
                         findViewById(R.id.show_pallette).setVisibility(View.GONE);
                         findViewById(R.id.drawing_panel).setVisibility(View.VISIBLE);
                         ((Panel)findViewById(R.id.drawing_panel)).setStyle(Panel.ZEBRA);
@@ -238,10 +243,10 @@ public class CsiActivity extends AppCompatActivity {
                         ((Panel)findViewById(R.id.drawing_panel)).setVisibility(View.VISIBLE);
                         break;
                     case R.id.move_map_command:
-                        setCurrentMode(MAP);
+                        ((RadioButton)findViewById(R.id.radio_mapa)).setChecked(true);
                         break;
                     case R.id.edit_command:
-                        setCurrentMode(VEHICLES);
+                        ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
                         break;
                 }
                 findViewById(R.id.show_pallette).setVisibility(View.VISIBLE);
@@ -257,6 +262,20 @@ public class CsiActivity extends AppCompatActivity {
                     Log.d("IAT","movendo o maus");
                 }
                 return false;
+            }
+        });
+        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radio_set_mode);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.radio_mapa:
+                        setCurrentMode(MAP);
+                        break;
+                    case R.id.radio_desenho:
+                        setCurrentMode(VEHICLES);
+                }
             }
         });
     }
@@ -361,13 +380,13 @@ public class CsiActivity extends AppCompatActivity {
                 setTiles(show_semaforos);
                 break;
             case R.id.mode_map:
-                setCurrentMode(MAP);
+                ((RadioButton)findViewById(R.id.radio_mapa)).setChecked(true);
                 break;
             case R.id.mode_freehand:
                 setCurrentMode(FREEHAND);
                 break;
             case R.id.mode_vehicles:
-                setCurrentMode(VEHICLES);
+                ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
                 break;
             case R.id.tombar_veiculo:
                 View v = ((CsiActivity) context).getSelectedVehicle();
@@ -479,6 +498,7 @@ public class CsiActivity extends AppCompatActivity {
         selectedVehicle = sv;
         Pega pegador = (Pega) findViewById(R.id.pegador);
         if(sv!=null) {
+            setCurrentMode(VEHICLES);
             ((VehicleFix)sv).setSelectedVehicle(true);
             Log.d("IAT", "tentando pegar o pegador");
             pegador.setVisibility(View.VISIBLE);
@@ -513,6 +533,7 @@ public class CsiActivity extends AppCompatActivity {
     }
 
     public void setCurrentMode(int mode) {
+        if(mode==current_mode)return;
         current_mode=mode;
         switch (mode){
             case VEHICLES:
@@ -699,7 +720,8 @@ public class CsiActivity extends AppCompatActivity {
         ((CsiActivity) context).setSelectedVehicle(null);
     }
     protected void createVehicle(int model, double width, double length){
-        if(current_mode!=VEHICLES) setCurrentMode(VEHICLES);
+        //if(current_mode!=VEHICLES) setCurrentMode(VEHICLES);
+        ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
         MapView map = (MapView) findViewById(R.id.map);
         BoundingBox b = map.getBoundingBox();
         float[] results = new float[1];
