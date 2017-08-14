@@ -1,6 +1,9 @@
 package br.com.homembala.dedos;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -19,13 +22,16 @@ import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -60,6 +66,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static br.com.homembala.dedos.R.id.map;
+
 /**
  * Created by tiago on 27/03/17.
  */
@@ -89,7 +97,7 @@ public class CsiActivity extends AppCompatActivity {
     private View selectedVehicle;
     private String[] mess;
     private int mode;
-    private JSONArray paths;
+    private JSONArray paths=new JSONArray();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -130,6 +138,7 @@ public class CsiActivity extends AppCompatActivity {
         map.getController().setCenter(new GeoPoint(point.optDouble("latitude"), point.optDouble("longitude")));
         map.setMapListener(new DelayedMapListener(new MapListener() {
             public boolean onZoom(final ZoomEvent e) {
+                MapView map = (MapView) findViewById(R.id.map);
                 if(show_labels){
                     updateLabels();
                 }
@@ -218,10 +227,11 @@ public class CsiActivity extends AppCompatActivity {
                     case R.id.tools_colisao:
                         createVehicle(VehicleFix.COLISAO,2.0,2.0);
                         break;
+                    case R.id.tools_obstaculo:
+                        plot(R.layout.prompt_obstaculo);
+                        break;
                     case R.id.tools_freada:
                         setCurrentMode(FREEHAND);
-                        //saveVehicles();
-                        map.getController().setZoom(20);
                         findViewById(R.id.show_pallette).setVisibility(View.GONE);
                         findViewById(R.id.drawing_panel).setVisibility(View.VISIBLE);
                         ((Panel)findViewById(R.id.drawing_panel)).setStyle(Panel.SKID);
@@ -230,7 +240,6 @@ public class CsiActivity extends AppCompatActivity {
                         break;
                     case R.id.tools_zebra:
                         setCurrentMode(FREEHAND);
-                        map.getController().setZoom(20);
                         findViewById(R.id.show_pallette).setVisibility(View.GONE);
                         findViewById(R.id.drawing_panel).setVisibility(View.VISIBLE);
                         ((Panel)findViewById(R.id.drawing_panel)).setStyle(Panel.ZEBRA);
@@ -259,6 +268,42 @@ public class CsiActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    private void plot(int t) {
+        final int tipo=t;
+        LayoutInflater inflater = this.getLayoutInflater();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Detalhes");
+        final View v=inflater.inflate(tipo, null);
+        builder.setView(v);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which){
+                switch(tipo){
+                    case R.layout.prompt_obstaculo:
+                        try {
+                            int largura = Integer.parseInt(((TextView) v.findViewById(R.id.largura_text)).getText().toString());
+                            int comprimento = Integer.parseInt(((TextView) v.findViewById(R.id.comprimento_text)).getText().toString());
+                            if (largura > 0 && comprimento > 0) {
+                                createVehicle(VehicleFix.OBSTACULO, largura, comprimento);
+                            }
+                        }catch(NumberFormatException xxx){
+                            return;
+                        }
+                        break;
+                }
+                // Handle click on positive button here.
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which){
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
     }
 
     private void setDescendentOnClickListener(ViewGroup gw, View.OnClickListener cl) {
@@ -320,7 +365,7 @@ public class CsiActivity extends AppCompatActivity {
         menu.findItem(R.id.mode_map).setChecked(current_mode==MAP);
         menu.findItem(R.id.mode_freehand).setChecked(current_mode==FREEHAND);
         menu.findItem(R.id.mode_vehicles).setChecked(current_mode==VEHICLES);
-        int z = ((MapView) findViewById(R.id.map)).getZoomLevel();
+        int z = ((MapView) findViewById(map)).getZoomLevel();
         menu.findItem(R.id.mode_freehand).setEnabled(z>19);
         menu.findItem(R.id.mode_vehicles).setEnabled(z>19);
         menu.findItem(R.id.tombar_veiculo).setVisible(getSelectedVehicle()!=null);
@@ -388,7 +433,7 @@ public class CsiActivity extends AppCompatActivity {
     }
 
     private void ligaCarros(boolean b) {
-        int z=((MapView)findViewById(R.id.map)).getZoomLevel();
+        int z=((MapView)findViewById(map)).getZoomLevel();
         ViewGroup cv = (ViewGroup) findViewById(R.id.vehicles_canvas);
         for(int i=0;i<cv.getChildCount();i++){
             View car = cv.getChildAt(i);
@@ -514,29 +559,30 @@ public class CsiActivity extends AppCompatActivity {
 
     public void setCurrentMode(int mode) {
         current_mode=mode;
+        MapView map = (MapView) findViewById(R.id.map);
+        Panel panel = (Panel) findViewById(R.id.drawing_panel);
         switch (mode){
             case VEHICLES:
-                ((Panel) findViewById(R.id.drawing_panel)).setLigado(false);
+                panel.setLigado(false);
                 findViewById(R.id.show_pallette).setVisibility(View.VISIBLE);
                 findViewById(R.id.vehicles_canvas).setVisibility(View.VISIBLE);
                 Log.d("IAT","will reload");
-                reloadVehicles();
+                reloadVehiclesAndPaths();
                 ligaCarros(true);
                 break;
             case FREEHAND:
-                saveVehicles();
+                map.getController().setZoom(20);
                 findViewById(R.id.show_pallette).setVisibility(View.GONE);
-                ((Panel) findViewById(R.id.drawing_panel)).setLigado(true);
+                panel.setLigado(true);
                 findViewById(R.id.vehicles_canvas).setVisibility(View.VISIBLE);
-                reloadVehicles();
+                reloadVehiclesAndPaths();
                 ligaCarros(true);
                 setSelectedVehicle(null);
                 break;
             case MAP:
                 ((Panel) findViewById(R.id.drawing_panel)).setLigado(false);
-                savePaths((Panel) findViewById(R.id.drawing_panel));
-                ((MapView)findViewById(R.id.map)).setBuiltInZoomControls(true);
-                saveVehicles();
+                map.setBuiltInZoomControls(true);
+                saveVehiclesAndPaths();
                 break;
         }
 
@@ -547,19 +593,57 @@ public class CsiActivity extends AppCompatActivity {
         MapView map= (MapView) findViewById(R.id.map);
         try {
             for(int i=0;i<paths.length();i++){
-                JSONArray pts = paths.getJSONObject(i).optJSONArray("points");
-                for(int j=0;j<pts.length();j++){
-                    IGeoPoint latlng = map.getProjection().fromPixels(
-                            (int) pts.getJSONArray(j).getDouble(0),
-                            (int) pts.getJSONArray(j).getDouble(1)
-                    );
-                    pts.put(j,latlng);
+                if(!paths.getJSONObject(i).has("geom")) {
+                    JSONArray pts = paths.getJSONObject(i).optJSONArray("points");
+                    JSONArray points = new JSONArray();
+                    for (int j = 0; j < pts.length(); j++) {
+                        JSONArray pt = pts.getJSONArray(j);
+                        IGeoPoint latlng = map.getProjection().fromPixels(
+                                (int) pt.getDouble(0),
+                                (int) pt.getDouble(1)
+                        );
+                        JSONObject g=new JSONObject();
+                        g.put("latitude",latlng.getLatitude());
+                        g.put("longitude",latlng.getLongitude());
+                        points.put(j, g);
+                    }
+                    paths.getJSONObject(i).put("geom", points);
                 }
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+
+    private void loadPaths(Panel panel){
+        MapView map= (MapView) findViewById(R.id.map);
+        if(drawing_zooming_over!=null) {
+            map.getOverlays().remove(drawing_zooming_over);
+            map.invalidate();
+            drawing_zooming_over = null;
+            try {
+                for (int i = 0; i < paths.length(); i++) {
+                    JSONArray pontos = new JSONArray();
+                    JSONArray points = paths.optJSONObject(i).optJSONArray("geom");
+                    for (int j = 0; j < points.length(); j++) {
+                        JSONObject pt = points.optJSONObject(j);
+                        GeoPoint g = new GeoPoint(pt.optDouble("latitude"), pt.optDouble("longitude"));
+                        Point px = new Point();
+                        map.getProjection().toPixels(g, px);
+                        JSONArray ponto = new JSONArray();
+                        ponto.put(px.x);
+                        ponto.put(px.y);
+                        pontos.put(ponto);
+                    }
+                    paths.optJSONObject(i).put("points", pontos);
+                }
+                panel.setJSONPaths(paths);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     public class GeoServerTileSource extends OnlineTileSourceBase {
         private final String[] base_url;
@@ -637,7 +721,7 @@ public class CsiActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    protected void saveVehicles() {
+    protected void saveVehiclesAndPaths() {
         try {
             MapView map = (MapView) findViewById(R.id.map);
             if (vehicles_zooming_over != null) {
@@ -680,17 +764,24 @@ public class CsiActivity extends AppCompatActivity {
             vehicles_zooming_over.setImage(new BitmapDrawable(getResources(), bi));
             vehicles_zooming_over.setPosition((GeoPoint) position);
             map.getOverlays().add(vehicles_zooming_over);
+            if (drawing_zooming_over!= null) {
 
-            View p = findViewById(R.id.drawing_panel);
-            Bitmap bii = p.getDrawingCache().copy(p.getDrawingCache().getConfig(),true);
-            if (bii == null) return;
-            ((Panel)p).reset();
-            bii.compress(Bitmap.CompressFormat.PNG, 95, new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + "/drawing_screen.png"));
-            drawing_zooming_over = new CsiGroundOverlay().setBounds(b);
-            drawing_zooming_over.setImage(new BitmapDrawable(getResources(), bii));
-            drawing_zooming_over.setPosition((GeoPoint) position);
-            map.getOverlays().add(drawing_zooming_over);
-            map.invalidate();
+                //    map.getOverlays().remove(drawing_zooming_over);
+                //    drawing_zooming_over = null;
+                //   map.invalidate();
+            }else {
+                View p = findViewById(R.id.drawing_panel);
+                savePaths((Panel) p);
+                Bitmap bii = p.getDrawingCache().copy(p.getDrawingCache().getConfig(), true);
+                if (bii == null) return;
+                ((Panel) p).reset();
+                bii.compress(Bitmap.CompressFormat.PNG, 95, new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + "/drawing_screen.png"));
+                drawing_zooming_over = new CsiGroundOverlay().setBounds(b);
+                drawing_zooming_over.setImage(new BitmapDrawable(getResources(), bii));
+                drawing_zooming_over.setPosition((GeoPoint) position);
+                map.getOverlays().add(drawing_zooming_over);
+                map.invalidate();
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
@@ -719,10 +810,8 @@ public class CsiActivity extends AppCompatActivity {
         chassis.setY((size.y-pix)/2);
         chassis.setX((size.x-pix)/2);
         LinearLayout body = (LinearLayout) v.findViewById(R.id.vehicle_body);
-        Log.d("IAT QUEBRADO ","até aquii veio");
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) Math.round(w), (int) Math.round(l));
         body.setLayoutParams(params);
-        Log.d("IAT QUEBRADO ","opa");
         JSONObject veiculo = new JSONObject();
         IGeoPoint center = map.getMapCenter();
         try {
@@ -740,7 +829,7 @@ public class CsiActivity extends AppCompatActivity {
         v.invalidate();
     }
 
-    protected void reloadVehicles() {
+    protected void reloadVehiclesAndPaths() {
         ((Iat)getApplicationContext()).setSelectedVehicle(null);
         ViewGroup o = ((ViewGroup) findViewById(R.id.vehicles_canvas));
         MapView map = (MapView) findViewById(R.id.map);
@@ -780,6 +869,7 @@ public class CsiActivity extends AppCompatActivity {
             });
             v.invalidate();
         }
+        loadPaths((Panel)findViewById(R.id.drawing_panel));
     }
     protected void resetVehicles(){
         ((CsiActivity)context).setSelectedVehicle(null);
@@ -790,7 +880,7 @@ public class CsiActivity extends AppCompatActivity {
             v.remove("position");
             v.remove("roll");
         }
-        reloadVehicles();
+        reloadVehiclesAndPaths();
     }
     public void exlog(String text, int line){
         mess[line]=text;

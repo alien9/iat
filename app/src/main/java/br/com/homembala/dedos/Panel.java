@@ -33,6 +33,7 @@ public class Panel extends View implements View.OnTouchListener{
     private boolean ligado;
     private int style;
     private ArrayList<Integer> styles=new ArrayList<>();
+    private JSONArray json_paths=new JSONArray();
 
     public void surfaceChanged(SurfaceHolder holder, int format, int width,
                                int height) {
@@ -79,12 +80,6 @@ public class Panel extends View implements View.OnTouchListener{
     }
     private void touch_up() {
         paths.get(paths.size()-1).lineTo(mX, mY);
-        // commit the path to our offscreen
-        //canvas.drawPath(paths.get(paths.size()-1), getPaint());
-        //canvas.save();
-        // kill this so we don't double draw            
-        //path = new Path();
-
     }
     @Override
     public boolean onTouch(View arg0, MotionEvent event) {
@@ -122,6 +117,8 @@ public class Panel extends View implements View.OnTouchListener{
             int s=paths.size()-1;
             paths.remove(s);
             paints.remove(s);
+            serializable.remove(s);
+            styles.remove(s);
             synchronized(this){
                 canvas=new Canvas();
                 canvas.save();
@@ -163,6 +160,7 @@ public class Panel extends View implements View.OnTouchListener{
         paths=new ArrayList<>();
         paints=new ArrayList<>();
         styles=new ArrayList<>();
+        serializable=new ArrayList<>();
         invalidate();
     }
     public String serialize(){
@@ -181,6 +179,9 @@ public class Panel extends View implements View.OnTouchListener{
         try {
             for(int i=0;i<paths.size();i++){
                 JSONObject item = new JSONObject();
+                if(json_paths.length()>i){
+                    item=json_paths.getJSONObject(i);
+                }
                 item.put("style",styles.get(i));
                 item.put("points",serializable.get(i).getPoints());
                 res.put(item);
@@ -189,6 +190,27 @@ public class Panel extends View implements View.OnTouchListener{
             e.printStackTrace();
         }
         return res;
+    }
+
+    public void setJSONPaths(JSONArray jp) {
+        reset();
+        json_paths=jp;
+        for(int i=0;i<json_paths.length();i++){
+            JSONObject json_path=json_paths.optJSONObject(i);
+            setStyle(json_path.optInt("style"));
+            if(json_path.has("points")){
+                JSONArray points = json_path.optJSONArray("points");
+                if(points.length()>0){
+                    int j=0;
+                    touch_start((float)points.optJSONArray(j).optDouble(0),(float)points.optJSONArray(j).optDouble(1));
+                    j++;
+                    while(j<points.length()){
+                        touch_move((float)points.optJSONArray(j).optDouble(0),(float)points.optJSONArray(j).optDouble(1));
+                        j++;
+                    }
+                }
+            }
+        }
     }
 
     private class Quad {

@@ -1,12 +1,15 @@
 package br.com.homembala.dedos.util;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -31,6 +34,7 @@ public class VehicleFix extends RelativeLayout {
     public static final int PEDESTRE = 4;
     public static final int BICI = 5;
     public static final int COLISAO = 6;
+    public static final int OBSTACULO = 7;
 
     private float width;
     private float height;
@@ -194,6 +198,10 @@ public class VehicleFix extends RelativeLayout {
                 break;
             case COLISAO:
                 body.setBackground(ContextCompat.getDrawable(context,R.drawable.explode));
+                break;
+            case OBSTACULO:
+                Box c = new Box(context);
+                ((ViewGroup) body).addView(c);
                 break;
         }
         final View chassi = this.findViewById(R.id.vehicle_chassi);
