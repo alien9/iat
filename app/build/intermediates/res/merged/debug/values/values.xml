@@ -533,8 +533,10 @@
     <string name="full_name">Full Name</string>
     <string name="hello">Hello World, DedosActivity!</string>
     <string name="hills">Hills</string>
+    <string name="items">Itens</string>
     <string name="largura">Largura</string>
     <string name="map_mode">Map Source</string>
+    <string name="mapa">Mapa</string>
     <string name="mapbox">MapBox</string>
     <string name="mapnik" translatable="false">Mapnik</string>
     <string name="mapquest_aerial">Mapquest Aerial</string>

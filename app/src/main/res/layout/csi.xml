@@ -31,6 +31,22 @@
             android:id="@+id/pegador"
             android:layout_height="match_parent"
             android:layout_width="match_parent" />
+        <RadioGroup
+            android:id="@+id/radio_set_mode"
+            android:layout_gravity="bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:text="@string/mapa"
+                android:id="@+id/radio_mapa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <RadioButton
+                android:text="@string/items"
+                android:id="@+id/radio_desenho"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RadioGroup>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -58,6 +74,7 @@
                 >
             </LinearLayout>
         </LinearLayout>
+
         <TextView
             android:layout_gravity="bottom"
             android:id="@+id/messageria"
