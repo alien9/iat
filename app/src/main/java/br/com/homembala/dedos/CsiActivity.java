@@ -173,11 +173,12 @@ public class CsiActivity extends AppCompatActivity {
                 }
                 View v = getSelectedVehicle();
                 if(v==null) return false;
-
-
+                else
+                    setSelectedVehicle(null);
                 return true;
             }
         });
+
         vehicles=new JSONArray();
         Pega pegador=(Pega)findViewById(R.id.pegador);
         pegador.setPontaPosition(10000,10000,0);
@@ -526,8 +527,8 @@ public class CsiActivity extends AppCompatActivity {
         float[] ce = {l.getX(),l.getY()};
         //Log.d("IAT","POSICAO: "+body.getX()+", "+body.getY()+" - ponta pegada "+ponta[0]+" "+ponta[1]+" centro "+ce[0]+" "+ce[1]);
         body.setRotation(l.getRodRotation());
-        chassi.setX(ponta[0]-convertDpToPixel(40));
-        chassi.setY(ponta[1]-convertDpToPixel(40));
+        chassi.setX(ponta[0]-convertDpToPixel(150));
+        chassi.setY(ponta[1]-convertDpToPixel(150));
         body.invalidate();
     }
     public void setSelectedVehicle(View v) {
@@ -547,8 +548,7 @@ public class CsiActivity extends AppCompatActivity {
             pegador.setVisibility(View.VISIBLE);
             View bod = sv.findViewById(R.id.vehicle_body);
             View chassi = sv.findViewById(R.id.vehicle_chassi);
-            float pix = convertDpToPixel(40);
-
+            float pix = convertDpToPixel(150);
             if(!reset) {
                 Log.d("IAT", "tentando resetar o pegador");
                 pegador.setPontaPosition(chassi.getX() + pix, chassi.getY() + pix, bod.getRotation());
@@ -556,6 +556,7 @@ public class CsiActivity extends AppCompatActivity {
                 Point size = getDisplaySize();
                 pegador.setPontaPosition(size.x/2,size.y/2, 0);
             }
+            sv.bringToFront();
         }else{
             Log.d("IAT", "nada a fazer aqui");
             pegador.setVisibility(View.GONE);
@@ -579,6 +580,7 @@ public class CsiActivity extends AppCompatActivity {
         if(mode==current_mode)return;
         current_mode=mode;
         MapView map = (MapView) findViewById(R.id.map);
+        map.setEnabled(false);
         Panel panel = (Panel) findViewById(R.id.drawing_panel);
         switch (mode){
             case VEHICLES:
@@ -600,8 +602,9 @@ public class CsiActivity extends AppCompatActivity {
                 break;
             case MAP:
                 ((Panel) findViewById(R.id.drawing_panel)).setLigado(false);
-                map.setBuiltInZoomControls(true);
                 saveVehiclesAndPaths();
+                map.setBuiltInZoomControls(true);
+                map.setEnabled(true);
                 break;
         }
 
@@ -752,16 +755,17 @@ public class CsiActivity extends AppCompatActivity {
             Bitmap bi = o.getDrawingCache().copy(o.getDrawingCache().getConfig(),true);
             if (bi == null) return;
             bi.compress(Bitmap.CompressFormat.PNG, 95, new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + "/vehicle_screen.png"));
+            JSONArray vs=new JSONArray();
             for (int i = 0; i < o.getChildCount(); i++) {
-                JSONObject veiculo = vehicles.optJSONObject(i);
+                VehicleFix vw = (VehicleFix) o.getChildAt(i);
+                JSONObject veiculo = findVehicleById(vw.getVehicleId());
                 if (veiculo == null) {
                     veiculo = new JSONObject();
                 }
-                VehicleFix vw = (VehicleFix) o.getChildAt(i);
                 JSONObject position = vw.getPosition();
                 View bode = vw.findViewById(R.id.vehicle_body);
                 View chassi = vw.findViewById(R.id.vehicle_chassi);
-                float pix = convertDpToPixel(40);
+                float pix = convertDpToPixel(150);
                 IGeoPoint latlng = map.getProjection().fromPixels(
                         Math.round(chassi.getX()+pix), Math.round(chassi.getY()+pix)
                 );
@@ -770,8 +774,9 @@ public class CsiActivity extends AppCompatActivity {
                 veiculo.put("position", position);
                 veiculo.put("roll", vw.getRoll());
                 veiculo.put("rotation",vw.getRotation());
-                vehicles.put(i, veiculo);
+                vs.put(veiculo);
             }
+            vehicles=vs;
             //o.removeAllViews();
             o.setVisibility(View.GONE);
             BoundingBox b = map.getBoundingBox();
@@ -782,12 +787,8 @@ public class CsiActivity extends AppCompatActivity {
             IGeoPoint position = map.getMapCenter();
             vehicles_zooming_over.setImage(new BitmapDrawable(getResources(), bi));
             vehicles_zooming_over.setPosition((GeoPoint) position);
-            map.getOverlays().add(vehicles_zooming_over);
             if (drawing_zooming_over!= null) {
 
-                //    map.getOverlays().remove(drawing_zooming_over);
-                //    drawing_zooming_over = null;
-                //   map.invalidate();
             }else {
                 View p = findViewById(R.id.drawing_panel);
                 savePaths((Panel) p);
@@ -799,8 +800,9 @@ public class CsiActivity extends AppCompatActivity {
                 drawing_zooming_over.setImage(new BitmapDrawable(getResources(), bii));
                 drawing_zooming_over.setPosition((GeoPoint) position);
                 map.getOverlays().add(drawing_zooming_over);
-                map.invalidate();
             }
+            map.getOverlays().add(vehicles_zooming_over);
+            map.invalidate();
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
@@ -808,6 +810,16 @@ public class CsiActivity extends AppCompatActivity {
         }
         ((CsiActivity) context).setSelectedVehicle(null);
     }
+
+    private JSONObject findVehicleById(int id) {
+        JSONObject j=null;
+        for(int i=0;i<vehicles.length();i++){
+            JSONObject v = vehicles.optJSONObject(i);
+            if(v.optInt("view_id")==id) j=v;
+        }
+        return j;
+    }
+
     protected void createVehicle(int model, double width, double length){
         //if(current_mode!=VEHICLES) setCurrentMode(VEHICLES);
         ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
@@ -826,7 +838,7 @@ public class CsiActivity extends AppCompatActivity {
         RelativeLayout.LayoutParams rparams = new RelativeLayout.LayoutParams(10*Math.round(w),10*Math.round(l));
         Log.d("IAT QUEBRADO ","mais");
         View chassis = v.findViewById(R.id.vehicle_chassi);
-        float pix = convertDpToPixel(80);
+        float pix = convertDpToPixel(300);
         chassis.setY((size.y-pix)/2);
         chassis.setX((size.x-pix)/2);
         LinearLayout body = (LinearLayout) v.findViewById(R.id.vehicle_body);
@@ -834,7 +846,10 @@ public class CsiActivity extends AppCompatActivity {
         body.setLayoutParams(params);
         JSONObject veiculo = new JSONObject();
         IGeoPoint center = map.getMapCenter();
+        int vid=vehicles.length()+1;
+        ((VehicleFix)v).setVehicleId(vid);
         try {
+            veiculo.put("view_id",vid);
             veiculo.put("model", model);
             veiculo.put("width", width);
             veiculo.put("length", length);
@@ -864,22 +879,30 @@ public class CsiActivity extends AppCompatActivity {
         Point size = getDisplaySize();
         double diagonal = Math.sqrt(Math.pow(size.x,2.0) + Math.pow(size.y,2.0));
         double pixels_per_m = diagonal / results[0];
-        for (int i = 0; i < vehicles.length(); i++) {
-            int w = (int) (vehicles.optJSONObject(i).optDouble("width") * pixels_per_m);//1000 * Math.pow(2.0, map.getZoomLevel()) / (2 * 20037508.34));
-            int l = (int) (vehicles.optJSONObject(i).optDouble("length") * pixels_per_m);//1000 * Math.pow(2.0, map.getZoomLevel()) / (2 * 20037508.34));
+        //for (int i = 0; i < vehicles.length(); i++) {
+        for (int i = 0; i < ((ViewGroup) findViewById(R.id.vehicles_canvas)).getChildCount(); i++) {
             View v=((ViewGroup) findViewById(R.id.vehicles_canvas)).getChildAt(i);
+            JSONObject vehicle = findVehicleById(((VehicleFix) v).getVehicleId());
+            if(vehicle==null){
+                Log.d("","");
+            }
+            int w = (int) (vehicle.optDouble("width") * pixels_per_m);//1000 * Math.pow(2.0, map.getZoomLevel()) / (2 * 20037508.34));
+            int l = (int) (vehicle.optDouble("length") * pixels_per_m);//1000 * Math.pow(2.0, map.getZoomLevel()) / (2 * 20037508.34));
+            //int vid=vehicle.optInt("view_id");
+            //
+            //View v=((ViewGroup) findViewById(R.id.vehicles_canvas)).findViewById(vid);
             Point position = new Point();
-            map.getProjection().toPixels(new GeoPoint(vehicles.optJSONObject(i).optDouble("latitude"),vehicles.optJSONObject(i).optDouble("longitude")),position);
+            map.getProjection().toPixels(new GeoPoint(vehicle.optDouble("latitude"),vehicle.optDouble("longitude")),position);
             View body = v.findViewById(R.id.vehicle_body);
             View chassi = v.findViewById(R.id.vehicle_chassi);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) Math.round(w), (int) Math.round(l));
             body.setLayoutParams(params);
-            float pix = convertDpToPixel(40);
+            float pix = convertDpToPixel(150);
             if(position!=null) {
                 chassi.setX(position.x-pix);
                 chassi.setY(position.y-pix);
             }
-            body.setRotation((float) vehicles.optJSONObject(i).optDouble("rotation"));
+            body.setRotation((float) vehicle.optDouble("rotation"));
             setSelectedVehicle(v);
             body.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -900,6 +923,7 @@ public class CsiActivity extends AppCompatActivity {
             v.remove("position");
             v.remove("roll");
         }
+        ((ViewGroup) findViewById(R.id.vehicles_canvas)).removeAllViews();
         reloadVehiclesAndPaths();
     }
     public void exlog(String text, int line){
