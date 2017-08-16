@@ -60,6 +60,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Hashtable;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 import br.com.homembala.dedos.util.Pega;
 import br.com.homembala.dedos.util.VehicleFix;
@@ -115,7 +116,7 @@ public class CsiActivity extends AppCompatActivity {
         final MapView map = (MapView) findViewById(R.id.map);
         String u="http://bigrs.alien9.net:8080/geoserver/gwc/service/tms/1.0.0/";
         clear_source = new GeoServerTileSource("quadras_e_logradouros", 17, 21, 512, ".png", new String[]{u});
-        great_source = new GeoServerTileSource("Cidade+com+Sem%C3%A1foros", 17, 21, 512, ".png", new String[]{u});
+        great_source = new GeoServerTileSource("Cidade+com+Sem%C3%A1foros%20e%20Lotes", 17, 21, 512, ".png", new String[]{u});
         map.setTileSource(great_source);
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
@@ -227,29 +228,21 @@ public class CsiActivity extends AppCompatActivity {
                         createVehicle(VehicleFix.PEDESTRE,2.0,2.5);
                         break;
                     case R.id.tools_colisao:
-                        createVehicle(VehicleFix.COLISAO,2.0,2.0);
+                        createVehicle(VehicleFix.COLISAO,4.0,4.0);
                         break;
                     case R.id.tools_obstaculo:
                         plot(R.layout.prompt_obstaculo);
                         break;
                     case R.id.tools_freada:
-                        ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
-                        setCurrentMode(FREEHAND);
-                        findViewById(R.id.show_pallette).setVisibility(View.GONE);
-                        findViewById(R.id.drawing_panel).setVisibility(View.VISIBLE);
-                        ((Panel)findViewById(R.id.drawing_panel)).setStyle(Panel.SKID);
-                        ((Panel)findViewById(R.id.drawing_panel)).setLigado(true);
-                        ((Panel)findViewById(R.id.drawing_panel)).setVisibility(View.VISIBLE);
+                        startDraw(Panel.SKID);
                         break;
                     case R.id.tools_zebra:
-                        ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
-                        setCurrentMode(FREEHAND);
-                        findViewById(R.id.show_pallette).setVisibility(View.GONE);
-                        findViewById(R.id.drawing_panel).setVisibility(View.VISIBLE);
-                        ((Panel)findViewById(R.id.drawing_panel)).setStyle(Panel.ZEBRA);
-                        ((Panel)findViewById(R.id.drawing_panel)).setLigado(true);
-                        ((Panel)findViewById(R.id.drawing_panel)).setVisibility(View.VISIBLE);
+                        startDraw(Panel.ZEBRA);
                         break;
+                    case R.id.tools_trajetoria:
+                        startDraw(Panel.TRACK);
+                        break;
+
                     case R.id.move_map_command:
                         ((RadioButton)findViewById(R.id.radio_mapa)).setChecked(true);
                         break;
@@ -286,6 +279,22 @@ public class CsiActivity extends AppCompatActivity {
                 }
             }
         });
+        findViewById(R.id.map_block).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return true;
+            }
+        });
+    }
+
+    private void startDraw(int skid) {
+        ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
+        setCurrentMode(FREEHAND);
+        findViewById(R.id.show_pallette).setVisibility(View.GONE);
+        findViewById(R.id.drawing_panel).setVisibility(View.VISIBLE);
+        ((Panel)findViewById(R.id.drawing_panel)).setStyle(skid,getResolution());
+        ((Panel)findViewById(R.id.drawing_panel)).setLigado(true);
+        ((Panel)findViewById(R.id.drawing_panel)).setVisibility(View.VISIBLE);
     }
 
     private void plot(int t) {
@@ -584,6 +593,7 @@ public class CsiActivity extends AppCompatActivity {
         Panel panel = (Panel) findViewById(R.id.drawing_panel);
         switch (mode){
             case VEHICLES:
+                findViewById(R.id.map_block).setVisibility(View.VISIBLE);
                 panel.setLigado(false);
                 findViewById(R.id.show_pallette).setVisibility(View.VISIBLE);
                 findViewById(R.id.vehicles_canvas).setVisibility(View.VISIBLE);
@@ -592,19 +602,24 @@ public class CsiActivity extends AppCompatActivity {
                 ligaCarros(true);
                 break;
             case FREEHAND:
-                map.getController().setZoom(20);
+                findViewById(R.id.map_block).setVisibility(View.VISIBLE);
+                saveVehiclesAndPaths();
+                //map.getController().setZoom(20);
                 findViewById(R.id.show_pallette).setVisibility(View.GONE);
-                panel.setLigado(true);
                 findViewById(R.id.vehicles_canvas).setVisibility(View.VISIBLE);
+                panel.setLigado(true);
+
                 reloadVehiclesAndPaths();
                 ligaCarros(true);
                 setSelectedVehicle(null);
                 break;
             case MAP:
+                findViewById(R.id.map_block).setVisibility(View.GONE);
                 ((Panel) findViewById(R.id.drawing_panel)).setLigado(false);
                 saveVehiclesAndPaths();
                 map.setBuiltInZoomControls(true);
                 map.setEnabled(true);
+                setSelectedVehicle(null);
                 break;
         }
 
@@ -659,7 +674,7 @@ public class CsiActivity extends AppCompatActivity {
                     }
                     paths.optJSONObject(i).put("points", pontos);
                 }
-                panel.setJSONPaths(paths);
+                panel.setJSONPaths(paths,getResolution());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -788,19 +803,20 @@ public class CsiActivity extends AppCompatActivity {
             vehicles_zooming_over.setImage(new BitmapDrawable(getResources(), bi));
             vehicles_zooming_over.setPosition((GeoPoint) position);
             if (drawing_zooming_over!= null) {
-
-            }else {
-                View p = findViewById(R.id.drawing_panel);
-                savePaths((Panel) p);
-                Bitmap bii = p.getDrawingCache().copy(p.getDrawingCache().getConfig(), true);
-                if (bii == null) return;
-                ((Panel) p).reset();
-                bii.compress(Bitmap.CompressFormat.PNG, 95, new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + "/drawing_screen.png"));
-                drawing_zooming_over = new CsiGroundOverlay().setBounds(b);
-                drawing_zooming_over.setImage(new BitmapDrawable(getResources(), bii));
-                drawing_zooming_over.setPosition((GeoPoint) position);
-                map.getOverlays().add(drawing_zooming_over);
+                map.getOverlays().remove(drawing_zooming_over);
+                drawing_zooming_over = null;
+                map.invalidate();
             }
+            View p = findViewById(R.id.drawing_panel);
+            savePaths((Panel) p);
+            Bitmap bii = p.getDrawingCache().copy(p.getDrawingCache().getConfig(), true);
+            if (bii == null) return;
+            ((Panel) p).reset();
+            bii.compress(Bitmap.CompressFormat.PNG, 95, new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + "/drawing_screen.png"));
+            drawing_zooming_over = new CsiGroundOverlay().setBounds(b);
+            drawing_zooming_over.setImage(new BitmapDrawable(getResources(), bii));
+            drawing_zooming_over.setPosition((GeoPoint) position);
+            map.getOverlays().add(drawing_zooming_over);
             map.getOverlays().add(vehicles_zooming_over);
             map.invalidate();
         } catch (JSONException e) {
@@ -821,15 +837,14 @@ public class CsiActivity extends AppCompatActivity {
     }
 
     protected void createVehicle(int model, double width, double length){
-        //if(current_mode!=VEHICLES) setCurrentMode(VEHICLES);
+        if(current_mode!=VEHICLES){
+            ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
+            //setCurrentMode(VEHICLES);
+        }
         ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
         MapView map = (MapView) findViewById(R.id.map);
-        BoundingBox b = map.getBoundingBox();
-        float[] results = new float[1];
-        Location.distanceBetween(b.getLatNorth(),b.getLonWest(),b.getLatSouth(),b.getLonEast(),results);
         Point size = getDisplaySize();
-        double diagonal = Math.sqrt(Math.pow(size.x,2.0) + Math.pow(size.y,2.0));
-        double pixels_per_m = diagonal / results[0];
+        double pixels_per_m = getResolution();
         int w = (int) (width * pixels_per_m);
         int l = (int) (length * pixels_per_m);
         View v=new VehicleFix(context);
@@ -864,6 +879,16 @@ public class CsiActivity extends AppCompatActivity {
         v.invalidate();
     }
 
+    private double getResolution() {
+        MapView map = (MapView) findViewById(R.id.map);
+        BoundingBox b = map.getBoundingBox();
+        float[] results = new float[1];
+        Location.distanceBetween(b.getLatNorth(),b.getLonWest(),b.getLatSouth(),b.getLonEast(),results);
+        Point size = getDisplaySize();
+        double diagonal = Math.sqrt(Math.pow(size.x,2.0) + Math.pow(size.y,2.0));
+        return diagonal / results[0];
+    }
+
     protected void reloadVehiclesAndPaths() {
         ((Iat)getApplicationContext()).setSelectedVehicle(null);
         ViewGroup o = ((ViewGroup) findViewById(R.id.vehicles_canvas));
@@ -882,7 +907,8 @@ public class CsiActivity extends AppCompatActivity {
         //for (int i = 0; i < vehicles.length(); i++) {
         for (int i = 0; i < ((ViewGroup) findViewById(R.id.vehicles_canvas)).getChildCount(); i++) {
             View v=((ViewGroup) findViewById(R.id.vehicles_canvas)).getChildAt(i);
-            JSONObject vehicle = findVehicleById(((VehicleFix) v).getVehicleId());
+            int vehicle_id=((VehicleFix) v).getVehicleId();
+            JSONObject vehicle = findVehicleById(vehicle_id);
             if(vehicle==null){
                 Log.d("","");
             }
@@ -903,7 +929,6 @@ public class CsiActivity extends AppCompatActivity {
                 chassi.setY(position.y-pix);
             }
             body.setRotation((float) vehicle.optDouble("rotation"));
-            setSelectedVehicle(v);
             body.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

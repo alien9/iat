@@ -48,8 +48,9 @@ public class VehicleFix extends RelativeLayout {
     private Point position;
     private float[] posicao_atual;
     private double current_rotation;
-    private boolean selectedVehicle;
+    private boolean selectedVehicle=false;
     private int vehicleId;
+    private OnTouchListener touchy;
 
     public JSONObject getPosition(){
         JSONObject p=new JSONObject();
@@ -82,9 +83,62 @@ public class VehicleFix extends RelativeLayout {
         init(context);
     }
 
-    private void init(Context context) {
+    private void init(Context c) {
         Log.d("IAT","inicializandoo veiculo");
         inflate(context, R.layout.vehicle, this);
+        context=c;
+        touchy = new OnTouchListener() {
+            public float currentY;
+            public float currentX;
+            public float y;
+            public float x;
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                Log.d("IAT", "touching things "+motionEvent.getX()+"   "+motionEvent.getY());
+                if(!selectedVehicle) {
+                    Log.d("IAT", "touching deselected "+motionEvent.getActionMasked());
+                    return true;
+                }else{
+                    switch (motionEvent.getActionMasked()) {
+                        case MotionEvent.ACTION_HOVER_ENTER:
+                            if (!selectedVehicle) return true;
+                            x = motionEvent.getX();
+                            y = motionEvent.getY();
+                            break;
+                        case MotionEvent.ACTION_DOWN:
+                            if (!selectedVehicle) return true;
+                            x = motionEvent.getX();
+                            y = motionEvent.getY();
+                            break;
+                        case MotionEvent.ACTION_MOVE:
+                            if (!selectedVehicle) return true;
+                            currentX = motionEvent.getX();
+                            currentY = motionEvent.getY();
+                            view.setY(view.getY() + currentY - y);
+                            view.setX(view.getX() + currentX - x);
+                            ((CsiActivity) context).updatePegadorForSelectedVehicle();
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            // será que clickou em algum outro?
+                            ViewGroup tela = (ViewGroup) view.getParent().getParent().getParent();
+                            for (int i = 0; i < tela.getChildCount(); i++) {
+                                View car = tela.getChildAt(i).findViewById(R.id.vehicle_chassi);
+                                int w = car.getWidth() / 2;
+                                float rex = motionEvent.getX() + view.getX();
+                                float rey = motionEvent.getY() + view.getY();
+                                if ((Math.abs(car.getX() + w - rex) < 60) && (Math.abs(car.getY() + w - rey) < 60))
+                                    ((CsiActivity) context).setSelectedVehicle((View) car.getParent().getParent());
+                            }
+                            break;
+                        default:
+                            return true;
+                    }
+
+                    return true;
+                }
+            }
+        };
+
         //RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
         //setLayoutParams(params);
         // setup all your Views from here with calls to getViewById(...);
@@ -249,61 +303,20 @@ public class VehicleFix extends RelativeLayout {
                     case MotionEvent.ACTION_UP:
                         ((CsiActivity)context).setSelectedVehicle(vu);
                         break;
+                    default:
+                        return true;
                 }
                 return false;
             }
         });
 
-        chassi.setOnTouchListener(new OnTouchListener() {
-            public float currentY;
-            public float currentX;
-            public float y;
-            public float x;
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                Log.d("IAT", "touching things "+motionEvent.getX()+"   "+motionEvent.getY());
-                //if(!selectedVehicle)return true;
-                switch(motionEvent.getActionMasked()){
-                    case MotionEvent.ACTION_HOVER_ENTER:
-                        if(!selectedVehicle)return true;
-                        x=motionEvent.getX();
-                        y=motionEvent.getY();
-                        break;
-                    case MotionEvent.ACTION_DOWN:
-                        if(!selectedVehicle)return true;
-                        x=motionEvent.getX();
-                        y=motionEvent.getY();
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        if(!selectedVehicle)return true;
-                        currentX=motionEvent.getX();
-                        currentY=motionEvent.getY();
-                        view.setY(view.getY()+currentY-y);
-                        view.setX(view.getX()+currentX-x);
-                        ((CsiActivity)context).updatePegadorForSelectedVehicle();
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        // será que clickou em algum outro?
-                        ViewGroup tela = (ViewGroup) view.getParent().getParent().getParent();
-                        for(int i=0;i<tela.getChildCount();i++){
-                            View car = tela.getChildAt(i).findViewById(R.id.vehicle_chassi);
-                            int w = car.getWidth() / 2;
-                            float rex = motionEvent.getX() + view.getX();
-                            float rey = motionEvent.getY() + view.getY();
-                            if((Math.abs(car.getX()+w-rex)<60)&&(Math.abs(car.getY()+w-rey)<60))
-                                ((CsiActivity)context).setSelectedVehicle((View) car.getParent().getParent());
-                        }
-                        break;
-                }
-                return false;
-            }
-        });
-        chassi.setOnClickListener(new OnClickListener() {
+        chassi.setOnTouchListener(touchy);
+        /*chassi.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("IAT", "Clickei num vehiculo");
             }
-        });
+        });*/
     }
 
     public void liga(boolean l){
@@ -336,6 +349,10 @@ public class VehicleFix extends RelativeLayout {
     public void setSelectedVehicle(boolean s) {
         selectedVehicle = s;
         this.findViewById(R.id.vehicle_body).setClickable(!s);
+        if(s)
+            this.findViewById(R.id.vehicle_chassi).setOnTouchListener(touchy);
+        else
+            this.findViewById(R.id.vehicle_chassi).setOnTouchListener(null);
     }
 
     public void setVehicleId(int vid) {

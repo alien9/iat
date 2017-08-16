@@ -84,8 +84,8 @@ public class Pega extends LinearLayout {
         final View rod = v.findViewById(R.id.rod);
         rod.setPivotX(0);
         rod.setPivotY(0);
-        final View bolinha = v.findViewById(R.id.floatingActionButton);
-        v.findViewById(R.id.floatingActionButton).setOnTouchListener(new OnTouchListener() {
+        final View bolinha = v.findViewById(R.id.bolinha);
+        v.findViewById(R.id.bolinha).setOnTouchListener(new OnTouchListener() {
             public float currentX;
             public float currentY;
             public float y;
@@ -165,7 +165,7 @@ public class Pega extends LinearLayout {
         Log.d("IAT", "setando a posiocao da pornta");
         posicao_atual = getHandlerCenter(new float[]{x, y}, rotation*Math.PI/180);
         Log.d("IAT", "pegou posiocao da pornta");
-        View bolinha = findViewById(R.id.floatingActionButton);
+        View bolinha = findViewById(R.id.bolinha);
         View rod = findViewById(R.id.rod);
         bolinha.setX(posicao_atual[0]-ball_radius);
         bolinha.setY(posicao_atual[1]-ball_radius);

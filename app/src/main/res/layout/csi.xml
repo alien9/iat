@@ -18,6 +18,13 @@
         <org.osmdroid.views.MapView android:id="@+id/map"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:id="@+id/map_block"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
         <br.com.homembala.dedos.Panel
             android:id="@+id/drawing_panel"
             android:layout_width="match_parent"

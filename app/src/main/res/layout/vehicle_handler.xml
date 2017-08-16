@@ -5,16 +5,26 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical">
-
-    <android.support.design.widget.FloatingActionButton
+    <!--android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_centerInParent="true"
         android:layout_gravity="center_vertical"
         android:clickable="true"
-        app:backgroundTint="#ffff0000"
-        app:fabSize="mini" />
+        android:background="@drawable/round_border"
+        app:backgroundTint="#00ff0000"
+        app:borderWidth="2dp"
+        app:fabSize="mini" /-->
+    <LinearLayout
+        android:id="@+id/bolinha"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_vertical"
+        android:clickable="true"
+        android:background="@drawable/round_border"
+        />
     <LinearLayout
         android:layout_centerInParent="true"
         android:orientation="vertical"

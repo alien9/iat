@@ -1,14 +1,11 @@
 package br.com.homembala.dedos;
 
 import java.util.ArrayList;
-import java.util.Deque;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
-import android.graphics.DiscretePathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
@@ -23,6 +20,7 @@ import org.json.JSONObject;
 public class Panel extends View implements View.OnTouchListener{
     public static final int SKID = 1;
     public static final int ZEBRA = 2;
+    public static final int TRACK = 3;
     private Canvas canvas;
     private Path path;
     private Paint paint;
@@ -34,6 +32,7 @@ public class Panel extends View implements View.OnTouchListener{
     private int style;
     private ArrayList<Integer> styles=new ArrayList<>();
     private JSONArray json_paths=new JSONArray();
+    private double resolution=1;
 
     public void surfaceChanged(SurfaceHolder holder, int format, int width,
                                int height) {
@@ -133,8 +132,9 @@ public class Panel extends View implements View.OnTouchListener{
         ligado = l;
     }
 
-    public void setStyle(int s) {
+    public void setStyle(int s, double r) {
         style = s;
+        resolution=r;
     }
     private Paint getPaint(){
         paint = new Paint();
@@ -146,12 +146,17 @@ public class Panel extends View implements View.OnTouchListener{
                 paint.setColor(Color.BLACK);
                 paint.setStrokeJoin(Paint.Join.ROUND);
                 paint.setStrokeCap(Paint.Cap.ROUND);
-                paint.setStrokeWidth(6);
+                paint.setStrokeWidth((float) (0.5*resolution));
                 break;
             case ZEBRA:
                 paint.setColor(Color.argb(255,204,204,204));
-                paint.setStrokeWidth(52);
-                paint.setPathEffect(new DashPathEffect(new float[]{10,5},5));
+                paint.setStrokeWidth((float) (3*resolution));
+                paint.setPathEffect(new DashPathEffect(new float[]{(float) (0.6*resolution), (float) (0.3*resolution)},(float) (0.3*resolution)));
+                break;
+            case TRACK:
+                paint.setColor(Color.BLACK);
+                paint.setStrokeWidth((float) (0.5*resolution));
+                paint.setPathEffect(new DashPathEffect(new float[]{(float) (1*resolution), (float) (0.6*resolution)},(float) (0.4*resolution)));
                 break;
         }
         return paint;
@@ -192,12 +197,12 @@ public class Panel extends View implements View.OnTouchListener{
         return res;
     }
 
-    public void setJSONPaths(JSONArray jp) {
+    public void setJSONPaths(JSONArray jp,double r) {
         reset();
         json_paths=jp;
         for(int i=0;i<json_paths.length();i++){
             JSONObject json_path=json_paths.optJSONObject(i);
-            setStyle(json_path.optInt("style"));
+            setStyle(json_path.optInt("style"),r);
             if(json_path.has("points")){
                 JSONArray points = json_path.optJSONArray("points");
                 if(points.length()>0){
