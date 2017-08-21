@@ -1,7 +1,6 @@
 package br.com.homembala.dedos;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +16,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
@@ -29,8 +30,8 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -60,7 +61,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Hashtable;
-import java.util.concurrent.ConcurrentSkipListMap;
 
 import br.com.homembala.dedos.util.Pega;
 import br.com.homembala.dedos.util.VehicleFix;
@@ -225,7 +225,7 @@ public class CsiActivity extends AppCompatActivity {
                         createVehicle(VehicleFix.BICI,1.8,2.0);
                         break;
                     case R.id.tools_pessoa:
-                        createVehicle(VehicleFix.PEDESTRE,2.0,2.5);
+                        createVehicle(VehicleFix.PEDESTRE,1.7,2.5);
                         break;
                     case R.id.tools_colisao:
                         createVehicle(VehicleFix.COLISAO,4.0,4.0);
@@ -285,6 +285,18 @@ public class CsiActivity extends AppCompatActivity {
                 return true;
             }
         });
+        //detailPagerSetup();
+    }
+
+    public void detailPagerSetup(int vehicle_id) {
+        findViewById(R.id.vehicle_details).setVisibility(View.VISIBLE);
+        ((ViewPager)findViewById(R.id.vehicle_details)).setAdapter(new VehicleDetailsAdapter(context));
+        ((ViewPager)findViewById(R.id.vehicle_details)).setCurrentItem(getVehicleIndexById(vehicle_id));
+        findViewById(R.id.vehicle_details).invalidate();
+
+    }
+    public void detailPagerSetup() {
+        detailPagerSetup(0);
     }
 
     private void startDraw(int skid) {
@@ -375,6 +387,8 @@ public class CsiActivity extends AppCompatActivity {
             findViewById(R.id.show_pallette).setVisibility(View.VISIBLE);
             return;
         }
+        if(findViewById(R.id.vehicle_details).getVisibility()==View.VISIBLE)
+            findViewById(R.id.vehicle_details).setVisibility(View.GONE);
         ((Panel) findViewById(R.id.drawing_panel)).back();
     }
 
@@ -773,7 +787,7 @@ public class CsiActivity extends AppCompatActivity {
             JSONArray vs=new JSONArray();
             for (int i = 0; i < o.getChildCount(); i++) {
                 VehicleFix vw = (VehicleFix) o.getChildAt(i);
-                JSONObject veiculo = findVehicleById(vw.getVehicleId());
+                JSONObject veiculo = getVehicleById(vw.getVehicleId());
                 if (veiculo == null) {
                     veiculo = new JSONObject();
                 }
@@ -827,7 +841,7 @@ public class CsiActivity extends AppCompatActivity {
         ((CsiActivity) context).setSelectedVehicle(null);
     }
 
-    private JSONObject findVehicleById(int id) {
+    private JSONObject getVehicleById(int id) {
         JSONObject j=null;
         for(int i=0;i<vehicles.length();i++){
             JSONObject v = vehicles.optJSONObject(i);
@@ -835,6 +849,16 @@ public class CsiActivity extends AppCompatActivity {
         }
         return j;
     }
+    private int getVehicleIndexById(int id) {
+        int ind = 0;
+        for(int i=0;i<vehicles.length();i++){
+            JSONObject v = vehicles.optJSONObject(i);
+            if(v.optInt("view_id")==id) ind=i;
+        }
+        return ind;
+    }
+
+
 
     protected void createVehicle(int model, double width, double length){
         if(current_mode!=VEHICLES){
@@ -908,7 +932,7 @@ public class CsiActivity extends AppCompatActivity {
         for (int i = 0; i < ((ViewGroup) findViewById(R.id.vehicles_canvas)).getChildCount(); i++) {
             View v=((ViewGroup) findViewById(R.id.vehicles_canvas)).getChildAt(i);
             int vehicle_id=((VehicleFix) v).getVehicleId();
-            JSONObject vehicle = findVehicleById(vehicle_id);
+            JSONObject vehicle = getVehicleById(vehicle_id);
             if(vehicle==null){
                 Log.d("","");
             }
@@ -964,6 +988,76 @@ public class CsiActivity extends AppCompatActivity {
         DisplayMetrics metrics = resources.getDisplayMetrics();
         float px = dp * ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
         return px;
+    }
+
+    private class VehicleDetailsAdapter extends PagerAdapter {
+        private final Context mcontext;
+
+        @Override
+        public int getCount() {
+            return vehicles.length();
+        }
+        public VehicleDetailsAdapter(Context c) {
+            mcontext = c;
+        }
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view==object;
+        }
+        @Override
+        public Object instantiateItem(ViewGroup collection, final int position) {
+            //ModelObject modelObject = ModelObject.values()[position];
+            LayoutInflater inflater = LayoutInflater.from(mcontext);
+            ViewGroup layout = null;
+            JSONObject vehicle = vehicles.optJSONObject(position);
+            switch(vehicle.optInt("model")){
+                case VehicleFix.CARRO:
+                case VehicleFix.CAMINHAO:
+                case VehicleFix.ONIBUS:
+                case VehicleFix.MOTO:
+                    layout = (ViewGroup) inflater.inflate(R.layout.vehicle_data, collection, false);
+                    ((EditText)layout.findViewById(R.id.placa_text)).setText(vehicle.optString("placa"));
+                    ((EditText)layout.findViewById(R.id.marca_text)).setText(vehicle.optString("marca"));
+                    break;
+                case VehicleFix.PEDESTRE:
+                    layout=(ViewGroup) inflater.inflate(R.layout.pedestre_data, collection, false);
+                    ((EditText)layout.findViewById(R.id.nome_text)).setText(vehicle.optString("nome"));
+                    ((EditText)layout.findViewById(R.id.idade_text)).setText(vehicle.optString("idade"));
+                    break;
+            }
+
+            final ViewGroup finalLayout = layout;
+            layout.findViewById(R.id.voltar_butt).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        JSONObject vehicle = vehicles.optJSONObject(position);
+                        switch (vehicle.optInt("model")) {
+                            case VehicleFix.CARRO:
+                            case VehicleFix.CAMINHAO:
+                            case VehicleFix.ONIBUS:
+                            case VehicleFix.MOTO:
+                                vehicles.optJSONObject(position).put("placa", ((EditText) finalLayout.findViewById(R.id.placa_text)).getText());
+                                vehicles.optJSONObject(position).put("marca", ((EditText) finalLayout.findViewById(R.id.marca_text)).getText());
+                                break;
+                            case VehicleFix.PEDESTRE:
+                                vehicles.optJSONObject(position).put("nome", ((EditText) finalLayout.findViewById(R.id.nome_text)).getText());
+                                vehicles.optJSONObject(position).put("idade", ((EditText) finalLayout.findViewById(R.id.idade_text)).getText());
+                                break;
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    findViewById(R.id.vehicle_details).setVisibility(View.GONE);
+                }
+            });
+            collection.addView(layout);
+            return layout;
+        }
+        @Override
+        public void destroyItem(ViewGroup collection, int position, Object view) {
+            collection.removeView((View) view);
+        }
     }
 
 }

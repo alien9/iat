@@ -26,7 +26,7 @@ public class Pega extends LinearLayout {
     int rod_length=dpToPx(153);
     int rod_width=dpToPx(1);
 
-    int ball_radius =dpToPx(13);
+    int ball_radius =dpToPx(14);
     private Handler handler;
     private float[] posicao_atual;
 
@@ -139,7 +139,6 @@ public class Pega extends LinearLayout {
                                 prox[0],
                                 prox[1]
                         },rotation*Math.PI/180);
-
                         rod.setRotation(rotation);
                         rod.setX(prox[0]);
                         rod.setY(prox[1]);

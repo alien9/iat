@@ -129,6 +129,7 @@ public class VehicleFix extends RelativeLayout {
                                 if ((Math.abs(car.getX() + w - rex) < 60) && (Math.abs(car.getY() + w - rey) < 60))
                                     ((CsiActivity) context).setSelectedVehicle((View) car.getParent().getParent());
                             }
+                            view.performLongClick();
                             break;
                         default:
                             return true;
@@ -265,9 +266,12 @@ public class VehicleFix extends RelativeLayout {
         body.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View bode, MotionEvent motionEvent) {
+                if(selectedVehicle) return false;
                 switch(motionEvent.getAction()){
                     case MotionEvent.ACTION_DOWN:
 //                        inicio=new float[]{(float) (motionEvent.getX()), (float) (motionEvent.getY())};
+
+                        /*
                         current_rotation=bode.getRotation()/180*Math.PI;
                         inicio=new float[]{
                                 (float) (motionEvent.getX()*Math.cos(current_rotation)-motionEvent.getY()*Math.sin(current_rotation)),
@@ -278,8 +282,11 @@ public class VehicleFix extends RelativeLayout {
                                 bode.getX()+inicio[0],
                                 bode.getY()+inicio[1]
                         };
+                        return true;
+                        */
+
                         //((CsiActivity)context).setSelectedVehicle((VehicleFix) bode.getParent());
-                        break;
+                        //break;
 /*
                     case MotionEvent.ACTION_MOVE:
                         View sv = ((CsiActivity) context).getSelectedVehicle();
@@ -306,17 +313,19 @@ public class VehicleFix extends RelativeLayout {
                     default:
                         return true;
                 }
-                return false;
+                return true;
             }
         });
-
-        chassi.setOnTouchListener(touchy);
-        /*chassi.setOnClickListener(new OnClickListener() {
+        OnLongClickListener tu = new OnLongClickListener() {
             @Override
-            public void onClick(View view) {
-                Log.d("IAT", "Clickei num vehiculo");
+            public boolean onLongClick(View view) {
+                if(selectedVehicle)
+                    ((CsiActivity) context).detailPagerSetup(getVehicleId());
+                return true;
             }
-        });*/
+        };
+        body.setOnLongClickListener(tu);
+        chassi.setOnTouchListener(touchy);
     }
 
     public void liga(boolean l){

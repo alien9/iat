@@ -17,6 +17,7 @@
         app:borderWidth="2dp"
         app:fabSize="mini" /-->
     <LinearLayout
+        android:orientation="vertical"
         android:id="@+id/bolinha"
         android:layout_width="26dp"
         android:layout_height="26dp"
