@@ -53,4 +53,10 @@
     <string name="voltar">Fechar</string>
     <string name="nome">Nome</string>
     <string name="idade">Idade</string>
+    <string name="tipo_de_impacto">Tipo de impacto</string>
+    <string-array name="collision_type">
+        <item>Colisão</item>
+        <item>Choque</item>
+        <item>Atropelamento</item>
+    </string-array>
 </resources>

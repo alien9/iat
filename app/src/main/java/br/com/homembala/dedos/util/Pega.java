@@ -30,10 +30,10 @@ public class Pega extends LinearLayout {
 
     int ball_radius =dpToPx(14);
     int big_ball_radius =dpToPx(42);
-    private Handler handler;
     private float[] posicao_atual;
     private float x=0;
     private float y=0;
+    private boolean click=false;
 
     public Pega(Context context) {
         super(context);
@@ -162,11 +162,13 @@ public class Pega extends LinearLayout {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 switch (motionEvent.getAction()){
                     case MotionEvent.ACTION_DOWN:
+                        click=true;
                         x = motionEvent.getX();
                         y = motionEvent.getY();
                         rotation=rod.getRotation();
                         return true;
                     case MotionEvent.ACTION_MOVE:
+                        click=false;
                         ponta_atual=new float[]{
                                 ponta_atual[0]+motionEvent.getX()-x,ponta_atual[1]+motionEvent.getY()-y
                         };
@@ -174,6 +176,12 @@ public class Pega extends LinearLayout {
                         ((CsiActivity)context).updateVehiclePosition(pegador,ponta_atual);
                         Log.d("IAT","Translação "+motionEvent.getX()+"   "+motionEvent.getY());
                         return true;
+                    case MotionEvent.ACTION_UP:
+                        if(click){
+                            click=false;
+                            ((CsiActivity)context).detailPagerSetup();
+                        }
+                        break;
                 }
                 return false;
             }

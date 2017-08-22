@@ -37,6 +37,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -61,7 +62,9 @@ import org.osmdroid.views.overlay.ScaleBarOverlay;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Hashtable;
+import java.util.Iterator;
 
 import br.com.homembala.dedos.util.Pega;
 import br.com.homembala.dedos.util.VehicleFix;
@@ -154,7 +157,6 @@ public class CsiActivity extends AppCompatActivity {
                         map.invalidate();
                     }
                 }
-                //loadVehicles();
                 return true;
             }
             public boolean onScroll(final ScrollEvent e) {
@@ -188,8 +190,8 @@ public class CsiActivity extends AppCompatActivity {
         });
 
         vehicles=new JSONArray();
-        Pega pegador=(Pega)findViewById(R.id.pegador);
-        pegador.setPontaPosition(10000,10000,0);
+        //Pega pegador=(Pega)findViewById(R.id.pegador);
+        //pegador.setPontaPosition(10000,10000,0);
         current_mode=VEHICLES;
         ((ImageButton)findViewById(R.id.show_pallette)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -229,7 +231,7 @@ public class CsiActivity extends AppCompatActivity {
                         createVehicle(VehicleFix.CAMINHAO,3.9,11.4);
                         break;
                     case R.id.tools_bici:
-                        createVehicle(VehicleFix.BICI,1.8,2.0);
+                        createVehicle(VehicleFix.BICI,1.8,2.2);
                         break;
                     case R.id.tools_pessoa:
                         createVehicle(VehicleFix.PEDESTRE,1.7,2.5);
@@ -238,7 +240,7 @@ public class CsiActivity extends AppCompatActivity {
                         createVehicle(VehicleFix.COLISAO,4.0,4.0);
                         break;
                     case R.id.tools_obstaculo:
-                        plot(R.layout.prompt_obstaculo);
+                        plot(R.layout.obstaculo_prompt);
                         break;
                     case R.id.tools_freada:
                         startDraw(Panel.SKID);
@@ -292,6 +294,10 @@ public class CsiActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        ((RadioButton)findViewById(R.id.radio_mapa)).setChecked(true);
+        findViewById(R.id.pegador).setVisibility(View.VISIBLE);
+        ((Pega) findViewById(R.id.pegador)).setPontaPosition(-10000,-10000,0);
         //detailPagerSetup();
     }
 
@@ -330,12 +336,20 @@ public class CsiActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which){
                 switch(tipo){
-                    case R.layout.prompt_obstaculo:
+                    case R.layout.obstaculo_prompt:
                         try {
                             int largura = Integer.parseInt(((TextView) v.findViewById(R.id.largura_text)).getText().toString());
                             int comprimento = Integer.parseInt(((TextView) v.findViewById(R.id.comprimento_text)).getText().toString());
+                            JSONObject d=new JSONObject();
+                            try {
+                                d.put("comprimento",comprimento);
+                                d.put("largura",largura);
+                                d.put("nome",((EditText) v.findViewById(R.id.tipo_obstaculo_text)).getText().toString());
+                            } catch (JSONException ignored) {
+                            }
+
                             if (largura > 0 && comprimento > 0) {
-                                createVehicle(VehicleFix.OBSTACULO, largura, comprimento);
+                                createVehicle(VehicleFix.OBSTACULO, largura, comprimento,d);
                             }
                         }catch(NumberFormatException xxx){
                             return;
@@ -791,6 +805,10 @@ public class CsiActivity extends AppCompatActivity {
                 map.invalidate();
             }
             ViewGroup o = ((ViewGroup) findViewById(R.id.vehicles_canvas));
+            if(o.getDrawingCache()==null){
+                o.setVisibility(View.GONE);
+                return;
+            }
             Bitmap bi = o.getDrawingCache().copy(o.getDrawingCache().getConfig(),true);
             if (bi == null) return;
             bi.compress(Bitmap.CompressFormat.PNG, 95, new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + "/vehicle_screen.png"));
@@ -868,9 +886,11 @@ public class CsiActivity extends AppCompatActivity {
         return ind;
     }
 
-
-
     protected void createVehicle(int model, double width, double length){
+        createVehicle(model, width, length, new JSONObject());
+    }
+
+    protected void createVehicle(int model, double width, double length, JSONObject data){
         if(current_mode!=VEHICLES){
             ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
             //setCurrentMode(VEHICLES);
@@ -907,6 +927,11 @@ public class CsiActivity extends AppCompatActivity {
             veiculo.put("position", ((VehicleFix) v).getPosition());
             veiculo.put("roll", 0);
             veiculo.put("rotation",0.0);
+            Iterator<?> keys = data.keys();
+            while( keys.hasNext() ) {
+                String key = (String)keys.next();
+                veiculo.put(key,data.get(key));
+            }
         } catch (JSONException e) {}
         vehicles.put(veiculo);
         setSelectedVehicle(v, true);
@@ -1034,6 +1059,18 @@ public class CsiActivity extends AppCompatActivity {
                     ((EditText)layout.findViewById(R.id.nome_text)).setText(vehicle.optString("nome"));
                     ((EditText)layout.findViewById(R.id.idade_text)).setText(vehicle.optString("idade"));
                     break;
+                case VehicleFix.COLISAO:
+                    layout=(ViewGroup) inflater.inflate(R.layout.colisao_data, collection, false);
+                    int c= Arrays.asList(getResources().getStringArray(R.array.collision_type)).indexOf(vehicle.optString("tipo"));
+                    if(c>=0)
+                        ((Spinner)layout.findViewById(R.id.impacto_spinner)).setSelection(c);
+                    break;
+                case VehicleFix.OBSTACULO:
+                    layout=(ViewGroup) inflater.inflate(R.layout.obstaculo_data, collection, false);
+                    ((EditText)layout.findViewById(R.id.tipo_obstaculo_text)).setText(vehicle.optString("nome"));
+                    ((EditText)layout.findViewById(R.id.largura_text)).setText(vehicle.optString("largura"));
+                    ((EditText)layout.findViewById(R.id.comprimento_text)).setText(vehicle.optString("comprimento"));
+                    break;
             }
 
             final ViewGroup finalLayout = layout;
@@ -1053,6 +1090,12 @@ public class CsiActivity extends AppCompatActivity {
                             case VehicleFix.PEDESTRE:
                                 vehicles.optJSONObject(position).put("nome", ((EditText) finalLayout.findViewById(R.id.nome_text)).getText());
                                 vehicles.optJSONObject(position).put("idade", ((EditText) finalLayout.findViewById(R.id.idade_text)).getText());
+                                break;
+                            case VehicleFix.COLISAO:
+                                vehicles.optJSONObject(position).put("tipo",((Spinner)finalLayout.findViewById(R.id.impacto_spinner)).getSelectedItem().toString());
+                                break;
+                            case VehicleFix.OBSTACULO:
+
                                 break;
                         }
                     } catch (JSONException e) {
