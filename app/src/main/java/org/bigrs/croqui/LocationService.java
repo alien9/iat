@@ -1,4 +1,4 @@
-package br.com.homembala.dedos;
+package org.bigrs.croqui;
 
 import android.Manifest;
 import android.app.Service;

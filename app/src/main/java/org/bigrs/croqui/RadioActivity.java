@@ -1,13 +1,14 @@
-package br.com.homembala.dedos;
+package org.bigrs.croqui;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+
+import com.bigrs.croqui.R;
 
 public class RadioActivity extends Activity {
     @Override

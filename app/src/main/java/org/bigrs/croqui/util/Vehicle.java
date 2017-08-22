@@ -1,4 +1,4 @@
-package br.com.homembala.dedos.util;
+package org.bigrs.croqui.util;
 
 import android.content.ClipData;
 import android.content.Context;
@@ -15,8 +15,8 @@ import android.widget.LinearLayout;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import br.com.homembala.dedos.Iat;
-import br.com.homembala.dedos.R;
+import org.bigrs.croqui.Iat;
+import com.bigrs.croqui.R;
 
 
 /**

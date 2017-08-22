@@ -1,4 +1,4 @@
-package br.com.homembala.dedos;
+package org.bigrs.croqui;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -40,6 +40,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.bigrs.croqui.util.VehicleFix;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -66,13 +67,15 @@ import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.Iterator;
 
-import br.com.homembala.dedos.util.Pega;
-import br.com.homembala.dedos.util.VehicleFix;
+import com.bigrs.croqui.R;
+
+import org.bigrs.croqui.util.Pega;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import static br.com.homembala.dedos.R.id.map;
+import static com.bigrs.croqui.R.id.map;
 
 /**
  * Created by tiago on 27/03/17.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="br.com.homembala.dedos"
+    package="com.bigrs.croqui"
     android:versionCode="1"
     android:versionName="1.0" >
     <uses-sdk android:minSdkVersion="19" />
@@ -18,14 +18,14 @@
         android:largeHeap="true"
         android:icon="@drawable/ic_launcher"
         android:label="CET IAT"
-        android:name=".Iat"
+        android:name="com.bigrs.croqui.org.bigrs.croqui.Iat"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         >
         <activity
             android:hardwareAccelerated="false"
             android:label="IAT"
             android:screenOrientation="portrait"
-            android:name=".CsiActivity" >
+            android:name="com.bigrs.croqui.org.bigrs.croqui.CsiActivity" >
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -33,9 +33,9 @@
         </activity>
         <activity
             android:hardwareAccelerated="false"
-            android:name=".Choice"/>
+            android:name="com.bigrs.croqui.org.bigrs.croqui.Choice"/>
         <activity
-            android:name=".DedosActivity" />
-        <service android:enabled="true" android:name=".LocationService" />
+            android:name="com.bigrs.croqui.org.bigrs.croqui.DedosActivity" />
+        <service android:enabled="true" android:name="com.bigrs.croqui.org.bigrs.croqui.LocationService" />
     </application>
 </manifest>

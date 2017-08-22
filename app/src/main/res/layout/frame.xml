@@ -37,11 +37,11 @@
             android:layout_height="25dp"
             android:src="@drawable/desenhe" />
 
-        <br.com.homembala.dedos.Panel
+        <org.bigrs.croqui.Panel
             android:id="@+id/SurfaceView01"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" >
-        </br.com.homembala.dedos.Panel>
+        </org.bigrs.croqui.Panel>
     </LinearLayout>
 
     <LinearLayout

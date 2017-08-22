@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
-        <br.com.homembala.dedos.Panel
+        <org.bigrs.croqui.Panel
             android:id="@+id/drawing_panel"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" />
-        <br.com.homembala.dedos.util.Pega
+        <org.bigrs.croqui.util.Pega
             android:id="@+id/pegador"
             android:layout_height="match_parent"
             android:layout_width="match_parent" />

@@ -1,4 +1,4 @@
-package br.com.homembala.dedos;
+package org.bigrs.croqui;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -7,11 +7,7 @@ import java.io.OutputStream;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -23,6 +19,8 @@ import android.view.View;
 import android.view.View.MeasureSpec;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
+
+import com.bigrs.croqui.R;
 
 public class DedosActivity extends Activity {
 	int bg;

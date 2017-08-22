@@ -1,4 +1,4 @@
-package br.com.homembala.dedos;
+package org.bigrs.croqui;
 
 import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase;
 

@@ -1,4 +1,4 @@
-package br.com.homembala.dedos;
+package org.bigrs.croqui;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,13 +8,14 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ViewAnimator;
+
+import com.bigrs.croqui.R;
 
 public class Choice extends Activity implements View.OnTouchListener {
 	float here = 0;

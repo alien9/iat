@@ -1,11 +1,11 @@
-package br.com.homembala.dedos.util;
+package org.bigrs.croqui.util;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import br.com.homembala.dedos.R;
+import com.bigrs.croqui.R;
 
 /**
  * Created by tiago on 16/05/17.

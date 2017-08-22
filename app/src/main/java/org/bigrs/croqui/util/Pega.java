@@ -1,7 +1,6 @@
-package br.com.homembala.dedos.util;
+package org.bigrs.croqui.util;
 
 import android.content.Context;
-import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -9,8 +8,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import br.com.homembala.dedos.CsiActivity;
-import br.com.homembala.dedos.R;
+import org.bigrs.croqui.CsiActivity;
+import com.bigrs.croqui.R;
 
 import static android.view.MotionEvent.ACTION_MOVE;
 

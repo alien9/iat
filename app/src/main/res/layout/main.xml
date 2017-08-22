@@ -18,10 +18,10 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.24" />
 
-    <br.com.homembala.dedos.Panel
+    <org.bigrs.croqui.Panel
         android:id="@+id/SurfaceView01"
         android:layout_width="wrap_content"
         android:layout_height="411dp"
         android:maxHeight="40dip">
-    </br.com.homembala.dedos.Panel>
+    </org.bigrs.croqui.Panel>
 </LinearLayout>

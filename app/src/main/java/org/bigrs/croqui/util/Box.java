@@ -1,13 +1,10 @@
-package br.com.homembala.dedos.util;
+package org.bigrs.croqui.util;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.view.View;
 import android.widget.LinearLayout;
-
-import br.com.homembala.dedos.R;
 
 /**
  * Created by tiago on 08/08/17.

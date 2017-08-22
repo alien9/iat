@@ -1,30 +1,23 @@
-package br.com.homembala.dedos.util;
+package org.bigrs.croqui.util;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Point;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import br.com.homembala.dedos.CsiActivity;
-import br.com.homembala.dedos.R;
+import org.bigrs.croqui.CsiActivity;
+import com.bigrs.croqui.R;
 
 import static android.view.MotionEvent.ACTION_HOVER_ENTER;
 import static android.view.MotionEvent.ACTION_HOVER_MOVE;
-import static android.view.MotionEvent.ACTION_MOVE;
 import static android.view.MotionEvent.ACTION_OUTSIDE;
 
 /**

@@ -1,4 +1,4 @@
-package br.com.homembala.dedos;
+package org.bigrs.croqui;
 
 import android.Manifest;
 import android.app.Activity;
@@ -12,12 +12,11 @@ import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
+import org.bigrs.croqui.util.VehicleFix;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
-
-import br.com.homembala.dedos.util.VehicleFix;
 
 /**
  * Created by tiago on 27/03/17.
