@@ -34,4 +34,12 @@
         android:layout_width="2dp"
         android:layout_height="140dp"
         android:background="@color/black" />
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:id="@+id/movedor"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/elipse" />
 </RelativeLayout>

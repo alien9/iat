@@ -30,6 +30,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -169,13 +170,19 @@ public class CsiActivity extends AppCompatActivity {
         findViewById(R.id.vehicles_canvas).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(current_mode==FREEHAND)
+                    return false;
                 if(motionEvent.getAction()==MotionEvent.ACTION_DOWN){
-                    if(current_mode!=VEHICLES) return false;
+                    if(current_mode!=VEHICLES) {
+                        return true;
+                    }
                 }
                 View v = getSelectedVehicle();
-                if(v==null) return false;
-                else
+                if(v==null){
+                    return true;
+                }else {
                     setSelectedVehicle(null);
+                }
                 return true;
             }
         });
@@ -296,7 +303,10 @@ public class CsiActivity extends AppCompatActivity {
 
     }
     public void detailPagerSetup() {
-        detailPagerSetup(0);
+        findViewById(R.id.vehicle_details).setVisibility(View.VISIBLE);
+        ((ViewPager)findViewById(R.id.vehicle_details)).setAdapter(new VehicleDetailsAdapter(context));
+        ((ViewPager)findViewById(R.id.vehicle_details)).setCurrentItem(getVehicleIndexById(((VehicleFix)getSelectedVehicle()).getVehicleId()));
+        findViewById(R.id.vehicle_details).invalidate();
     }
 
     private void startDraw(int skid) {
@@ -547,7 +557,7 @@ public class CsiActivity extends AppCompatActivity {
         LinearLayout body = (LinearLayout) r.findViewById(R.id.vehicle_body);
         LinearLayout chassi = (LinearLayout) r.findViewById(R.id.vehicle_chassi);
         if(body==null)return;
-        float[] ce = {l.getX(),l.getY()};
+        //float[] ce = {l.getX(),l.getY()};
         //Log.d("IAT","POSICAO: "+body.getX()+", "+body.getY()+" - ponta pegada "+ponta[0]+" "+ponta[1]+" centro "+ce[0]+" "+ce[1]);
         body.setRotation(l.getRodRotation());
         chassi.setX(ponta[0]-convertDpToPixel(150));
@@ -956,7 +966,7 @@ public class CsiActivity extends AppCompatActivity {
             body.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    setSelectedVehicle((View) view.getParent());
+                    setSelectedVehicle((View) view.getParent().getParent().getParent());
                 }
             });
             v.invalidate();
@@ -1049,6 +1059,11 @@ public class CsiActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     findViewById(R.id.vehicle_details).setVisibility(View.GONE);
+                    View v = getCurrentFocus();
+                    if (v != null) {
+                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    }
                 }
             });
             collection.addView(layout);

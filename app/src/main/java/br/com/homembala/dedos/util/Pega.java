@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import br.com.homembala.dedos.CsiActivity;
 import br.com.homembala.dedos.R;
 
+import static android.view.MotionEvent.ACTION_MOVE;
+
 /**
  * Created by tiago on 31/05/17.
  */
@@ -27,8 +29,11 @@ public class Pega extends LinearLayout {
     int rod_width=dpToPx(1);
 
     int ball_radius =dpToPx(14);
+    int big_ball_radius =dpToPx(42);
     private Handler handler;
     private float[] posicao_atual;
+    private float x=0;
+    private float y=0;
 
     public Pega(Context context) {
         super(context);
@@ -116,10 +121,9 @@ public class Pega extends LinearLayout {
                         break;
                     case MotionEvent.ACTION_UP:
                         //finaliza arrasto
-
                         Log.d("IAT","parando o maus");
                         break;
-                    case MotionEvent.ACTION_MOVE:
+                    case ACTION_MOVE:
                         currentX=motionEvent.getX();
                         currentY=motionEvent.getY();
                         float[] prox=new float[]{
@@ -142,15 +146,46 @@ public class Pega extends LinearLayout {
                         rod.setRotation(rotation);
                         rod.setX(prox[0]);
                         rod.setY(prox[1]);
-                        ((CsiActivity)context).updateVehiclePosition(pegador,getPonta(prox, rotation*Math.PI/180));
+                        float[] ponta = getPonta(prox, rotation * Math.PI / 180);
+                        ((CsiActivity)context).updateVehiclePosition(pegador,ponta);
+                        findViewById(R.id.movedor).setX(ponta[0]-big_ball_radius);
+                        findViewById(R.id.movedor).setY(ponta[1]-big_ball_radius);
                         posicao_atual=prox;
-
                         break;
                 }
 
+                return true;
+            }
+        });
+        findViewById(R.id.movedor).setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        x = motionEvent.getX();
+                        y = motionEvent.getY();
+                        rotation=rod.getRotation();
+                        return true;
+                    case MotionEvent.ACTION_MOVE:
+                        ponta_atual=new float[]{
+                                ponta_atual[0]+motionEvent.getX()-x,ponta_atual[1]+motionEvent.getY()-y
+                        };
+                        setPontaPosition(ponta_atual[0],ponta_atual[1],rotation);
+                        ((CsiActivity)context).updateVehiclePosition(pegador,ponta_atual);
+                        Log.d("IAT","Translação "+motionEvent.getX()+"   "+motionEvent.getY());
+                        return true;
+                }
                 return false;
             }
         });
+        //findViewById(R.id.movedor).setOnLongClickListener(new OnLongClickListener() {
+        //    @Override
+        //    public boolean onLongClick(View view) {
+        //         //((CsiActivity)context).detailPagerSetup();
+        //return false;
+        //     }
+        //});
+
     }
 
     public float getRodRotation() {
@@ -163,6 +198,7 @@ public class Pega extends LinearLayout {
     public void setPontaPosition(float x, float y, float rotation) {
         Log.d("IAT", "setando a posiocao da pornta");
         posicao_atual = getHandlerCenter(new float[]{x, y}, rotation*Math.PI/180);
+        ponta_atual=new float[]{x,y};
         Log.d("IAT", "pegou posiocao da pornta");
         View bolinha = findViewById(R.id.bolinha);
         View rod = findViewById(R.id.rod);
@@ -171,5 +207,7 @@ public class Pega extends LinearLayout {
         rod.setX(posicao_atual[0]);
         rod.setY(posicao_atual[1]);
         rod.setRotation(rotation);
+        findViewById(R.id.movedor).setX(x-big_ball_radius);
+        findViewById(R.id.movedor).setY(y-big_ball_radius);
     }
 }
