@@ -16,7 +16,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import org.bigrs.croqui.Iat;
-import com.bigrs.croqui.R;
 
 
 /**

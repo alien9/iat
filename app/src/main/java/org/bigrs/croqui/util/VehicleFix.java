@@ -14,7 +14,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import org.bigrs.croqui.CsiActivity;
-import com.bigrs.croqui.R;
 
 import static android.view.MotionEvent.ACTION_HOVER_ENTER;
 import static android.view.MotionEvent.ACTION_HOVER_MOVE;

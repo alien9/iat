@@ -15,8 +15,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ViewAnimator;
 
-import com.bigrs.croqui.R;
-
 public class Choice extends Activity implements View.OnTouchListener {
 	float here = 0;
 	ViewAnimator vu;

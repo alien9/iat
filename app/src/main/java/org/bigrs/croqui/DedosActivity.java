@@ -20,7 +20,6 @@ import android.view.View.MeasureSpec;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 
-import com.bigrs.croqui.R;
 
 public class DedosActivity extends Activity {
 	int bg;

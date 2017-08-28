@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bigrs.croqui"
+    package="org.bigrs.croqui"
     android:versionCode="1"
     android:versionName="1.0" >
     <uses-sdk android:minSdkVersion="19" />
@@ -18,24 +18,28 @@
         android:largeHeap="true"
         android:icon="@drawable/ic_launcher"
         android:label="CET IAT"
-        android:name="com.bigrs.croqui.org.bigrs.croqui.Iat"
+        android:name="org.bigrs.croqui.Iat"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         >
         <activity
             android:hardwareAccelerated="false"
             android:label="IAT"
             android:screenOrientation="portrait"
-            android:name="com.bigrs.croqui.org.bigrs.croqui.CsiActivity" >
+            android:name="org.bigrs.croqui.CsiActivity" >
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="org.bigrs.crooqui.DRAW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:hardwareAccelerated="false"
-            android:name="com.bigrs.croqui.org.bigrs.croqui.Choice"/>
+            android:name="org.bigrs.croqui.Choice"/>
         <activity
-            android:name="com.bigrs.croqui.org.bigrs.croqui.DedosActivity" />
-        <service android:enabled="true" android:name="com.bigrs.croqui.org.bigrs.croqui.LocationService" />
+            android:name="org.bigrs.croqui.DedosActivity" />
+        <service android:enabled="true" android:name="org.bigrs.croqui.LocationService" />
     </application>
 </manifest>

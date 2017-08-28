@@ -67,15 +67,11 @@ import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.Iterator;
 
-import com.bigrs.croqui.R;
-
 import org.bigrs.croqui.util.Pega;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
-import static com.bigrs.croqui.R.id.map;
 
 /**
  * Created by tiago on 27/03/17.

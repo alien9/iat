@@ -8,8 +8,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-import com.bigrs.croqui.R;
-
 public class RadioActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
