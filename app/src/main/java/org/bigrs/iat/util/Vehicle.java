@@ -1,4 +1,4 @@
-package org.bigrs.croqui.util;
+package org.bigrs.iat.util;
 
 import android.content.ClipData;
 import android.content.Context;
@@ -12,10 +12,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import org.bigrs.iat.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import org.bigrs.croqui.Iat;
+import org.bigrs.iat.Iat;
 
 
 /**

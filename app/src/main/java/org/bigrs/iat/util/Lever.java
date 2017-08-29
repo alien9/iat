@@ -1,9 +1,11 @@
-package org.bigrs.croqui.util;
+package org.bigrs.iat.util;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
+
+import org.bigrs.iat.R;
 
 /**
  * Created by tiago on 16/05/17.

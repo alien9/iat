@@ -1,4 +1,4 @@
-package org.bigrs.croqui.util;
+package org.bigrs.iat.util;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -8,7 +8,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import org.bigrs.croqui.CsiActivity;
+import org.bigrs.iat.CsiActivity;
+import org.bigrs.iat.R;
 
 import static android.view.MotionEvent.ACTION_MOVE;
 

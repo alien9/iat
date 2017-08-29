@@ -1,4 +1,4 @@
-package org.bigrs.croqui;
+package org.bigrs.iat;
 
 import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase;
 

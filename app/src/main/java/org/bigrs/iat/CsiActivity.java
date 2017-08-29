@@ -1,4 +1,4 @@
-package org.bigrs.croqui;
+package org.bigrs.iat;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -40,7 +40,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import org.bigrs.croqui.util.VehicleFix;
+import org.bigrs.iat.util.VehicleFix;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -66,8 +66,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.Iterator;
-
-import org.bigrs.croqui.util.Pega;
+import org.bigrs.iat.util.Pega;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -257,6 +256,12 @@ public class CsiActivity extends AppCompatActivity {
                     case R.id.edit_command:
                         ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
                         break;
+                    case R.id.exit_command:
+                        Intent data=new Intent();
+                        data.putExtra("veiculos",vehicles.toString());
+                        setResult(RESULT_OK, data);
+                        finish();
+                        break;
                 }
                 findViewById(R.id.show_pallette).setVisibility(View.VISIBLE);
                 findViewById(R.id.palette_layout).setVisibility(View.GONE);
@@ -429,7 +434,7 @@ public class CsiActivity extends AppCompatActivity {
         menu.findItem(R.id.mode_map).setChecked(current_mode==MAP);
         menu.findItem(R.id.mode_freehand).setChecked(current_mode==FREEHAND);
         menu.findItem(R.id.mode_vehicles).setChecked(current_mode==VEHICLES);
-        int z = ((MapView) findViewById(map)).getZoomLevel();
+        int z = ((MapView) findViewById(R.id.map)).getZoomLevel();
         menu.findItem(R.id.mode_freehand).setEnabled(z>19);
         menu.findItem(R.id.mode_vehicles).setEnabled(z>19);
         menu.findItem(R.id.tombar_veiculo).setVisible(getSelectedVehicle()!=null);
@@ -497,7 +502,7 @@ public class CsiActivity extends AppCompatActivity {
     }
 
     private void ligaCarros(boolean b) {
-        int z=((MapView)findViewById(map)).getZoomLevel();
+        int z=((MapView)findViewById(R.id.map)).getZoomLevel();
         ViewGroup cv = (ViewGroup) findViewById(R.id.vehicles_canvas);
         for(int i=0;i<cv.getChildCount();i++){
             View car = cv.getChildAt(i);

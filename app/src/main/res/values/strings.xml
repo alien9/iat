@@ -54,6 +54,7 @@
     <string name="nome">Nome</string>
     <string name="idade">Idade</string>
     <string name="tipo_de_impacto">Tipo de impacto</string>
+    <string name="exit">Encerrar</string>
     <string-array name="collision_type">
         <item>Colisão</item>
         <item>Choque</item>

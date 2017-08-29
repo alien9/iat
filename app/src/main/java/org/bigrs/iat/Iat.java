@@ -1,4 +1,4 @@
-package org.bigrs.croqui;
+package org.bigrs.iat;
 
 import android.Manifest;
 import android.app.Activity;
@@ -12,7 +12,7 @@ import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
-import org.bigrs.croqui.util.VehicleFix;
+import org.bigrs.iat.util.VehicleFix;
 import org.json.JSONException;
 import org.json.JSONObject;
 
