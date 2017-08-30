@@ -1,4 +1,4 @@
-package org.bigrs.croqui.util;
+package org.bigrs.iat.util;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -8,8 +8,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 
+<<<<<<< HEAD:app/src/main/java/org/bigrs/croqui/util/Pega.java
 import org.bigrs.croqui.CsiActivity;
 import org.bigrs.croqui.R;
+=======
+import org.bigrs.iat.CsiActivity;
+import org.bigrs.iat.R;
+>>>>>>> cd5ab9e936d335ad50a1fdf9741cb1d74bb96ce7:app/src/main/java/org/bigrs/iat/util/Pega.java
 
 import static android.view.MotionEvent.ACTION_MOVE;
 

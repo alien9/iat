@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
-        <org.bigrs.croqui.Panel
+        <org.bigrs.iat.Panel
             android:id="@+id/drawing_panel"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" />
-        <org.bigrs.croqui.util.Pega
+        <org.bigrs.iat.util.Pega
             android:id="@+id/pegador"
             android:layout_height="match_parent"
             android:layout_width="match_parent" />

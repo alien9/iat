@@ -1,4 +1,4 @@
-package org.bigrs.croqui;
+package org.bigrs.iat;
 
 import android.location.Location;
 import android.os.Bundle;
