@@ -22,6 +22,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         >
         <activity
+            android:launchMode="standard"
             android:hardwareAccelerated="false"
             android:label="IAT"
             android:screenOrientation="portrait"

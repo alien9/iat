@@ -258,7 +258,9 @@ public class CsiActivity extends AppCompatActivity {
                         break;
                     case R.id.exit_command:
                         Intent data=new Intent();
+
                         data.putExtra("veiculos",vehicles.toString());
+                        Log.d("IAT send result", "enviando croqui para o eGO");
                         setResult(RESULT_OK, data);
                         finish();
                         break;
