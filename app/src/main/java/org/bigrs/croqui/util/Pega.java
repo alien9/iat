@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import org.bigrs.croqui.CsiActivity;
+import org.bigrs.croqui.R;
 
 import static android.view.MotionEvent.ACTION_MOVE;
 

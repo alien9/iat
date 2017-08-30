@@ -330,5 +330,29 @@
                 android:textSize="28dp"
                 />
         </LinearLayout>
+        <LinearLayout
+            android:background="@android:drawable/btn_default"
+            android:id="@+id/exit_command"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:clickable="true"
+            >
+            <ImageView
+                android:src="@drawable/move"
+                android:layout_width="0dp"
+                android:layout_weight="1.00"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"        />
+            <TextView
+                android:paddingLeft="8dp"
+                android:text="@string/exit"
+                android:layout_weight="5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="28dp"
+                />
+        </LinearLayout>
+
     </LinearLayout>
 </ScrollView>

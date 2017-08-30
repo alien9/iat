@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import org.bigrs.croqui.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 

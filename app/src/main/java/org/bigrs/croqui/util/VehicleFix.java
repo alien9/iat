@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import org.bigrs.croqui.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 

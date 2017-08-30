@@ -27,6 +27,7 @@ public class Iat extends Application {
     private static LocationManager locationManager;
     private static Iat singleton;
     private VehicleFix selectedVehicle;
+    private String starter;
 
     public static Iat getInstance() {
         return singleton;
@@ -89,5 +90,13 @@ public class Iat extends Application {
 
     public void updateSelectedVehicle(VehicleFix view) {
 
+    }
+
+    public void setStarter(String s) {
+        starter = s;
+    }
+
+    public String getStarter() {
+        return starter;
     }
 }

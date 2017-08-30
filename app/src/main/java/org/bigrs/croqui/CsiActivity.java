@@ -113,7 +113,14 @@ public class CsiActivity extends AppCompatActivity {
         context=this;
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-        ((Iat) getApplicationContext()).startGPS(this);
+        Bundle bundle = getIntent().getExtras();
+        Iat iat = (Iat) getApplicationContext();
+        if(bundle!=null){
+            if(bundle.containsKey("starter")){
+                iat.setStarter(bundle.getString("starter"));
+            }
+        }
+        iat.startGPS(this);
         //((Panel) findViewById(R.id.drawing_panel)).setVisibility(View.GONE);
         findViewById(R.id.vehicles_canvas).setDrawingCacheEnabled(true);
         final MapView map = (MapView) findViewById(R.id.map);
@@ -256,6 +263,12 @@ public class CsiActivity extends AppCompatActivity {
                         break;
                     case R.id.edit_command:
                         ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
+                        break;
+                    case R.id.exit_command:
+                        String starter=((Iat)getApplicationContext()).getStarter();
+                        Intent intent = context.getPackageManager().getLaunchIntentForPackage(starter);
+                        intent.putExtra("starter", "org.bigrs.croqui" );
+                        startActivity(intent);
                         break;
                 }
                 findViewById(R.id.show_pallette).setVisibility(View.VISIBLE);
@@ -429,7 +442,7 @@ public class CsiActivity extends AppCompatActivity {
         menu.findItem(R.id.mode_map).setChecked(current_mode==MAP);
         menu.findItem(R.id.mode_freehand).setChecked(current_mode==FREEHAND);
         menu.findItem(R.id.mode_vehicles).setChecked(current_mode==VEHICLES);
-        int z = ((MapView) findViewById(map)).getZoomLevel();
+        int z = ((MapView) findViewById(R.id.map)).getZoomLevel();
         menu.findItem(R.id.mode_freehand).setEnabled(z>19);
         menu.findItem(R.id.mode_vehicles).setEnabled(z>19);
         menu.findItem(R.id.tombar_veiculo).setVisible(getSelectedVehicle()!=null);
@@ -497,7 +510,7 @@ public class CsiActivity extends AppCompatActivity {
     }
 
     private void ligaCarros(boolean b) {
-        int z=((MapView)findViewById(map)).getZoomLevel();
+        int z=((MapView)findViewById(R.id.map)).getZoomLevel();
         ViewGroup cv = (ViewGroup) findViewById(R.id.vehicles_canvas);
         for(int i=0;i<cv.getChildCount();i++){
             View car = cv.getChildAt(i);
