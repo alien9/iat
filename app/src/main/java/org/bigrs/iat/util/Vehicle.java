@@ -11,12 +11,7 @@ import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
-
-<<<<<<< HEAD:app/src/main/java/org/bigrs/croqui/util/Vehicle.java
-import org.bigrs.croqui.R;
-=======
 import org.bigrs.iat.R;
->>>>>>> cd5ab9e936d335ad50a1fdf9741cb1d74bb96ce7:app/src/main/java/org/bigrs/iat/util/Vehicle.java
 import org.json.JSONException;
 import org.json.JSONObject;
 

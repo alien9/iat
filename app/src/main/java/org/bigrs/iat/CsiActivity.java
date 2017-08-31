@@ -264,17 +264,10 @@ public class CsiActivity extends AppCompatActivity {
                         ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
                         break;
                     case R.id.exit_command:
-<<<<<<< HEAD:app/src/main/java/org/bigrs/croqui/CsiActivity.java
-                        String starter=((Iat)getApplicationContext()).getStarter();
-                        Intent intent = context.getPackageManager().getLaunchIntentForPackage(starter);
-                        intent.putExtra("starter", "org.bigrs.croqui" );
-                        startActivity(intent);
-=======
                         Intent data=new Intent();
                         data.putExtra("veiculos",vehicles.toString());
                         setResult(RESULT_OK, data);
                         finish();
->>>>>>> cd5ab9e936d335ad50a1fdf9741cb1d74bb96ce7:app/src/main/java/org/bigrs/iat/CsiActivity.java
                         break;
                 }
                 findViewById(R.id.show_pallette).setVisibility(View.VISIBLE);

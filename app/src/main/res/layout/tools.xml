@@ -353,9 +353,5 @@
                 android:textSize="28dp"
                 />
         </LinearLayout>
-<<<<<<< HEAD
-
-=======
->>>>>>> cd5ab9e936d335ad50a1fdf9741cb1d74bb96ce7
     </LinearLayout>
 </ScrollView>
