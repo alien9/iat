@@ -5,17 +5,6 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical">
-    <!--android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center_vertical"
-        android:clickable="true"
-        android:background="@drawable/round_border"
-        app:backgroundTint="#00ff0000"
-        app:borderWidth="2dp"
-        app:fabSize="mini" /-->
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/bolinha"
@@ -33,7 +22,7 @@
         android:id="@+id/rod"
         android:layout_width="2dp"
         android:layout_height="140dp"
-        android:background="@color/black" />
+        android:background="#80000000" />
     <LinearLayout
         android:layout_centerInParent="true"
         android:orientation="vertical"

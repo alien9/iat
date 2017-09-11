@@ -14,6 +14,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Debug;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
@@ -277,8 +278,14 @@ public class CsiActivity extends AppCompatActivity {
                         break;
                     case R.id.exit_command:
                         Intent data=new Intent();
-                        data.putExtra("picture",getPicture());
-                        data.putExtra("veiculos",vehicles.toString());
+                        JSONObject o=new JSONObject();
+                        try {
+                            o = getPicture();
+                            o.put("vehicles",vehicles);
+                        } catch (JSONException ignore) {
+                        }
+
+                        data.putExtra("data",o.toString());
                         Log.d("IAT send result", "enviando croqui para o eGO");
                         setResult(RESULT_OK, data);
                         finish();
@@ -326,7 +333,8 @@ public class CsiActivity extends AppCompatActivity {
         //detailPagerSetup();
     }
 
-    private String getPicture() {
+    private JSONObject getPicture() throws JSONException {
+        JSONObject res=new JSONObject();
         View map = findViewById(R.id.map);
         map.setWillNotCacheDrawing(false);
         map.destroyDrawingCache();
@@ -337,18 +345,24 @@ public class CsiActivity extends AppCompatActivity {
         draw.destroyDrawingCache();
         draw.buildDrawingCache();
         Bitmap bi_d = Bitmap.createBitmap(draw.getDrawingCache());
-        View cars = findViewById(R.id.vehicles_canvas);
-        cars.setWillNotCacheDrawing(false);
-        cars.destroyDrawingCache();
-        cars.buildDrawingCache();
-        Bitmap bi_c = Bitmap.createBitmap(cars.getDrawingCache());
 
         Bitmap bo = Bitmap.createBitmap(bi.getWidth(), bi.getHeight(), bi.getConfig());
         Canvas c=new Canvas(bo);
         c.drawColor(ContextCompat.getColor(context, R.color.white));
         c.drawBitmap(bi,0,0,null);
         c.drawBitmap(bi_d,0,0,null);
-        c.drawBitmap(bi_c,0,0,null);
+
+
+        View cars = findViewById(R.id.vehicles_canvas);
+
+        cars.setWillNotCacheDrawing(false);
+        cars.destroyDrawingCache();
+        cars.buildDrawingCache();
+        Bitmap ca = cars.getDrawingCache();
+        if(ca!=null){
+            Bitmap bi_c = Bitmap.createBitmap(cars.getDrawingCache());
+            c.drawBitmap(bi_c,0,0,null);
+        }
 
         try {
             bo.compress(Bitmap.CompressFormat.PNG, 95, new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + "/map_view.png"));
@@ -363,16 +377,30 @@ public class CsiActivity extends AppCompatActivity {
                 bo.getWidth()
         );
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bo.compress(Bitmap.CompressFormat.PNG, 90, baos); //bm is the bitmap object
+        bo.compress(Bitmap.CompressFormat.PNG, 90, baos);
         byte[] b = baos.toByteArray();
-
-        try {
-            bo.compress(Bitmap.CompressFormat.PNG, 95, new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + "/map_view_sq.png"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        if(Debug.isDebuggerConnected()) {
+            try {
+                bo.compress(Bitmap.CompressFormat.PNG, 95, new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + "/map_view_sq.png"));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
-        return Base64.encodeToString(b, Base64.DEFAULT);
+        res.put("image",Base64.encodeToString(b, Base64.DEFAULT));
+        bo = Bitmap.createScaledBitmap(bo, 240, 240, true);
+        if(Debug.isDebuggerConnected()){
+            try {
+                bo.compress(Bitmap.CompressFormat.PNG, 95, new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + "/map_view_thu.png"));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        baos = new ByteArrayOutputStream();
+        bo.compress(Bitmap.CompressFormat.PNG, 90, baos);
+        b = baos.toByteArray();
 
+        res.put("thumbnail",Base64.encodeToString(b,Base64.DEFAULT));
+        return res;
     }
 
     public void detailPagerSetup(int vehicle_id) {
