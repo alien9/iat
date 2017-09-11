@@ -14,12 +14,15 @@ import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Debug;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -60,6 +63,7 @@ import org.osmdroid.views.Projection;
 import org.osmdroid.views.overlay.Overlay;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -139,7 +143,24 @@ public class CsiActivity extends AppCompatActivity {
         map.setTilesScaledToDpi(true);
         map.getOverlays().add(sbo);
         overlays=new Hashtable<>();
-        JSONObject point = ((Iat) getApplicationContext()).getLastKnownPosition();
+        Intent intent=getIntent();
+        JSONObject point=new JSONObject();
+        if(intent.hasExtra("latitude") && intent.hasExtra("longitude")){
+            Log.d("IAT", "Application with a parameter");
+            try {
+                Log.d("IAT", "latitude");
+                String l=intent.getStringExtra("latitude");
+                Log.d("IAT", "latitude é "+l);
+                point.put("latitude",Double.parseDouble(intent.getStringExtra("latitude")));
+                point.put("longitude",Double.parseDouble(intent.getStringExtra("longitude")));
+            }catch (JSONException ignore) {
+            }catch(NumberFormatException ignore){}
+        }
+        Log.d("IAT", point.toString());
+        if(!point.has("latitude") || !point.has("longitude") ){
+            ((Iat) getApplicationContext()).startGPS(this);
+            point = ((Iat) getApplicationContext()).getLastKnownPosition();
+        }
         if(!point.has("latitude")){
             try {
                 point.put("longitude",-46.625290);
@@ -265,8 +286,14 @@ public class CsiActivity extends AppCompatActivity {
                         break;
                     case R.id.exit_command:
                         Intent data=new Intent();
+                        JSONObject o=new JSONObject();
+                        try {
+                            o = getPicture();
+                            o.put("vehicles",vehicles);
+                        } catch (JSONException ignore) {
+                        }
 
-                        data.putExtra("veiculos",vehicles.toString());
+                        data.putExtra("data",o.toString());
                         Log.d("IAT send result", "enviando croqui para o eGO");
                         setResult(RESULT_OK, data);
                         finish();
@@ -312,6 +339,76 @@ public class CsiActivity extends AppCompatActivity {
         findViewById(R.id.pegador).setVisibility(View.VISIBLE);
         ((Pega) findViewById(R.id.pegador)).setPontaPosition(-10000,-10000,0);
         //detailPagerSetup();
+    }
+
+    private JSONObject getPicture() throws JSONException {
+        JSONObject res=new JSONObject();
+        View map = findViewById(R.id.map);
+        map.setWillNotCacheDrawing(false);
+        map.destroyDrawingCache();
+        map.buildDrawingCache();
+        Bitmap bi = Bitmap.createBitmap(map.getDrawingCache());
+        View draw = findViewById(R.id.drawing_panel);
+        draw.setWillNotCacheDrawing(false);
+        draw.destroyDrawingCache();
+        draw.buildDrawingCache();
+        Bitmap bi_d = Bitmap.createBitmap(draw.getDrawingCache());
+
+        Bitmap bo = Bitmap.createBitmap(bi.getWidth(), bi.getHeight(), bi.getConfig());
+        Canvas c=new Canvas(bo);
+        c.drawColor(ContextCompat.getColor(context, R.color.white));
+        c.drawBitmap(bi,0,0,null);
+        c.drawBitmap(bi_d,0,0,null);
+
+
+        View cars = findViewById(R.id.vehicles_canvas);
+
+        cars.setWillNotCacheDrawing(false);
+        cars.destroyDrawingCache();
+        cars.buildDrawingCache();
+        Bitmap ca = cars.getDrawingCache();
+        if(ca!=null){
+            Bitmap bi_c = Bitmap.createBitmap(cars.getDrawingCache());
+            c.drawBitmap(bi_c,0,0,null);
+        }
+
+        try {
+            bo.compress(Bitmap.CompressFormat.PNG, 95, new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + "/map_view.png"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        bo = Bitmap.createBitmap(
+                bo,
+                0,
+                bo.getHeight()/2 - bo.getWidth()/2,
+                bo.getWidth(),
+                bo.getWidth()
+        );
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bo.compress(Bitmap.CompressFormat.PNG, 90, baos);
+        byte[] b = baos.toByteArray();
+        if(Debug.isDebuggerConnected()) {
+            try {
+                bo.compress(Bitmap.CompressFormat.PNG, 95, new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + "/map_view_sq.png"));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        res.put("image",Base64.encodeToString(b, Base64.DEFAULT));
+        bo = Bitmap.createScaledBitmap(bo, 240, 240, true);
+        if(Debug.isDebuggerConnected()){
+            try {
+                bo.compress(Bitmap.CompressFormat.PNG, 95, new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + "/map_view_thu.png"));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        baos = new ByteArrayOutputStream();
+        bo.compress(Bitmap.CompressFormat.PNG, 90, baos);
+        b = baos.toByteArray();
+
+        res.put("thumbnail",Base64.encodeToString(b,Base64.DEFAULT));
+        return res;
     }
 
     public void detailPagerSetup(int vehicle_id) {
@@ -645,6 +742,7 @@ public class CsiActivity extends AppCompatActivity {
         switch (mode){
             case VEHICLES:
                 findViewById(R.id.map_block).setVisibility(View.VISIBLE);
+                saveVehiclesAndPaths();
                 panel.setLigado(false);
                 findViewById(R.id.show_pallette).setVisibility(View.VISIBLE);
                 findViewById(R.id.vehicles_canvas).setVisibility(View.VISIBLE);
@@ -707,29 +805,30 @@ public class CsiActivity extends AppCompatActivity {
         MapView map= (MapView) findViewById(R.id.map);
         if(drawing_zooming_over!=null) {
             map.getOverlays().remove(drawing_zooming_over);
-            map.invalidate();
             drawing_zooming_over = null;
-            try {
-                for (int i = 0; i < paths.length(); i++) {
-                    JSONArray pontos = new JSONArray();
-                    JSONArray points = paths.optJSONObject(i).optJSONArray("geom");
-                    for (int j = 0; j < points.length(); j++) {
-                        JSONObject pt = points.optJSONObject(j);
-                        GeoPoint g = new GeoPoint(pt.optDouble("latitude"), pt.optDouble("longitude"));
-                        Point px = new Point();
-                        map.getProjection().toPixels(g, px);
-                        JSONArray ponto = new JSONArray();
-                        ponto.put(px.x);
-                        ponto.put(px.y);
-                        pontos.put(ponto);
-                    }
-                    paths.optJSONObject(i).put("points", pontos);
-                }
-                panel.setJSONPaths(paths,getResolution());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            map.invalidate();
         }
+        try {
+            for (int i = 0; i < paths.length(); i++) {
+                JSONArray pontos = new JSONArray();
+                JSONArray points = paths.optJSONObject(i).optJSONArray("geom");
+                for (int j = 0; j < points.length(); j++) {
+                    JSONObject pt = points.optJSONObject(j);
+                    GeoPoint g = new GeoPoint(pt.optDouble("latitude"), pt.optDouble("longitude"));
+                    Point px = new Point();
+                    map.getProjection().toPixels(g, px);
+                    JSONArray ponto = new JSONArray();
+                    ponto.put(px.x);
+                    ponto.put(px.y);
+                    pontos.put(ponto);
+                }
+                paths.optJSONObject(i).put("points", pontos);
+            }
+            panel.setJSONPaths(paths,getResolution());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
@@ -864,9 +963,10 @@ public class CsiActivity extends AppCompatActivity {
             }
             View p = findViewById(R.id.drawing_panel);
             savePaths((Panel) p);
-            Bitmap bii = p.getDrawingCache().copy(p.getDrawingCache().getConfig(), true);
+            p.setDrawingCacheEnabled(true);
+            Bitmap bii = p.getDrawingCache(true).copy(p.getDrawingCache().getConfig(), false);
+            p.destroyDrawingCache();
             if (bii == null) return;
-            ((Panel) p).reset();
             bii.compress(Bitmap.CompressFormat.PNG, 95, new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + "/drawing_screen.png"));
             drawing_zooming_over = new CsiGroundOverlay().setBounds(b);
             drawing_zooming_over.setImage(new BitmapDrawable(getResources(), bii));
@@ -874,6 +974,7 @@ public class CsiActivity extends AppCompatActivity {
             map.getOverlays().add(drawing_zooming_over);
             map.getOverlays().add(vehicles_zooming_over);
             map.invalidate();
+            ((Panel) p).reset();
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
