@@ -55,9 +55,26 @@
     <string name="idade">Idade</string>
     <string name="tipo_de_impacto">Tipo de impacto</string>
     <string name="exit">Encerrar</string>
+    <string name="veiculo">Veículo</string>
+    <string name="tipo_de_veiculo">Tipo</string>
     <string-array name="collision_type">
         <item>Colisão</item>
         <item>Choque</item>
         <item>Atropelamento</item>
+    </string-array>
+    <string-array name="vehicle_type">
+        <item>Auto</item>
+        <item>Caminhão</item>
+        <item>Caminhonete</item>
+        <item>Camioneta</item>
+        <item>Carroça</item>
+        <item>Micro Ônibus</item>
+        <item>Moto</item>
+        <item>Ônibus</item>
+        <item>Reboque</item>
+        <item>Semi Reboque</item>
+        <item>Taxi</item>
+        <item>Trailer</item>
+        <item>Viatura</item>
     </string-array>
 </resources>

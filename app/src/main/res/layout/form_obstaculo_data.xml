@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="#ffffffff">
-    <include layout="@layout/obstaculo_prompt"/>
+    <include layout="@layout/fields_obstaculo"/>
     <LinearLayout
         android:orientation="vertical"
         android:gravity="center_horizontal"
