@@ -291,8 +291,11 @@ public class CsiActivity extends AppCompatActivity {
                         Intent data=new Intent();
                         JSONObject o=new JSONObject();
                         try {
+                            JSONObject dj=new JSONObject();
                             o = getPicture();
-                            o.put("vehicles",vehicles);
+                            dj.put("vehicles",vehicles);
+                            dj.put("paths",paths);
+                            o.put("info",dj);
                         } catch (JSONException ignore) {
                         }
 
