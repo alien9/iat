@@ -18,6 +18,32 @@
             android:orientation="horizontal"
             android:weightSum="4"
             android:clickable="true"
+            android:id="@+id/tools_veiculo"
+            >
+            <ImageView
+                android:src="@drawable/carro"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/veiculo"
+                android:scaleType="fitCenter"        />
+            <TextView
+                android:paddingLeft="8dp"
+                android:text="@string/veiculo"
+                android:layout_weight="3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="28dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="@android:drawable/btn_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="4"
+            android:clickable="true"
             android:id="@+id/tools_carro"
             >
             <ImageView

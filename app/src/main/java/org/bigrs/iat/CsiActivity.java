@@ -243,6 +243,9 @@ public class CsiActivity extends AppCompatActivity {
                 setSelectedVehicle(null);
                 int id=view.getId();
                 switch(id){
+                    case R.id.tools_veiculo:
+                        plot(R.layout.fields_vehicle);
+                        break;
                     case R.id.tools_carro:
                         createVehicle(VehicleFix.CARRO,1.9,3.8);
                         Log.d("IAT","deve ter criado");
@@ -266,7 +269,7 @@ public class CsiActivity extends AppCompatActivity {
                         createVehicle(VehicleFix.COLISAO,4.0,4.0);
                         break;
                     case R.id.tools_obstaculo:
-                        plot(R.layout.obstaculo_prompt);
+                        plot(R.layout.fields_obstaculo);
                         break;
                     case R.id.tools_freada:
                         startDraw(Panel.SKID);
@@ -446,7 +449,7 @@ public class CsiActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which){
                 switch(tipo){
-                    case R.layout.obstaculo_prompt:
+                    case R.layout.fields_obstaculo:
                         try {
                             int largura = Integer.parseInt(((TextView) v.findViewById(R.id.largura_text)).getText().toString());
                             int comprimento = Integer.parseInt(((TextView) v.findViewById(R.id.comprimento_text)).getText().toString());
@@ -461,6 +464,62 @@ public class CsiActivity extends AppCompatActivity {
                             if (largura > 0 && comprimento > 0) {
                                 createVehicle(VehicleFix.OBSTACULO, largura, comprimento,d);
                             }
+                        }catch(NumberFormatException xxx){
+                            return;
+                        }
+                        break;
+                    case R.layout.fields_vehicle:
+                        try {
+                            String placa= String.valueOf(((EditText)v.findViewById(R.id.placa_text)).getText());
+                            int tipo_veiculo= ((Spinner)v.findViewById(R.id.tipo_veiculo_spinner)).getSelectedItemPosition();
+                            String marca= String.valueOf(((EditText)v.findViewById(R.id.marca_text)).getText());
+                            JSONObject d=new JSONObject();
+                            try {
+                                d.put("placa",placa);
+                                d.put("marca",marca);
+                                d.put("tipo_veiculo_id",tipo_veiculo);
+                                d.put("tipo_veiculo",String.valueOf(((Spinner)v.findViewById(R.id.tipo_veiculo_spinner)).getSelectedItem()));
+                            } catch (JSONException ignored) {}
+                            /*
+<item>Auto</item>
+<item>Caminhão</item>
+<item>Caminhonete</item>
+<item>Camioneta</item>
+<item>Carroça</item>
+<item>Micro Ônibus</item>
+<item>Moto</item>
+<item>Ônibus</item>
+<item>Reboque</item>
+<item>Semi Reboque</item>
+<item>Taxi</item>
+<item>Trailer</item>
+<item>Viatura</item>*/
+
+                            switch(tipo_veiculo){
+                                case 0: //carro
+                                case 10: //taxi
+                                case 12: //viatura
+                                    createVehicle(VehicleFix.CARRO,1.9,3.8,d);
+                                    break;
+                                case 1: //caminhao
+                                    createVehicle(VehicleFix.CAMINHAO,3.9,11.4,d);
+                                    break;
+                                case 2: //caminhonete
+                                case 3:
+                                    createVehicle(VehicleFix.CAMINHAO,3.6,9.4,d);
+                                    break;
+                                case 5: //microonibus
+                                    createVehicle(VehicleFix.ONIBUS,3.6,8.4,d);
+                                    break;
+                                case 6:
+                                    createVehicle(VehicleFix.MOTO,2.8,4.4,d);
+                                    break;
+                                case 7: //onibus
+                                    createVehicle(VehicleFix.ONIBUS,3.8,10.4,d);
+                                    break;
+
+                            }
+
                         }catch(NumberFormatException xxx){
                             return;
                         }
@@ -735,14 +794,13 @@ public class CsiActivity extends AppCompatActivity {
 
     public void setCurrentMode(int mode) {
         if(mode==current_mode)return;
-        current_mode=mode;
         MapView map = (MapView) findViewById(R.id.map);
         map.setEnabled(false);
         Panel panel = (Panel) findViewById(R.id.drawing_panel);
         switch (mode){
             case VEHICLES:
                 findViewById(R.id.map_block).setVisibility(View.VISIBLE);
-                saveVehiclesAndPaths();
+                if(current_mode==FREEHAND)savePaths();
                 panel.setLigado(false);
                 findViewById(R.id.show_pallette).setVisibility(View.VISIBLE);
                 findViewById(R.id.vehicles_canvas).setVisibility(View.VISIBLE);
@@ -752,26 +810,25 @@ public class CsiActivity extends AppCompatActivity {
                 break;
             case FREEHAND:
                 findViewById(R.id.map_block).setVisibility(View.VISIBLE);
-                saveVehiclesAndPaths();
-                //map.getController().setZoom(20);
+                saveVehicles();
                 findViewById(R.id.show_pallette).setVisibility(View.GONE);
                 findViewById(R.id.vehicles_canvas).setVisibility(View.VISIBLE);
                 panel.setLigado(true);
-
                 reloadVehiclesAndPaths();
                 ligaCarros(true);
                 setSelectedVehicle(null);
                 break;
             case MAP:
                 findViewById(R.id.map_block).setVisibility(View.GONE);
+                saveVehicles();
+                savePaths();
                 ((Panel) findViewById(R.id.drawing_panel)).setLigado(false);
-                saveVehiclesAndPaths();
                 map.setBuiltInZoomControls(true);
                 map.setEnabled(true);
                 setSelectedVehicle(null);
                 break;
         }
-
+        current_mode=mode;
     }
 
     private void savePaths(Panel panel) {
@@ -907,8 +964,35 @@ public class CsiActivity extends AppCompatActivity {
         Intent intent=new Intent(this,CsiActivity.class);
         startActivity(intent);
     }
-
-    protected void saveVehiclesAndPaths() {
+    protected void savePaths() {
+        MapView map = (MapView) findViewById(R.id.map);
+        if (drawing_zooming_over!= null) {
+            map.getOverlays().remove(drawing_zooming_over);
+            drawing_zooming_over = null;
+            map.invalidate();
+        }
+        View p = findViewById(R.id.drawing_panel);
+        savePaths((Panel) p);
+        p.setDrawingCacheEnabled(true);
+        Bitmap pc = p.getDrawingCache();
+        if(pc==null) return;
+        Bitmap bii = p.getDrawingCache(true).copy(p.getDrawingCache().getConfig(), false);
+        p.destroyDrawingCache();
+        if (bii == null) return;
+        try {
+            bii.compress(Bitmap.CompressFormat.PNG, 95, new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + "/drawing_screen.png"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        BoundingBox b = map.getBoundingBox();
+        IGeoPoint position = map.getMapCenter();
+        drawing_zooming_over = new CsiGroundOverlay().setBounds(b);
+        drawing_zooming_over.setImage(new BitmapDrawable(getResources(), bii));
+        drawing_zooming_over.setPosition((GeoPoint) position);
+        map.getOverlays().add(drawing_zooming_over);
+        ((Panel) p).reset();
+    }
+    protected void saveVehicles() {
         try {
             MapView map = (MapView) findViewById(R.id.map);
             if (vehicles_zooming_over != null) {
@@ -956,25 +1040,9 @@ public class CsiActivity extends AppCompatActivity {
             IGeoPoint position = map.getMapCenter();
             vehicles_zooming_over.setImage(new BitmapDrawable(getResources(), bi));
             vehicles_zooming_over.setPosition((GeoPoint) position);
-            if (drawing_zooming_over!= null) {
-                map.getOverlays().remove(drawing_zooming_over);
-                drawing_zooming_over = null;
-                map.invalidate();
-            }
-            View p = findViewById(R.id.drawing_panel);
-            savePaths((Panel) p);
-            p.setDrawingCacheEnabled(true);
-            Bitmap bii = p.getDrawingCache(true).copy(p.getDrawingCache().getConfig(), false);
-            p.destroyDrawingCache();
-            if (bii == null) return;
-            bii.compress(Bitmap.CompressFormat.PNG, 95, new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + "/drawing_screen.png"));
-            drawing_zooming_over = new CsiGroundOverlay().setBounds(b);
-            drawing_zooming_over.setImage(new BitmapDrawable(getResources(), bii));
-            drawing_zooming_over.setPosition((GeoPoint) position);
-            map.getOverlays().add(drawing_zooming_over);
             map.getOverlays().add(vehicles_zooming_over);
             map.invalidate();
-            ((Panel) p).reset();
+
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
@@ -1164,7 +1232,7 @@ public class CsiActivity extends AppCompatActivity {
                 case VehicleFix.CAMINHAO:
                 case VehicleFix.ONIBUS:
                 case VehicleFix.MOTO:
-                    layout = (ViewGroup) inflater.inflate(R.layout.vehicle_data, collection, false);
+                    layout = (ViewGroup) inflater.inflate(R.layout.form_vehicle_data, collection, false);
                     ((EditText)layout.findViewById(R.id.placa_text)).setText(vehicle.optString("placa"));
                     ((EditText)layout.findViewById(R.id.marca_text)).setText(vehicle.optString("marca"));
                     break;
@@ -1180,11 +1248,16 @@ public class CsiActivity extends AppCompatActivity {
                         ((Spinner)layout.findViewById(R.id.impacto_spinner)).setSelection(c);
                     break;
                 case VehicleFix.OBSTACULO:
-                    layout=(ViewGroup) inflater.inflate(R.layout.obstaculo_data, collection, false);
+                    layout=(ViewGroup) inflater.inflate(R.layout.form_obstaculo_data, collection, false);
                     ((EditText)layout.findViewById(R.id.tipo_obstaculo_text)).setText(vehicle.optString("nome"));
                     ((EditText)layout.findViewById(R.id.largura_text)).setText(vehicle.optString("largura"));
                     ((EditText)layout.findViewById(R.id.comprimento_text)).setText(vehicle.optString("comprimento"));
                     break;
+            }
+            if(vehicle.has("tipo_veiculo_id")){
+                int vid=vehicle.optInt("tipo_veiculo_id");
+                Spinner s= (Spinner) layout.findViewById(R.id.tipo_veiculo_spinner);
+                if(s!=null) s.setSelection(vid);
             }
 
             final ViewGroup finalLayout = layout;
