@@ -394,7 +394,7 @@ public class CsiActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        res.put("image",Base64.encodeToString(b, Base64.DEFAULT));
+        res.put("image",Base64.encodeToString(b, Base64.DEFAULT).replaceAll("\\n",""));
         bo = Bitmap.createScaledBitmap(bo, 240, 240, true);
         if(Debug.isDebuggerConnected()){
             try {
@@ -407,7 +407,7 @@ public class CsiActivity extends AppCompatActivity {
         bo.compress(Bitmap.CompressFormat.PNG, 90, baos);
         b = baos.toByteArray();
 
-        res.put("thumbnail",Base64.encodeToString(b,Base64.DEFAULT));
+        res.put("thumbnail",Base64.encodeToString(b,Base64.DEFAULT).replaceAll("\\n",""));
         return res;
     }
 
