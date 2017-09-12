@@ -45,6 +45,7 @@
             android:weightSum="4"
             android:clickable="true"
             android:id="@+id/tools_carro"
+            android:visibility="gone"
             >
             <ImageView
                 android:src="@drawable/carro"
@@ -69,6 +70,7 @@
             android:orientation="horizontal"
             android:weightSum="4"
             android:id="@+id/tools_moto"
+            android:visibility="gone"
             >
             <ImageView
                 android:layout_weight="1"
@@ -93,6 +95,7 @@
             android:orientation="horizontal"
             android:weightSum="4"
             android:id="@+id/tools_onibus"
+            android:visibility="gone"
             >
             <ImageView
                 android:layout_width="0dp"
@@ -117,6 +120,7 @@
             android:orientation="horizontal"
             android:weightSum="4"
             android:id="@+id/tools_vuc"
+            android:visibility="gone"
             >
             <ImageView
                 android:src="@drawable/truck"
@@ -205,9 +209,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:visibility="gone"
             >
             <ImageView
-                android:src="@drawable/btn_skid"
+                android:src="@drawable/freada"
                 android:layout_width="0dp"
                 android:layout_weight="1.00"
                 android:layout_height="match_parent"
@@ -251,7 +256,7 @@
             android:id="@+id/tools_freada"
             >
             <ImageView
-                android:src="@drawable/btn_skid"
+                android:src="@drawable/freada"
                 android:layout_width="0dp"
                 android:layout_weight="1.00"
                 android:layout_height="match_parent"
@@ -319,7 +324,7 @@
             android:clickable="true"
             >
             <ImageView
-                android:src="@drawable/move"
+                android:src="@drawable/move_map"
                 android:layout_width="0dp"
                 android:layout_weight="1.00"
                 android:layout_height="match_parent"
@@ -342,7 +347,7 @@
             android:clickable="true"
             >
             <ImageView
-                android:src="@drawable/move"
+                android:src="@drawable/move_car"
                 android:layout_width="0dp"
                 android:layout_weight="1.00"
                 android:layout_height="match_parent"
