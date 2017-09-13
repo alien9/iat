@@ -57,6 +57,10 @@
     <string name="exit">Encerrar</string>
     <string name="veiculo">Veículo</string>
     <string name="tipo_de_veiculo">Tipo</string>
+    <string name="mark">Marca</string>
+    <string name="impacto">Impacto</string>
+    <string name="municipio">Município</string>
+    <string name="uf">UF</string>
     <string-array name="collision_type">
         <item>Colisão</item>
         <item>Choque</item>
@@ -76,5 +80,24 @@
         <item>Taxi</item>
         <item>Trailer</item>
         <item>Viatura</item>
+    </string-array>
+    <string-array name="impact_type">
+        <item>Colisão Frontal</item>
+        <item>Colisão Traseira</item>
+        <item>Colisão Lateral</item>
+        <item>Colisão Transversal</item>
+        <item>Capotamento</item>
+        <item>Tombamento</item>
+        <item>Engavetamento</item>
+        <item>Atropelamento</item>
+        <item>Atropelamento de Animal</item>
+        <item>Queda</item>
+        <item>Outros</item>
+    </string-array>
+    <string-array name="estados">
+        <item/><item>Acre</item><item>Alagoas</item><item>Amapá</item><item>Amazonas</item><item>Bahia</item><item>Ceara</item><item>Distrito Federal</item><item>Espírito Santo</item><item>Goiás</item><item>Maranhão</item><item>Mato Grosso</item><item>Mato Grosso do Sul</item><item>Minas Gerais</item><item>Pará</item><item>Paraíba</item><item>Paraná</item><item>Pernambuco</item><item>Piauí</item><item>Rio de Janeiro</item><item>Rio Grande do Norte</item><item>Rio Grande do Sul</item><item>Rondônia</item><item>Roraima</item><item>Santa Catarina</item><item>São Paulo</item><item>Sergipe</item><item>Tocantins</item>
+    </string-array>
+    <string-array name="ufs">
+        <item/><item>AC</item><item>AL</item><item>AP</item><item>AM</item><item>BA</item><item>CE</item><item>DF</item><item>ES</item><item>GO</item><item>MA</item><item>MT</item><item>MS</item><item>MG</item><item>PA</item><item>PB</item><item>PR</item><item>PE</item><item>PI</item><item>RJ</item><item>RN</item><item>RS</item><item>RO</item><item>RR</item><item>SC</item><item>SP</item><item>SE</item><item>TO</item>
     </string-array>
 </resources>

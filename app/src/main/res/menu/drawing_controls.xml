@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/center_here" android:title="@string/center_map"/>
-    <item android:id="@+id/labels"
-        android:title="@string/show_labels"
-        android:checkable="true" />
-    <item android:id="@+id/semaforos"
-        android:title="@string/show_semaforos"
-        android:checkable="true" />
-    <group android:checkableBehavior="single">
-        <item android:id="@+id/mode_map" android:title="@string/mode_map" android:checkable="true"/>
-        <item android:id="@+id/mode_freehand" android:title="@string/mode_freehand" android:checkable="true"/>
-        <item android:id="@+id/mode_vehicles" android:title="@string/mode_vehicles" android:checkable="true"/>
-    </group>
-    <item android:id="@+id/tombar_veiculo" android:title="@string/turn_vehicle"/>
-    <item android:id="@+id/reset_veiculo" android:title="@string/reset_vehicles"/>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".CsiActivity"
+    app:showAsAction="always"
+    >
+    <item android:title="@string/veiculo" android:icon="@android:drawable/ic_menu_more"
+        app:showAsAction="always"
+        ><menu>
+        <item android:id="@+id/new_vehicle" android:title="@string/veiculo" android:icon="@drawable/carro" />
+        <item android:id="@+id/new_bicycle" android:title="@string/bicicleta" android:icon="@drawable/bici" />
+        <item android:id="@+id/new_walker" android:title="@string/pessoa" android:icon="@drawable/pessoa" />
+        <item android:id="@+id/new_obstacle" android:title="@string/obstaculo" android:icon="@drawable/obstaculo" />
+        <item android:id="@+id/new_impact" android:title="@string/impacto" android:icon="@drawable/explode" />
+        <item android:id="@+id/new_zebra" android:title="@string/crosswalk" android:icon="@drawable/btn_faixa" />
+        <item android:id="@+id/new_mark" android:title="@string/mark" android:icon="@drawable/freada" />
+        <item android:id="@+id/new_path" android:title="@string/trajetoria" android:icon="@drawable/trajetoria" />
+        <item android:id="@+id/move_map" android:title="@string/movemap" android:icon="@drawable/move_map" />
+        <item android:id="@+id/move_car" android:title="@string/edit" android:icon="@drawable/move_car" />
+        <item android:id="@+id/end" android:title="@string/exit" android:icon="@drawable/finish" />
+        <item android:id="@+id/center_here" android:title="@string/center_map"/>
+        <item android:id="@+id/reset_veiculo" android:title="@string/reset_vehicles"/>
+    </menu></item>
+
 </menu>

@@ -106,6 +106,7 @@ public class CsiActivity extends AppCompatActivity {
     private String[] mess;
     private int mode;
     private JSONArray paths=new JSONArray();
+    private int croqui_size;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -144,6 +145,10 @@ public class CsiActivity extends AppCompatActivity {
         map.getOverlays().add(sbo);
         overlays=new Hashtable<>();
         Intent intent=getIntent();
+        croqui_size=400;
+        if(intent.hasExtra("size")){
+            croqui_size=intent.getIntExtra("size",500);
+        }
         JSONObject point=new JSONObject();
         if(intent.hasExtra("latitude") && intent.hasExtra("longitude")){
             Log.d("IAT", "Application with a parameter");
@@ -377,11 +382,12 @@ public class CsiActivity extends AppCompatActivity {
             Bitmap bi_c = Bitmap.createBitmap(cars.getDrawingCache());
             c.drawBitmap(bi_c,0,0,null);
         }
-
-        try {
-            bo.compress(Bitmap.CompressFormat.PNG, 95, new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + "/map_view.png"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        if(Debug.isDebuggerConnected()) {
+            try {
+                bo.compress(Bitmap.CompressFormat.PNG, 95, new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + "/map_view.png"));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
         bo = Bitmap.createBitmap(
                 bo,
@@ -401,7 +407,7 @@ public class CsiActivity extends AppCompatActivity {
             }
         }
         res.put("image",Base64.encodeToString(b, Base64.DEFAULT).replaceAll("\\n",""));
-        bo = Bitmap.createScaledBitmap(bo, 240, 240, true);
+        bo = Bitmap.createScaledBitmap(bo, croqui_size, croqui_size, true);
         if(Debug.isDebuggerConnected()){
             try {
                 bo.compress(Bitmap.CompressFormat.PNG, 95, new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + "/map_view_thu.png"));
@@ -418,6 +424,9 @@ public class CsiActivity extends AppCompatActivity {
     }
 
     public void detailPagerSetup(int vehicle_id) {
+        Toolbar toolbar=(Toolbar)findViewById(R.id.my_toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setVisibility(View.GONE);
         findViewById(R.id.vehicle_details).setVisibility(View.VISIBLE);
         ((ViewPager)findViewById(R.id.vehicle_details)).setAdapter(new VehicleDetailsAdapter(context));
         ((ViewPager)findViewById(R.id.vehicle_details)).setCurrentItem(getVehicleIndexById(vehicle_id));
@@ -425,10 +434,7 @@ public class CsiActivity extends AppCompatActivity {
 
     }
     public void detailPagerSetup() {
-        findViewById(R.id.vehicle_details).setVisibility(View.VISIBLE);
-        ((ViewPager)findViewById(R.id.vehicle_details)).setAdapter(new VehicleDetailsAdapter(context));
-        ((ViewPager)findViewById(R.id.vehicle_details)).setCurrentItem(getVehicleIndexById(((VehicleFix)getSelectedVehicle()).getVehicleId()));
-        findViewById(R.id.vehicle_details).invalidate();
+        detailPagerSetup(((VehicleFix)getSelectedVehicle()).getVehicleId());
     }
 
     private void startDraw(int skid) {
@@ -583,8 +589,12 @@ public class CsiActivity extends AppCompatActivity {
             findViewById(R.id.show_pallette).setVisibility(View.VISIBLE);
             return;
         }
-        if(findViewById(R.id.vehicle_details).getVisibility()==View.VISIBLE)
+        if(findViewById(R.id.vehicle_details).getVisibility()==View.VISIBLE) {
             findViewById(R.id.vehicle_details).setVisibility(View.GONE);
+            Toolbar toolbar=(Toolbar)findViewById(R.id.my_toolbar);
+            setSupportActionBar(toolbar);
+            toolbar.setVisibility(View.VISIBLE);
+        }
         ((Panel) findViewById(R.id.drawing_panel)).back();
     }
 
@@ -597,16 +607,16 @@ public class CsiActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.labels).setChecked(show_labels);
-        menu.findItem(R.id.semaforos).setChecked(show_semaforos);
-        menu.findItem(R.id.mode_map).setChecked(current_mode==MAP);
-        menu.findItem(R.id.mode_freehand).setChecked(current_mode==FREEHAND);
-        menu.findItem(R.id.mode_vehicles).setChecked(current_mode==VEHICLES);
-        int z = ((MapView) findViewById(R.id.map)).getZoomLevel();
-        menu.findItem(R.id.mode_freehand).setEnabled(z>19);
-        menu.findItem(R.id.mode_vehicles).setEnabled(z>19);
-        menu.findItem(R.id.tombar_veiculo).setVisible(getSelectedVehicle()!=null);
-        menu.findItem(R.id.reset_veiculo).setVisible(current_mode!=MAP);
+        //menu.findItem(R.id.labels).setChecked(show_labels);
+        //menu.findItem(R.id.semaforos).setChecked(show_semaforos);
+        //menu.findItem(R.id.mode_map).setChecked(current_mode==MAP);
+        //menu.findItem(R.id.mode_freehand).setChecked(current_mode==FREEHAND);
+        //menu.findItem(R.id.mode_vehicles).setChecked(current_mode==VEHICLES);
+        //int z = ((MapView) findViewById(R.id.map)).getZoomLevel();
+        //menu.findItem(R.id.mode_freehand).setEnabled(z>19);
+        //menu.findItem(R.id.mode_vehicles).setEnabled(z>19);
+        //menu.findItem(R.id.tombar_veiculo).setVisible(getSelectedVehicle()!=null);
+        //menu.findItem(R.id.reset_veiculo).setVisible(current_mode!=MAP);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -614,6 +624,58 @@ public class CsiActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
+            case R.id.new_vehicle:
+                plot(R.layout.fields_vehicle);
+                break;
+            case R.id.new_walker:
+                createVehicle(VehicleFix.PEDESTRE,1.7,2.5);
+                break;
+            case R.id.new_bicycle:
+                JSONObject d=new JSONObject();
+                try {
+                    d.put("tipo_veiculo","Bicicleta");
+                } catch (JSONException ignore) {}
+                createVehicle(VehicleFix.BICI,1.8,2.2,d);
+                break;
+            case R.id.new_obstacle:
+                plot(R.layout.fields_obstaculo);
+                break;
+            case R.id.new_mark:
+                startDraw(Panel.SKID);
+                break;
+            case R.id.new_zebra:
+                startDraw(Panel.ZEBRA);
+                break;
+            case R.id.new_path:
+                startDraw(Panel.TRACK);
+                break;
+            case R.id.new_impact:
+                createVehicle(VehicleFix.COLISAO,4.0,4.0);
+                break;
+            case R.id.move_map:
+                ((RadioButton)findViewById(R.id.radio_mapa)).setChecked(true);
+                break;
+            case R.id.move_car:
+                ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
+                break;
+            case R.id.end:
+                Intent data=new Intent();
+                JSONObject o=new JSONObject();
+                try {
+                    JSONObject dj=new JSONObject();
+                    o = getPicture();
+                    dj.put("vehicles",vehicles);
+                    dj.put("paths",paths);
+                    o.put("info",dj);
+                } catch (JSONException ignore) {
+                }
+
+                data.putExtra("data",o.toString());
+                Log.d("IAT send result", "enviando croqui para o eGO");
+                setResult(RESULT_OK, data);
+                finish();
+                break;
+            /*
             case R.id.center_here:
                 MapView map = (MapView) findViewById(R.id.map);
                 JSONObject point = ((Iat) getApplicationContext()).getLastKnownPosition();
@@ -621,6 +683,7 @@ public class CsiActivity extends AppCompatActivity {
                     map.getController().setCenter(new GeoPoint(point.optDouble("latitude"), point.optDouble("longitude")));
                 }
                 break;
+
             case R.id.labels:
                 map = (MapView) findViewById(R.id.map);
                 if (item.isChecked()) {
@@ -660,6 +723,7 @@ public class CsiActivity extends AppCompatActivity {
             case R.id.reset_veiculo:
                 resetVehicles();
                 break;
+                */
         }
         return super.onOptionsItemSelected(item);
     }
@@ -776,9 +840,14 @@ public class CsiActivity extends AppCompatActivity {
                 pegador.setPontaPosition(size.x/2,size.y/2, 0);
             }
             sv.bringToFront();
+            JSONObject veiculo = getVehicleById(((VehicleFix)sv).getVehicleId());
+            ((TextView)findViewById(R.id.vehicle_type_text)).setText(veiculo.optString("tipo_veiculo"));
+            ((TextView)findViewById(R.id.vehicle_placa_text)).setText(veiculo.optString("placa","sem placa")+" "+veiculo.optString("marca","sem marca"));
+            findViewById(R.id.info_box).setVisibility(View.VISIBLE);
         }else{
             Log.d("IAT", "nada a fazer aqui");
             pegador.setVisibility(View.GONE);
+            findViewById(R.id.info_box).setVisibility(View.GONE);
         }
         Log.d("IAT","selecionouy o veiculo");
         ((Panel) findViewById(R.id.drawing_panel)).setLigado(false);
@@ -1292,6 +1361,9 @@ public class CsiActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     findViewById(R.id.vehicle_details).setVisibility(View.GONE);
+                    Toolbar toolbar=(Toolbar)findViewById(R.id.my_toolbar);
+                    setSupportActionBar(toolbar);
+                    toolbar.setVisibility(View.GONE);
                     View v = getCurrentFocus();
                     if (v != null) {
                         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
