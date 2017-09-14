@@ -34,8 +34,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -67,14 +69,24 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.bigrs.iat.util.Pega;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
+import static android.R.attr.breadCrumbShortTitle;
+import static android.R.attr.id;
 
 /**
  * Created by tiago on 27/03/17.
@@ -85,7 +97,6 @@ public class CsiActivity extends AppCompatActivity {
     private boolean show_labels=true;
     private Overlay closeup;
     private Hashtable<String,Overlay> overlays;
-
     private static final int FREEHAND = 1;
     private static final int MAP = 0;
     private static final int VEHICLES = 2;
@@ -101,12 +112,11 @@ public class CsiActivity extends AppCompatActivity {
     private GroundOverlay drawing_zooming_over;
     private GeoServerTileSource clear_source;
     private GeoServerTileSource great_source;
-    private boolean show_semaforos=true;
     private View selectedVehicle;
     private String[] mess;
-    private int mode;
     private JSONArray paths=new JSONArray();
     private int croqui_size;
+    private boolean gps;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -161,8 +171,9 @@ public class CsiActivity extends AppCompatActivity {
             }catch (JSONException ignore) {
             }catch(NumberFormatException ignore){}
         }
-        Log.d("IAT", point.toString());
+        gps=false;
         if(!point.has("latitude") || !point.has("longitude") ){
+            gps=true;
             ((Iat) getApplicationContext()).startGPS(this);
             point = ((Iat) getApplicationContext()).getLastKnownPosition();
         }
@@ -171,6 +182,19 @@ public class CsiActivity extends AppCompatActivity {
                 point.put("longitude",-46.625290);
                 point.put("latitude",-23.533773);
             } catch (JSONException ignore) {}
+        }
+        if(intent.hasExtra("info")){
+            try{
+                JSONObject j = new JSONObject(intent.getStringExtra("info"));
+                vehicles=j.optJSONArray("vehicles");
+                paths=j.optJSONArray("paths");
+                if(j.has("latitude")){
+                    point.put("latitude",j.optDouble("latitude"));
+                }
+                if(j.has("longitude")){
+                    point.put("longitude",j.optDouble("longitude"));
+                }
+            } catch (JSONException e) {}
         }
         map.getController().setCenter(new GeoPoint(point.optDouble("latitude"), point.optDouble("longitude")));
         map.setMapListener(new DelayedMapListener(new MapListener() {
@@ -303,7 +327,6 @@ public class CsiActivity extends AppCompatActivity {
                             o.put("info",dj);
                         } catch (JSONException ignore) {
                         }
-
                         data.putExtra("data",o.toString());
                         Log.d("IAT send result", "enviando croqui para o eGO");
                         setResult(RESULT_OK, data);
@@ -349,7 +372,24 @@ public class CsiActivity extends AppCompatActivity {
         ((RadioButton)findViewById(R.id.radio_mapa)).setChecked(true);
         findViewById(R.id.pegador).setVisibility(View.VISIBLE);
         ((Pega) findViewById(R.id.pegador)).setPontaPosition(-10000,-10000,0);
-        //detailPagerSetup();
+        ((ImageButton)findViewById(R.id.edit_vehicle_butt)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    int vid=Integer.parseInt(String.valueOf(((TextView)findViewById(R.id.vehicle_id_text)).getText()));
+                    detailPagerSetup(vid);
+                }catch(NumberFormatException exx){
+
+                }
+
+            }
+        });
+        ((ImageButton)findViewById(R.id.edit_vehicle_rotate)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((VehicleFix)getSelectedVehicle()).vira();
+            }
+        });
     }
 
     private JSONObject getPicture() throws JSONException {
@@ -431,7 +471,6 @@ public class CsiActivity extends AppCompatActivity {
         ((ViewPager)findViewById(R.id.vehicle_details)).setAdapter(new VehicleDetailsAdapter(context));
         ((ViewPager)findViewById(R.id.vehicle_details)).setCurrentItem(getVehicleIndexById(vehicle_id));
         findViewById(R.id.vehicle_details).invalidate();
-
     }
     public void detailPagerSetup() {
         detailPagerSetup(((VehicleFix)getSelectedVehicle()).getVehicleId());
@@ -447,11 +486,134 @@ public class CsiActivity extends AppCompatActivity {
         ((Panel)findViewById(R.id.drawing_panel)).setVisibility(View.VISIBLE);
     }
 
+    private View addPessoaResumo(JSONObject p, final ViewGroup g) {
+        final LayoutInflater inflater = this.getLayoutInflater();
+        View pd = inflater.inflate(R.layout.pessoa_resumo, null);
+        g.addView(pd);
+        pd.findViewById(R.id.edit_pessoa_butt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPessoa((View)view.getParent().getParent(),null);
+            }
+        });
+        pd.findViewById(R.id.remove_pessoa_butt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                g.removeView((View)view.getParent().getParent());
+            }
+        });
+        ((TextView)pd.findViewById(R.id.nome_text)).setText(p.optString("nome"));
+        ((TextView)pd.findViewById(R.id.pessoa_data)).setText(p.toString());
+        return pd;
+    }
+    private void showPessoa(final View pessoa_detalhe, final ViewGroup parent){
+        final LayoutInflater inflater = this.getLayoutInflater();
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final View v=inflater.inflate(R.layout.pessoa, null);
+        builder.setView(v);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                JSONObject p=new JSONObject();
+                View pd;
+                try {
+                    p.put("nome",((EditText)v.findViewById(R.id.nome_text)).getText());
+                    int f=((RadioGroup)v.findViewById(R.id.tipo_user_r)).getCheckedRadioButtonId();
+                    if(f>=0)
+                        p.put("tipo_usuario", ((RadioButton)((RadioGroup)v.findViewById(R.id.tipo_user_r)).findViewById(f)).getText());
+                    f=((RadioGroup)v.findViewById(R.id.ferimento_r)).getCheckedRadioButtonId();
+                    if(f>=0)
+                        p.put("ferimento", ((RadioButton)((RadioGroup)v.findViewById(R.id.ferimento_r)).findViewById(f)).getText());
+                    f=((RadioGroup)v.findViewById(R.id.sexo_r)).getCheckedRadioButtonId();
+                    if(f>=0)
+                        p.put("sexo", ((RadioButton)((RadioGroup)v.findViewById(R.id.sexo_r)).findViewById(f)).getText());
+                    p.put("ano_de_nascimento",((EditText)v.findViewById(R.id.ano_nasc)).getText());
+                    f=((RadioGroup)v.findViewById(R.id.pos_r)).getCheckedRadioButtonId();
+                    if(f>=0)
+                        p.put("posicao_no_veiculo", ((RadioButton)((RadioGroup)v.findViewById(R.id.pos_r)).findViewById(f)).getText());
+                    f=((RadioGroup)v.findViewById(R.id.cinto_r)).getCheckedRadioButtonId();
+                    if(f>=0)
+                        p.put("cinto_ou_capacete", ((RadioButton)((RadioGroup)v.findViewById(R.id.cinto_r)).findViewById(f)).getText());
+
+                } catch (JSONException ignore) {}
+                if(pessoa_detalhe==null) {
+                    pd = addPessoaResumo(p,parent);
+                }else{
+                    pd=pessoa_detalhe;
+                }
+                ((TextView)pd.findViewById(R.id.nome_text)).setText(p.optString("nome"));
+                ((TextView)pd.findViewById(R.id.pessoa_data)).setText(p.toString());
+            }
+        });
+
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which){
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
+        if(pessoa_detalhe!=null){
+            try {
+                JSONObject pessoa=new JSONObject((String) ((TextView)pessoa_detalhe.findViewById(R.id.pessoa_data)).getText());
+                ((EditText)v.findViewById(R.id.nome_text)).setText(pessoa.optString("nome"));
+                ((EditText)v.findViewById(R.id.ano_nasc)).setText(pessoa.optString("ano_de_nascimento"));
+                RadioGroup r;
+                if(pessoa.has("tipo_usuario")){
+                    r = (RadioGroup) v.findViewById(R.id.tipo_user_r);
+                    for(int i=0;i<r.getChildCount();i++){
+                        if(((RadioButton)r.getChildAt(i)).getText().toString().equals(pessoa.optString("tipo_usuario","")))
+                            r.check(r.getChildAt(i).getId());
+                    }
+                }
+                if(pessoa.has("ferimento")){
+                    r = (RadioGroup) v.findViewById(R.id.ferimento_r);
+                    for(int i=0;i<r.getChildCount();i++){
+                        if(((RadioButton)r.getChildAt(i)).getText().toString().equals(pessoa.optString("ferimento","")))
+                            r.check(r.getChildAt(i).getId());
+                    }
+                }
+                if(pessoa.has("sexo")){
+                    r = (RadioGroup) v.findViewById(R.id.sexo_r);
+                    for(int i=0;i<r.getChildCount();i++){
+                        if(((RadioButton)r.getChildAt(i)).getText().toString().equals(pessoa.optString("sexo","")))
+                            r.check(r.getChildAt(i).getId());
+                    }
+                }
+                if(pessoa.has("posicao_no_veiculo")){
+                    r = (RadioGroup) v.findViewById(R.id.pos_r);
+                    for(int i=0;i<r.getChildCount();i++){
+                        if(((RadioButton)r.getChildAt(i)).getText().toString().equals(pessoa.optString("posicao_no_veiculo","")))
+                            r.check(r.getChildAt(i).getId());
+                    }
+                }
+                if(pessoa.has("cinto_ou_capacete")){
+                    r = (RadioGroup) v.findViewById(R.id.cinto_r);
+                    for(int i=0;i<r.getChildCount();i++){
+                        if(((RadioButton)r.getChildAt(i)).getText().toString().equals(pessoa.optString("cinto_ou_capacete","")))
+                            r.check(r.getChildAt(i).getId());
+                    }
+                }
+            } catch (JSONException e) {}
+        }
+
+    }
+
     private void plot(int t) {
         final int tipo=t;
         LayoutInflater inflater = this.getLayoutInflater();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Detalhes");
+        switch(tipo){
+            case R.layout.fields_obstaculo:
+                builder.setTitle("Detalhes");
+                break;
+            case R.layout.fields_colisao:
+                builder.setTitle("Impacto");
+                break;
+            default:
+                builder.setTitle("Veículo");
+        }
+
         final View v=inflater.inflate(tipo, null);
         builder.setView(v);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
@@ -467,6 +629,7 @@ public class CsiActivity extends AppCompatActivity {
                                 d.put("comprimento",comprimento);
                                 d.put("largura",largura);
                                 d.put("nome",((EditText) v.findViewById(R.id.tipo_obstaculo_text)).getText().toString());
+                                d.put("label",getNextLabel());
                             } catch (JSONException ignored) {
                             }
 
@@ -486,8 +649,12 @@ public class CsiActivity extends AppCompatActivity {
                             try {
                                 d.put("placa",placa);
                                 d.put("marca",marca);
+                                d.put("municipio", ((EditText) v.findViewById(R.id.municipio_text)).getText());
+                                d.put("uf", ((Spinner) v.findViewById(R.id.uf_spinner)).getSelectedItem().toString());
+
                                 d.put("tipo_veiculo_id",tipo_veiculo);
                                 d.put("tipo_veiculo",String.valueOf(((Spinner)v.findViewById(R.id.tipo_veiculo_spinner)).getSelectedItem()));
+                                d.put("label",getNextLabel());
                             } catch (JSONException ignored) {}
                             /*
 <item>Auto</item>
@@ -526,13 +693,18 @@ public class CsiActivity extends AppCompatActivity {
                                 case 7: //onibus
                                     createVehicle(VehicleFix.ONIBUS,3.8,10.4,d);
                                     break;
-
                             }
-
                         }catch(NumberFormatException xxx){
                             return;
                         }
                         break;
+                    case R.layout.fields_colisao:
+                        JSONObject d=new JSONObject();
+                        try {
+                            d.put("tipo_impacto_id",((Spinner)v.findViewById(R.id.impacto_spinner)).getSelectedItemPosition());
+                            d.put("tipo_impacto",String.valueOf(((Spinner)v.findViewById(R.id.impacto_spinner)).getSelectedItem()));
+                        } catch (JSONException ignored) {}
+                        createVehicle(VehicleFix.COLISAO,4.0,4.0,d);
                 }
                 // Handle click on positive button here.
                 dialog.dismiss();
@@ -545,6 +717,29 @@ public class CsiActivity extends AppCompatActivity {
             }
         });
         builder.create().show();
+    }
+
+    private String getNextLabel() {
+        ArrayList<String> labels=new ArrayList<>();
+        for(int i=0;i<vehicles.length();i++){
+            JSONObject vu = vehicles.optJSONObject(i);
+            if(vu.has("label"))
+                labels.add(vu.optString("label"));
+        }
+        Collections.sort(labels,new Comparator<String>() {
+            @Override
+            public int compare(String s, String t1) {
+                return t1.compareTo(s);
+            }
+            @Override
+            public boolean equals(Object o) {
+                return false;
+            }
+        });
+        if(labels.size()==0)return "A";
+        int lastlabel = (int)labels.get(0).charAt(0);
+        lastlabel++;
+        return String.valueOf((char)lastlabel);
     }
 
     private void setDescendentOnClickListener(ViewGroup gw, View.OnClickListener cl) {
@@ -617,6 +812,7 @@ public class CsiActivity extends AppCompatActivity {
         //menu.findItem(R.id.mode_vehicles).setEnabled(z>19);
         //menu.findItem(R.id.tombar_veiculo).setVisible(getSelectedVehicle()!=null);
         //menu.findItem(R.id.reset_veiculo).setVisible(current_mode!=MAP);
+        menu.findItem(R.id.center_here).setVisible(gps);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -628,12 +824,17 @@ public class CsiActivity extends AppCompatActivity {
                 plot(R.layout.fields_vehicle);
                 break;
             case R.id.new_walker:
-                createVehicle(VehicleFix.PEDESTRE,1.7,2.5);
-                break;
-            case R.id.new_bicycle:
                 JSONObject d=new JSONObject();
                 try {
+                    d.put("label",getNextLabel());
+                } catch (JSONException ignore) {}
+                createVehicle(VehicleFix.PEDESTRE,1.7,2.5,d);
+                break;
+            case R.id.new_bicycle:
+                d=new JSONObject();
+                try {
                     d.put("tipo_veiculo","Bicicleta");
+                    d.put("label",getNextLabel());
                 } catch (JSONException ignore) {}
                 createVehicle(VehicleFix.BICI,1.8,2.2,d);
                 break;
@@ -650,7 +851,7 @@ public class CsiActivity extends AppCompatActivity {
                 startDraw(Panel.TRACK);
                 break;
             case R.id.new_impact:
-                createVehicle(VehicleFix.COLISAO,4.0,4.0);
+                plot(R.layout.fields_colisao);
                 break;
             case R.id.move_map:
                 ((RadioButton)findViewById(R.id.radio_mapa)).setChecked(true);
@@ -659,6 +860,7 @@ public class CsiActivity extends AppCompatActivity {
                 ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
                 break;
             case R.id.end:
+                MapView map=((MapView)findViewById(R.id.map));
                 Intent data=new Intent();
                 JSONObject o=new JSONObject();
                 try {
@@ -666,24 +868,25 @@ public class CsiActivity extends AppCompatActivity {
                     o = getPicture();
                     dj.put("vehicles",vehicles);
                     dj.put("paths",paths);
+                    dj.put("zoom",map.getZoomLevel());
+                    dj.put("latitude",map.getMapCenter().getLatitude());
+                    dj.put("longitude",map.getMapCenter().getLongitude());
                     o.put("info",dj);
-                } catch (JSONException ignore) {
-                }
-
+                } catch (JSONException ignore) {}
                 data.putExtra("data",o.toString());
                 Log.d("IAT send result", "enviando croqui para o eGO");
                 setResult(RESULT_OK, data);
                 finish();
                 break;
-            /*
+
             case R.id.center_here:
-                MapView map = (MapView) findViewById(R.id.map);
+                map = (MapView) findViewById(R.id.map);
                 JSONObject point = ((Iat) getApplicationContext()).getLastKnownPosition();
                 if (point.has("latitude")) {
                     map.getController().setCenter(new GeoPoint(point.optDouble("latitude"), point.optDouble("longitude")));
                 }
                 break;
-
+/*
             case R.id.labels:
                 map = (MapView) findViewById(R.id.map);
                 if (item.isChecked()) {
@@ -840,9 +1043,29 @@ public class CsiActivity extends AppCompatActivity {
                 pegador.setPontaPosition(size.x/2,size.y/2, 0);
             }
             sv.bringToFront();
-            JSONObject veiculo = getVehicleById(((VehicleFix)sv).getVehicleId());
-            ((TextView)findViewById(R.id.vehicle_type_text)).setText(veiculo.optString("tipo_veiculo"));
-            ((TextView)findViewById(R.id.vehicle_placa_text)).setText(veiculo.optString("placa","sem placa")+" "+veiculo.optString("marca","sem marca"));
+            int xid = ((VehicleFix) sv).getVehicleId();
+            JSONObject veiculo = getVehicleById(xid);
+            findViewById(R.id.edit_vehicle_rotate).setVisibility(View.GONE);
+            String label = "";
+            if(veiculo.has("label")){
+                label=veiculo.optString("label")+" - ";
+            }
+            switch(veiculo.optInt("model")){
+                case VehicleFix.OBSTACULO:
+                    ((TextView) findViewById(R.id.vehicle_type_text)).setText(label+veiculo.optString("nome"));
+                    findViewById(R.id.edit_vehicle_rotate).setVisibility(View.GONE);
+                default:
+                    if(veiculo.has("tipo_veiculo")) {
+                        ((TextView) findViewById(R.id.vehicle_type_text)).setText(label+veiculo.optString("tipo_veiculo"));
+                        findViewById(R.id.edit_vehicle_rotate).setVisibility(View.VISIBLE);
+                    }else if(veiculo.has("tipo_impacto")){
+                        ((TextView) findViewById(R.id.vehicle_type_text)).setText(veiculo.optString("tipo_impacto"));
+                    }else if(veiculo.optInt("model")==VehicleFix.PEDESTRE){
+                        ((TextView) findViewById(R.id.vehicle_type_text)).setText(getResources().getString(R.string.pessoa));
+                    }
+                    break;
+            }
+            ((TextView)findViewById(R.id.vehicle_id_text)).setText(""+xid);
             findViewById(R.id.info_box).setVisibility(View.VISIBLE);
         }else{
             Log.d("IAT", "nada a fazer aqui");
@@ -1307,17 +1530,133 @@ public class CsiActivity extends AppCompatActivity {
                     layout = (ViewGroup) inflater.inflate(R.layout.form_vehicle_data, collection, false);
                     ((EditText)layout.findViewById(R.id.placa_text)).setText(vehicle.optString("placa"));
                     ((EditText)layout.findViewById(R.id.marca_text)).setText(vehicle.optString("marca"));
+                    ((EditText)layout.findViewById(R.id.municipio_text)).setText(vehicle.optString("municipio"));
+                    ((TextView)layout.findViewById(R.id.tipo_veiculo_text)).setText(vehicle.optString("tipo_veiculo"));
+                    layout.findViewById(R.id.veiculo_tipo_read).setVisibility(View.VISIBLE);
+                    layout.findViewById(R.id.veiculo_tipo_edit).setVisibility(View.GONE);
+                    String[] a = getResources().getStringArray(R.array.ufs);
+                    ((Spinner)layout.findViewById(R.id.uf_spinner)).setSelection(Arrays.asList(a).indexOf(vehicle.optString("uf")));
+                    final ViewGroup finalLayout = layout;
+                    ((ImageButton)layout.findViewById(R.id.add_pessoa_butt)).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            showPessoa(null, (ViewGroup)finalLayout.findViewById(R.id.pessoas_layout));
+                        }
+                    });
+                    if(vehicle.has("pessoas")){
+                        JSONArray pes=vehicle.optJSONArray("pessoas");
+                        for(int i=0;i<pes.length();i++){
+                            addPessoaResumo(pes.optJSONObject(i),(ViewGroup)finalLayout.findViewById(R.id.pessoas_layout));
+                        }
+                    }
+                    if(vehicle.has("damage")){
+                        byte[] decoded=Base64.decode(vehicle.optString("damage"),Base64.DEFAULT);
+                        Bitmap db= BitmapFactory.decodeByteArray(decoded, 0, decoded.length);
+                        ((ImageView)finalLayout.findViewById(R.id.damage_image)).setImageBitmap(db);
+                    }else{
+                        switch(vehicle.optInt("model")){
+                            case VehicleFix.CAMINHAO:
+                                ((ImageView)finalLayout.findViewById(R.id.damage_image)).setImageDrawable(getResources().getDrawable(R.drawable.truck_000,null));
+                                break;
+                            case VehicleFix.ONIBUS:
+                                ((ImageView)finalLayout.findViewById(R.id.damage_image)).setImageDrawable(getResources().getDrawable(R.drawable.bus_000,null));
+                                break;
+                            case VehicleFix.MOTO:
+                                ((ImageView)finalLayout.findViewById(R.id.damage_image)).setImageDrawable(getResources().getDrawable(R.drawable.motorcycle_000,null));
+                                break;
+                        }
+                    }
+                    if(vehicle.has("dano")){
+                        RadioGroup r = (RadioGroup) finalLayout.findViewById(R.id.dano_r);
+                        for(int i=0;i<r.getChildCount();i++){
+                            if(((RadioButton)r.getChildAt(i)).getText().toString().equals(vehicle.optString("dano"))){
+                                ((RadioButton)r.getChildAt(i)).setChecked(true);
+                            }
+                        }
+                    }
+                    final int model = vehicle.optInt("model");
+                    finalLayout.findViewById(R.id.damage_image).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            final LayoutInflater inflater = getLayoutInflater();
+                            final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                            final View v=inflater.inflate(R.layout.damage, null);
+                            switch(model){
+                                case VehicleFix.CAMINHAO:
+                                    ((ImageView)v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.truck_000,null));
+                                    break;
+                                case VehicleFix.ONIBUS:
+                                    ((ImageView)v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.bus_000,null));
+                                    break;
+                                case VehicleFix.MOTO:
+                                    ((ImageView)v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.motorcycle_000,null));
+                                    break;
+
+                            }
+                            ((Panel)v.findViewById(R.id.damage_panel)).setLigado(true);
+                            ((Panel)v.findViewById(R.id.damage_panel)).setStyle(Panel.DAMAGE,40);
+                            builder.setView(v).setTitle(getResources().getString(R.string.partes_amassadas));
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    View draw = v.findViewById(R.id.damage_panel_container);
+                                    draw.setWillNotCacheDrawing(false);
+                                    draw.destroyDrawingCache();
+                                    draw.buildDrawingCache();
+                                    ((ImageView)finalLayout.findViewById(R.id.damage_image)).setImageBitmap(Bitmap.createBitmap(draw.getDrawingCache()));
+                                }
+                            });
+
+                            builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener(){
+                                @Override
+                                public void onClick(DialogInterface dialog, int which){
+                                    dialog.dismiss();
+                                }
+                            });
+                            builder.create().show();
+                        }
+                    });
                     break;
                 case VehicleFix.PEDESTRE:
-                    layout=(ViewGroup) inflater.inflate(R.layout.pedestre_data, collection, false);
+                    layout=(ViewGroup) inflater.inflate(R.layout.form_pedestre_data, collection, false);
                     ((EditText)layout.findViewById(R.id.nome_text)).setText(vehicle.optString("nome"));
-                    ((EditText)layout.findViewById(R.id.idade_text)).setText(vehicle.optString("idade"));
+                    ((EditText)layout.findViewById(R.id.ano_nasc)).setText(vehicle.optString("ano_nascimento"));
+                    RadioGroup r;
+                    if(vehicle.has("ferimento")){
+                        r = (RadioGroup) layout.findViewById(R.id.ferimento_r);
+                        for(int i=0;i<r.getChildCount();i++){
+                            if(((RadioButton)r.getChildAt(i)).getText().toString().equals(vehicle.optString("ferimento","")))
+                                r.check(r.getChildAt(i).getId());
+                        }
+                    }
+                    if(vehicle.has("sexo")){
+                        r = (RadioGroup) layout.findViewById(R.id.sexo_r);
+                        for(int i=0;i<r.getChildCount();i++){
+                            if(((RadioButton)r.getChildAt(i)).getText().toString().equals(vehicle.optString("sexo","")))
+                                r.check(r.getChildAt(i).getId());
+                        }
+                    }
                     break;
                 case VehicleFix.COLISAO:
-                    layout=(ViewGroup) inflater.inflate(R.layout.colisao_data, collection, false);
-                    int c= Arrays.asList(getResources().getStringArray(R.array.collision_type)).indexOf(vehicle.optString("tipo"));
+                    layout=(ViewGroup) inflater.inflate(R.layout.form_colisao_data, collection, false);
+                    int c= Arrays.asList(getResources().getStringArray(R.array.impact_type)).indexOf(vehicle.optString("tipo_impacto"));
                     if(c>=0)
                         ((Spinner)layout.findViewById(R.id.impacto_spinner)).setSelection(c);
+                    ((EditText)layout.findViewById(R.id.description)).setText(vehicle.optString("descricao"));
+                    String inv="";
+                    if(vehicle.has("envolvidos"))
+                        inv=vehicle.optJSONArray("envolvidos").toString();
+                    //if(inv==null) inv=new JSONArray();
+                    for(int i=0;i<vehicles.length();i++){
+                        JSONObject vc = vehicles.optJSONObject(i);
+                        if(vc.has("label")) {
+                            CheckBox cc = new CheckBox(context);
+                            if(inv.contains("\""+vc.optString("label")+"\""))
+                                cc.setChecked(true);
+                            cc.setText(vc.optString("label"));
+                            ((ViewGroup)layout.findViewById(R.id.itens_envolvidos)).addView(cc);
+                        }
+                    }
                     break;
                 case VehicleFix.OBSTACULO:
                     layout=(ViewGroup) inflater.inflate(R.layout.form_obstaculo_data, collection, false);
@@ -1325,6 +1664,37 @@ public class CsiActivity extends AppCompatActivity {
                     ((EditText)layout.findViewById(R.id.largura_text)).setText(vehicle.optString("largura"));
                     ((EditText)layout.findViewById(R.id.comprimento_text)).setText(vehicle.optString("comprimento"));
                     break;
+                case VehicleFix.BICI:
+                    layout=(ViewGroup) inflater.inflate(R.layout.form_bici_data, collection, false);
+                    ((EditText)layout.findViewById(R.id.marca_text)).setText(vehicle.optString("marca"));
+                    final ViewGroup finalLayoutbi = layout;
+                    ((ImageButton)layout.findViewById(R.id.add_pessoa_butt)).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            showPessoa(null, (ViewGroup)finalLayoutbi.findViewById(R.id.pessoas_layout));
+                        }
+                    });
+                    if(vehicle.has("pessoas")){
+                        JSONArray pes=vehicle.optJSONArray("pessoas");
+                        for(int i=0;i<pes.length();i++){
+                            addPessoaResumo(pes.optJSONObject(i),(ViewGroup)finalLayoutbi.findViewById(R.id.pessoas_layout));
+                        }
+                    }
+
+                    break;
+            }
+            if(vehicle.has("fatores_contribuintes")){
+                ViewGroup fg= (ViewGroup) layout.findViewById(R.id.fatores_contribuintes_layout);
+                int j=0;
+                JSONArray fca=vehicle.optJSONArray("fatores_contribuintes");
+                for(int i=0;i<fg.getChildCount();i++){
+                    View fu= fg.getChildAt(i);
+                    try{
+                        CheckBox ch=(CheckBox)fu;
+                        ch.setChecked(fca.optBoolean(j));
+                        j++;
+                    }catch(ClassCastException xu){}
+                }
             }
             if(vehicle.has("tipo_veiculo_id")){
                 int vid=vehicle.optInt("tipo_veiculo_id");
@@ -1333,7 +1703,39 @@ public class CsiActivity extends AppCompatActivity {
             }
 
             final ViewGroup finalLayout = layout;
+
             layout.findViewById(R.id.voltar_butt).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    findViewById(R.id.vehicle_details).setVisibility(View.GONE);
+                    Toolbar toolbar=(Toolbar)findViewById(R.id.my_toolbar);
+                    setSupportActionBar(toolbar);
+                    toolbar.setVisibility(View.VISIBLE);
+                }
+            });
+            layout.findViewById(R.id.delete_butt).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    JSONObject vehicle = vehicles.optJSONObject(position);
+                    ViewGroup c = (ViewGroup) findViewById(R.id.vehicles_canvas);
+                    View vu = null;
+                    for(int i=0;i<c.getChildCount();i++){
+                        if(((VehicleFix)c.getChildAt(i)).getVehicleId()==vehicle.optInt("view_id")){
+                            vu=c.getChildAt(i);
+                        }
+                    }
+                    if(vu!=null)
+                        c.removeView(vu);
+                    vehicles.remove(position);
+                    c.invalidate();
+                    findViewById(R.id.vehicle_details).setVisibility(View.GONE);
+                    Toolbar toolbar=(Toolbar)findViewById(R.id.my_toolbar);
+                    setSupportActionBar(toolbar);
+                    toolbar.setVisibility(View.VISIBLE);
+                    setSelectedVehicle(null);
+                }
+            });
+            layout.findViewById(R.id.ok_butt).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     try {
@@ -1343,27 +1745,105 @@ public class CsiActivity extends AppCompatActivity {
                             case VehicleFix.CAMINHAO:
                             case VehicleFix.ONIBUS:
                             case VehicleFix.MOTO:
-                                vehicles.optJSONObject(position).put("placa", ((EditText) finalLayout.findViewById(R.id.placa_text)).getText());
-                                vehicles.optJSONObject(position).put("marca", ((EditText) finalLayout.findViewById(R.id.marca_text)).getText());
+                                vehicle.put("placa", ((EditText) finalLayout.findViewById(R.id.placa_text)).getText());
+                                vehicle.put("marca", ((EditText) finalLayout.findViewById(R.id.marca_text)).getText());
+                                vehicle.put("municipio", ((EditText) finalLayout.findViewById(R.id.municipio_text)).getText());
+                                vehicle.put("uf", ((Spinner) finalLayout.findViewById(R.id.uf_spinner)).getSelectedItem().toString());
+                                ViewGroup pes = ((ViewGroup) finalLayout.findViewById(R.id.pessoas_layout));
+                                JSONArray ja=new JSONArray();
+                                for(int i=0;i<pes.getChildCount();i++){
+                                    ja.put(new JSONObject(String.valueOf(((TextView)pes.getChildAt(i).findViewById(R.id.pessoa_data)).getText())));
+                                }
+                                vehicle.put("pessoas",ja);
+                                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                                View damaged=finalLayout.findViewById(R.id.damage_image);
+                                damaged.setWillNotCacheDrawing(false);
+                                damaged.destroyDrawingCache();
+                                damaged.buildDrawingCache();
+                                Bitmap bo = damaged.getDrawingCache();
+                                bo.compress(Bitmap.CompressFormat.PNG, 90, baos);
+                                byte[] b = baos.toByteArray();
+                                if(Debug.isDebuggerConnected()) {
+                                    try {
+                                        bo.compress(Bitmap.CompressFormat.PNG, 95, new FileOutputStream(Environment.getExternalStorageDirectory().getPath() + "/damage.png"));
+                                    } catch (FileNotFoundException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                vehicle.put("damage",Base64.encodeToString(b, Base64.DEFAULT).replaceAll("\\n",""));
+                                int rid=((RadioGroup) finalLayout.findViewById(R.id.dano_r)).getCheckedRadioButtonId();
+                                vehicle.remove("dano");
+                                if(rid>=0)
+                                    vehicle.put("dano", ((RadioButton)finalLayout.findViewById(rid)).getText().toString());
+                                break;
+                            case VehicleFix.BICI:
+                                vehicle.put("marca", ((EditText) finalLayout.findViewById(R.id.marca_text)).getText());
+                                pes = ((ViewGroup) finalLayout.findViewById(R.id.pessoas_layout));
+                                ja=new JSONArray();
+                                for(int i=0;i<pes.getChildCount();i++){
+                                    ja.put(new JSONObject(String.valueOf(((TextView)pes.getChildAt(i).findViewById(R.id.pessoa_data)).getText())));
+                                }
+                                vehicle.put("pessoas",ja);
                                 break;
                             case VehicleFix.PEDESTRE:
-                                vehicles.optJSONObject(position).put("nome", ((EditText) finalLayout.findViewById(R.id.nome_text)).getText());
-                                vehicles.optJSONObject(position).put("idade", ((EditText) finalLayout.findViewById(R.id.idade_text)).getText());
+                                vehicle.put("nome", ((EditText) finalLayout.findViewById(R.id.nome_text)).getText());
+                                vehicle.put("ano_nascimento", ((EditText) finalLayout.findViewById(R.id.ano_nasc)).getText());
+                                int f = ((RadioGroup) finalLayout.findViewById(R.id.sexo_r)).getCheckedRadioButtonId();
+                                if(f>=0)
+                                    vehicle.put("sexo", ((RadioButton)((RadioGroup)finalLayout.findViewById(R.id.sexo_r)).findViewById(f)).getText());
+                                f=((RadioGroup)finalLayout.findViewById(R.id.ferimento_r)).getCheckedRadioButtonId();
+                                if(f>=0)
+                                    vehicle.put("ferimento", ((RadioButton)((RadioGroup)finalLayout.findViewById(R.id.ferimento_r)).findViewById(f)).getText());
                                 break;
                             case VehicleFix.COLISAO:
-                                vehicles.optJSONObject(position).put("tipo",((Spinner)finalLayout.findViewById(R.id.impacto_spinner)).getSelectedItem().toString());
+                                vehicle.put("tipo_impacto",((Spinner)finalLayout.findViewById(R.id.impacto_spinner)).getSelectedItem().toString());
+                                vehicle.put("descricao",((EditText)finalLayout.findViewById(R.id.description)).getText().toString());
+                                ViewGroup vu= (ViewGroup) finalLayout.findViewById(R.id.itens_envolvidos);
+                                JSONArray involved=new JSONArray();
+                                Pattern p = Pattern.compile("^\\w+");
+                                for(int i=0;i<vu.getChildCount();i++){
+                                    if(((CheckBox)vu.getChildAt(i)).isChecked()) {
+                                        String nam = (String) ((CheckBox) vu.getChildAt(i)).getText();
+                                        String label = nam.substring(0);
+                                        Matcher m = p.matcher(nam);
+                                        if (m.matches())
+                                            label = m.group();
+                                        JSONObject ve = getVehicleByLabel(label);
+                                        if (ve != null) {
+                                            involved.put(label);
+                                        }
+                                    }
+                                }
+                                vehicle.put("envolvidos",involved);
                                 break;
                             case VehicleFix.OBSTACULO:
 
                                 break;
                         }
+                        if(finalLayout.findViewById(R.id.fatores_contribuintes_layout)!=null){
+                            JSONArray fc=new JSONArray();
+                            JSONArray ft=new JSONArray();
+                            ViewGroup fg= (ViewGroup) finalLayout.findViewById(R.id.fatores_contribuintes_layout);
+                            for(int i=0;i<fg.getChildCount();i++){
+                                View fu= fg.getChildAt(i);
+                                try{
+                                    fc.put(((CheckBox)fu).isChecked());
+                                    if(((CheckBox)fu).isChecked()){
+                                        ft.put(((CheckBox)fu).getText().toString());
+                                    }
+                                }catch(ClassCastException xu){}
+                            }
+                            vehicle.put("fatores_contribuintes",fc);
+                            vehicle.put("fatores_contribuintes_text",ft);
+                        }
+                        vehicles.put(position,vehicle);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     findViewById(R.id.vehicle_details).setVisibility(View.GONE);
                     Toolbar toolbar=(Toolbar)findViewById(R.id.my_toolbar);
                     setSupportActionBar(toolbar);
-                    toolbar.setVisibility(View.GONE);
+                    toolbar.setVisibility(View.VISIBLE);
                     View v = getCurrentFocus();
                     if (v != null) {
                         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -1378,6 +1858,15 @@ public class CsiActivity extends AppCompatActivity {
         public void destroyItem(ViewGroup collection, int position, Object view) {
             collection.removeView((View) view);
         }
+    }
+
+    private JSONObject getVehicleByLabel(String label) {
+        for(int i=0;i<vehicles.length();i++){
+            if(label.equals(vehicles.optJSONObject(i).optString("label"))){
+                return vehicles.optJSONObject(i);
+            }
+        }
+        return null;
     }
 
 }

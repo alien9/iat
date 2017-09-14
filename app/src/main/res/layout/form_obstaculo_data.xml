@@ -5,17 +5,5 @@
     android:orientation="vertical"
     android:background="#ffffffff">
     <include layout="@layout/fields_obstaculo"/>
-    <LinearLayout
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/voltar_butt"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/voltar"
-            />
-    </LinearLayout>
+    <include layout="@layout/form_commands"/>
 </LinearLayout>

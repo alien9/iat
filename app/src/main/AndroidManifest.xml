@@ -37,11 +37,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:hardwareAccelerated="false"
-            android:name="org.bigrs.iat.Choice"/>
-        <activity
-            android:name="org.bigrs.iat.DedosActivity" />
+
         <service android:enabled="true" android:name="org.bigrs.iat.LocationService" />
     </application>
 </manifest>

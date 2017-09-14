@@ -61,11 +61,77 @@
     <string name="impacto">Impacto</string>
     <string name="municipio">Município</string>
     <string name="uf">UF</string>
-    <string-array name="collision_type">
-        <item>Colisão</item>
-        <item>Choque</item>
-        <item>Atropelamento</item>
-    </string-array>
+    <string name="fatores">Fatores Contribuintes</string>
+    <string name="semaforo_com_defeito">Semáforo com defeito</string>
+    <string name="placa_encoberta">Placa encoberta</string>
+    <string name="placa_mal_posicionada">Placa mal posicionada</string>
+    <string name="pintura_no_solo_apagada">Pintura no solo apagada</string>
+    <string name="iluminacao_deficiente">Iluminacao_deficiente</string>
+    <string name="curva_acentuada">Curva acentuada</string>
+    <string name="pista_declive">Pista em forte declive</string>
+    <string name="pista_molhada">Pista molhada</string>
+    <string name="obra_na_pista">Obra na pista</string>
+    <string name="calcada_ou_pista_esburacada">Calçada ou pista esburacada</string>
+    <string name="faixa_inexist">Faixa de pedestre inexistente</string>
+    <string name="calcada_inex">Calçada inexistente</string>
+    <string name="alcool">Aparentava alcoolizado</string>
+    <string name="excedia_velocidade">Excedia Velocidade</string>
+    <string name="mudou_de_faixa">Mudou de faixa sem sinalizar</string>
+    <string name="transitava_contramao">Transitava na contramão</string>
+    <string name="conv_proibida">Fazia conversão proibida</string>
+    <string name="retorno_proibido">Fazia retorno proibido</string>
+    <string name="desrespeitou_vermelho">Desrespeitou o vermelho</string>
+    <string name="nao_parou_pref">Não parou na preferencial</string>
+    <string name="colado_veic_fr">Estava colado veículo da frente</string>
+    <string name="freiou_brusca">Freou bruscamente</string>
+    <string name="parou_proib">Parou / estacionou em lugar proibido</string>
+    <string name="moto_nao_guard_dist">Moto não guardou distância lateral</string>
+    <string name="racha">Participava de racha</string>
+    <string name="distract_ext">Distração externa</string>
+    <string name="distract_int">Distração interna</string>
+    <string name="sono_cansaco">Sonolência / Cansaço</string>
+    <string name="impericia_imprudencia">Imperícia / imprudência</string>
+    <string name="cruzou_fora_faixa">Cruzoou fora da faixa</string>
+    <string name="andava">Andava na pista</string>
+    <string name="transitava_calc">Transitava na calçada</string>
+    <string name="pneu_furou">Pneu furou / estourou</string>
+    <string name="pneu_careca">Pneus carecas</string>
+    <string name="problema_freio">Problema com o freio</string>
+    <string name="farois_desregulados">Faróis desregulados</string>
+    <string name="fatores_via">Fatores contribuintes da via / ambiente</string>
+    <string name="fatores_humanos">Fatores humanos</string>
+    <string name="fatores_veiculares">Fatores veiculares</string>
+    <string name="pessoas_env">Pessoas envolvidas</string>
+    <string name="tipo_usuario">Tipo de usuário</string>
+    <string name="condutor">Condutor</string>
+    <string name="passageiro">Passageiro</string>
+    <string name="sem_informacao">Sem informação</string>
+    <string name="ferimento">Ferimento</string>
+    <string name="fatal">Fatal</string>
+    <string name="grave">Grave</string>
+    <string name="leve">Leve</string>
+    <string name="nenhum">Nenhum</string>
+    <string name="masc">Masculino</string>
+    <string name="fem">Feminino</string>
+    <string name="sexo">Sexo</string>
+    <string name="posicao_no_v">Posição no veiculo</string>
+    <string name="frente">Na frente</string>
+    <string name="atras">Atrás</string>
+    <string name="cinto_capacete">Cinto / Capacete</string>
+    <string name="usava">Usava</string>
+    <string name="nao_usava">Não usava</string>
+    <string name="ano_nasc">Ano de nascimento</string>
+    <string name="salvar">Salvar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="delete">Remover</string>
+    <string name="descricao">Descrição</string>
+    <string name="veiculos_envolvidos">Itens envolvidos</string>
+    <string name="partes_amassadas">Partes amassadas</string>
+    <string name="clean">Limpar</string>
+    <string name="dano">Dano</string>
+    <string name="pequeno">Pequeno</string>
+    <string name="grande">Grande</string>
+    <string name="medio">Médio</string>
     <string-array name="vehicle_type">
         <item>Auto</item>
         <item>Caminhão</item>
@@ -86,6 +152,7 @@
         <item>Colisão Traseira</item>
         <item>Colisão Lateral</item>
         <item>Colisão Transversal</item>
+        <item>Choque</item>
         <item>Capotamento</item>
         <item>Tombamento</item>
         <item>Engavetamento</item>

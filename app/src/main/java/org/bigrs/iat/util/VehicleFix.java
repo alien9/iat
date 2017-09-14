@@ -164,10 +164,61 @@ public class VehicleFix extends RelativeLayout {
         setPivotX(height/2);
     }
 */
+
     public void zinit(int m,int p) {
         model=m;
         roll = p;
         final VehicleFix vu = this;
+        View body = this.findViewById(R.id.vehicle_body);
+        setRoll(roll);
+
+        final View chassi = this.findViewById(R.id.vehicle_chassi);
+
+        body.setOnTouchListener(new RelativeLayout.OnTouchListener() {
+            @Override
+            public boolean onTouch(View bode, MotionEvent motionEvent) {
+                Log.d("IAT","tocou nodo body "+motionEvent.getAction());
+                switch(motionEvent.getAction()){
+                    case MotionEvent.ACTION_UP:
+                        if(selectedVehicle) return true;
+                        ((CsiActivity)context).setSelectedVehicle(vu);
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                    case MotionEvent.ACTION_DOWN:
+                        if (selectedVehicle) return false;
+                        //bad idea
+                        //moveVeiculo((View) bode.getParent(),motionEvent,0,0);
+                        break;
+                    case MotionEvent.ACTION_HOVER_EXIT:
+                        Log.d("IAT","Saiu do body");
+                        break;
+                    case ACTION_HOVER_ENTER:
+                        Log.d("IAT","entrou do body");
+                        break;
+                    case ACTION_HOVER_MOVE:
+                        Log.d("IAT","mexeu do body");
+                        break;
+                    case ACTION_OUTSIDE:
+                        Log.d("IAT","mexeu fora do body");
+                        break;
+                    default:
+                        return false;
+                }
+                return false;
+            }
+        });
+        OnLongClickListener tu = new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                ((CsiActivity) context).detailPagerSetup(getVehicleId());
+                return true;
+            }
+        };
+        body.setOnLongClickListener(tu);
+        chassi.setOnTouchListener(touchy);
+    }
+
+    private void setRoll(int roll) {
         View body = this.findViewById(R.id.vehicle_body);
         switch(model){
             case CARRO:
@@ -208,13 +259,13 @@ public class VehicleFix extends RelativeLayout {
                         body.setBackground(ContextCompat.getDrawable(context, R.drawable.bici090));
                         break;
                     case 1:
-                        body.setBackground(ContextCompat.getDrawable(context, R.drawable.bici));
+                        body.setBackground(ContextCompat.getDrawable(context, R.drawable.bici000));
                         break;
                     case 2:
                         body.setBackground(ContextCompat.getDrawable(context, R.drawable.bici270));
                         break;
                     case 3:
-                        body.setBackground(ContextCompat.getDrawable(context, R.drawable.bici));
+                        body.setBackground(ContextCompat.getDrawable(context, R.drawable.bici000));
                         break;
                 }
                 break;
@@ -262,50 +313,6 @@ public class VehicleFix extends RelativeLayout {
                 ((ViewGroup) body).addView(c);
                 break;
         }
-        final View chassi = this.findViewById(R.id.vehicle_chassi);
-
-        body.setOnTouchListener(new RelativeLayout.OnTouchListener() {
-            @Override
-            public boolean onTouch(View bode, MotionEvent motionEvent) {
-                Log.d("IAT","tocou nodo body "+motionEvent.getAction());
-                switch(motionEvent.getAction()){
-                    case MotionEvent.ACTION_UP:
-                        if(selectedVehicle) return true;
-                        ((CsiActivity)context).setSelectedVehicle(vu);
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                    case MotionEvent.ACTION_DOWN:
-                        if (selectedVehicle) return false;
-                        //bad idea
-                        //moveVeiculo((View) bode.getParent(),motionEvent,0,0);
-                        break;
-                    case MotionEvent.ACTION_HOVER_EXIT:
-                        Log.d("IAT","Saiu do body");
-                        break;
-                    case ACTION_HOVER_ENTER:
-                        Log.d("IAT","entrou do body");
-                        break;
-                    case ACTION_HOVER_MOVE:
-                        Log.d("IAT","mexeu do body");
-                        break;
-                    case ACTION_OUTSIDE:
-                        Log.d("IAT","mexeu fora do body");
-                        break;
-                    default:
-                        return false;
-                }
-                return false;
-            }
-        });
-        OnLongClickListener tu = new OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                ((CsiActivity) context).detailPagerSetup(getVehicleId());
-                return true;
-            }
-        };
-        body.setOnLongClickListener(tu);
-        chassi.setOnTouchListener(touchy);
     }
 
     public void liga(boolean l){
@@ -315,6 +322,7 @@ public class VehicleFix extends RelativeLayout {
     public void vira() {
         roll++;
         if(roll>3)roll=0;
+        setRoll(roll);
         //init(); REDRAW
     }
     public float getRotation(){

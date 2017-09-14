@@ -21,6 +21,7 @@ public class Panel extends View implements View.OnTouchListener{
     public static final int SKID = 1;
     public static final int ZEBRA = 2;
     public static final int TRACK = 3;
+    public static final int DAMAGE = 4;
     private Canvas canvas;
     private Path path;
     private Paint paint;
@@ -142,6 +143,12 @@ public class Panel extends View implements View.OnTouchListener{
         paint.setDither(true);
         paint.setStyle(Paint.Style.STROKE);
         switch (style) {
+            case DAMAGE:
+                paint.setColor(Color.RED);
+                paint.setStrokeJoin(Paint.Join.ROUND);
+                paint.setStrokeCap(Paint.Cap.ROUND);
+                paint.setStrokeWidth(40);
+                break;
             case SKID:
                 paint.setColor(Color.BLACK);
                 paint.setStrokeJoin(Paint.Join.ROUND);
@@ -236,5 +243,9 @@ public class Panel extends View implements View.OnTouchListener{
         public JSONArray getPoints(){
             return points;
         }
+    }
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+            return false;
     }
 }
