@@ -30,6 +30,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
             <EditText
+                android:text="2"
                 android:inputType="numberDecimal"
                 android:id="@+id/comprimento_text"
                 android:layout_width="0dp"
@@ -53,6 +54,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
             <EditText
+                android:text="5"
                 android:inputType="numberDecimal"
                 android:id="@+id/largura_text"
                 android:layout_width="0dp"

@@ -22,6 +22,8 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -154,6 +156,8 @@ public class CsiActivity extends AppCompatActivity {
         map.setTilesScaledToDpi(true);
         map.getOverlays().add(sbo);
         overlays=new Hashtable<>();
+        vehicles=new JSONArray();
+
         Intent intent=getIntent();
         croqui_size=400;
         if(intent.hasExtra("size")){
@@ -193,6 +197,9 @@ public class CsiActivity extends AppCompatActivity {
                 }
                 if(j.has("longitude")){
                     point.put("longitude",j.optDouble("longitude"));
+                }
+                for(int i=0;i<vehicles.length();i++){
+                    //cria veiculos
                 }
             } catch (JSONException e) {}
         }
@@ -244,9 +251,6 @@ public class CsiActivity extends AppCompatActivity {
             }
         });
 
-        vehicles=new JSONArray();
-        //Pega pegador=(Pega)findViewById(R.id.pegador);
-        //pegador.setPontaPosition(10000,10000,0);
         current_mode=VEHICLES;
         ((ImageButton)findViewById(R.id.show_pallette)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -716,6 +720,34 @@ public class CsiActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
+        switch(tipo){
+            case R.layout.fields_obstaculo:
+                final EditText xu = (EditText) v.findViewById(R.id.largura_text);
+                xu.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        double valor=Double.parseDouble(charSequence.toString());
+                        if(valor<0)
+                            xu.setText("1");
+                        if(valor>8)
+                            xu.setText("8");
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+
+                    }
+                });
+                break;
+
+        }
+
+
         builder.create().show();
     }
 
