@@ -1,0 +1,416 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+* README
+* backend/
+* backend/composite.php
+* backend/config.php
+* backend/functions.php
+* backend/imagens.php
+* backend/imagens/
+* backend/imagens/imagem-16.png
+* backend/imagens/imagem-17.png
+* backend/imagens/imagem-18.png
+* backend/imagens/low00.jpg
+* backend/imagens/low01.jpg
+* backend/imagens/low02.jpg
+* backend/imagens/low03.jpg
+* backend/imagens/low04.jpg
+* backend/imagens/low05.jpg
+* backend/imagens/low06.jpg
+* backend/imagens/low07.jpg
+* backend/imagens/low08.jpg
+* backend/imagens/low09.jpg
+* backend/imagens/low10.jpg
+* backend/imagens/low11.jpg
+* backend/imagens/low12.jpg
+* backend/index.php
+* backend/info.php
+* backend/participantes.sql
+* backend/participantes_insere.php
+* backend/participantes_lista.php
+* backend/senda.php
+* backend/vetores/
+* backend/vetores/ArteCapasOK100_V2.pdf
+* backend/vetores/PHPMailer_5.2.0/
+* backend/vetores/PHPMailer_5.2.0/LICENSE
+* backend/vetores/PHPMailer_5.2.0/README
+* backend/vetores/PHPMailer_5.2.0/aboutus.html
+* backend/vetores/PHPMailer_5.2.0/changelog.txt
+* backend/vetores/PHPMailer_5.2.0/class.phpmailer.php
+* backend/vetores/PHPMailer_5.2.0/class.pop3.php
+* backend/vetores/PHPMailer_5.2.0/class.smtp.php
+* backend/vetores/PHPMailer_5.2.0/docs.ini
+* backend/vetores/PHPMailer_5.2.0/docs/
+* backend/vetores/PHPMailer_5.2.0/docs/Callback_function_notes.txt
+* backend/vetores/PHPMailer_5.2.0/docs/DomainKeys_notes.txt
+* backend/vetores/PHPMailer_5.2.0/docs/Note_for_SMTP_debugging.txt
+* backend/vetores/PHPMailer_5.2.0/docs/extending.html
+* backend/vetores/PHPMailer_5.2.0/docs/faq.html
+* backend/vetores/PHPMailer_5.2.0/docs/pop3_article.txt
+* backend/vetores/PHPMailer_5.2.0/docs/use_gmail.txt
+* backend/vetores/PHPMailer_5.2.0/examples/
+* backend/vetores/PHPMailer_5.2.0/examples/contents.html
+* backend/vetores/PHPMailer_5.2.0/examples/images/
+* backend/vetores/PHPMailer_5.2.0/examples/images/phpmailer.gif
+* backend/vetores/PHPMailer_5.2.0/examples/images/phpmailer_mini.gif
+* backend/vetores/PHPMailer_5.2.0/examples/index.html
+* backend/vetores/PHPMailer_5.2.0/examples/test_db_smtp_basic.php
+* backend/vetores/PHPMailer_5.2.0/examples/test_mail_advanced.php
+* backend/vetores/PHPMailer_5.2.0/examples/test_mail_basic.php
+* backend/vetores/PHPMailer_5.2.0/examples/test_pop_before_smtp_advanced.php
+* backend/vetores/PHPMailer_5.2.0/examples/test_pop_before_smtp_basic.php
+* backend/vetores/PHPMailer_5.2.0/examples/test_sendmail_advanced.php
+* backend/vetores/PHPMailer_5.2.0/examples/test_sendmail_basic.php
+* backend/vetores/PHPMailer_5.2.0/examples/test_smtp_advanced.php
+* backend/vetores/PHPMailer_5.2.0/examples/test_smtp_advanced_no_auth.php
+* backend/vetores/PHPMailer_5.2.0/examples/test_smtp_basic.php
+* backend/vetores/PHPMailer_5.2.0/examples/test_smtp_basic_no_auth.php
+* backend/vetores/PHPMailer_5.2.0/examples/test_smtp_gmail_advanced.php
+* backend/vetores/PHPMailer_5.2.0/examples/test_smtp_gmail_basic.php
+* backend/vetores/PHPMailer_5.2.0/extras/
+* backend/vetores/PHPMailer_5.2.0/extras/htmlfilter.php
+* backend/vetores/PHPMailer_5.2.0/language/
+* backend/vetores/PHPMailer_5.2.0/language/phpmailer.lang-ar.php
+* backend/vetores/PHPMailer_5.2.0/language/phpmailer.lang-br.php
+* backend/vetores/PHPMailer_5.2.0/language/phpmailer.lang-ca.php
+* backend/vetores/PHPMailer_5.2.0/language/phpmailer.lang-ch.php
+* backend/vetores/PHPMailer_5.2.0/language/phpmailer.lang-cz.php
+* backend/vetores/PHPMailer_5.2.0/language/phpmailer.lang-de.php
+* backend/vetores/PHPMailer_5.2.0/language/phpmailer.lang-dk.php
+* backend/vetores/PHPMailer_5.2.0/language/phpmailer.lang-es.php
+* backend/vetores/PHPMailer_5.2.0/language/phpmailer.lang-et.php
+* backend/vetores/PHPMailer_5.2.0/language/phpmailer.lang-fi.php
+* backend/vetores/PHPMailer_5.2.0/language/phpmailer.lang-fo.php
+* backend/vetores/PHPMailer_5.2.0/language/phpmailer.lang-fr.php
+* backend/vetores/PHPMailer_5.2.0/language/phpmailer.lang-hu.php
+* backend/vetores/PHPMailer_5.2.0/language/phpmailer.lang-it.php
+* backend/vetores/PHPMailer_5.2.0/language/phpmailer.lang-ja.php
+* backend/vetores/PHPMailer_5.2.0/language/phpmailer.lang-nl.php
+* backend/vetores/PHPMailer_5.2.0/language/phpmailer.lang-no.php
+* backend/vetores/PHPMailer_5.2.0/language/phpmailer.lang-pl.php
+* backend/vetores/PHPMailer_5.2.0/language/phpmailer.lang-ro.php
+* backend/vetores/PHPMailer_5.2.0/language/phpmailer.lang-ru.php
+* backend/vetores/PHPMailer_5.2.0/language/phpmailer.lang-se.php
+* backend/vetores/PHPMailer_5.2.0/language/phpmailer.lang-tr.php
+* backend/vetores/PHPMailer_5.2.0/language/phpmailer.lang-zh.php
+* backend/vetores/PHPMailer_5.2.0/language/phpmailer.lang-zh_cn.php
+* backend/vetores/PHPMailer_5.2.0/test/
+* backend/vetores/PHPMailer_5.2.0/test/contents.html
+* backend/vetores/PHPMailer_5.2.0/test/phpmailerTest.php
+* backend/vetores/PHPMailer_5.2.0/test/test.png
+* backend/vetores/PHPMailer_5.2.0/test/test_callback.php
+* backend/vetores/PHPMailer_5.2.0/test/testemail.php
+* backend/vetores/PHPMailer_5.2.0/test_script/
+* backend/vetores/PHPMailer_5.2.0/test_script/LGPLv3.txt
+* backend/vetores/PHPMailer_5.2.0/test_script/contents.html
+* backend/vetores/PHPMailer_5.2.0/test_script/images/
+* backend/vetores/PHPMailer_5.2.0/test_script/images/aikido.gif
+* backend/vetores/PHPMailer_5.2.0/test_script/images/bkgrnd.gif
+* backend/vetores/PHPMailer_5.2.0/test_script/images/phpmailer.gif
+* backend/vetores/PHPMailer_5.2.0/test_script/index.php
+* backend/vetores/PHPMailer_5.2.0/test_script/scripts/
+* backend/vetores/PHPMailer_5.2.0/test_script/scripts/clipboard.swf
+* backend/vetores/PHPMailer_5.2.0/test_script/scripts/shBrushBash.js
+* backend/vetores/PHPMailer_5.2.0/test_script/scripts/shBrushCSharp.js
+* backend/vetores/PHPMailer_5.2.0/test_script/scripts/shBrushCpp.js
+* backend/vetores/PHPMailer_5.2.0/test_script/scripts/shBrushCss.js
+* backend/vetores/PHPMailer_5.2.0/test_script/scripts/shBrushDelphi.js
+* backend/vetores/PHPMailer_5.2.0/test_script/scripts/shBrushDiff.js
+* backend/vetores/PHPMailer_5.2.0/test_script/scripts/shBrushGroovy.js
+* backend/vetores/PHPMailer_5.2.0/test_script/scripts/shBrushJScript.js
+* backend/vetores/PHPMailer_5.2.0/test_script/scripts/shBrushJava.js
+* backend/vetores/PHPMailer_5.2.0/test_script/scripts/shBrushPerl.js
+* backend/vetores/PHPMailer_5.2.0/test_script/scripts/shBrushPhp.js
+* backend/vetores/PHPMailer_5.2.0/test_script/scripts/shBrushPlain.js
+* backend/vetores/PHPMailer_5.2.0/test_script/scripts/shBrushPython.js
+* backend/vetores/PHPMailer_5.2.0/test_script/scripts/shBrushRuby.js
+* backend/vetores/PHPMailer_5.2.0/test_script/scripts/shBrushScala.js
+* backend/vetores/PHPMailer_5.2.0/test_script/scripts/shBrushSql.js
+* backend/vetores/PHPMailer_5.2.0/test_script/scripts/shBrushVb.js
+* backend/vetores/PHPMailer_5.2.0/test_script/scripts/shBrushXml.js
+* backend/vetores/PHPMailer_5.2.0/test_script/scripts/shCore.js
+* backend/vetores/PHPMailer_5.2.0/test_script/scripts/shLegacy.js
+* backend/vetores/PHPMailer_5.2.0/test_script/src/
+* backend/vetores/PHPMailer_5.2.0/test_script/src/shCore.js
+* backend/vetores/PHPMailer_5.2.0/test_script/src/shLegacy.js
+* backend/vetores/PHPMailer_5.2.0/test_script/styles/
+* backend/vetores/PHPMailer_5.2.0/test_script/styles/help.png
+* backend/vetores/PHPMailer_5.2.0/test_script/styles/magnifier.png
+* backend/vetores/PHPMailer_5.2.0/test_script/styles/page_white_code.png
+* backend/vetores/PHPMailer_5.2.0/test_script/styles/page_white_copy.png
+* backend/vetores/PHPMailer_5.2.0/test_script/styles/printer.png
+* backend/vetores/PHPMailer_5.2.0/test_script/styles/shCore.css
+* backend/vetores/PHPMailer_5.2.0/test_script/styles/shThemeDefault.css
+* backend/vetores/PHPMailer_5.2.0/test_script/styles/shThemeDjango.css
+* backend/vetores/PHPMailer_5.2.0/test_script/styles/shThemeEmacs.css
+* backend/vetores/PHPMailer_5.2.0/test_script/styles/shThemeFadeToGrey.css
+* backend/vetores/PHPMailer_5.2.0/test_script/styles/shThemeMidnight.css
+* backend/vetores/PHPMailer_5.2.0/test_script/styles/shThemeRDark.css
+* backend/vetores/PHPMailer_5.2.0/test_script/styles/wrapping.png
+* backend/vetores/PHPMailer_5.2.0/test_script/test.html
+* backend/vetores/arte0.svg
+* backend/vetores/arte1.svg
+* backend/vetores/arte10.svg
+* backend/vetores/arte11.svg
+* backend/vetores/arte12.svg
+* backend/vetores/arte2.svg
+* backend/vetores/arte3.svg
+* backend/vetores/arte4.svg
+* backend/vetores/arte5.svg
+* backend/vetores/arte6.svg
+* backend/vetores/arte7.svg
+* backend/vetores/arte8.svg
+* backend/vetores/arte9.svg
+* backend/vetores/comp.jpg
+* backend/vetores/comp.svg
+* backend/vetores/composite.svg
+* backend/vetores/enviao.php
+* backend/vetores/imagem-27.png
+* backend/vetores/imagem-28.png
+* backend/vetores/index.php
+* capa.jpg
+* dedos.png
+* deploy.sh
+* hotsite/
+* hotsite/img/
+* hotsite/img/balao.png
+* hotsite/img/banner.png
+* hotsite/img/bg.gif
+* hotsite/img/capinhas.jpg
+* hotsite/img/estrelinhas.png
+* hotsite/img/home.png
+* hotsite/img/logo.gif
+* hotsite/img/oucompre.png
+* hotsite/img/pop_faleconosco.png
+* hotsite/img/pop_lojas.png
+* hotsite/img/pop_regulamento.png
+* hotsite/index.php
+* hotsite/jquery.js
+* hotsite/lojas.html
+* hotsite/regulamento.html
+* lib/
+* lib/apache-mime4j-0.5.jar
+* lib/apache-mime4j-0.5.repacked.jar
+* lib/commons-codec-4.1.repacked.jar
+* lib/commons-logging-4.1.repacked.jar
+* lib/httpclient-4.1.repacked.jar
+* lib/httpclient-cache-4.1.repacked.jar
+* lib/httpcore-4.1.repacked.jar
+* lib/httpmime-4.0-beta1.jar
+* lib/httpmime-4.0.repacked.jar
+* lib/httpmime-4.1.1.jar
+* lib/httpmime-4.1.1.repacked.jar
+* lib/httpmime-4.1.repacked.jar
+* lib/log4j-zeroconf.jar
+* lib/log4j-zeroconf.repacked.jar
+* lib/rules.txt
+* output/
+* output/capa.jpg
+* output/comp.svg
+* proguard.cfg
+* resources/
+* resources/documentos/
+* resources/documentos/Endereço lojas ação note V3.xls
+* resources/documentos/Regulamento_Vivo.docx
+* resources/documentos/lojas.rtf
+* resources/documentos/wireframe.gif
+* resources/icone.png
+* resources/icone2.png
+* resources/imagens/
+* resources/imagens/big00.jpg
+* resources/imagens/big01.jpg
+* resources/imagens/big02.jpg
+* resources/imagens/big03.jpg
+* resources/imagens/big04.jpg
+* resources/imagens/big05.jpg
+* resources/imagens/big06.jpg
+* resources/imagens/big07.jpg
+* resources/imagens/big08.jpg
+* resources/imagens/big09.jpg
+* resources/imagens/big10.jpg
+* resources/imagens/big11.jpg
+* resources/imagens/big12.jpg
+* resources/imagens/layout/
+* resources/imagens/layout/desenho.jpg
+* resources/imagens/layout/desenho2.jpg
+* resources/imagens/layout/final.jpg
+* resources/imagens/layout/home.jpg
+* resources/imagens/layout/menu.jpg
+* resources/imagens/layout/teclado.jpg
+* resources/imagens/thumb01.jpg
+* resources/imagens/thumb02.jpg
+* resources/imagens/thumb03.jpg
+* resources/imagens/thumb04.jpg
+* resources/imagens/thumb05.jpg
+* resources/imagens/thumb06.jpg
+* resources/imagens/thumb07.jpg
+* resources/imagens/thumb08.jpg
+* resources/imagens/thumb09.jpg
+* resources/imagens/thumb10.jpg
+* resources/imagens/thumb11.jpg
+* resources/imagens/thumb12.jpg
+* resources/kappa.psd
+* resources/lo/
+* resources/lo/INDEX.html
+* resources/lo/bg.jpg
+* resources/lo/lo1/
+* resources/lo/lo1/pag1.jpg
+* resources/lo/lo1/pag2.jpg
+* resources/lo/lo1/pag3.jpg
+* resources/lo/lo1/pag4.jpg
+* resources/lo/lo1/pag5.jpg
+* resources/lo/lo1/pag6.jpg
+* resources/lo/lo2/
+* resources/lo/lo2/desenho.jpg
+* resources/lo/lo2/desenho2.jpg
+* resources/lo/lo2/final.jpg
+* resources/lo/lo2/home.jpg
+* resources/lo/lo2/lo_notevivo.zip
+* resources/lo/lo2/menu.jpg
+* resources/lo/lo2/teclado.jpg
+* resources/lo/lo3/
+* resources/lo/lo3/desenho.jpg
+* resources/lo/lo3/desenho2.jpg
+* resources/lo/lo3/final.jpg
+* resources/lo/lo3/home.jpg
+* resources/lo/lo3/menu.jpg
+* resources/lo/lo3/teclado.jpg
+* resources/lo/lo_hotsite1/
+* resources/lo/lo_hotsite1/fale.jpg
+* resources/lo/lo_hotsite1/home.jpg
+* resources/lo/lo_hotsite1/inicial.jpg
+* resources/lo/lo_hotsite1/lo_hotsite1.psd
+* resources/lo/lo_hotsite1/lojas.jpg
+* resources/lo/lo_hotsite1/plano_df.jpg
+* resources/lo/lo_hotsite1/plano_sp.jpg
+* resources/lo/lo_hotsite2/
+* resources/lo/lo_hotsite2/fale_conosco.jpg
+* resources/lo/lo_hotsite2/home.jpg
+* resources/lo/lo_hotsite2/inicio.jpg
+* resources/lo/lo_hotsite2/lo_hotsite2.psd
+* resources/lo/lo_hotsite2/lojas.jpg
+* resources/lo/lo_hotsite2/plano_df.jpg
+* resources/lo/lo_hotsite2/plano_sp.jpg
+* resources/lo/lo_hotsite2/produto.jpg
+* resources/lo/lo_hotsite2/regulamento.jpg
+* resources/lo/lo_hotsite3.psd
+* resources/lo/lo_hotsite3/
+* resources/lo/lo_hotsite3/home.jpg
+* resources/lo/lo_hotsite3/index.html
+* resources/lo/lo_hotsite4.psd
+* resources/lo/lo_hotsite4/
+* resources/lo/lo_hotsite4/home.jpg
+* resources/lo/lo_hotsite4/index.html
+* resources/lo/lo_hotsite5.psd
+* resources/lo/lo_hotsite5/
+* resources/lo/lo_hotsite5/faleconosco.jpg
+* resources/lo/lo_hotsite5/home.jpg
+* resources/lo/lo_hotsite5/lojas.jpg
+* resources/lo/lo_hotsite5/regulamento.jpg
+* resources/lo/lo_hotsite6.psd
+* resources/lo/lo_hotsite6/
+* resources/lo/lo_hotsite6/faleconosco.jpg
+* resources/lo/lo_hotsite6/home.jpg
+* resources/lo/lo_hotsite6/lojas.jpg
+* resources/lo/lo_hotsite6/regulamento.jpg
+* resources/lo/lo_samsung.psd
+* resources/lo/lo_samsung2.psd
+* resources/referencias/
+* resources/referencias/Capa Galaxy Note/
+* resources/referencias/Capa Galaxy Note/20934_EFC-1E1CDE_ADImage_Large.jpg
+* resources/referencias/Capa Galaxy Note/20941_EFC-1E1CDE_ADImage_Origin.eps
+* resources/referencias/Capa Galaxy Note/20942_EFC-1E1CDE_ADImage_Large.jpg
+* resources/referencias/Capa Galaxy Note/20949_EFC-1E1CDE_ADImage_Origin.eps
+* resources/referencias/Capa Galaxy Note/20950_EFC-1E1CDE_ADImage_Large.jpg
+* resources/referencias/Capa Galaxy Note/20957_EFC-1E1CDE_ADImage_Origin.eps
+* resources/referencias/Capa Galaxy Note/20981_EFC-1E1CDE_ADImage_Origin.eps
+* resources/referencias/LO_capas hotsite.psd
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/CAPINHAS/
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/CAPINHAS/1.jpg
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/CAPINHAS/2.jpg
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/CAPINHAS/3.jpg
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/CAPINHAS/CAPACORTADA.psd
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/CAPINHAS/SM_modeloCapa-01.jpg
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/CAPINHAS/SM_modeloCapa-02.jpg
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/CAPINHAS/SM_modeloCapa-03.jpg
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/CAPINHAS/SM_modeloCapa-04.jpg
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/CAPINHAS/SM_modeloCapa-05.jpg
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/CAPINHAS/SM_modeloCapa-06.jpg
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/CAPINHAS/SM_modeloCapa-07.jpg
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/CAPINHAS/SM_modeloCapa-08.jpg
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/CAPINHAS/SM_modeloCapa-09.jpg
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/CAPINHAS/Thumbs.db
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/DESCRITIVO.doc
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/MATERIAIS/
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/MATERIAIS/Fontes/
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/MATERIAIS/Fontes/SamsungImagination.ttf
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/MATERIAIS/Fontes/SamsungImaginationBold.otf
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/MATERIAIS/Fontes/SketchRockwell-Bold.ttf
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/MATERIAIS/Fontes/Sketch_Block.ttf
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/MATERIAIS/Fontes/angelina.TTF
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/MATERIAIS/Fontes/the_great_escape/
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/MATERIAIS/Fontes/the_great_escape/TheGreatEscape-TOU.txt
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/MATERIAIS/Fontes/the_great_escape/TheGreatEscape.ttf
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/MATERIAIS/Fontes/the_great_escape/TheGreatEscapeBold.ttf
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/MATERIAIS/Fontes/where_stars_shine_the_brightest/
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/MATERIAIS/Fontes/where_stars_shine_the_brightest/ReadMe.txt
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/MATERIAIS/Fontes/where_stars_shine_the_brightest/where stars shine the brightest.ttf
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/MATERIAIS/azuis Samsung.pdf
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/MATERIAIS/boneco_02.psd
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/MATERIAIS/boneco_1.pdf
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/MATERIAIS/boneco_todos.pdf
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/MATERIAIS/degrade/
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/MATERIAIS/degrade/degrade.psd
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/MATERIAIS/logo.psd
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/MATERIAIS/logo_vivo.pdf
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/MATERIAIS/samsung.pdf
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/___REFERENCIAS_LAYOUT/
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/___REFERENCIAS_LAYOUT/LO_Flyer-Aeroporto-frente.jpg
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/___REFERENCIAS_LAYOUT/LO_Flyer-Aeroporto-verso.jpg
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/___REFERENCIAS_LAYOUT/LO_Flyer-Cinema-DF-verso.png
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/___REFERENCIAS_LAYOUT/LO_Flyer-Cinema-frente.png
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/___REFERENCIAS_LAYOUT/SM_camiseta.jpg
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/___REFERENCIAS_LAYOUT/SM_corner2.jpg
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/___REFERENCIAS_LAYOUT/SM_sacola.jpg
+* resources/referencias/MATS_SAMSUNG_GALAXY_NOTE/___REFERENCIAS_LAYOUT/detalhe-camiseta.jpg
+* resources/referencias/encaplicativohotsite/
+* resources/referencias/encaplicativohotsite/DF.jpg
+* resources/referencias/encaplicativohotsite/LO_Flyer-v6.jpg
+* resources/referencias/encaplicativohotsite/SP.jpg
+* resources/referencias/lojas.xls
+* resources/referencias/referencias.pptx
+* resources/v.mp4
+* rule
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+* AndroidManifest.xml => app/src/main/AndroidManifest.xml
+* lint.xml => app/lint.xml
+* res/ => app/src/main/res/
+* src/ => app/src/main/java/
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)

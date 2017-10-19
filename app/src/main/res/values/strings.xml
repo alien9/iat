@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">IAT</string>
+    <string name="hello">Hello World, DedosActivity!</string>
+    <string name="share">Share</string>
+    <string name="reset">Reset</string>
+    <string name="pensize">Pen Size</string>
+    <string name="start">Start</string>
+    <string name="full_name">Full Name</string>
+    <string name="tax_number">Tax Number</string>
+    <string name="email">email</string>
+    <string name="telephone_number">Telephone</string>
+    <string name="street_address">Street Address</string>
+    <string name="city">City</string>
+    <string name="send">Send</string>
+    <string name="sending">Sending...</string>
+    <string name="desire">Do you want to receive your cover at home?</string>
+    <string name="warning">Warning</string>
+    <string name="at_home">Send my cover to my home address</string>
+    <string name="at_store">Let me pick my cover at the store</string>
+    <string name="atualizar_bg">Atualizar Fundo</string>
+    <string name="wms_url">http://bigrs.alien9.net:8080/geoserver/BIGRS/wms</string>
+    <string name="center_map">Centralizar</string>
+    <string name="show_labels">Nomes de ruas</string>
+    <string name="mode_map">Mapa</string>
+    <string name="mode_vehicles">Veículos</string>
+    <string name="mode_freehand">Desenho</string>
+    <string name="turn_vehicle">virar veículo</string>
+    <string name="reset_vehicles">Reiniciar edição</string>
+    <string name="show_semaforos">Semáforos</string>
+    <string name="carro">Automóvel</string>
+    <string name="motocicleta">Motocicleta</string>
+    <string name="busao">Ônibus</string>
+    <string name="caminhao">Caminhão</string>
+    <string name="bicicleta">Bicicleta</string>
+    <string name="pessoa">Pedestre</string>
+    <string name="crosswalk">Faixa de Pedestre</string>
+    <string name="poste">Poste</string>
+    <string name="obstaculo">Barreira / Obstáculo</string>
+    <string name="collision">Local da Colisão</string>
+    <string name="movemap">Mover mapa</string>
+    <string name="trajetoria">Trajeto aparente</string>
+    <string name="freada">Freada</string>
+    <string name="edit">Editar veículos</string>
+    <string name="comprimento">Comprimento</string>
+    <string name="metro">m</string>
+    <string name="largura">Largura</string>
+    <string name="placa">Placa</string>
+    <string name="marca">Marca / modelo</string>
+    <string name="tipo_de_obstaculo">Obstáculo</string>
+    <string name="mapa">Mapa</string>
+    <string name="items">Itens</string>
+    <string name="voltar">Fechar</string>
+    <string name="nome">Nome</string>
+    <string name="idade">Idade</string>
+    <string name="tipo_de_impacto">Tipo de impacto</string>
+    <string name="exit">Encerrar</string>
+    <string name="veiculo">Veículo</string>
+    <string name="tipo_de_veiculo">Tipo</string>
+    <string name="mark">Marca</string>
+    <string name="impacto">Impacto</string>
+    <string name="municipio">Município</string>
+    <string name="uf">UF</string>
+    <string name="fatores">Fatores Contribuintes</string>
+    <string name="semaforo_com_defeito">Semáforo com defeito</string>
+    <string name="placa_encoberta">Placa encoberta</string>
+    <string name="placa_mal_posicionada">Placa mal posicionada</string>
+    <string name="pintura_no_solo_apagada">Pintura no solo apagada</string>
+    <string name="iluminacao_deficiente">Iluminacao_deficiente</string>
+    <string name="curva_acentuada">Curva acentuada</string>
+    <string name="pista_declive">Pista em forte declive</string>
+    <string name="pista_molhada">Pista molhada</string>
+    <string name="obra_na_pista">Obra na pista</string>
+    <string name="calcada_ou_pista_esburacada">Calçada ou pista esburacada</string>
+    <string name="faixa_inexist">Faixa de pedestre inexistente</string>
+    <string name="calcada_inex">Calçada inexistente</string>
+    <string name="alcool">Aparentava alcoolizado</string>
+    <string name="excedia_velocidade">Excedia Velocidade</string>
+    <string name="mudou_de_faixa">Mudou de faixa sem sinalizar</string>
+    <string name="transitava_contramao">Transitava na contramão</string>
+    <string name="conv_proibida">Fazia conversão proibida</string>
+    <string name="retorno_proibido">Fazia retorno proibido</string>
+    <string name="desrespeitou_vermelho">Desrespeitou o vermelho</string>
+    <string name="nao_parou_pref">Não parou na preferencial</string>
+    <string name="colado_veic_fr">Estava colado veículo da frente</string>
+    <string name="freiou_brusca">Freou bruscamente</string>
+    <string name="parou_proib">Parou / estacionou em lugar proibido</string>
+    <string name="moto_nao_guard_dist">Moto não guardou distância lateral</string>
+    <string name="racha">Participava de racha</string>
+    <string name="distract_ext">Distração externa</string>
+    <string name="distract_int">Distração interna</string>
+    <string name="sono_cansaco">Sonolência / Cansaço</string>
+    <string name="impericia_imprudencia">Imperícia / imprudência</string>
+    <string name="cruzou_fora_faixa">Cruzoou fora da faixa</string>
+    <string name="andava">Andava na pista</string>
+    <string name="transitava_calc">Transitava na calçada</string>
+    <string name="pneu_furou">Pneu furou / estourou</string>
+    <string name="pneu_careca">Pneus carecas</string>
+    <string name="problema_freio">Problema com o freio</string>
+    <string name="farois_desregulados">Faróis desregulados</string>
+    <string name="fatores_via">Fatores contribuintes da via / ambiente</string>
+    <string name="fatores_humanos">Fatores humanos</string>
+    <string name="fatores_veiculares">Fatores veiculares</string>
+    <string name="pessoas_env">Pessoas envolvidas</string>
+    <string name="tipo_usuario">Tipo de usuário</string>
+    <string name="condutor">Condutor</string>
+    <string name="passageiro">Passageiro</string>
+    <string name="sem_informacao">Sem informação</string>
+    <string name="ferimento">Ferimento</string>
+    <string name="fatal">Fatal</string>
+    <string name="grave">Grave</string>
+    <string name="leve">Leve</string>
+    <string name="nenhum">Nenhum</string>
+    <string name="masc">Masculino</string>
+    <string name="fem">Feminino</string>
+    <string name="sexo">Sexo</string>
+    <string name="posicao_no_v">Posição no veiculo</string>
+    <string name="frente">Na frente</string>
+    <string name="atras">Atrás</string>
+    <string name="cinto_capacete">Cinto / Capacete</string>
+    <string name="usava">Usava</string>
+    <string name="nao_usava">Não usava</string>
+    <string name="ano_nasc">Ano de nascimento</string>
+    <string name="salvar">Salvar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="delete">Remover</string>
+    <string name="descricao">Descrição</string>
+    <string name="veiculos_envolvidos">Itens envolvidos</string>
+    <string name="partes_amassadas">Partes amassadas</string>
+    <string name="clean">Limpar</string>
+    <string name="dano">Dano</string>
+    <string name="pequeno">Pequeno</string>
+    <string name="grande">Grande</string>
+    <string name="medio">Médio</string>
+    <string-array name="vehicle_type">
+        <item>Auto</item>
+        <item>Caminhão</item>
+        <item>Caminhonete</item>
+        <item>Camioneta</item>
+        <item>Carroça</item>
+        <item>Micro Ônibus</item>
+        <item>Moto</item>
+        <item>Ônibus</item>
+        <item>Reboque</item>
+        <item>Semi Reboque</item>
+        <item>Taxi</item>
+        <item>Trailer</item>
+        <item>Viatura</item>
+    </string-array>
+    <string-array name="impact_type">
+        <item>Colisão Frontal</item>
+        <item>Colisão Traseira</item>
+        <item>Colisão Lateral</item>
+        <item>Colisão Transversal</item>
+        <item>Choque</item>
+        <item>Capotamento</item>
+        <item>Tombamento</item>
+        <item>Engavetamento</item>
+        <item>Atropelamento</item>
+        <item>Atropelamento de Animal</item>
+        <item>Queda</item>
+        <item>Outros</item>
+    </string-array>
+    <string-array name="estados">
+        <item/><item>Acre</item><item>Alagoas</item><item>Amapá</item><item>Amazonas</item><item>Bahia</item><item>Ceara</item><item>Distrito Federal</item><item>Espírito Santo</item><item>Goiás</item><item>Maranhão</item><item>Mato Grosso</item><item>Mato Grosso do Sul</item><item>Minas Gerais</item><item>Pará</item><item>Paraíba</item><item>Paraná</item><item>Pernambuco</item><item>Piauí</item><item>Rio de Janeiro</item><item>Rio Grande do Norte</item><item>Rio Grande do Sul</item><item>Rondônia</item><item>Roraima</item><item>Santa Catarina</item><item>São Paulo</item><item>Sergipe</item><item>Tocantins</item>
+    </string-array>
+    <string-array name="ufs">
+        <item/><item>AC</item><item>AL</item><item>AP</item><item>AM</item><item>BA</item><item>CE</item><item>DF</item><item>ES</item><item>GO</item><item>MA</item><item>MT</item><item>MS</item><item>MG</item><item>PA</item><item>PB</item><item>PR</item><item>PE</item><item>PI</item><item>RJ</item><item>RN</item><item>RS</item><item>RO</item><item>RR</item><item>SC</item><item>SP</item><item>SE</item><item>TO</item>
+    </string-array>
+</resources>
