@@ -37,7 +37,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<activity android:name=".PermissionRequest">
 
+</activity>
         <service android:enabled="true" android:name="org.bigrs.iat.LocationService" />
     </application>
 </manifest>

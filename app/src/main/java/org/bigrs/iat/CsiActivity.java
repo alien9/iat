@@ -1,9 +1,11 @@
 package org.bigrs.iat;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,6 +19,7 @@ import android.os.Bundle;
 import android.os.Debug;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -106,7 +109,6 @@ public class CsiActivity extends AppCompatActivity {
     private int current_mode;
     private boolean is_updating_labels;
     private boolean update_labels_after;
-
     private boolean is_updating_closeup;
     private JSONArray vehicles;
     private Context context;
@@ -123,6 +125,16 @@ public class CsiActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Iat iat = (Iat) getApplicationContext();
+        if ((ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)||(ActivityCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED)) {
+            Intent intent=new Intent(this,PermissionRequest.class);
+            Bundle b=getIntent().getExtras();
+            if(b!=null)
+                intent.putExtras(b);
+            startActivity(intent);
+            return;
+        }
+        iat.startGPS(this);
         setContentView(R.layout.csi);
         //findViewById(R.id.messageria).setVisibility(View.GONE);
         mess=new String[]{"","","","","","","","","","","","","","",""};
@@ -130,13 +142,12 @@ public class CsiActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         Bundle bundle = getIntent().getExtras();
-        Iat iat = (Iat) getApplicationContext();
+
         if(bundle!=null){
             if(bundle.containsKey("starter")){
                 iat.setStarter(bundle.getString("starter"));
             }
         }
-        iat.startGPS(this);
         //((Panel) findViewById(R.id.drawing_panel)).setVisibility(View.GONE);
         findViewById(R.id.vehicles_canvas).setDrawingCacheEnabled(true);
         final MapView map = (MapView) findViewById(R.id.map);
@@ -157,7 +168,7 @@ public class CsiActivity extends AppCompatActivity {
         map.getOverlays().add(sbo);
         overlays=new Hashtable<>();
         vehicles=new JSONArray();
-
+        current_mode=999;
         Intent intent=getIntent();
         croqui_size=400;
         if(intent.hasExtra("size")){
@@ -189,8 +200,10 @@ public class CsiActivity extends AppCompatActivity {
         }
         if(intent.hasExtra("info")){
             try{
+                setCurrentMode(MAP);
+                setCurrentMode(VEHICLES);
+                Log.d("IAT recebe parâmetros",intent.getStringExtra("info"));
                 JSONObject j = new JSONObject(intent.getStringExtra("info"));
-                vehicles=j.optJSONArray("vehicles");
                 paths=j.optJSONArray("paths");
                 if(j.has("latitude")){
                     point.put("latitude",j.optDouble("latitude"));
@@ -198,9 +211,11 @@ public class CsiActivity extends AppCompatActivity {
                 if(j.has("longitude")){
                     point.put("longitude",j.optDouble("longitude"));
                 }
-                for(int i=0;i<vehicles.length();i++){
-                    //cria veiculos
-                }
+                if(j.has("longitude")&&j.has("llatitude"))
+                    map.getController().setCenter(new GeoPoint(point.optDouble("latitude"), point.optDouble("longitude")));
+                setVehicles(j.optJSONArray("vehicles"));
+                reloadVehiclesAndPaths();
+                ligaCarros(true);
             } catch (JSONException e) {}
         }
         map.getController().setCenter(new GeoPoint(point.optDouble("latitude"), point.optDouble("longitude")));
@@ -250,8 +265,6 @@ public class CsiActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-        current_mode=VEHICLES;
         ((ImageButton)findViewById(R.id.show_pallette)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -322,6 +335,7 @@ public class CsiActivity extends AppCompatActivity {
                         break;
                     case R.id.exit_command:
                         Intent data=new Intent();
+                        saveVehicles();
                         JSONObject o=new JSONObject();
                         try {
                             JSONObject dj=new JSONObject();
@@ -341,7 +355,6 @@ public class CsiActivity extends AppCompatActivity {
                 findViewById(R.id.palette_layout).setVisibility(View.GONE);
             }
         };
-        Log.d("IAT","veiculo criado!");
         setDescendentOnClickListener((ViewGroup) findViewById(R.id.palette_container),cl);
         findViewById(R.id.vehicles_layout).setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -893,6 +906,7 @@ public class CsiActivity extends AppCompatActivity {
                 break;
             case R.id.end:
                 MapView map=((MapView)findViewById(R.id.map));
+                saveVehicles();
                 Intent data=new Intent();
                 JSONObject o=new JSONObject();
                 try {
@@ -1436,10 +1450,12 @@ public class CsiActivity extends AppCompatActivity {
             veiculo.put("position", ((VehicleFix) v).getPosition());
             veiculo.put("roll", 0);
             veiculo.put("rotation",0.0);
-            Iterator<?> keys = data.keys();
-            while( keys.hasNext() ) {
-                String key = (String)keys.next();
-                veiculo.put(key,data.get(key));
+            if(data!=null){
+                Iterator<?> keys = data.keys();
+                while( keys.hasNext() ) {
+                    String key = (String)keys.next();
+                    veiculo.put(key,data.get(key));
+                }
             }
         } catch (JSONException e) {}
         vehicles.put(veiculo);
@@ -1519,6 +1535,15 @@ public class CsiActivity extends AppCompatActivity {
         ((ViewGroup) findViewById(R.id.vehicles_canvas)).removeAllViews();
         reloadVehiclesAndPaths();
     }
+    protected void setVehicles(JSONArray v){
+        ((CsiActivity)context).setSelectedVehicle(null);
+        for (int i = 0; i < v.length(); i++) {
+            JSONObject veiculo = v.optJSONObject(i);
+            // cria os veiculos
+            createVehicle(veiculo.optInt("model"),veiculo.optDouble("width"),veiculo.optDouble("length"),veiculo);
+        }
+    }
+
     public void exlog(String text, int line){
         mess[line]=text;
         String fim="";

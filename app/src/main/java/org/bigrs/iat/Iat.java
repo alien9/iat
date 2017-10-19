@@ -46,6 +46,7 @@ public class Iat extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         singleton = this;
     }
@@ -66,7 +67,7 @@ public class Iat extends Application {
             List<ActivityManager.AppTask> tasks = activityManager.getAppTasks();
             tasks.get(0);
             ActivityCompat.requestPermissions(a,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     IAT_REQUEST_GPS_PERMISSION);
             if ((ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)&&(ActivityCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED)) {
                 Intent intent = new Intent(this, CsiActivity.class);
