@@ -336,6 +336,7 @@ public class CsiActivity extends AppCompatActivity {
                     case R.id.exit_command:
                         Intent data=new Intent();
                         saveVehicles();
+                        savePaths();
                         JSONObject o=new JSONObject();
                         try {
                             JSONObject dj=new JSONObject();
@@ -407,6 +408,8 @@ public class CsiActivity extends AppCompatActivity {
                 ((VehicleFix)getSelectedVehicle()).vira();
             }
         });
+        if((vehicles.length()>0)||(paths.length()>0))
+            ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
     }
 
     private JSONObject getPicture() throws JSONException {
@@ -907,6 +910,7 @@ public class CsiActivity extends AppCompatActivity {
             case R.id.end:
                 MapView map=((MapView)findViewById(R.id.map));
                 saveVehicles();
+                savePaths();
                 Intent data=new Intent();
                 JSONObject o=new JSONObject();
                 try {
