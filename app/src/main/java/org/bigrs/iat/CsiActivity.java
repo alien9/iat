@@ -408,8 +408,8 @@ public class CsiActivity extends AppCompatActivity {
                 ((VehicleFix)getSelectedVehicle()).vira();
             }
         });
-        if((vehicles.length()>0)||(paths.length()>0))
-            ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
+//        if((vehicles.length()>0)||(paths.length()>0))
+//            ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
     }
 
     private JSONObject getPicture() throws JSONException {
@@ -1459,6 +1459,9 @@ public class CsiActivity extends AppCompatActivity {
                 while( keys.hasNext() ) {
                     String key = (String)keys.next();
                     veiculo.put(key,data.get(key));
+                }
+                if(data.has("view_id")){
+                    ((VehicleFix)v).setVehicleId(data.getInt("view_id"));
                 }
             }
         } catch (JSONException e) {}
