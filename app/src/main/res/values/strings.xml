@@ -132,6 +132,7 @@
     <string name="pequeno">Pequeno</string>
     <string name="grande">Grande</string>
     <string name="medio">Médio</string>
+    <string name="padrao">(padrão)</string>
     <string-array name="vehicle_type">
         <item>Auto</item>
         <item>Caminhão</item>

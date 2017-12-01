@@ -26,6 +26,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.DisplayMetrics;
@@ -40,6 +42,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
+import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -153,7 +156,7 @@ public class CsiActivity extends AppCompatActivity {
         final MapView map = (MapView) findViewById(R.id.map);
         String u="http://bigrs.alien9.net:8080/geoserver/gwc/service/tms/1.0.0/";
         clear_source = new GeoServerTileSource("quadras_e_logradouros", 17, 21, 512, ".png", new String[]{u});
-        great_source = new GeoServerTileSource("Cidade+com+Sem%C3%A1foros%20e%20Lotes", 17, 21, 512, ".png", new String[]{u});
+        great_source = new GeoServerTileSource("cidade_com_semaforos_e_lotes", 17, 21, 512, ".png", new String[]{u});
         map.setTileSource(great_source);
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
@@ -335,8 +338,8 @@ public class CsiActivity extends AppCompatActivity {
                         break;
                     case R.id.exit_command:
                         Intent data=new Intent();
-                        saveVehicles();
                         savePaths();
+                        saveVehicles();
                         JSONObject o=new JSONObject();
                         try {
                             JSONObject dj=new JSONObject();
@@ -387,7 +390,9 @@ public class CsiActivity extends AppCompatActivity {
             }
         });
 
-        ((RadioButton)findViewById(R.id.radio_mapa)).setChecked(true);
+        if(vehicles.length()==0){
+            ((RadioButton)findViewById(R.id.radio_mapa)).setChecked(true);
+        }
         findViewById(R.id.pegador).setVisibility(View.VISIBLE);
         ((Pega) findViewById(R.id.pegador)).setPontaPosition(-10000,-10000,0);
         ((ImageButton)findViewById(R.id.edit_vehicle_butt)).setOnClickListener(new View.OnClickListener() {
@@ -408,6 +413,7 @@ public class CsiActivity extends AppCompatActivity {
                 ((VehicleFix)getSelectedVehicle()).vira();
             }
         });
+
 //        if((vehicles.length()>0)||(paths.length()>0))
 //            ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
     }
@@ -633,7 +639,6 @@ public class CsiActivity extends AppCompatActivity {
             default:
                 builder.setTitle("Veículo");
         }
-
         final View v=inflater.inflate(tipo, null);
         builder.setView(v);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
@@ -663,6 +668,12 @@ public class CsiActivity extends AppCompatActivity {
                     case R.layout.fields_vehicle:
                         try {
                             String placa= String.valueOf(((EditText)v.findViewById(R.id.placa_text)).getText());
+                            if(((CheckedTextView)v.findViewById(R.id.is_placa_padrao)).isChecked()){
+                                placa=String.format("%s%s",new String[]{
+                                        String.valueOf(((EditText)v.findViewById(R.id.placa_letras)).getText()),
+                                        String.valueOf(((EditText)v.findViewById(R.id.placa_numeros)).getText())
+                                });
+                            }
                             int tipo_veiculo= ((Spinner)v.findViewById(R.id.tipo_veiculo_spinner)).getSelectedItemPosition();
                             String marca= String.valueOf(((EditText)v.findViewById(R.id.marca_text)).getText());
                             JSONObject d=new JSONObject();
@@ -760,11 +771,50 @@ public class CsiActivity extends AppCompatActivity {
                     }
                 });
                 break;
-
+            case R.layout.fields_vehicle:
+                placaTrick(v);
+                break;
         }
-
-
         builder.create().show();
+    }
+
+    private void placaTrick(final View v) {
+        v.findViewById(R.id.is_placa_padrao).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean s = !((CheckedTextView) view).isChecked();
+                ((CheckedTextView)view).setChecked(s);
+                v.findViewById(R.id.placa_padrao_layout).setVisibility((s)?View.VISIBLE:View.GONE);
+                v.findViewById(R.id.placa_text).setVisibility((s)?View.GONE:View.VISIBLE);
+                if(s){
+                    Pattern p = Pattern.compile("(\\w{3})(\\d{4})");
+                    Matcher m = p.matcher(((TextView)v.findViewById(R.id.placa_text)).getText());
+                    if(m.matches()) {
+                        ((TextView) v.findViewById(R.id.placa_letras)).setText(m.group(1));
+                        ((TextView) v.findViewById(R.id.placa_numeros)).setText(m.group(2));
+                    }else{
+
+                    }
+                }else{
+                    ((TextView)v.findViewById(R.id.placa_text)).setText(String.format("%s%s",new String[]{
+                            ((TextView) v.findViewById(R.id.placa_letras)).getText().toString(),
+                            ((TextView) v.findViewById(R.id.placa_numeros)).getText().toString()
+                    }));
+                }
+            }
+        });
+        InputFilter filter = new InputFilter() {
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend)
+            {
+                for (int i = start; i < end; i++) {
+                    if (!Character.isLetter(source.charAt(i))) {
+                        return "";
+                    }
+                }
+                return null;
+            }
+        };
+        ((EditText)v.findViewById(R.id.placa_letras)).setFilters(new InputFilter[]{filter});
     }
 
     private String getNextLabel() {
@@ -909,8 +959,8 @@ public class CsiActivity extends AppCompatActivity {
                 break;
             case R.id.end:
                 MapView map=((MapView)findViewById(R.id.map));
-                saveVehicles();
                 savePaths();
+                saveVehicles();
                 Intent data=new Intent();
                 JSONObject o=new JSONObject();
                 try {
@@ -1165,8 +1215,8 @@ public class CsiActivity extends AppCompatActivity {
                 break;
             case MAP:
                 findViewById(R.id.map_block).setVisibility(View.GONE);
-                saveVehicles();
                 savePaths();
+                saveVehicles();
                 ((Panel) findViewById(R.id.drawing_panel)).setLigado(false);
                 map.setBuiltInZoomControls(true);
                 map.setEnabled(true);
@@ -1422,7 +1472,7 @@ public class CsiActivity extends AppCompatActivity {
             ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
             //setCurrentMode(VEHICLES);
         }
-        ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
+        //((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
         MapView map = (MapView) findViewById(R.id.map);
         Point size = getDisplaySize();
         double pixels_per_m = getResolution();
@@ -1544,11 +1594,15 @@ public class CsiActivity extends AppCompatActivity {
     }
     protected void setVehicles(JSONArray v){
         ((CsiActivity)context).setSelectedVehicle(null);
+        findViewById(R.id.vehicles_canvas).setVisibility(View.VISIBLE);
+        findViewById(R.id.vehicles_canvas).invalidate();
+        findViewById(R.id.vehicles_canvas).setDrawingCacheEnabled(true);
         for (int i = 0; i < v.length(); i++) {
             JSONObject veiculo = v.optJSONObject(i);
             // cria os veiculos
             createVehicle(veiculo.optInt("model"),veiculo.optDouble("width"),veiculo.optDouble("length"),veiculo);
         }
+        findViewById(R.id.vehicles_canvas).invalidate();
     }
 
     public void exlog(String text, int line){
@@ -1592,6 +1646,20 @@ public class CsiActivity extends AppCompatActivity {
                 case VehicleFix.ONIBUS:
                 case VehicleFix.MOTO:
                     layout = (ViewGroup) inflater.inflate(R.layout.form_vehicle_data, collection, false);
+                    if(vehicle.optString("placa").length()>0){
+                        Pattern p = Pattern.compile("(\\w{3})(\\d{4})");
+                        Matcher m = p.matcher(vehicle.optString("placa"));
+                        if(m.matches()) {
+                            ((TextView) layout.findViewById(R.id.placa_letras)).setText(m.group(1));
+                            ((TextView) layout.findViewById(R.id.placa_numeros)).setText(m.group(2));
+                        }else{
+                            ((CheckedTextView)layout.findViewById(R.id.is_placa_padrao)).setChecked(false);
+                            layout.findViewById(R.id.placa_padrao_layout).setVisibility(View.GONE);
+                            layout.findViewById(R.id.placa_text).setVisibility(View.VISIBLE);
+                            ((TextView) layout.findViewById(R.id.placa_text)).setText(vehicle.optString("placa"));
+                        }
+                    }
+                    placaTrick(layout);
                     ((EditText)layout.findViewById(R.id.placa_text)).setText(vehicle.optString("placa"));
                     ((EditText)layout.findViewById(R.id.marca_text)).setText(vehicle.optString("marca"));
                     ((EditText)layout.findViewById(R.id.municipio_text)).setText(vehicle.optString("municipio"));
@@ -1809,7 +1877,11 @@ public class CsiActivity extends AppCompatActivity {
                             case VehicleFix.CAMINHAO:
                             case VehicleFix.ONIBUS:
                             case VehicleFix.MOTO:
-                                vehicle.put("placa", ((EditText) finalLayout.findViewById(R.id.placa_text)).getText());
+                                if(((CheckedTextView)finalLayout.findViewById(R.id.is_placa_padrao)).isChecked()){
+                                    vehicle.put("placa", String.format("%s%s",new String[]{((EditText) finalLayout.findViewById(R.id.placa_letras)).getText().toString(),((EditText) finalLayout.findViewById(R.id.placa_numeros)).getText().toString()}));
+                                }else {
+                                    vehicle.put("placa", ((EditText) finalLayout.findViewById(R.id.placa_text)).getText());
+                                }
                                 vehicle.put("marca", ((EditText) finalLayout.findViewById(R.id.marca_text)).getText());
                                 vehicle.put("municipio", ((EditText) finalLayout.findViewById(R.id.municipio_text)).getText());
                                 vehicle.put("uf", ((Spinner) finalLayout.findViewById(R.id.uf_spinner)).getSelectedItem().toString());

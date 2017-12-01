@@ -32,6 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
         <RelativeLayout
+            android:background="#0000ff00"
             android:id="@+id/vehicles_canvas"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
