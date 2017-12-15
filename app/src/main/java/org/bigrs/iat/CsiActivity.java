@@ -41,6 +41,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
@@ -77,6 +78,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -2003,6 +2005,18 @@ public class CsiActivity extends AppCompatActivity {
             }
         }
         return null;
+    }
+
+    private ArrayAdapter<String> getMarcas(){
+        try {
+            Resources res = getResources();
+            InputStream in_s = res.openRawResource(R.raw.marcas);
+            byte[] b = new byte[in_s.available()];
+            in_s.read(b);
+            JSONObject jm = new JSONObject(new String(b));
+        }catch (JSONException e) {} catch (IOException e1) {}
+        return new ArrayAdapter<String>
+                (this, android.R.layout.select_dialog_item, marcas);
     }
 
 }
