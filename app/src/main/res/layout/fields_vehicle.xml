@@ -92,15 +92,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:text="@string/marca"
+            android:text="@string/marca_modelo"
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content" />
-        <EditText
-            android:id="@+id/marca_text"
+        <AutoCompleteTextView
+            android:id="@+id/marca_text_auto"
             android:layout_width="0dp"
             android:layout_weight="4"
             android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/marca_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="X" />
+    </LinearLayout>
+    <LinearLayout
+        android:padding="8dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="@string/modelo"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content" />
+        <AutoCompleteTextView
+            android:id="@+id/modelo_text_auto"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/modelo_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="X" />
     </LinearLayout>
     <LinearLayout
         android:padding="8dp"

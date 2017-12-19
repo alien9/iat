@@ -46,7 +46,7 @@
     <string name="metro">m</string>
     <string name="largura">Largura</string>
     <string name="placa">Placa</string>
-    <string name="marca">Marca / modelo</string>
+    <string name="marca_modelo">Marca / modelo</string>
     <string name="tipo_de_obstaculo">Obstáculo</string>
     <string name="mapa">Mapa</string>
     <string name="items">Itens</string>
@@ -133,6 +133,7 @@
     <string name="grande">Grande</string>
     <string name="medio">Médio</string>
     <string name="padrao">(padrão)</string>
+    <string name="modelo">Modelo</string>
     <string-array name="vehicle_type">
         <item>Auto</item>
         <item>Caminhão</item>

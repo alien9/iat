@@ -42,6 +42,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
@@ -95,9 +96,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import static android.R.attr.breadCrumbShortTitle;
-import static android.R.attr.id;
-
 /**
  * Created by tiago on 27/03/17.
  */
@@ -126,6 +124,8 @@ public class CsiActivity extends AppCompatActivity {
     private JSONArray paths=new JSONArray();
     private int croqui_size;
     private boolean gps;
+    private Hashtable<String,ArrayList> modelos;
+    private ArrayList<String> todos;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -415,7 +415,6 @@ public class CsiActivity extends AppCompatActivity {
                 ((VehicleFix)getSelectedVehicle()).vira();
             }
         });
-
 //        if((vehicles.length()>0)||(paths.length()>0))
 //            ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
     }
@@ -677,11 +676,13 @@ public class CsiActivity extends AppCompatActivity {
                                 });
                             }
                             int tipo_veiculo= ((Spinner)v.findViewById(R.id.tipo_veiculo_spinner)).getSelectedItemPosition();
-                            String marca= String.valueOf(((EditText)v.findViewById(R.id.marca_text)).getText());
+                            String marca= String.valueOf(((EditText)v.findViewById(R.id.marca_text_auto)).getText());
+                            String modelo= String.valueOf(((EditText)v.findViewById(R.id.modelo_text_auto)).getText());
                             JSONObject d=new JSONObject();
                             try {
                                 d.put("placa",placa);
                                 d.put("marca",marca);
+                                d.put("modelo",modelo);
                                 d.put("municipio", ((EditText) v.findViewById(R.id.municipio_text)).getText());
                                 d.put("uf", ((Spinner) v.findViewById(R.id.uf_spinner)).getSelectedItem().toString());
 
@@ -689,6 +690,8 @@ public class CsiActivity extends AppCompatActivity {
                                 d.put("tipo_veiculo",String.valueOf(((Spinner)v.findViewById(R.id.tipo_veiculo_spinner)).getSelectedItem()));
                                 d.put("label",getNextLabel());
                             } catch (JSONException ignored) {}
+
+
                             /*
 <item>Auto</item>
 <item>Caminhão</item>
@@ -775,9 +778,46 @@ public class CsiActivity extends AppCompatActivity {
                 break;
             case R.layout.fields_vehicle:
                 placaTrick(v);
+                marcaTrick(v);
                 break;
         }
         builder.create().show();
+    }
+
+    private void marcaTrick(final View v) {
+        v.findViewById(R.id.marca_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((EditText)v.findViewById(R.id.marca_text_auto)).setText("");
+            }
+        });
+        v.findViewById(R.id.modelo_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((EditText)v.findViewById(R.id.modelo_text_auto)).setText("");
+            }
+        });
+        ((AutoCompleteTextView)v.findViewById(R.id.marca_text_auto)).setAdapter(getMarcas());
+        ((EditText)v.findViewById(R.id.marca_text_auto)).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                setModelos(v);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
+    private void setModelos(View v) {
+        ((AutoCompleteTextView)v.findViewById(R.id.modelo_text_auto)).setAdapter(getModelos(((TextView)v.findViewById(R.id.marca_text_auto)).getText().toString()));
     }
 
     private void placaTrick(final View v) {
@@ -1662,8 +1702,10 @@ public class CsiActivity extends AppCompatActivity {
                         }
                     }
                     placaTrick(layout);
+                    marcaTrick(layout);
                     ((EditText)layout.findViewById(R.id.placa_text)).setText(vehicle.optString("placa"));
-                    ((EditText)layout.findViewById(R.id.marca_text)).setText(vehicle.optString("marca"));
+                    ((EditText)layout.findViewById(R.id.marca_text_auto)).setText(vehicle.optString("marca"));
+                    ((EditText)layout.findViewById(R.id.modelo_text_auto)).setText(vehicle.optString("modelo"));
                     ((EditText)layout.findViewById(R.id.municipio_text)).setText(vehicle.optString("municipio"));
                     ((TextView)layout.findViewById(R.id.tipo_veiculo_text)).setText(vehicle.optString("tipo_veiculo"));
                     layout.findViewById(R.id.veiculo_tipo_read).setVisibility(View.VISIBLE);
@@ -1884,7 +1926,8 @@ public class CsiActivity extends AppCompatActivity {
                                 }else {
                                     vehicle.put("placa", ((EditText) finalLayout.findViewById(R.id.placa_text)).getText());
                                 }
-                                vehicle.put("marca", ((EditText) finalLayout.findViewById(R.id.marca_text)).getText());
+                                vehicle.put("marca", ((EditText) finalLayout.findViewById(R.id.marca_text_auto)).getText());
+                                vehicle.put("modelo", ((EditText) finalLayout.findViewById(R.id.modelo_text_auto)).getText());
                                 vehicle.put("municipio", ((EditText) finalLayout.findViewById(R.id.municipio_text)).getText());
                                 vehicle.put("uf", ((Spinner) finalLayout.findViewById(R.id.uf_spinner)).getSelectedItem().toString());
                                 ViewGroup pes = ((ViewGroup) finalLayout.findViewById(R.id.pessoas_layout));
@@ -2008,15 +2051,44 @@ public class CsiActivity extends AppCompatActivity {
     }
 
     private ArrayAdapter<String> getMarcas(){
+        modelos=new Hashtable<>();
+        todos=new ArrayList();
         try {
             Resources res = getResources();
             InputStream in_s = res.openRawResource(R.raw.marcas);
             byte[] b = new byte[in_s.available()];
             in_s.read(b);
             JSONObject jm = new JSONObject(new String(b));
-        }catch (JSONException e) {} catch (IOException e1) {}
-        return new ArrayAdapter<String>
-                (this, android.R.layout.select_dialog_item, marcas);
+            List<String> mks=new ArrayList<>();
+            Iterator<?> keys = jm.keys();
+            while( keys.hasNext() ) {
+                String key = (String)keys.next();
+                String nome= jm.optJSONObject(key).optString("NOME");
+                mks.add(nome);
+                if(!modelos.containsKey(nome)){
+                    modelos.put(nome,new ArrayList());
+                }
+                JSONArray m=jm.optJSONObject(key).optJSONArray("MODELS");
+                for(int i=0;i<m.length();i++){
+                    modelos.get(nome).add(m.optString(i));
+                    todos.add(m.optString(i));
+                }
+            }
+            return new ArrayAdapter<String>
+                    (this, android.R.layout.select_dialog_item, mks);
+        }catch (JSONException e) {
+            return null;
+        } catch (IOException e1) {
+            return null;
+        }
     }
-
+    private ArrayAdapter<String> getModelos(String marca){
+        if(modelos.containsKey(marca)) {
+            return new ArrayAdapter<String>
+                    (this, android.R.layout.select_dialog_item, modelos.get(marca));
+        }else{
+            return new ArrayAdapter<String>
+                    (this, android.R.layout.select_dialog_item, todos);
+        }
+    }
 }
