@@ -109,6 +109,7 @@ public class VehicleFix extends RelativeLayout {
                             break;
                         case MotionEvent.ACTION_MOVE:
                             if (!selectedVehicle) return true;
+                            Log.d("IAT","Movendo o veiculo sem mover o label");
                             moveVeiculo(view,motionEvent,x,y);
                             break;
                         case MotionEvent.ACTION_UP:

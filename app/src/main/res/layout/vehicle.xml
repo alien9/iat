@@ -31,4 +31,17 @@
             android:focusableInTouchMode="false"
             />
     </LinearLayout>
+        <TextView
+            android:fontFamily="monospace"
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:gravity="center"
+            android:id="@+id/vehicle_label_text"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:textSize="15dp"
+            android:text="K"
+            android:background="@drawable/round"
+            />
 </RelativeLayout>
