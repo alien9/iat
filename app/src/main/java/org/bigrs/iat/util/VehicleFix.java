@@ -25,15 +25,40 @@ import static android.view.MotionEvent.ACTION_OUTSIDE;
  */
 
 public class VehicleFix extends RelativeLayout {
-    public static final int CARRO = 0;
-    public static final int CAMINHAO = 1;
-    public static final int ONIBUS = 2;
-    public static final int MOTO = 3;
-    public static final int PEDESTRE = 4;
-    public static final int BICI = 5;
-    public static final int COLISAO = 6;
-    public static final int OBSTACULO = 7;
 
+    /*
+        <item>Auto</item>
+        <item>Caminhão</item>
+        <item>Caminhonete</item>
+        <item>Camioneta</item>
+        <item>Carroça</item>
+        <item>Micro Ônibus</item>
+        <item>Moto</item>
+        <item>Ônibus</item>
+        <item>Reboque</item>
+        <item>Semi Reboque</item>
+        <item>Taxi</item>
+        <item>Trailer</item>
+        <item>Viatura</item>
+    * */
+
+    public static final int AUTO = 0;
+    public static final int CAMINHAO = 1;
+    public static final int CAMINHONETE=2;
+    public static final int CAMIONETA=3;
+    public static final int CARROCA=4;
+    public static final int MICROONIBUS=5;
+    public static final int MOTO = 6;
+    public static final int ONIBUS = 7;
+    public static final int REBOQUE=8;
+    public static final int SEMI=9;
+    public static final int TAXI=10;
+    public static final int TRAILER=11;
+    public static final int VIATURA=12;
+    public static final int PEDESTRE = 13;
+    public static final int BICI = 14;
+    public static final int COLISAO = 15;
+    public static final int OBSTACULO = 16;
     private float width;
     private float height;
     private Context context;
@@ -222,7 +247,7 @@ public class VehicleFix extends RelativeLayout {
     private void setRoll(int roll) {
         View body = this.findViewById(R.id.vehicle_body);
         switch(model){
-            case CARRO:
+            case AUTO:
                 switch(roll) {
                     case 0:
                         body.setBackground(ContextCompat.getDrawable(context, R.drawable.carro_000));
@@ -296,13 +321,111 @@ public class VehicleFix extends RelativeLayout {
                         body.setBackground(ContextCompat.getDrawable(context,R.drawable.truck_090));
                         break;
                     case 2:
-                        body.setBackground(ContextCompat.getDrawable(context,R.drawable.truck_000));
+                        body.setBackground(ContextCompat.getDrawable(context,R.drawable.truck_180));
                         break;
                     case 3:
                         body.setBackground(ContextCompat.getDrawable(context,R.drawable.truck_270));
                         break;
                 }
                 break;
+            case CAMIONETA:
+                switch(roll){
+                    case 0:
+                        body.setBackground(ContextCompat.getDrawable(context,R.drawable.camioneta_000));
+                        break;
+                    case 1:
+                        body.setBackground(ContextCompat.getDrawable(context,R.drawable.camioneta_090));
+                        break;
+                    case 2:
+                        body.setBackground(ContextCompat.getDrawable(context,R.drawable.camioneta_180));
+                        break;
+                    case 3:
+                        body.setBackground(ContextCompat.getDrawable(context,R.drawable.camioneta_270));
+                        break;
+                }
+                break;
+            case SEMI:
+                switch(roll){
+                    case 0:
+                        body.setBackground(ContextCompat.getDrawable(context,R.drawable.semi_000));
+                        break;
+                    case 1:
+                        body.setBackground(ContextCompat.getDrawable(context,R.drawable.semi_090));
+                        break;
+                    case 2:
+                        body.setBackground(ContextCompat.getDrawable(context,R.drawable.semi_180));
+                        break;
+                    case 3:
+                        body.setBackground(ContextCompat.getDrawable(context,R.drawable.semi_270));
+                        break;
+                }
+                break;
+            case CARROCA:
+                switch(roll){
+                    case 0:
+                        body.setBackground(ContextCompat.getDrawable(context,R.drawable.carroca_000));
+                        break;
+                    case 1:
+                        body.setBackground(ContextCompat.getDrawable(context,R.drawable.carroca_090));
+                        break;
+                    case 2:
+                        body.setBackground(ContextCompat.getDrawable(context,R.drawable.carroca_000));
+                        break;
+                    case 3:
+                        body.setBackground(ContextCompat.getDrawable(context,R.drawable.carroca_270));
+                        break;
+                }
+                break;
+            case TAXI:
+                switch(roll) {
+                    case 0:
+                        body.setBackground(ContextCompat.getDrawable(context, R.drawable.taxi_000));
+                        break;
+                    case 1:
+                        body.setBackground(ContextCompat.getDrawable(context, R.drawable.taxi_090));
+                        break;
+                    case 2:
+                        body.setBackground(ContextCompat.getDrawable(context, R.drawable.taxi_180));
+                        break;
+                    case 3:
+                        body.setBackground(ContextCompat.getDrawable(context, R.drawable.taxi_270));
+                        break;
+                }
+                break;
+            case TRAILER:
+                switch(roll) {
+                    case 0:
+                        body.setBackground(ContextCompat.getDrawable(context, R.drawable.trailer_000));
+                        break;
+                    case 1:
+                        body.setBackground(ContextCompat.getDrawable(context, R.drawable.trailer_090));
+                        break;
+                    case 2:
+                        body.setBackground(ContextCompat.getDrawable(context, R.drawable.trailer_180));
+                        break;
+                    case 3:
+                        body.setBackground(ContextCompat.getDrawable(context, R.drawable.trailer_270));
+                        break;
+                }
+                break;
+            case VIATURA:
+                switch(roll) {
+                    case 0:
+                        body.setBackground(ContextCompat.getDrawable(context, R.drawable.viatura_000));
+                        break;
+                    case 1:
+                        body.setBackground(ContextCompat.getDrawable(context, R.drawable.viatura_090));
+                        break;
+                    case 2:
+                        body.setBackground(ContextCompat.getDrawable(context, R.drawable.viatura_180));
+                        break;
+                    case 3:
+                        body.setBackground(ContextCompat.getDrawable(context, R.drawable.viatura_270));
+                        break;
+                }
+                break;
+
+
             case PEDESTRE:
                 body.setBackground(ContextCompat.getDrawable(context,R.drawable.pessoa));
                 break;

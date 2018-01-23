@@ -307,7 +307,7 @@ public class CsiActivity extends AppCompatActivity {
                         plot(R.layout.fields_vehicle);
                         break;
                     case R.id.tools_carro:
-                        createVehicle(VehicleFix.CARRO,1.9,3.8);
+                        createVehicle(VehicleFix.AUTO,1.9,3.8);
                         Log.d("IAT","deve ter criado");
                         break;
                     case R.id.tools_moto:
@@ -731,27 +731,46 @@ public class CsiActivity extends AppCompatActivity {
 <item>Viatura</item>*/
 
                             switch(tipo_veiculo){
-                                case 0: //carro
-                                case 10: //taxi
-                                case 12: //viatura
-                                    createVehicle(VehicleFix.CARRO,1.9,3.8,d);
+                                case VehicleFix.AUTO: //carro
+                                    createVehicle(VehicleFix.AUTO,1.9,3.8,d);
                                     break;
-                                case 1: //caminhao
+                                case VehicleFix.CAMINHAO: //caminhao
                                     createVehicle(VehicleFix.CAMINHAO,3.9,11.4,d);
                                     break;
-                                case 2: //caminhonete
-                                case 3:
-                                    createVehicle(VehicleFix.CAMINHAO,3.6,9.4,d);
+                                case VehicleFix.CAMINHONETE:
+                                    createVehicle(VehicleFix.CAMINHONETE,3.9,11.4,d);
                                     break;
-                                case 5: //microonibus
-                                    createVehicle(VehicleFix.ONIBUS,3.6,8.4,d);
+                                case VehicleFix.CAMIONETA:
+                                    createVehicle(VehicleFix.CAMIONETA,3.9,7.6,d);
                                     break;
-                                case 6:
+                                case VehicleFix.CARROCA:
+                                    createVehicle(VehicleFix.CARROCA,1.7,2.4,d);
+                                    break;
+                                case VehicleFix.MICROONIBUS:
+                                    createVehicle(VehicleFix.MICROONIBUS,3.6,8.4,d);
+                                    break;
+                                case VehicleFix.MOTO:
                                     createVehicle(VehicleFix.MOTO,2.8,4.4,d);
                                     break;
-                                case 7: //onibus
+                                case VehicleFix.ONIBUS:
                                     createVehicle(VehicleFix.ONIBUS,3.8,10.4,d);
                                     break;
+                                case VehicleFix.REBOQUE:
+                                    createVehicle(VehicleFix.REBOQUE,2.3,5.8,d);
+                                    break;
+                                case VehicleFix.SEMI:
+                                    createVehicle(VehicleFix.SEMI,4.1,22.4,d);
+                                    break;
+                                case VehicleFix.TAXI:
+                                    createVehicle(VehicleFix.TAXI,1.9,3.8,d);
+                                    break;
+                                case VehicleFix.TRAILER:
+                                    createVehicle(VehicleFix.TRAILER,2.3,5.8,d);
+                                    break;
+                                case VehicleFix.VIATURA:
+                                    createVehicle(VehicleFix.VIATURA,1.9,3.8,d);
+                                    break;
+
                             }
                         }catch(NumberFormatException xxx){
                             return;
@@ -922,7 +941,16 @@ public class CsiActivity extends AppCompatActivity {
         int label=1;
         int[] kinds=new int[]{
                 VehicleFix.BICI,
-                VehicleFix.CARRO,
+                VehicleFix.SEMI,
+                VehicleFix.REBOQUE,
+                VehicleFix.MICROONIBUS,
+                VehicleFix.ONIBUS,
+                VehicleFix.TRAILER,
+                VehicleFix.VIATURA,
+                VehicleFix.TAXI,
+                VehicleFix.CAMIONETA,
+                VehicleFix.CAMINHONETE,
+                VehicleFix.AUTO,
                 VehicleFix.CAMINHAO,
                 VehicleFix.ONIBUS,
                 VehicleFix.MOTO
@@ -1771,7 +1799,7 @@ public class CsiActivity extends AppCompatActivity {
             ViewGroup layout = null;
             JSONObject vehicle = vehicles.optJSONObject(position);
             switch(vehicle.optInt("model")){
-                case VehicleFix.CARRO:
+                case VehicleFix.AUTO:
                 case VehicleFix.CAMINHAO:
                 case VehicleFix.ONIBUS:
                 case VehicleFix.MOTO:
@@ -2005,7 +2033,7 @@ public class CsiActivity extends AppCompatActivity {
                     try {
                         JSONObject vehicle = vehicles.optJSONObject(position);
                         switch (vehicle.optInt("model")) {
-                            case VehicleFix.CARRO:
+                            case VehicleFix.AUTO:
                             case VehicleFix.CAMINHAO:
                             case VehicleFix.ONIBUS:
                             case VehicleFix.MOTO:
