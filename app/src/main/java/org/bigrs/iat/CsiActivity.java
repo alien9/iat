@@ -738,7 +738,7 @@ public class CsiActivity extends AppCompatActivity {
                                     createVehicle(VehicleFix.CAMINHAO,3.9,11.4,d);
                                     break;
                                 case VehicleFix.CAMINHONETE:
-                                    createVehicle(VehicleFix.CAMINHONETE,3.9,11.4,d);
+                                    createVehicle(VehicleFix.CAMINHONETE,2.9,6.0,d);
                                     break;
                                 case VehicleFix.CAMIONETA:
                                     createVehicle(VehicleFix.CAMIONETA,3.9,7.6,d);

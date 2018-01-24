@@ -328,6 +328,22 @@ public class VehicleFix extends RelativeLayout {
                         break;
                 }
                 break;
+            case CAMINHONETE:
+                switch(roll){
+                    case 0:
+                        body.setBackground(ContextCompat.getDrawable(context,R.drawable.suv_000));
+                        break;
+                    case 1:
+                        body.setBackground(ContextCompat.getDrawable(context,R.drawable.suv_090));
+                        break;
+                    case 2:
+                        body.setBackground(ContextCompat.getDrawable(context,R.drawable.suv_180));
+                        break;
+                    case 3:
+                        body.setBackground(ContextCompat.getDrawable(context,R.drawable.suv_270));
+                        break;
+                }
+                break;
             case CAMIONETA:
                 switch(roll){
                     case 0:
