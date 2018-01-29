@@ -434,12 +434,12 @@ public class CsiActivity extends AppCompatActivity {
         //saveVehicles();
         setCurrentMode(VEHICLES);
         new android.os.Handler().postDelayed(
-            new Runnable() {
-                public void run() {
-                    setCurrentMode(MAP);
-                }
-            },
-        1000);
+                new Runnable() {
+                    public void run() {
+                        setCurrentMode(MAP);
+                    }
+                },
+                1000);
         //((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
         //((RadioButton)findViewById(R.id.radio_mapa)).setChecked(true);
     }
@@ -1801,6 +1801,15 @@ public class CsiActivity extends AppCompatActivity {
             switch(vehicle.optInt("model")){
                 case VehicleFix.AUTO:
                 case VehicleFix.CAMINHAO:
+                case VehicleFix.CAMINHONETE:
+                case VehicleFix.CAMIONETA:
+                case VehicleFix.TRAILER:
+                case VehicleFix.SEMI:
+                case VehicleFix.VIATURA:
+                case VehicleFix.TAXI:
+                case VehicleFix.REBOQUE:
+                case VehicleFix.MICROONIBUS:
+                case VehicleFix.CARROCA:
                 case VehicleFix.ONIBUS:
                 case VehicleFix.MOTO:
                     layout = (ViewGroup) inflater.inflate(R.layout.form_vehicle_data, collection, false);
@@ -1883,7 +1892,33 @@ public class CsiActivity extends AppCompatActivity {
                                 case VehicleFix.MOTO:
                                     ((ImageView)v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.motorcycle_000,null));
                                     break;
-
+                                case VehicleFix.CAMIONETA:
+                                    ((ImageView)v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.camioneta_000,null));
+                                    break;
+                                case VehicleFix.CAMINHONETE:
+                                    ((ImageView)v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.suv_000,null));
+                                    break;
+                                case VehicleFix.MICROONIBUS:
+                                    ((ImageView)v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.microbus_000,null));
+                                    break;
+                                case VehicleFix.VIATURA:
+                                    ((ImageView)v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.viatura_000,null));
+                                    break;
+                                case VehicleFix.TAXI:
+                                    ((ImageView)v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.taxi_000,null));
+                                    break;
+                                case VehicleFix.TRAILER:
+                                    ((ImageView)v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.trailer_000,null));
+                                    break;
+                                case VehicleFix.SEMI:
+                                    ((ImageView)v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.semi_000,null));
+                                    break;
+                                case VehicleFix.REBOQUE:
+                                    ((ImageView)v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.reboque_000,null));
+                                    break;
+                                case VehicleFix.BICI:
+                                    ((ImageView)v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.bici000,null));
+                                    break;
                             }
                             ((Panel)v.findViewById(R.id.damage_panel)).setLigado(true);
                             ((Panel)v.findViewById(R.id.damage_panel)).setStyle(Panel.DAMAGE,40);
