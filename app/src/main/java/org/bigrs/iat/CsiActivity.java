@@ -43,6 +43,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
@@ -667,127 +668,7 @@ public class CsiActivity extends AppCompatActivity {
         }
         final View v=inflater.inflate(tipo, null);
         builder.setView(v);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialog, int which){
-                switch(tipo){
-                    case R.layout.fields_obstaculo:
-                        try {
-                            int largura = Integer.parseInt(((TextView) v.findViewById(R.id.largura_text)).getText().toString());
-                            int comprimento = Integer.parseInt(((TextView) v.findViewById(R.id.comprimento_text)).getText().toString());
-                            JSONObject d=new JSONObject();
-                            try {
-                                d.put("comprimento",comprimento);
-                                d.put("largura",largura);
-                                d.put("nome",((EditText) v.findViewById(R.id.tipo_obstaculo_text)).getText().toString());
-                            } catch (JSONException ignored) {
-                            }
-
-                            if (largura > 0 && comprimento > 0) {
-                                createVehicle(VehicleFix.OBSTACULO, largura, comprimento,d);
-                            }
-                        }catch(NumberFormatException xxx){
-                            return;
-                        }
-                        break;
-                    case R.layout.fields_vehicle:
-                        try {
-                            String placa= String.valueOf(((EditText)v.findViewById(R.id.placa_text)).getText());
-                            if(((CheckedTextView)v.findViewById(R.id.is_placa_padrao)).isChecked()){
-                                placa=String.format("%s%s",new String[]{
-                                        String.valueOf(((EditText)v.findViewById(R.id.placa_letras)).getText()),
-                                        String.valueOf(((EditText)v.findViewById(R.id.placa_numeros)).getText())
-                                });
-                            }
-                            int tipo_veiculo= ((Spinner)v.findViewById(R.id.tipo_veiculo_spinner)).getSelectedItemPosition();
-                            String marca= String.valueOf(((EditText)v.findViewById(R.id.marca_text_auto)).getText());
-                            String modelo= String.valueOf(((EditText)v.findViewById(R.id.modelo_text_auto)).getText());
-                            JSONObject d=new JSONObject();
-                            try {
-                                d.put("placa",placa);
-                                d.put("marca",marca);
-                                d.put("modelo",modelo);
-                                d.put("municipio", ((EditText) v.findViewById(R.id.municipio_text)).getText());
-                                d.put("uf", ((Spinner) v.findViewById(R.id.uf_spinner)).getSelectedItem().toString());
-
-                                d.put("tipo_veiculo_id",tipo_veiculo);
-                                d.put("tipo_veiculo",String.valueOf(((Spinner)v.findViewById(R.id.tipo_veiculo_spinner)).getSelectedItem()));
-                            } catch (JSONException ignored) {}
-
-
-                            /*
-<item>Auto</item>
-<item>Caminhão</item>
-<item>Caminhonete</item>
-<item>Camioneta</item>
-<item>Carroça</item>
-<item>Micro Ônibus</item>
-<item>Moto</item>
-<item>Ônibus</item>
-<item>Reboque</item>
-<item>Semi Reboque</item>
-<item>Taxi</item>
-<item>Trailer</item>
-<item>Viatura</item>*/
-
-                            switch(tipo_veiculo){
-                                case VehicleFix.AUTO: //carro
-                                    createVehicle(VehicleFix.AUTO,1.9,3.8,d);
-                                    break;
-                                case VehicleFix.CAMINHAO: //caminhao
-                                    createVehicle(VehicleFix.CAMINHAO,3.9,11.4,d);
-                                    break;
-                                case VehicleFix.CAMINHONETE:
-                                    createVehicle(VehicleFix.CAMINHONETE,2.9,6.0,d);
-                                    break;
-                                case VehicleFix.CAMIONETA:
-                                    createVehicle(VehicleFix.CAMIONETA,3.9,7.6,d);
-                                    break;
-                                case VehicleFix.CARROCA:
-                                    createVehicle(VehicleFix.CARROCA,1.7,2.4,d);
-                                    break;
-                                case VehicleFix.MICROONIBUS:
-                                    createVehicle(VehicleFix.MICROONIBUS,3.6,8.4,d);
-                                    break;
-                                case VehicleFix.MOTO:
-                                    createVehicle(VehicleFix.MOTO,2.8,4.4,d);
-                                    break;
-                                case VehicleFix.ONIBUS:
-                                    createVehicle(VehicleFix.ONIBUS,3.8,10.4,d);
-                                    break;
-                                case VehicleFix.REBOQUE:
-                                    createVehicle(VehicleFix.REBOQUE,2.3,5.8,d);
-                                    break;
-                                case VehicleFix.SEMI:
-                                    createVehicle(VehicleFix.SEMI,4.1,22.4,d);
-                                    break;
-                                case VehicleFix.TAXI:
-                                    createVehicle(VehicleFix.TAXI,1.9,3.8,d);
-                                    break;
-                                case VehicleFix.TRAILER:
-                                    createVehicle(VehicleFix.TRAILER,2.3,5.8,d);
-                                    break;
-                                case VehicleFix.VIATURA:
-                                    createVehicle(VehicleFix.VIATURA,1.9,3.8,d);
-                                    break;
-
-                            }
-                        }catch(NumberFormatException xxx){
-                            return;
-                        }
-                        break;
-                    case R.layout.fields_colisao:
-                        JSONObject d=new JSONObject();
-                        try {
-                            d.put("tipo_impacto_id",((Spinner)v.findViewById(R.id.impacto_spinner)).getSelectedItemPosition());
-                            d.put("tipo_impacto",String.valueOf(((Spinner)v.findViewById(R.id.impacto_spinner)).getSelectedItem()));
-                        } catch (JSONException ignored) {}
-                        createVehicle(VehicleFix.COLISAO,4.0,4.0,d);
-                }
-                // Handle click on positive button here.
-                dialog.dismiss();
-            }
-        });
+        builder.setPositiveButton("OK", null);
         builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialog, int which){
@@ -805,11 +686,17 @@ public class CsiActivity extends AppCompatActivity {
 
                     @Override
                     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                        double valor=Double.parseDouble(charSequence.toString());
-                        if(valor<0)
-                            xu.setText("1");
-                        if(valor>8)
-                            xu.setText("8");
+                        String vu = charSequence.toString();
+                        double valor;
+                        try {
+                            valor = Double.parseDouble(vu);
+                        }catch(NumberFormatException exx){
+                            return;
+                        }
+                        if(valor<=0)
+                            xu.setText("");
+                        if(valor>10)
+                            xu.setText("10");
                     }
                     @Override
                     public void afterTextChanged(Editable editable) {
@@ -822,7 +709,136 @@ public class CsiActivity extends AppCompatActivity {
                 marcaTrick(v);
                 break;
         }
-        builder.create().show();
+        final AlertDialog di = builder.create();
+        di.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+                Button button = ((AlertDialog) di).getButton(AlertDialog.BUTTON_POSITIVE);
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // TODO Do something
+                        switch(tipo){
+                            case R.layout.fields_obstaculo:
+                                try {
+                                    double largura = Double.parseDouble(((TextView) v.findViewById(R.id.largura_text)).getText().toString());
+                                    double comprimento = Double.parseDouble(((TextView) v.findViewById(R.id.comprimento_text)).getText().toString());
+                                    JSONObject d=new JSONObject();
+                                    try {
+                                        d.put("comprimento",comprimento);
+                                        d.put("largura",largura);
+                                        d.put("nome",((EditText) v.findViewById(R.id.tipo_obstaculo_text)).getText().toString());
+                                    } catch (JSONException ignored) {
+                                    }
+
+                                    if (largura > 0 && comprimento > 0) {
+                                        createVehicle(VehicleFix.OBSTACULO, largura, comprimento,d);
+                                    }
+                                }catch(NumberFormatException xxx){
+                                    return;
+                                }
+                                break;
+                            case R.layout.fields_vehicle:
+                                try {
+                                    String placa= String.valueOf(((EditText)v.findViewById(R.id.placa_text)).getText());
+                                    if(((CheckedTextView)v.findViewById(R.id.is_placa_padrao)).isChecked()){
+                                        placa=String.format("%s%s",new String[]{
+                                                String.valueOf(((EditText)v.findViewById(R.id.placa_letras)).getText()),
+                                                String.valueOf(((EditText)v.findViewById(R.id.placa_numeros)).getText())
+                                        });
+                                    }
+                                    int tipo_veiculo= ((Spinner)v.findViewById(R.id.tipo_veiculo_spinner)).getSelectedItemPosition();
+                                    String marca= String.valueOf(((EditText)v.findViewById(R.id.marca_text_auto)).getText());
+                                    String modelo= String.valueOf(((EditText)v.findViewById(R.id.modelo_text_auto)).getText());
+                                    JSONObject d=new JSONObject();
+                                    try {
+                                        d.put("placa",placa);
+                                        d.put("marca",marca);
+                                        d.put("modelo",modelo);
+                                        d.put("municipio", ((EditText) v.findViewById(R.id.municipio_text)).getText());
+                                        d.put("uf", ((Spinner) v.findViewById(R.id.uf_spinner)).getSelectedItem().toString());
+
+                                        d.put("tipo_veiculo_id",tipo_veiculo);
+                                        d.put("tipo_veiculo",String.valueOf(((Spinner)v.findViewById(R.id.tipo_veiculo_spinner)).getSelectedItem()));
+                                    } catch (JSONException ignored) {}
+
+
+                            /*
+<item>Auto</item>
+<item>Caminhão</item>
+<item>Caminhonete</item>
+<item>Camioneta</item>
+<item>Carroça</item>
+<item>Micro Ônibus</item>
+<item>Moto</item>
+<item>Ônibus</item>
+<item>Reboque</item>
+<item>Semi Reboque</item>
+<item>Taxi</item>
+<item>Trailer</item>
+<item>Viatura</item>*/
+
+                                    switch(tipo_veiculo){
+                                        case VehicleFix.AUTO: //carro
+                                            createVehicle(VehicleFix.AUTO,1.9,3.8,d);
+                                            break;
+                                        case VehicleFix.CAMINHAO: //caminhao
+                                            createVehicle(VehicleFix.CAMINHAO,3.9,11.4,d);
+                                            break;
+                                        case VehicleFix.CAMINHONETE:
+                                            createVehicle(VehicleFix.CAMINHONETE,2.9,6.0,d);
+                                            break;
+                                        case VehicleFix.CAMIONETA:
+                                            createVehicle(VehicleFix.CAMIONETA,3.9,7.6,d);
+                                            break;
+                                        case VehicleFix.CARROCA:
+                                            createVehicle(VehicleFix.CARROCA,1.7,2.4,d);
+                                            break;
+                                        case VehicleFix.MICROONIBUS:
+                                            createVehicle(VehicleFix.MICROONIBUS,3.6,8.4,d);
+                                            break;
+                                        case VehicleFix.MOTO:
+                                            createVehicle(VehicleFix.MOTO,2.8,4.4,d);
+                                            break;
+                                        case VehicleFix.ONIBUS:
+                                            createVehicle(VehicleFix.ONIBUS,3.8,10.4,d);
+                                            break;
+                                        case VehicleFix.REBOQUE:
+                                            createVehicle(VehicleFix.REBOQUE,2.3,5.8,d);
+                                            break;
+                                        case VehicleFix.SEMI:
+                                            createVehicle(VehicleFix.SEMI,4.1,22.4,d);
+                                            break;
+                                        case VehicleFix.TAXI:
+                                            createVehicle(VehicleFix.TAXI,1.9,3.8,d);
+                                            break;
+                                        case VehicleFix.TRAILER:
+                                            createVehicle(VehicleFix.TRAILER,2.3,5.8,d);
+                                            break;
+                                        case VehicleFix.VIATURA:
+                                            createVehicle(VehicleFix.VIATURA,1.9,3.8,d);
+                                            break;
+
+                                    }
+                                }catch(NumberFormatException xxx){
+                                    return;
+                                }
+                                break;
+                            case R.layout.fields_colisao:
+                                JSONObject d=new JSONObject();
+                                try {
+                                    d.put("tipo_impacto_id",((Spinner)v.findViewById(R.id.impacto_spinner)).getSelectedItemPosition());
+                                    d.put("tipo_impacto",String.valueOf(((Spinner)v.findViewById(R.id.impacto_spinner)).getSelectedItem()));
+                                } catch (JSONException ignored) {}
+                                createVehicle(VehicleFix.COLISAO,4.0,4.0,d);
+                        }
+                        //Dismiss once everything is OK.
+                        di.dismiss();
+                    }
+                });
+            }
+        });
+        di.show();
     }
 
 
@@ -2149,7 +2165,7 @@ public class CsiActivity extends AppCompatActivity {
                                 vehicle.put("envolvidos",involved);
                                 break;
                             case VehicleFix.OBSTACULO:
-
+                                vehicle.put("nome",((EditText) finalLayout.findViewById(R.id.tipo_obstaculo_text)).getText().toString());
                                 break;
                         }
                         if(finalLayout.findViewById(R.id.fatores_contribuintes_layout)!=null){
@@ -2181,6 +2197,7 @@ public class CsiActivity extends AppCompatActivity {
                         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                     }
+                    setSelectedVehicle(getSelectedVehicle());
                 }
             });
             collection.addView(layout);
