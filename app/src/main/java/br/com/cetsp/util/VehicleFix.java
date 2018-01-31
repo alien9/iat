@@ -1,4 +1,4 @@
-package org.bigrs.iat.util;
+package br.com.cetsp.util;
 
 import android.content.Context;
 import android.graphics.Point;
@@ -10,11 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import org.bigrs.iat.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import org.bigrs.iat.CsiActivity;
+import br.com.cetsp.CsiActivity;
+import br.com.cetsp.R;
 
 import static android.view.MotionEvent.ACTION_HOVER_ENTER;
 import static android.view.MotionEvent.ACTION_HOVER_MOVE;

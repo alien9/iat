@@ -18,10 +18,10 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.24" />
 
-    <org.bigrs.iat.Panel
+    <br.com.cetsp.Panel
         android:id="@+id/SurfaceView01"
         android:layout_width="wrap_content"
         android:layout_height="411dp"
         android:maxHeight="40dip">
-    </org.bigrs.iat.Panel>
+    </br.com.cetsp.Panel>
 </LinearLayout>

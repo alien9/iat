@@ -5,8 +5,8 @@ android {
     buildToolsVersion '25.0.0'
 
     defaultConfig {
-        applicationId "org.bigrs.iat"
-        minSdkVersion 21
+        applicationId "br.com.cetsp"
+        minSdkVersion 19
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"

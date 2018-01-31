@@ -1,11 +1,12 @@
-package org.bigrs.iat.util;
+package br.com.cetsp.util;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import org.bigrs.iat.R;
+import br.com.cetsp.R;
+
 
 /**
  * Created by tiago on 16/05/17.

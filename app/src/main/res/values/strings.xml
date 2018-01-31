@@ -46,7 +46,7 @@
     <string name="metro">m</string>
     <string name="largura">Largura</string>
     <string name="placa">Placa</string>
-    <string name="marca_modelo">Marca / modelo</string>
+    <string name="marca_modelo">Marca</string>
     <string name="tipo_de_obstaculo">Obstáculo</string>
     <string name="mapa">Mapa</string>
     <string name="items">Itens</string>

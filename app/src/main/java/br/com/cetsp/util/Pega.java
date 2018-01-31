@@ -1,4 +1,4 @@
-package org.bigrs.iat.util;
+package br.com.cetsp.util;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -7,8 +7,9 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
-import org.bigrs.iat.CsiActivity;
-import org.bigrs.iat.R;
+
+import br.com.cetsp.CsiActivity;
+import br.com.cetsp.R;
 
 import static android.view.MotionEvent.ACTION_MOVE;
 

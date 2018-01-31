@@ -1,4 +1,4 @@
-package org.bigrs.iat;
+package br.com.cetsp;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
-        <org.bigrs.iat.Panel
+        <br.com.cetsp.Panel
             android:id="@+id/drawing_panel"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -89,7 +89,7 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-        <org.bigrs.iat.util.Pega
+        <br.com.cetsp.util.Pega
             android:id="@+id/pegador"
             android:layout_height="match_parent"
             android:layout_width="match_parent" />

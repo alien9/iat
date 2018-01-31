@@ -1,4 +1,4 @@
-package org.bigrs.iat;
+package br.com.cetsp;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -15,6 +15,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Debug;
 import android.os.Environment;
@@ -57,7 +58,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.bigrs.iat.util.VehicleFix;
+import br.com.cetsp.util.VehicleFix;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -92,7 +94,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.bigrs.iat.util.Pega;
+import br.com.cetsp.util.Pega;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -1681,7 +1683,7 @@ public class CsiActivity extends AppCompatActivity {
             }
         } catch (JSONException e) {}
         label.setText(veiculo.optString("label"));
-        label.setY((size.y-pix)/2+labelOffset[1]);
+        label.setY(labelOffset[1]);
         vehicles.put(veiculo);
         setSelectedVehicle(v, true);
         v.invalidate();
@@ -1871,16 +1873,31 @@ public class CsiActivity extends AppCompatActivity {
                         Bitmap db= BitmapFactory.decodeByteArray(decoded, 0, decoded.length);
                         ((ImageView)finalLayout.findViewById(R.id.damage_image)).setImageBitmap(db);
                     }else{
-                        switch(vehicle.optInt("model")){
-                            case VehicleFix.CAMINHAO:
-                                ((ImageView)finalLayout.findViewById(R.id.damage_image)).setImageDrawable(getResources().getDrawable(R.drawable.truck_000,null));
-                                break;
-                            case VehicleFix.ONIBUS:
-                                ((ImageView)finalLayout.findViewById(R.id.damage_image)).setImageDrawable(getResources().getDrawable(R.drawable.bus_000,null));
-                                break;
-                            case VehicleFix.MOTO:
-                                ((ImageView)finalLayout.findViewById(R.id.damage_image)).setImageDrawable(getResources().getDrawable(R.drawable.motorcycle_000,null));
-                                break;
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            switch(vehicle.optInt("model")){
+                                case VehicleFix.CAMINHAO:
+                                    ((ImageView)finalLayout.findViewById(R.id.damage_image)).setImageDrawable(getResources().getDrawable(R.drawable.truck_000,null));
+                                    break;
+                                case VehicleFix.ONIBUS:
+                                    ((ImageView)finalLayout.findViewById(R.id.damage_image)).setImageDrawable(getResources().getDrawable(R.drawable.bus_000,null));
+                                    break;
+                                case VehicleFix.MOTO:
+                                    ((ImageView)finalLayout.findViewById(R.id.damage_image)).setImageDrawable(getResources().getDrawable(R.drawable.motorcycle_000,null));
+                                    break;
+                            }
+                        }else{
+                            switch(vehicle.optInt("model")){
+                                case VehicleFix.CAMINHAO:
+                                    ((ImageView)finalLayout.findViewById(R.id.damage_image)).setImageResource(R.drawable.truck_000);
+                                    break;
+                                case VehicleFix.ONIBUS:
+                                    ((ImageView)finalLayout.findViewById(R.id.damage_image)).setImageResource(R.drawable.bus_000);
+                                    break;
+                                case VehicleFix.MOTO:
+                                    ((ImageView)finalLayout.findViewById(R.id.damage_image)).setImageResource(R.drawable.motorcycle_000);
+                                    break;
+                            }
                         }
                     }
                     if(vehicle.has("dano")){
@@ -1898,43 +1915,45 @@ public class CsiActivity extends AppCompatActivity {
                             final LayoutInflater inflater = getLayoutInflater();
                             final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                             final View v=inflater.inflate(R.layout.damage, null);
-                            switch(model){
-                                case VehicleFix.CAMINHAO:
-                                    ((ImageView)v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.truck_000,null));
-                                    break;
-                                case VehicleFix.ONIBUS:
-                                    ((ImageView)v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.bus_000,null));
-                                    break;
-                                case VehicleFix.MOTO:
-                                    ((ImageView)v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.motorcycle_000,null));
-                                    break;
-                                case VehicleFix.CAMIONETA:
-                                    ((ImageView)v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.camioneta_000,null));
-                                    break;
-                                case VehicleFix.CAMINHONETE:
-                                    ((ImageView)v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.suv_000,null));
-                                    break;
-                                case VehicleFix.MICROONIBUS:
-                                    ((ImageView)v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.microbus_000,null));
-                                    break;
-                                case VehicleFix.VIATURA:
-                                    ((ImageView)v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.viatura_000,null));
-                                    break;
-                                case VehicleFix.TAXI:
-                                    ((ImageView)v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.taxi_000,null));
-                                    break;
-                                case VehicleFix.TRAILER:
-                                    ((ImageView)v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.trailer_000,null));
-                                    break;
-                                case VehicleFix.SEMI:
-                                    ((ImageView)v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.semi_000,null));
-                                    break;
-                                case VehicleFix.REBOQUE:
-                                    ((ImageView)v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.reboque_000,null));
-                                    break;
-                                case VehicleFix.BICI:
-                                    ((ImageView)v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.bici000,null));
-                                    break;
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                switch (model) {
+                                    case VehicleFix.CAMINHAO:
+                                        ((ImageView) v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.truck_000, null));
+                                        break;
+                                    case VehicleFix.ONIBUS:
+                                        ((ImageView) v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.bus_000, null));
+                                        break;
+                                    case VehicleFix.MOTO:
+                                        ((ImageView) v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.motorcycle_000, null));
+                                        break;
+                                    case VehicleFix.CAMIONETA:
+                                        ((ImageView) v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.camioneta_000, null));
+                                        break;
+                                    case VehicleFix.CAMINHONETE:
+                                        ((ImageView) v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.suv_000, null));
+                                        break;
+                                    case VehicleFix.MICROONIBUS:
+                                        ((ImageView) v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.microbus_000, null));
+                                        break;
+                                    case VehicleFix.VIATURA:
+                                        ((ImageView) v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.viatura_000, null));
+                                        break;
+                                    case VehicleFix.TAXI:
+                                        ((ImageView) v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.taxi_000, null));
+                                        break;
+                                    case VehicleFix.TRAILER:
+                                        ((ImageView) v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.trailer_000, null));
+                                        break;
+                                    case VehicleFix.SEMI:
+                                        ((ImageView) v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.semi_000, null));
+                                        break;
+                                    case VehicleFix.REBOQUE:
+                                        ((ImageView) v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.reboque_000, null));
+                                        break;
+                                    case VehicleFix.BICI:
+                                        ((ImageView) v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.bici000, null));
+                                        break;
+                                }
                             }
                             ((Panel)v.findViewById(R.id.damage_panel)).setLigado(true);
                             ((Panel)v.findViewById(R.id.damage_panel)).setStyle(Panel.DAMAGE,40);

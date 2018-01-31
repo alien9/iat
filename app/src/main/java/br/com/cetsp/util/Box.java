@@ -1,4 +1,4 @@
-package org.bigrs.iat.util;
+package br.com.cetsp.util;
 
 import android.content.Context;
 import android.graphics.Canvas;
