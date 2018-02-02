@@ -1,4 +1,4 @@
-package br.com.cetsp.util;
+package br.com.cetsp.iat.util;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -8,8 +8,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import br.com.cetsp.CsiActivity;
-import br.com.cetsp.R;
+import br.com.cetsp.iat.CsiActivity;
+import br.com.cetsp.iat.R;
 
 import static android.view.MotionEvent.ACTION_MOVE;
 

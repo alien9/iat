@@ -1,4 +1,4 @@
-package br.com.cetsp;
+package br.com.cetsp.iat;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -58,7 +58,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.ArrayUtils;
-import br.com.cetsp.util.VehicleFix;
+
+import br.com.cetsp.iat.R;
+import br.com.cetsp.iat.util.VehicleFix;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -94,7 +96,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import br.com.cetsp.util.Pega;
+import br.com.cetsp.iat.util.Pega;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -149,7 +151,8 @@ public class CsiActivity extends AppCompatActivity {
         setContentView(R.layout.csi);
         float ls = convertDpToPixel(LABEL_SIZE);
         labelOffset=new int[]{
-                (int) (-1*ls/2), (int) ls
+                //(int) (-1*ls/2), (int) ls
+                (int) (-1*ls/2), (int) convertDpToPixel(50)
         };
         //findViewById(R.id.messageria).setVisibility(View.GONE);
         mess=new String[]{"","","","","","","","","","","","","","",""};
@@ -432,14 +435,16 @@ public class CsiActivity extends AppCompatActivity {
     }
 
     private void refresh() {
+        setCurrentMode(VEHICLES);
         reloadVehiclesAndPaths();
         //savePaths();
         //saveVehicles();
-        setCurrentMode(VEHICLES);
+
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
-                        setCurrentMode(MAP);
+                        ((RadioButton)findViewById(R.id.radio_mapa)).setChecked(true);
+                        //setCurrentMode(MAP);
                     }
                 },
                 1000);
@@ -1254,14 +1259,18 @@ public class CsiActivity extends AppCompatActivity {
         if(fu!=null) {
             //pegador.findViewById(R.id.rod).setRotation(view.getRotation());
             View bode = fu.findViewById(R.id.vehicle_chassi);
-            TextView label= (TextView) fu.findViewById(R.id.vehicle_label_text);
             pegador.setPontaPosition(bode.getX()+bode.getWidth()/2, bode.getY()+bode.getHeight()/2, fu.findViewById(R.id.vehicle_body).getRotation());
-            label.setX(bode.getX()+bode.getWidth()/2+labelOffset[0]);
-            label.setY(bode.getY()+bode.getHeight()/2+labelOffset[1]);
+            updateLabelPosition(fu);
             pegador.invalidate();
         }
-
     }
+    public void updateLabelPosition(VehicleFix fu) {
+        View bode = fu.findViewById(R.id.vehicle_chassi);
+        TextView label= (TextView) fu.findViewById(R.id.vehicle_label_text);
+        label.setX(bode.getX()+bode.getWidth()/2+labelOffset[0]);
+        label.setY(bode.getY()+bode.getHeight()/2+labelOffset[1]);
+    }
+
 
     public void updateVehiclePosition(Pega l, float[] ponta) {
         View r = getSelectedVehicle();
@@ -1275,8 +1284,7 @@ public class CsiActivity extends AppCompatActivity {
         body.setRotation(l.getRodRotation());
         chassi.setX(ponta[0] - convertDpToPixel(150));
         chassi.setY(ponta[1] - convertDpToPixel(150));
-        label.setX(ponta[0]+labelOffset[0]);
-        label.setY(ponta[1]+labelOffset[1]);
+        updateLabelPosition((VehicleFix) r);
         body.invalidate();
     }
     public void setSelectedVehicle(View v) {
@@ -1681,12 +1689,26 @@ public class CsiActivity extends AppCompatActivity {
                     ((VehicleFix)v).setVehicleId(data.getInt("view_id"));
                 }
             }
-        } catch (JSONException e) {}
+        }catch (JSONException e) {}
         label.setText(veiculo.optString("label"));
-        label.setY(labelOffset[1]);
+        //label.setY(labelOffset[1]);
+        switch(model){
+            case VehicleFix.COLISAO:
+                label.setVisibility(View.GONE);
+                break;
+            default:
+                label.setVisibility(View.VISIBLE);
+        }
         vehicles.put(veiculo);
         setSelectedVehicle(v, true);
         v.invalidate();
+        new android.os.Handler().postDelayed(
+                new Runnable() {
+                    public void run() {
+                        updateLabelPosition((VehicleFix) getSelectedVehicle());
+                    }
+                },
+                400);
     }
 
     private double getResolution() {
@@ -1742,9 +1764,7 @@ public class CsiActivity extends AppCompatActivity {
                 chassi.setY(position.y-pix);
             }
             label.setText(vehicle.optString("label"));
-            label.setX(position.x+labelOffset[0]);
-            label.setY(position.y+labelOffset[1]);
-
+            updateLabelPosition((VehicleFix) v);
             body.setRotation((float) vehicle.optDouble("rotation"));
             body.setOnClickListener(new View.OnClickListener() {
                 @Override

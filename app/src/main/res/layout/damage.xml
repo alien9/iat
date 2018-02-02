@@ -16,7 +16,7 @@
                 android:layout_alignParentTop="true"
                 android:scaleType="fitCenter"
                 android:src="@drawable/carro_000"/>
-            <br.com.cetsp.Panel
+            <br.com.cetsp.iat.Panel
                 android:id="@+id/damage_panel"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />

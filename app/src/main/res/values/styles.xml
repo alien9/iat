@@ -14,11 +14,22 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
     </style>
-
     <style name="rowrowrow">
         <item name="android:gravity">center</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
+    </style>
+    <style name="LabelOverlayText">
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:paddingLeft">4px</item>
+        <item name="android:paddingBottom">4px</item>
+        <item name="android:textColor">#ffdddddd</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">0.1</item>
     </style>
 </resources>

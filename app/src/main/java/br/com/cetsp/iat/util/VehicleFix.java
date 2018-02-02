@@ -1,4 +1,4 @@
-package br.com.cetsp.util;
+package br.com.cetsp.iat.util;
 
 import android.content.Context;
 import android.graphics.Point;
@@ -13,8 +13,8 @@ import android.widget.RelativeLayout;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import br.com.cetsp.CsiActivity;
-import br.com.cetsp.R;
+import br.com.cetsp.iat.CsiActivity;
+import br.com.cetsp.iat.R;
 
 import static android.view.MotionEvent.ACTION_HOVER_ENTER;
 import static android.view.MotionEvent.ACTION_HOVER_MOVE;

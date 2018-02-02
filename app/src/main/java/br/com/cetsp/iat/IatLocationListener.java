@@ -1,4 +1,4 @@
-package br.com.cetsp;
+package br.com.cetsp.iat;
 
 import android.location.Location;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package br.com.cetsp;
+package br.com.cetsp.iat;
 
 import android.Manifest;
 import android.app.Activity;
@@ -12,7 +12,7 @@ import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
-import br.com.cetsp.util.VehicleFix;
+import br.com.cetsp.iat.util.VehicleFix;
 import org.json.JSONException;
 import org.json.JSONObject;
 

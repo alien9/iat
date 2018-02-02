@@ -37,11 +37,11 @@
             android:layout_height="25dp"
             android:src="@drawable/desenhe" />
 
-        <br.com.cetsp.Panel
+        <br.com.cetsp.iat.Panel
             android:id="@+id/SurfaceView01"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" >
-        </br.com.cetsp.Panel>
+        </br.com.cetsp.iat.Panel>
     </LinearLayout>
 
     <LinearLayout

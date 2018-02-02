@@ -1,4 +1,4 @@
-package br.com.cetsp;
+package br.com.cetsp.iat;
 
 import android.content.Intent;
 import android.os.Bundle;
