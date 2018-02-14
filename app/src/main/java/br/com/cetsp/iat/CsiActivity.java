@@ -435,7 +435,8 @@ public class CsiActivity extends AppCompatActivity {
     }
 
     private void refresh() {
-        setCurrentMode(VEHICLES);
+        //setCurrentMode(VEHICLES);
+        ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
         reloadVehiclesAndPaths();
         //savePaths();
         //saveVehicles();
@@ -1393,6 +1394,7 @@ public class CsiActivity extends AppCompatActivity {
                 ((Panel) findViewById(R.id.drawing_panel)).setLigado(false);
                 map.setBuiltInZoomControls(true);
                 map.setEnabled(true);
+                map.invalidate();
                 setSelectedVehicle(null);
                 break;
         }
