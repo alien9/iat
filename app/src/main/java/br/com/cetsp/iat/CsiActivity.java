@@ -430,8 +430,16 @@ public class CsiActivity extends AppCompatActivity {
                 ((VehicleFix)getSelectedVehicle()).vira();
             }
         });
-        if((vehicles.length()>0)||(paths.length()>0))
+        try {
+            //paths=new JSONArray("");
+            //vehicles=new JSONArray("");
+        } catch (JSONException e) {
+            }
+
+        if((vehicles.length()>0)||(paths.length()>0)) {
+            reloadVehiclesAndPaths();
             refresh();//((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
+        }
     }
 
     private void refresh() {
