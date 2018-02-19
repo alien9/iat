@@ -41,6 +41,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -134,6 +135,7 @@ public class CsiActivity extends AppCompatActivity {
     private Hashtable<String,ArrayList> modelos;
     private ArrayList<String> todos;
     private int[] labelOffset;
+    private ViewTreeObserver.OnGlobalLayoutListener vehicleLoader;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -149,6 +151,7 @@ public class CsiActivity extends AppCompatActivity {
         }
         iat.startGPS(this);
         setContentView(R.layout.csi);
+        findViewById(R.id.info_box).setVisibility(View.GONE);
         float ls = convertDpToPixel(LABEL_SIZE);
         labelOffset=new int[]{
                 //(int) (-1*ls/2), (int) ls
@@ -216,24 +219,22 @@ public class CsiActivity extends AppCompatActivity {
                 point.put("latitude",-23.533773);
             } catch (JSONException ignore) {}
         }
+        JSONArray existent_vehicles=new JSONArray();
+        JSONArray existent_paths=new JSONArray();
         if(intent.hasExtra("info")){
             try{
-                setCurrentMode(MAP);
-                setCurrentMode(VEHICLES);
                 Log.d("IAT recebe parâmetros",intent.getStringExtra("info"));
                 JSONObject j = new JSONObject(intent.getStringExtra("info"));
-                paths=j.optJSONArray("paths");
+                existent_paths=j.optJSONArray("paths");
                 if(j.has("latitude")){
                     point.put("latitude",j.optDouble("latitude"));
                 }
                 if(j.has("longitude")){
                     point.put("longitude",j.optDouble("longitude"));
                 }
-                if(j.has("longitude")&&j.has("llatitude"))
+                if(j.has("longitude")&&j.has("latitude"))
                     map.getController().setCenter(new GeoPoint(point.optDouble("latitude"), point.optDouble("longitude")));
-                setVehicles(j.optJSONArray("vehicles"));
-                reloadVehiclesAndPaths();
-                ligaCarros(true);
+                existent_vehicles = j.optJSONArray("vehicles");
             } catch (JSONException e) {}
         }
         map.getController().setCenter(new GeoPoint(point.optDouble("latitude"), point.optDouble("longitude")));
@@ -252,7 +253,6 @@ public class CsiActivity extends AppCompatActivity {
                         map.invalidate();
                     }
                 }
-                //showLabels(true);
                 refresh();
                 return true;
             }
@@ -407,11 +407,11 @@ public class CsiActivity extends AppCompatActivity {
             }
         });
 
-        if(vehicles.length()==0){
-            ((RadioButton)findViewById(R.id.radio_mapa)).setChecked(true);
-        }
+        //if(vehicles.length()==0){
+        //    ((RadioButton)findViewById(R.id.radio_mapa)).setChecked(true);
+        //}
         findViewById(R.id.pegador).setVisibility(View.VISIBLE);
-        ((Pega) findViewById(R.id.pegador)).setPontaPosition(-10000,-10000,0);
+        //((Pega) findViewById(R.id.pegador)).setPontaPosition(-10000,-10000,0);
         ((ImageButton)findViewById(R.id.edit_vehicle_butt)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -430,22 +430,37 @@ public class CsiActivity extends AppCompatActivity {
                 ((VehicleFix)getSelectedVehicle()).vira();
             }
         });
+        /*
         try {
-            //paths=new JSONArray("");
-            //vehicles=new JSONArray("");
+            paths=new JSONArray("[{\"style\":2,\"points\":[[298356683,-348306911],[298356681,-348306915],[298356672,-348306927],[298356667,-348306935],[298356669,-348306925],[298356675,-348306906],[298356695,-348306851],[298356715,-348306794],[298356755,-348306678],[298356771,-348306630],[298356784,-348306591],[298356784,-348306593],[298356784,-348306595],[298356782,-348306601],[298356780,-348306605],[298356779,-348306609],[298356779,-348306611],[298356771,-348306619]],\"geom\":[{\"latitude\":-23.597773513443997,\"longitude\":-46.62416920065879},{\"latitude\":-23.59777187483192,\"longitude\":-46.62417009472847},{\"latitude\":-23.597766958995564,\"longitude\":-46.62417411804199},{\"latitude\":-23.597763681771227,\"longitude\":-46.62417635321618},{\"latitude\":-23.597767778301616,\"longitude\":-46.6241754591465},{\"latitude\":-23.597775561709057,\"longitude\":-46.624172776937485},{\"latitude\":-23.597798092622696,\"longitude\":-46.62416383624076},{\"latitude\":-23.597821442838196,\"longitude\":-46.62415489554406},{\"latitude\":-23.597868962562174,\"longitude\":-46.62413701415061},{\"latitude\":-23.597888625891187,\"longitude\":-46.62412986159325},{\"latitude\":-23.597904602343846,\"longitude\":-46.62412405014039},{\"latitude\":-23.597903783038618,\"longitude\":-46.62412405014039},{\"latitude\":-23.59790296373339,\"longitude\":-46.62412405014039},{\"latitude\":-23.597900505817677,\"longitude\":-46.624124944210045},{\"latitude\":-23.59789886720722,\"longitude\":-46.624125838279724},{\"latitude\":-23.597897228596693,\"longitude\":-46.62412628531455},{\"latitude\":-23.59789640929145,\"longitude\":-46.62412628531455},{\"latitude\":-23.59789313207031,\"longitude\":-46.62412986159325}]},{\"style\":2,\"points\":[[298357025,-348307065],[298357026,-348307051],[298357031,-348307034],[298357051,-348306984],[298357063,-348306953],[298357088,-348306889],[298357099,-348306861],[298357117,-348306820],[298357126,-348306800],[298357129,-348306792],[298357133,-348306779],[298357134,-348306773],[298357139,-348306765],[298357144,-348306772]],\"geom\":[{\"latitude\":-23.59771042686424,\"longitude\":-46.62401631474494},{\"latitude\":-23.597716162009107,\"longitude\":-46.62401586771011},{\"latitude\":-23.59772312611328,\"longitude\":-46.62401363253593},{\"latitude\":-23.597743608770358,\"longitude\":-46.624004691839225},{\"latitude\":-23.597756308016173,\"longitude\":-46.623999327421195},{\"latitude\":-23.597782525810047,\"longitude\":-46.623988151550286},{\"latitude\":-23.597793996093216,\"longitude\":-46.623983234167106},{\"latitude\":-23.59781079186321,\"longitude\":-46.62397518754006},{\"latitude\":-23.597818984920977,\"longitude\":-46.62397116422654},{\"latitude\":-23.59782226214392,\"longitude\":-46.62396982312203},{\"latitude\":-23.597827587631073,\"longitude\":-46.623968034982674},{\"latitude\":-23.597830045548122,\"longitude\":-46.623967587947845},{\"latitude\":-23.597833322770796,\"longitude\":-46.62396535277366},{\"latitude\":-23.59783045520095,\"longitude\":-46.623963117599494}]},{\"style\":3,\"points\":[[298356243,-348306545],[298356237,-348306549],[298356219,-348306566],[298356210,-348306596],[298356208,-348306624],[298356210,-348306636],[298356217,-348306653],[298356232,-348306674],[298356244,-348306684],[298356277,-348306699],[298356316,-348306708],[298356349,-348306713],[298356366,-348306715],[298356396,-348306717],[298356420,-348306716],[298356429,-348306715],[298356443,-348306710],[298356447,-348306705],[298356442,-348306692],[298356434,-348306683],[298356412,-348306669],[298356385,-348306664],[298356354,-348306666],[298356326,-348306675],[298356308,-348306686],[298356302,-348306690],[298356297,-348306698],[298356298,-348306708],[298356312,-348306732],[298356340,-348306756],[298356361,-348306772],[298356376,-348306779],[298356412,-348306796],[298356456,-348306807],[298356495,-348306817],[298356541,-348306824],[298356583,-348306826],[298356616,-348306823],[298356638,-348306817],[298356656,-348306812],[298356664,-348306810],[298356677,-348306808],[298356686,-348306807],[298356693,-348306808],[298356699,-348306808],[298356702,-348306809],[298356707,-348306811],[298356715,-348306813]],\"geom\":[{\"latitude\":-23.59792344636243,\"longitude\":-46.62436589598656},{\"latitude\":-23.597921807752215,\"longitude\":-46.62436857819557},{\"latitude\":-23.59791484365863,\"longitude\":-46.62437662482262},{\"latitude\":-23.597902554080804,\"longitude\":-46.62438064813614},{\"latitude\":-23.5978910838071,\"longitude\":-46.62438154220582},{\"latitude\":-23.597886167975204,\"longitude\":-46.62438064813614},{\"latitude\":-23.597879203879742,\"longitude\":-46.624377518892295},{\"latitude\":-23.597870601173028,\"longitude\":-46.62437081336976},{\"latitude\":-23.597866504645836,\"longitude\":-46.62436544895173},{\"latitude\":-23.597860359854792,\"longitude\":-46.624350696802146},{\"latitude\":-23.59785667298003,\"longitude\":-46.62433326244355},{\"latitude\":-23.597854624716234,\"longitude\":-46.62431851029397},{\"latitude\":-23.597853805410693,\"longitude\":-46.62431091070175},{\"latitude\":-23.597852986105167,\"longitude\":-46.62429749965668},{\"latitude\":-23.59785339575795,\"longitude\":-46.62428677082062},{\"latitude\":-23.597853805410693,\"longitude\":-46.624282747507095},{\"latitude\":-23.59785585367453,\"longitude\":-46.62427648901939},{\"latitude\":-23.597857901938283,\"longitude\":-46.62427470088005},{\"latitude\":-23.597863227423986,\"longitude\":-46.62427693605424},{\"latitude\":-23.597866914298578,\"longitude\":-46.62428051233291},{\"latitude\":-23.59787264943658,\"longitude\":-46.62429034709931},{\"latitude\":-23.597874697700078,\"longitude\":-46.62430241703988},{\"latitude\":-23.597873878394694,\"longitude\":-46.62431627511978},{\"latitude\":-23.597870191520315,\"longitude\":-46.62432879209518},{\"latitude\":-23.597865685340395,\"longitude\":-46.62433683872222},{\"latitude\":-23.59786404672944,\"longitude\":-46.62433952093124},{\"latitude\":-23.597860769507534,\"longitude\":-46.62434175610542},{\"latitude\":-23.59785667298003,\"longitude\":-46.624341309070594},{\"latitude\":-23.597846841313483,\"longitude\":-46.624335050582886},{\"latitude\":-23.597837009646213,\"longitude\":-46.62432253360749},{\"latitude\":-23.59783045520095,\"longitude\":-46.62431314587594},{\"latitude\":-23.597827587631073,\"longitude\":-46.6243064403534},{\"latitude\":-23.597820623532456,\"longitude\":-46.62429034709931},{\"latitude\":-23.597816117350803,\"longitude\":-46.62427067756653},{\"latitude\":-23.597812020821905,\"longitude\":-46.62425324320793},{\"latitude\":-23.59780915325163,\"longitude\":-46.62423267960549},{\"latitude\":-23.597808333945764,\"longitude\":-46.62421390414239},{\"latitude\":-23.5978095629045,\"longitude\":-46.624199151992805},{\"latitude\":-23.597812020821905,\"longitude\":-46.6241893172264},{\"latitude\":-23.597814069086397,\"longitude\":-46.62418127059936},{\"latitude\":-23.59781488839215,\"longitude\":-46.624177694320686},{\"latitude\":-23.59781570769792,\"longitude\":-46.624171882867806},{\"latitude\":-23.597816117350803,\"longitude\":-46.624167859554284},{\"latitude\":-23.59781570769792,\"longitude\":-46.62416473031044},{\"latitude\":-23.59781570769792,\"longitude\":-46.624162048101425},{\"latitude\":-23.597815298045063,\"longitude\":-46.62416070699692},{\"latitude\":-23.597814478739252,\"longitude\":-46.62415847182273},{\"latitude\":-23.597813659433484,\"longitude\":-46.62415489554406}]}]");
+            existent_vehicles=new JSONArray("[{\"view_id\":1,\"model\":0,\"width\":1.9,\"length\":3.8,\"latitude\":-23.597813659433484,\"longitude\":-46.62419155240059,\"position\":{\"heading\":70.61231994628906,\"x\":428,\"y\":407},\"roll\":0,\"rotation\":70.61231994628906,\"label\":\"1\",\"placa\":\"\",\"marca\":\"\",\"modelo\":\"\",\"municipio\":\"\",\"uf\":\"\",\"tipo_veiculo_id\":0,\"tipo_veiculo\":\"Auto\"},{\"view_id\":2,\"model\":13,\"width\":1.7,\"length\":2.5,\"latitude\":-23.597801779499108,\"longitude\":-46.62408247590066,\"position\":{\"heading\":0,\"x\":431,\"y\":422},\"roll\":0,\"rotation\":0,\"label\":\"1\"},{\"view_id\":3,\"model\":15,\"width\":4,\"length\":4,\"latitude\":-23.597812430474818,\"longitude\":-46.6241580247879,\"position\":{\"heading\":0,\"x\":405,\"y\":405},\"roll\":0,\"rotation\":0,\"label\":\"\",\"tipo_impacto_id\":0,\"tipo_impacto\":\"Colisão Frontal\"}]");
         } catch (JSONException e) {
             }
-
-        if((vehicles.length()>0)||(paths.length()>0)) {
-            reloadVehiclesAndPaths();
-            refresh();//((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
-        }
+*/
+        //if((existent_vehicles.length()>0)||(paths.length()>0)) {
+            //((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
+            //
+        ((RadioButton)findViewById(R.id.radio_mapa)).setChecked(true);
+        final JSONArray finalExistent_vehicles = existent_vehicles;
+        paths=existent_paths;
+        vehicleLoader=new ViewTreeObserver.OnGlobalLayoutListener() { // mapa pronto
+            @Override
+            public void onGlobalLayout() {
+                ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
+                //loadPaths((Panel)findViewById(R.id.drawing_panel));
+                setVehicles(finalExistent_vehicles);
+                reloadVehiclesAndPaths();
+                findViewById(R.id.map).getViewTreeObserver().removeOnGlobalLayoutListener(vehicleLoader);
+            }
+        };
+        if((existent_vehicles.length()>0)||(existent_paths.length()>0))
+            map.getViewTreeObserver().addOnGlobalLayoutListener(vehicleLoader);
     }
 
     private void refresh() {
         //setCurrentMode(VEHICLES);
         ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
-        reloadVehiclesAndPaths();
+        //reloadVehiclesAndPaths();
         //savePaths();
         //saveVehicles();
 
@@ -1053,6 +1068,7 @@ public class CsiActivity extends AppCompatActivity {
             Toolbar toolbar=(Toolbar)findViewById(R.id.my_toolbar);
             setSupportActionBar(toolbar);
             toolbar.setVisibility(View.VISIBLE);
+            return;
         }
         ((Panel) findViewById(R.id.drawing_panel)).back();
     }
@@ -1661,7 +1677,7 @@ public class CsiActivity extends AppCompatActivity {
         double pixels_per_m = getResolution();
         int w = (int) (width * pixels_per_m);
         int l = (int) (length * pixels_per_m);
-        View v=new VehicleFix(context);
+        final View v=new VehicleFix(context);
         ((ViewGroup) findViewById(R.id.vehicles_canvas)).addView(v);
         ((VehicleFix)v).zinit(model,0);
         RelativeLayout.LayoutParams rparams = new RelativeLayout.LayoutParams(10*Math.round(w),10*Math.round(l));
@@ -1712,13 +1728,20 @@ public class CsiActivity extends AppCompatActivity {
         vehicles.put(veiculo);
         setSelectedVehicle(v, true);
         v.invalidate();
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        updateLabelPosition((VehicleFix) getSelectedVehicle());
-                    }
-                },
-                400);
+        //new android.os.Handler().postDelayed(
+        //        new Runnable() {
+                    //public void run() {
+        //                updateLabelPosition((VehicleFix) getSelectedVehicle());
+         //           }
+                //},
+         //       400);
+        v.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                updateLabelPosition((VehicleFix) v);
+                updatePegadorForSelectedVehicle();
+            }
+        });
     }
 
     private double getResolution() {
@@ -1805,9 +1828,9 @@ public class CsiActivity extends AppCompatActivity {
         findViewById(R.id.vehicles_canvas).setDrawingCacheEnabled(true);
         for (int i = 0; i < v.length(); i++) {
             JSONObject veiculo = v.optJSONObject(i);
-            // cria os veiculos
             createVehicle(veiculo.optInt("model"),veiculo.optDouble("width"),veiculo.optDouble("length"),veiculo);
         }
+        refresh();
         findViewById(R.id.vehicles_canvas).invalidate();
     }
 
