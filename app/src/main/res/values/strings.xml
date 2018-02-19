@@ -91,7 +91,7 @@
     <string name="distract_int">Distração interna</string>
     <string name="sono_cansaco">Sonolência / Cansaço</string>
     <string name="impericia_imprudencia">Imperícia / imprudência</string>
-    <string name="cruzou_fora_faixa">Cruzoou fora da faixa</string>
+    <string name="cruzou_fora_faixa">Cruzou fora da faixa</string>
     <string name="andava">Andava na pista</string>
     <string name="transitava_calc">Transitava na calçada</string>
     <string name="pneu_furou">Pneu furou / estourou</string>
@@ -134,6 +134,7 @@
     <string name="medio">Médio</string>
     <string name="padrao">(padrão)</string>
     <string name="modelo">Modelo</string>
+    <string name="placa_padrao">Placa - padrão</string>
     <string-array name="vehicle_type">
         <item>Auto</item>
         <item>Caminhão</item>
