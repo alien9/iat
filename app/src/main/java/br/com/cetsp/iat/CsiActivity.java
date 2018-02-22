@@ -353,6 +353,9 @@ public class CsiActivity extends AppCompatActivity {
                         ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
                         break;
                     case R.id.exit_command:
+                        //TODO: teoricamente isso impede o "pulo" do mapa
+                        ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
+
                         Intent data=new Intent();
                         savePaths();
                         saveVehicles();
@@ -452,8 +455,9 @@ public class CsiActivity extends AppCompatActivity {
                 findViewById(R.id.map).getViewTreeObserver().removeOnGlobalLayoutListener(vehicleLoader);
             }
         };
-        if((existent_vehicles.length()>0)||(existent_paths.length()>0))
+        if((existent_vehicles.length()>0)||(existent_paths.length()>0)){
             map.getViewTreeObserver().addOnGlobalLayoutListener(vehicleLoader);
+        }
     }
 
     private void refresh() {
@@ -461,7 +465,7 @@ public class CsiActivity extends AppCompatActivity {
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
-                        setCurrentMode(MAP);
+                        ((RadioButton)findViewById(R.id.radio_mapa)).setChecked(true);
                     }
                 },
                 1000);
@@ -829,7 +833,7 @@ public class CsiActivity extends AppCompatActivity {
                                             createVehicle(VehicleFix.REBOQUE,2.3,5.8,d);
                                             break;
                                         case VehicleFix.SEMI:
-                                            createVehicle(VehicleFix.SEMI,4.1,22.4,d);
+                                            createVehicle(VehicleFix.SEMI,5.1,22.4,d);
                                             break;
                                         case VehicleFix.TAXI:
                                             createVehicle(VehicleFix.TAXI,1.9,3.8,d);
@@ -1127,6 +1131,7 @@ public class CsiActivity extends AppCompatActivity {
                 ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
                 break;
             case R.id.end:
+                ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
                 MapView map=((MapView)findViewById(R.id.map));
                 savePaths();
                 saveVehicles();
