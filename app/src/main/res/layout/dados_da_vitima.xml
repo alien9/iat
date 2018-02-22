@@ -38,13 +38,13 @@
         android:background="@android:color/darker_gray"/>
     <TextView
         android:padding="8dp"
-        android:text="@string/ano_nasc"
+        android:text="@string/idade"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <EditText
         android:inputType="number"
         android:padding="8dp"
-        android:id="@+id/ano_nasc"
+        android:id="@+id/idade_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <View

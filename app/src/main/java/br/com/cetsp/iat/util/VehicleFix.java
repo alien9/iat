@@ -312,6 +312,23 @@ public class VehicleFix extends RelativeLayout {
 
                 }
                 break;
+            case MICROONIBUS:
+                switch(roll){
+                    case 0:
+                        body.setBackground(ContextCompat.getDrawable(context,R.drawable.microbus_000));
+                        break;
+                    case 1:
+                        body.setBackground(ContextCompat.getDrawable(context,R.drawable.microbus_090));
+                        break;
+                    case 2:
+                        body.setBackground(ContextCompat.getDrawable(context,R.drawable.microbus_180));
+                        break;
+                    case 3:
+                        body.setBackground(ContextCompat.getDrawable(context,R.drawable.microbus_270));
+                        break;
+
+                }
+                break;
             case CAMINHAO:
                 switch(roll){
                     case 0:
@@ -437,6 +454,22 @@ public class VehicleFix extends RelativeLayout {
                         break;
                     case 3:
                         body.setBackground(ContextCompat.getDrawable(context, R.drawable.viatura_270));
+                        break;
+                }
+                break;
+            case REBOQUE:
+                switch(roll) {
+                    case 0:
+                        body.setBackground(ContextCompat.getDrawable(context, R.drawable.reboque_000));
+                        break;
+                    case 1:
+                        body.setBackground(ContextCompat.getDrawable(context, R.drawable.reboque_090));
+                        break;
+                    case 2:
+                        body.setBackground(ContextCompat.getDrawable(context, R.drawable.reboque_180));
+                        break;
+                    case 3:
+                        body.setBackground(ContextCompat.getDrawable(context, R.drawable.reboque_270));
                         break;
                 }
                 break;
