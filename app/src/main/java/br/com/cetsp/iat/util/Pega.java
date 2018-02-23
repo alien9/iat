@@ -27,8 +27,8 @@ public class Pega extends LinearLayout {
     int rod_length=dpToPx(153);
     int rod_width=dpToPx(1);
 
-    int ball_radius =dpToPx(14);
-    int big_ball_radius =dpToPx(42);
+    int ball_radius =dpToPx(13);
+    int big_ball_radius =dpToPx(40);
     private float[] posicao_atual;
     private float x=0;
     private float y=0;
