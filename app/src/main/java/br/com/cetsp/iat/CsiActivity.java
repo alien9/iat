@@ -465,6 +465,7 @@ public class CsiActivity extends AppCompatActivity {
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
+                        ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
                         ((RadioButton)findViewById(R.id.radio_mapa)).setChecked(true);
                     }
                 },
