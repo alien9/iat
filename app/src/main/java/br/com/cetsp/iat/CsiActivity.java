@@ -150,6 +150,7 @@ public class CsiActivity extends AppCompatActivity {
         }
         iat.startGPS(this);
         setContentView(R.layout.csi);
+
         findViewById(R.id.info_box).setVisibility(View.GONE);
         float ls = convertDpToPixel(LABEL_SIZE);
         labelOffset=new int[]{
@@ -413,7 +414,6 @@ public class CsiActivity extends AppCompatActivity {
         //    ((RadioButton)findViewById(R.id.radio_mapa)).setChecked(true);
         //}
         findViewById(R.id.pegador).setVisibility(View.VISIBLE);
-        //((Pega) findViewById(R.id.pegador)).setPontaPosition(-10000,-10000,0);
         ((ImageButton)findViewById(R.id.edit_vehicle_butt)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -465,6 +465,7 @@ public class CsiActivity extends AppCompatActivity {
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
+                        ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
                         ((RadioButton)findViewById(R.id.radio_mapa)).setChecked(true);
                     }
                 },
