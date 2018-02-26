@@ -27,8 +27,8 @@ public class Pega extends LinearLayout {
     int rod_length=dpToPx(153);
     int rod_width=dpToPx(1);
 
-    int ball_radius =dpToPx(13);
-    int big_ball_radius =dpToPx(40);
+    int ball_radius =0;//dpToPx(13);
+    int big_ball_radius =dpToPx(42);
     private float[] posicao_atual;
     private float x=0;
     private float y=0;
@@ -41,6 +41,7 @@ public class Pega extends LinearLayout {
     public Pega(Context c, AttributeSet attrs) {
         super(c, attrs);
         context=c;
+
         init();
     }
     public Pega(Context c, AttributeSet attrs, int defStyleAttr) {
@@ -192,6 +193,7 @@ public class Pega extends LinearLayout {
         //return false;
         //     }
         //});
+        setSize();
 
     }
 
@@ -203,6 +205,7 @@ public class Pega extends LinearLayout {
     }
 
     public void setPontaPosition(float x, float y, float rotation) {
+        if(ball_radius==0) setSize();
         Log.d("IAT", "setando a posiocao da pornta");
         posicao_atual = getHandlerCenter(new float[]{x, y}, rotation*Math.PI/180);
         ponta_atual=new float[]{x,y};
@@ -216,5 +219,10 @@ public class Pega extends LinearLayout {
         rod.setRotation(rotation);
         findViewById(R.id.movedor).setX(x-big_ball_radius);
         findViewById(R.id.movedor).setY(y-big_ball_radius);
+    }
+
+    public void setSize() {
+        ball_radius=findViewById(R.id.bolinha).getWidth()/2;
+        big_ball_radius=findViewById(R.id.movedor).getWidth()/2;
     }
 }
