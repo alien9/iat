@@ -50,22 +50,19 @@ public class VehicleFix extends RelativeLayout {
     public static final int MICROONIBUS=5;
     public static final int MOTO = 6;
     public static final int ONIBUS = 7;
-    public static final int REBOQUE=8;
-    public static final int SEMI=9;
-    public static final int TAXI=10;
-    public static final int TRAILER=11;
-    public static final int VIATURA=12;
-    public static final int PEDESTRE = 13;
-    public static final int BICI = 14;
-    public static final int COLISAO = 15;
-    public static final int OBSTACULO = 16;
-    private float width;
-    private float height;
+    public static final int ARTICULADO = 8;
+    public static final int REBOQUE=9;
+    public static final int SEMI=10;
+    public static final int TAXI=11;
+    public static final int TRAILER=12;
+    public static final int VIATURA=13;
+    public static final int PEDESTRE = 14;
+    public static final int BICI = 15;
+    public static final int COLISAO = 16;
+    public static final int OBSTACULO = 17;
     private Context context;
     private int model;
     private int roll;
-    private View background;
-    private float[] inicio;
     private boolean ligado;
     private Point position;
     private float[] posicao_atual;
@@ -296,6 +293,24 @@ public class VehicleFix extends RelativeLayout {
                 }
                 break;
             case ONIBUS:
+                switch(roll){
+                    case 0:
+                        body.setBackground(ContextCompat.getDrawable(context,R.drawable.bus_000));
+                        break;
+                    case 1:
+                        body.setBackground(ContextCompat.getDrawable(context,R.drawable.bus_090));
+                        break;
+                    case 2:
+                        body.setBackground(ContextCompat.getDrawable(context,R.drawable.bus_180));
+                        break;
+                    case 3:
+                        body.setBackground(ContextCompat.getDrawable(context,R.drawable.bus_270));
+                        break;
+
+                }
+                break;
+            case ARTICULADO:
+                //TODO:  criar aqui uma instância do Gonzagão
                 switch(roll){
                     case 0:
                         body.setBackground(ContextCompat.getDrawable(context,R.drawable.bus_000));
