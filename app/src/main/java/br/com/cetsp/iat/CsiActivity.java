@@ -825,6 +825,9 @@ public class CsiActivity extends AppCompatActivity {
                                         case VehicleFix.ONIBUS:
                                             createVehicle(VehicleFix.ONIBUS,3.8,10.4,d);
                                             break;
+                                        case VehicleFix.ARTICULADO:
+                                            createVehicle(VehicleFix.ARTICULADO,3.8,20.4,d);
+                                            break;
                                         case VehicleFix.REBOQUE:
                                             createVehicle(VehicleFix.REBOQUE,2.3,5.8,d);
                                             break;
@@ -1880,6 +1883,7 @@ public class CsiActivity extends AppCompatActivity {
                 case VehicleFix.MICROONIBUS:
                 case VehicleFix.CARROCA:
                 case VehicleFix.ONIBUS:
+                case VehicleFix.ARTICULADO:
                 case VehicleFix.MOTO:
                     layout = (ViewGroup) inflater.inflate(R.layout.form_vehicle_data, collection, false);
                     if(vehicle.optString("placa").length()>0){
@@ -2027,6 +2031,9 @@ public class CsiActivity extends AppCompatActivity {
                                         break;
                                     case VehicleFix.ONIBUS:
                                         ((ImageView) v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.bus_000, null));
+                                        break;
+                                    case VehicleFix.ARTICULADO:
+                                        ((ImageView) v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.microbus_000, null));
                                         break;
                                     case VehicleFix.MOTO:
                                         ((ImageView) v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.motorcycle_000, null));

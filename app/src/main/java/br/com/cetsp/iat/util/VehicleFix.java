@@ -243,6 +243,7 @@ public class VehicleFix extends RelativeLayout {
 
     private void setRoll(int roll) {
         View body = this.findViewById(R.id.vehicle_body);
+        //View rabo=this.findViewById(R.id.vehicle_tail);
         switch(model){
             case AUTO:
                 switch(roll) {
@@ -310,9 +311,10 @@ public class VehicleFix extends RelativeLayout {
                 }
                 break;
             case ARTICULADO:
-                //TODO:  criar aqui uma instância do Gonzagão
+                //TODO:  criar aqui uma instância do    Gonzagão
                 switch(roll){
                     case 0:
+                        //rabo.setBackground(ContextCompat.getDrawable(context,R.drawable.gonzagao_1_000));
                         body.setBackground(ContextCompat.getDrawable(context,R.drawable.bus_000));
                         break;
                     case 1:

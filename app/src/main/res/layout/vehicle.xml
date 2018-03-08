@@ -29,19 +29,32 @@
             android:orientation="vertical"
             android:clickable="true"
             android:focusableInTouchMode="false"
-            />
+            >
+        </LinearLayout>
     </LinearLayout>
-        <TextView
-            android:fontFamily="monospace"
-            android:orientation="vertical"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:gravity="center"
-            android:id="@+id/vehicle_label_text"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:textSize="15dp"
-            android:text="K"
-            style="@style/LabelOverlayText"
-            />
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/vehicle_tail"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:background="#ffffffff"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusableInTouchMode="false"
+        />
+    <TextView
+        android:fontFamily="monospace"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:gravity="center"
+        android:id="@+id/vehicle_label_text"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:textSize="15dp"
+        android:text="K"
+        style="@style/LabelOverlayText"
+        />
 </RelativeLayout>
