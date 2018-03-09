@@ -10,6 +10,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
@@ -25,6 +26,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -42,6 +44,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -826,7 +831,7 @@ public class CsiActivity extends AppCompatActivity {
                                             createVehicle(VehicleFix.ONIBUS,3.8,10.4,d);
                                             break;
                                         case VehicleFix.ARTICULADO:
-                                            createVehicle(VehicleFix.ARTICULADO,3.8,20.4,d);
+                                            createVehicle(VehicleFix.ARTICULADO,3.8,10.4,3.8,6.1,d);
                                             break;
                                         case VehicleFix.REBOQUE:
                                             createVehicle(VehicleFix.REBOQUE,2.3,5.8,d);
@@ -865,8 +870,6 @@ public class CsiActivity extends AppCompatActivity {
         });
         di.show();
     }
-
-
 
     private void marcaTrick(final View v) {
         v.findViewById(R.id.marca_button).setOnClickListener(new View.OnClickListener() {
@@ -1297,7 +1300,7 @@ public class CsiActivity extends AppCompatActivity {
         if(r==null) return;
         LinearLayout body = (LinearLayout) r.findViewById(R.id.vehicle_body);
         LinearLayout chassi = (LinearLayout) r.findViewById(R.id.vehicle_chassi);
-        TextView label = (TextView) r.findViewById(R.id.vehicle_label_text);
+        View rabo = r.findViewById(R.id.vehicle_tail);
         if(body==null)return;
         //float[] ce = {l.getX(),l.getY()};
         //Log.d("IAT","POSICAO: "+body.getX()+", "+body.getY()+" - ponta pegada "+ponta[0]+" "+ponta[1]+" centro "+ce[0]+" "+ce[1]);
@@ -1305,6 +1308,17 @@ public class CsiActivity extends AppCompatActivity {
         chassi.setX(ponta[0] - convertDpToPixel(150));
         chassi.setY(ponta[1] - convertDpToPixel(150));
         updateLabelPosition((VehicleFix) r);
+        //TODO: ajeita o rabo
+        rabo.setX(ponta[0]-rabo.getWidth()/2);//chassi.getX()+chassi.getWidth()/2);
+        rabo.setY(ponta[1]);//chassi.getY()+chassi.getHeight()/2);
+        RotateAnimation ro = new RotateAnimation(0.0f, 30.0f,
+                Animation.ABSOLUTE, 0, Animation.ABSOLUTE,
+                0);
+        ro.setInterpolator(new LinearInterpolator());
+        ro.setDuration(500);
+        ro.setFillAfter(true);
+        rabo.startAnimation(ro);
+        rabo.setBackgroundColor(Color.RED);
         body.invalidate();
     }
     public void setSelectedVehicle(View v) {
@@ -1666,13 +1680,14 @@ public class CsiActivity extends AppCompatActivity {
     protected void createVehicle(int model, double width, double length){
         createVehicle(model, width, length, new JSONObject());
     }
+    protected void createVehicle(int model, double width, double length, JSONObject data) {
+        createVehicle(model,width,length,0,0,data);
+    }
 
-    protected void createVehicle(int model, double width, double length, JSONObject data){
+    protected void createVehicle(int model, double width, double length, double tail_width, double tail_length, JSONObject data) {
         if(current_mode!=VEHICLES){
             ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
-            //setCurrentMode(VEHICLES);
         }
-        //((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
         MapView map = (MapView) findViewById(R.id.map);
         Point size = getDisplaySize();
         double pixels_per_m = getResolution();
@@ -1688,6 +1703,13 @@ public class CsiActivity extends AppCompatActivity {
         float pix = convertDpToPixel(300);
         chassis.setY((size.y-pix)/2);
         chassis.setX((size.x-pix)/2);
+        if(tail_width>0){
+            LinearLayout habbo= (LinearLayout) v.findViewById(R.id.vehicle_tail);
+            ViewGroup.LayoutParams pu = habbo.getLayoutParams();
+            pu.height=(int) (tail_length * pixels_per_m);
+            pu.width=(int) (tail_width * pixels_per_m);
+            habbo.setLayoutParams(pu);
+        }
         LinearLayout body = (LinearLayout) v.findViewById(R.id.vehicle_body);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) Math.round(w), (int) Math.round(l));
         body.setLayoutParams(params);
@@ -1700,6 +1722,8 @@ public class CsiActivity extends AppCompatActivity {
             veiculo.put("model", model);
             veiculo.put("width", width);
             veiculo.put("length", length);
+            if(tail_width>0)veiculo.put("tail_width",tail_width);
+            if(tail_length>0)veiculo.put("tail_length",tail_length);
             veiculo.put("latitude", center.getLatitude());
             veiculo.put("longitude", center.getLongitude());
             veiculo.put("position", ((VehicleFix) v).getPosition());

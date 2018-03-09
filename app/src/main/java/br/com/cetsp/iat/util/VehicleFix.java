@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 
 import org.json.JSONException;
@@ -74,6 +75,10 @@ public class VehicleFix extends RelativeLayout {
     public float currentX;
     public float y;
     public float x;
+    private int width;
+    private int height;
+    private int tail_width;
+    private int tail_height;
 
     public JSONObject getPosition(){
         JSONObject p=new JSONObject();
@@ -107,6 +112,27 @@ public class VehicleFix extends RelativeLayout {
     }
 
     private void init(Context c) {
+        final VehicleFix car=this;
+        this.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                View habbo=car.findViewById(R.id.vehicle_tail);
+                width=car.findViewById(R.id.vehicle_chassi).getWidth();
+                height=car.findViewById(R.id.vehicle_chassi).getHeight();
+                switch(car.model){
+                    case ARTICULADO:
+                        habbo.setVisibility(VISIBLE);
+                        tail_width=habbo.getWidth();
+                        tail_height=habbo.getHeight();
+                        habbo.setPivotX(tail_width/2);
+                        habbo.setX(car.currentX-habbo.getWidth()/2);
+                        habbo.setY(car.currentY);
+                        break;
+                    default:
+                        habbo.setVisibility(GONE);
+                }
+            }
+        });
         Log.d("IAT","inicializandoo veiculo");
         inflate(context, R.layout.vehicle, this);
         context=c;
