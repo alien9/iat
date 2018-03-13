@@ -10,7 +10,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
@@ -26,7 +25,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -44,9 +42,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -1282,8 +1277,15 @@ public class CsiActivity extends AppCompatActivity {
         if(fu!=null) {
             //pegador.findViewById(R.id.rod).setRotation(view.getRotation());
             View bode = fu.findViewById(R.id.vehicle_chassi);
-            pegador.setPontaPosition(bode.getX()+bode.getWidth()/2, bode.getY()+bode.getHeight()/2, fu.findViewById(R.id.vehicle_body).getRotation());
+            float x = bode.getX() + bode.getWidth() / 2;
+            float y = bode.getY() + bode.getHeight() / 2;
+            pegador.setPontaPosition(x, y, fu.findViewById(R.id.vehicle_body).getRotation());
             updateLabelPosition(fu);
+            fu.updateRabo(new float[]{
+                    x,y
+            },new float[]{
+                    x,y
+            });
             pegador.invalidate();
         }
     }
@@ -1295,12 +1297,13 @@ public class CsiActivity extends AppCompatActivity {
     }
 
 
-    public void updateVehiclePosition(Pega l, float[] ponta) {
+    public void updateVehiclePosition(Pega l, float[] ponta, float[] ponta_anterior) {
         View r = getSelectedVehicle();
         if(r==null) return;
         LinearLayout body = (LinearLayout) r.findViewById(R.id.vehicle_body);
         LinearLayout chassi = (LinearLayout) r.findViewById(R.id.vehicle_chassi);
         View rabo = r.findViewById(R.id.vehicle_tail);
+
         if(body==null)return;
         //float[] ce = {l.getX(),l.getY()};
         //Log.d("IAT","POSICAO: "+body.getX()+", "+body.getY()+" - ponta pegada "+ponta[0]+" "+ponta[1]+" centro "+ce[0]+" "+ce[1]);
@@ -1309,18 +1312,14 @@ public class CsiActivity extends AppCompatActivity {
         chassi.setY(ponta[1] - convertDpToPixel(150));
         updateLabelPosition((VehicleFix) r);
         //TODO: ajeita o rabo
-        rabo.setX(ponta[0]-rabo.getWidth()/2);//chassi.getX()+chassi.getWidth()/2);
-        rabo.setY(ponta[1]);//chassi.getY()+chassi.getHeight()/2);
-        RotateAnimation ro = new RotateAnimation(0.0f, 30.0f,
-                Animation.ABSOLUTE, 0, Animation.ABSOLUTE,
-                0);
-        ro.setInterpolator(new LinearInterpolator());
-        ro.setDuration(500);
-        ro.setFillAfter(true);
-        rabo.startAnimation(ro);
-        rabo.setBackgroundColor(Color.RED);
+        ((VehicleFix)r).updateRabo(ponta,ponta_anterior);
         body.invalidate();
     }
+
+    private void updateRabo(VehicleFix v, float[] ponta){
+        v.updateRabo(ponta, ponta);
+    }
+
     public void setSelectedVehicle(View v) {
         setSelectedVehicle(v,false);
     }

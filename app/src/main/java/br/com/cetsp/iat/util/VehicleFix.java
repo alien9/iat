@@ -79,6 +79,9 @@ public class VehicleFix extends RelativeLayout {
     private int height;
     private int tail_width;
     private int tail_height;
+    private int tail_center_x;
+    private int tail_center_y;
+
 
     public JSONObject getPosition(){
         JSONObject p=new JSONObject();
@@ -121,15 +124,12 @@ public class VehicleFix extends RelativeLayout {
                 height=car.findViewById(R.id.vehicle_chassi).getHeight();
                 switch(car.model){
                     case ARTICULADO:
-                        habbo.setVisibility(VISIBLE);
                         tail_width=habbo.getWidth();
                         tail_height=habbo.getHeight();
-                        habbo.setPivotX(tail_width/2);
                         habbo.setX(car.currentX-habbo.getWidth()/2);
                         habbo.setY(car.currentY);
                         break;
                     default:
-                        habbo.setVisibility(GONE);
                 }
             }
         });
@@ -193,6 +193,25 @@ public class VehicleFix extends RelativeLayout {
         view.setX(view.getX() + currentX - x);
         ((CsiActivity) context).updatePegadorForSelectedVehicle();
     }
+    public void updateRabo(float[] ponta, float[] ponta_anterior){
+        View rabo = this.findViewById(R.id.vehicle_tail);
+        if(rabo!=null) {
+            double dista = Math.pow(Math.pow(ponta[0] - ponta_anterior[0], 2) + Math.pow(ponta[1] - ponta_anterior[1], 2), 0.5f);
+            //posicao do centro de rotação:
+            float[] center = new float[]{
+                    rabo.getX() + rabo.getWidth() / 2,
+                    rabo.getY() + rabo.getHeight() / 2
+            };
+
+            double delta_teta = 180d/Math.PI*Math.acos((Math.pow(dista, 2) - 2 * Math.pow(rabo.getHeight(), 2)) / (-2 * Math.pow(rabo.getHeight(), 2)));
+            Log.d("IAT angulo de rabo",""+delta_teta);
+            rabo.setRotation((float) (rabo.getRotation()+delta_teta));
+            Log.d("IAT posicao do habbo:",rabo.getX()+" "+rabo.getY());
+            Log.d("IAT posição do centro:",""+center[0]+" "+center[1]);
+            rabo.setX(ponta[0] - rabo.getWidth() / 2);//chassi.getX()+chassi.getWidth()/2);
+            rabo.setY(ponta[1]);//chassi.getY()+chassi.getHeight()/2);
+        }
+    }
 
     /*
     public VehicleFix(Context c, View bg,float w, float h,int m,int p) {
@@ -222,7 +241,14 @@ public class VehicleFix extends RelativeLayout {
         setRoll(roll);
 
         final View chassi = this.findViewById(R.id.vehicle_chassi);
-
+        View habbo=this.findViewById(R.id.vehicle_tail);
+        switch (this.model){
+            case ARTICULADO:
+                habbo.setVisibility(VISIBLE);
+                break;
+            default:
+                habbo.setVisibility(GONE);
+        }
         body.setOnTouchListener(new RelativeLayout.OnTouchListener() {
             @Override
             public boolean onTouch(View bode, MotionEvent motionEvent) {

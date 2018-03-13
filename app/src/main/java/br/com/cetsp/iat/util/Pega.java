@@ -113,7 +113,6 @@ public class Pega extends LinearLayout {
                                 posicao_atual[0] + motionEvent.getX(),
                                 posicao_atual[1] + motionEvent.getY()
                         };
-                        //ponta_atual=getPonta(posicao_atual,getRodRotation()*Math.PI/180); // quem poderia imaginar uma coisa dessas
                         ponta_atual=getPonta(new float[]{
                                 posicao_atual[0]-ball_radius,posicao_atual[1]-ball_radius
                         },getRodRotation()*Math.PI/180); // quem poderia imaginar uma coisa dessas
@@ -125,6 +124,7 @@ public class Pega extends LinearLayout {
                     case ACTION_MOVE:
                         currentX=motionEvent.getX();
                         currentY=motionEvent.getY();
+
                         float[] prox=new float[]{
                                 bolinha.getX()+currentX-x+ball_radius,
                                 bolinha.getY()+currentY-y+ball_radius
@@ -138,15 +138,13 @@ public class Pega extends LinearLayout {
                         };
 
                         rotation=(float) getAngle(vetor);
-                        ponta_atual=getPonta(new float[]{
-                                prox[0],
-                                prox[1]
-                        },rotation*Math.PI/180);
                         rod.setRotation(rotation);
                         rod.setX(prox[0]);
                         rod.setY(prox[1]);
                         float[] ponta = getPonta(prox, rotation * Math.PI / 180);
-                        ((CsiActivity)context).updateVehiclePosition(pegador,ponta);
+                        Log.d("IAT DESLOCA","ponta "+(ponta[0]-ponta_atual[0])+" "+(ponta[1]-ponta_atual[1]));
+                        ((CsiActivity)context).updateVehiclePosition(pegador,ponta,ponta_atual);
+                        ponta_atual=ponta;
                         findViewById(R.id.movedor).setX(ponta[0]-big_ball_radius);
                         findViewById(R.id.movedor).setY(ponta[1]-big_ball_radius);
                         posicao_atual=prox;
@@ -172,7 +170,7 @@ public class Pega extends LinearLayout {
                                 ponta_atual[0]+motionEvent.getX()-x,ponta_atual[1]+motionEvent.getY()-y
                         };
                         setPontaPosition(ponta_atual[0],ponta_atual[1],rotation);
-                        ((CsiActivity)context).updateVehiclePosition(pegador,ponta_atual);
+                        ((CsiActivity)context).updateVehiclePosition(pegador,ponta_atual, ponta_atual);
                         Log.d("IAT","Translação "+motionEvent.getX()+"   "+motionEvent.getY());
                         return true;
                     case MotionEvent.ACTION_UP:
