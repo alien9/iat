@@ -202,13 +202,20 @@ public class VehicleFix extends RelativeLayout {
                     rabo.getX() + rabo.getWidth() / 2,
                     rabo.getY() + rabo.getHeight() / 2
             };
+            // lado a
 
-            double delta_teta = 180d/Math.PI*Math.acos((Math.pow(dista, 2) - 2 * Math.pow(rabo.getHeight(), 2)) / (-2 * Math.pow(rabo.getHeight(), 2)));
+            double a = Math.pow(Math.pow(ponta[0] - center[0], 2) + Math.pow(ponta[1] - center[1], 2), 0.5d);
+            double b = Math.pow(Math.pow(ponta_anterior[0] - center[0], 2) + Math.pow(ponta_anterior[1] - center[1], 2), 0.5d);
+
+            double delta_teta = 180d/Math.PI*Math.acos((Math.pow(dista, 2) - Math.pow(a, 2)-Math.pow(b, 2)) / (-2 * a*b));
+            if(this.findViewById(R.id.vehicle_body).getRotation()<rabo.getRotation()){
+                delta_teta*=-1;
+            }
             Log.d("IAT angulo de rabo",""+delta_teta);
             rabo.setRotation((float) (rabo.getRotation()+delta_teta));
             Log.d("IAT posicao do habbo:",rabo.getX()+" "+rabo.getY());
             Log.d("IAT posição do centro:",""+center[0]+" "+center[1]);
-            rabo.setX(ponta[0] - rabo.getWidth() / 2);//chassi.getX()+chassi.getWidth()/2);
+            rabo.setX((float) (ponta[0] - rabo.getWidth() / 2 - Math.sin(Math.PI/180d*rabo.getRotation()) * rabo.getWidth()/2));//chassi.getX()+chassi.getWidth()/2);
             rabo.setY(ponta[1]);//chassi.getY()+chassi.getHeight()/2);
         }
     }
