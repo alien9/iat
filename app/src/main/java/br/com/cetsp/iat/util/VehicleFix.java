@@ -2,6 +2,8 @@ package br.com.cetsp.iat.util;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -108,6 +110,7 @@ public class VehicleFix extends RelativeLayout {
         context=c;
         init(context);
     }
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public VehicleFix(Context c, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(c, attrs, defStyleAttr, defStyleRes);
         context=c;
@@ -208,15 +211,20 @@ public class VehicleFix extends RelativeLayout {
             double b = Math.pow(Math.pow(ponta_anterior[0] - center[0], 2) + Math.pow(ponta_anterior[1] - center[1], 2), 0.5d);
 
             double delta_teta = 180d/Math.PI*Math.acos((Math.pow(dista, 2) - Math.pow(a, 2)-Math.pow(b, 2)) / (-2 * a*b));
-            if(this.findViewById(R.id.vehicle_body).getRotation()<rabo.getRotation()){
-                delta_teta*=-1;
+            float a_v = this.findViewById(R.id.vehicle_body).getRotation() % 360;
+            float r_v=rabo.getRotation() % 360;
+            while(a_v<0) a_v+=360;
+            while(r_v<0) r_v+=360;
+            if(Math.abs(a_v-r_v+delta_teta)>Math.abs(a_v-r_v-delta_teta)){
+                //delta_teta*=-1;
             }
             Log.d("IAT angulo de rabo",""+delta_teta);
             rabo.setRotation((float) (rabo.getRotation()+delta_teta));
             Log.d("IAT posicao do habbo:",rabo.getX()+" "+rabo.getY());
             Log.d("IAT posição do centro:",""+center[0]+" "+center[1]);
-            rabo.setX((float) (ponta[0] - rabo.getWidth() / 2 - Math.sin(Math.PI/180d*rabo.getRotation()) * rabo.getWidth()/2));//chassi.getX()+chassi.getWidth()/2);
-            rabo.setY(ponta[1]);//chassi.getY()+chassi.getHeight()/2);
+            rabo.setX((float) (ponta[0] - rabo.getWidth() / 2));
+            //rabo.setX((float) (ponta[0] - rabo.getWidth() / 2 - Math.cos(Math.PI/180d*rabo.getRotation()) * rabo.getWidth()/2));//chassi.getX()+chassi.getWidth()/2);
+            rabo.setY((float) (ponta[1]-rabo.getHeight()*Math.sin(Math.PI/180d*rabo.getRotation())));
         }
     }
 
