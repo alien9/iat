@@ -196,7 +196,7 @@ public class VehicleFix extends RelativeLayout {
         view.setX(view.getX() + currentX - x);
         ((CsiActivity) context).updatePegadorForSelectedVehicle();
     }
-    public void updateRabo(float[] ponta, float[] ponta_anterior){
+    public void updateRabo(float[] ponta, float[] ponta_anterior, double angle){
         View rabo = this.findViewById(R.id.vehicle_tail);
         if(rabo!=null) {
             double dista = Math.pow(Math.pow(ponta[0] - ponta_anterior[0], 2) + Math.pow(ponta[1] - ponta_anterior[1], 2), 0.5f);
@@ -210,7 +210,7 @@ public class VehicleFix extends RelativeLayout {
             double a = Math.pow(Math.pow(ponta[0] - center[0], 2) + Math.pow(ponta[1] - center[1], 2), 0.5d);
             double b = Math.pow(Math.pow(ponta_anterior[0] - center[0], 2) + Math.pow(ponta_anterior[1] - center[1], 2), 0.5d);
 
-            double delta_teta = 180d/Math.PI*Math.acos((Math.pow(dista, 2) - Math.pow(a, 2)-Math.pow(b, 2)) / (-2 * a*b));
+            double delta_teta = angle - rabo.getRotation();//180d/Math.PI*Math.acos((Math.pow(dista, 2) - Math.pow(a, 2)-Math.pow(b, 2)) / (-2 * a*b));
             float a_v = this.findViewById(R.id.vehicle_body).getRotation() % 360;
             float r_v=rabo.getRotation() % 360;
             while(a_v<0) a_v+=360;
@@ -222,9 +222,9 @@ public class VehicleFix extends RelativeLayout {
             rabo.setRotation((float) (rabo.getRotation()+delta_teta));
             Log.d("IAT posicao do habbo:",rabo.getX()+" "+rabo.getY());
             Log.d("IAT posição do centro:",""+center[0]+" "+center[1]);
-            rabo.setX((float) (ponta[0] - rabo.getWidth() / 2));
+            rabo.setX((float) (ponta[0]));// - rabo.getWidth() / 2));
             //rabo.setX((float) (ponta[0] - rabo.getWidth() / 2 - Math.cos(Math.PI/180d*rabo.getRotation()) * rabo.getWidth()/2));//chassi.getX()+chassi.getWidth()/2);
-            rabo.setY((float) (ponta[1]-rabo.getHeight()*Math.sin(Math.PI/180d*rabo.getRotation())));
+            rabo.setY((float) (ponta[1]));//-rabo.getHeight()*Math.sin(Math.PI/180d*rabo.getRotation())));
         }
     }
 
