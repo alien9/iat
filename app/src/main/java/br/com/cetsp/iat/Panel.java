@@ -5,9 +5,13 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ComposePathEffect;
+import android.graphics.CornerPathEffect;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PathDashPathEffect;
+import android.graphics.PathEffect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -22,6 +26,7 @@ public class Panel extends View implements View.OnTouchListener{
     public static final int ZEBRA = 2;
     public static final int TRACK = 3;
     public static final int DAMAGE = 4;
+    public static final int CENTERLINE = 5;
     private Canvas canvas;
     private Path path;
     private Paint paint;
@@ -165,9 +170,32 @@ public class Panel extends View implements View.OnTouchListener{
                 paint.setStrokeWidth((float) (0.5*resolution));
                 paint.setPathEffect(new DashPathEffect(new float[]{(float) (1*resolution), (float) (0.6*resolution)},(float) (0.4*resolution)));
                 break;
+            case CENTERLINE:
+                paint.setColor(Color.YELLOW);
+                paint.setStrokeWidth((float) (4*resolution));
+                PathEffect ee = new CornerPathEffect((float) (10*resolution));
+                PathEffect ef = new PathDashPathEffect(makePathDash(resolution), 12, 30, PathDashPathEffect.Style.MORPH);
+                paint.setPathEffect(new ComposePathEffect(ef,ee));
+                break;
         }
         return paint;
     }
+
+    private static Path makePathDash(double r) {
+        Path p = new Path();
+        p.moveTo(Math.round((-6)*r), Math.round(4*r));
+        p.lineTo(Math.round(6*r),Math.round(4));
+        p.lineTo(Math.round(6*r),Math.round(3));
+        p.lineTo(Math.round((-6)*r), Math.round(3));
+        p.close();
+        p.moveTo(Math.round((-6)*r), Math.round((-4)*r));
+        p.lineTo(Math.round(6*r), Math.round((-4)*r));
+        p.lineTo(Math.round(6*r),Math.round((-3*r)));
+        p.lineTo(Math.round((-6)*r),Math.round((-3*r)));
+        return p;
+    }
+
+
     public void reset(){
         paths=new ArrayList<>();
         paints=new ArrayList<>();
@@ -246,6 +274,6 @@ public class Panel extends View implements View.OnTouchListener{
     }
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-            return false;
+        return false;
     }
 }

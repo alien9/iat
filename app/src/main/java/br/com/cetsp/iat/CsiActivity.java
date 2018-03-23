@@ -1119,6 +1119,9 @@ public class CsiActivity extends AppCompatActivity {
             case R.id.new_zebra:
                 startDraw(Panel.ZEBRA);
                 break;
+            case R.id.new_centerline:
+                startDraw(Panel.CENTERLINE);
+                break;
             case R.id.new_path:
                 startDraw(Panel.TRACK);
                 break;

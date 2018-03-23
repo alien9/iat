@@ -135,6 +135,7 @@
     <string name="padrao">(padrão)</string>
     <string name="modelo">Modelo</string>
     <string name="placa_padrao">Placa - padrão</string>
+    <string name="centerline">Linha Central</string>
     <string-array name="vehicle_type">
         <item>Auto</item>
         <item>Caminhão</item>

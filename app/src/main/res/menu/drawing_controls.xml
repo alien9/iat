@@ -14,6 +14,7 @@
         <item android:id="@+id/new_obstacle" android:title="@string/obstaculo" android:icon="@drawable/obstaculo" />
         <item android:id="@+id/new_impact" android:title="@string/impacto" android:icon="@drawable/explode" />
         <item android:id="@+id/new_zebra" android:title="@string/crosswalk" android:icon="@drawable/btn_faixa" />
+        <item android:id="@+id/new_centerline" android:title="@string/centerline" android:icon="@drawable/centerline" />
         <item android:id="@+id/new_mark" android:title="@string/mark" android:icon="@drawable/freada" />
         <item android:id="@+id/new_path" android:title="@string/trajetoria" android:icon="@drawable/trajetoria" />
         <item android:id="@+id/move_map" android:title="@string/movemap" android:icon="@drawable/move_map" />
