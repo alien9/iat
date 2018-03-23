@@ -203,13 +203,15 @@ public class VehicleFix extends RelativeLayout {
             double r_v=(rabo.getRotation() % 360)*Math.PI/180d;
             //posicao do centro de rotação:
             double[] diferencial = new double[]{
-                    ponta_anterior[1]+Math.cos(r_v)*rabo.getHeight(),
-                    ponta_anterior[0]+Math.sin(r_v)*rabo.getHeight()
+                    ponta_anterior[0]+Math.sin(r_v)*rabo.getHeight(),
+                    ponta_anterior[1]+Math.cos(r_v)*rabo.getHeight()
             };
-            double angulinho = 180d/Math.PI*Math.atan((ponta[1] - diferencial[1]) / (ponta[0] - diferencial[0]));
+            Log.d("IAT  diferencial ",""+diferencial[0]+" "+diferencial[1]);
+
+            float angulinho = (float) (180d/Math.PI*Math.atan((ponta[0] - diferencial[0]) / (ponta[1] - diferencial[1])));
 Log.d("IAT  ang rabo",""+angulinho);
             double delta_teta = angle;//0.5*(angle - rabo.getRotation());//180d/Math.PI*Math.acos((Math.pow(dista, 2) - Math.pow(a, 2)-Math.pow(b, 2)) / (-2 * a*b));
-            rabo.setRotation((float) (rabo.getRotation()+delta_teta));
+            rabo.setRotation(rabo.getRotation()+angulinho);//(float....................................................    ) (rabo.getRotation()+delta_teta));
             float a_v = this.findViewById(R.id.vehicle_body).getRotation() % 360;
             r_v=rabo.getRotation() % 360;
             while(a_v<0) a_v+=360;
