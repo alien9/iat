@@ -1285,7 +1285,7 @@ public class CsiActivity extends AppCompatActivity {
                     x,y
             },new float[]{
                     x,y
-            });
+            },pegador.getRodRotation());
             pegador.invalidate();
         }
     }
@@ -1312,12 +1312,12 @@ public class CsiActivity extends AppCompatActivity {
         chassi.setY(ponta[1] - convertDpToPixel(150));
         updateLabelPosition((VehicleFix) r);
         //TODO: ajeita o rabo
-        ((VehicleFix)r).updateRabo(ponta,ponta_anterior);
+        ((VehicleFix)r).updateRabo(ponta,ponta_anterior,l.getRodRotation());
         body.invalidate();
     }
 
     private void updateRabo(VehicleFix v, float[] ponta){
-        v.updateRabo(ponta, ponta);
+        v.updateRabo(ponta, ponta, ((Pega)findViewById(R.id.pegador)).getRodRotation());
     }
 
     public void setSelectedVehicle(View v) {
