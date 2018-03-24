@@ -142,7 +142,6 @@ public class Pega extends LinearLayout {
                         rod.setX(prox[0]);
                         rod.setY(prox[1]);
                         float[] ponta = getPonta(prox, rotation * Math.PI / 180);
-                        Log.d("IAT DESLOCA","ponta "+(ponta[0]-ponta_atual[0])+" "+(ponta[1]-ponta_atual[1]));
                         ((CsiActivity)context).updateVehiclePosition(pegador,ponta,ponta_atual);
                         ponta_atual=ponta;
                         findViewById(R.id.movedor).setX(ponta[0]-big_ball_radius);
