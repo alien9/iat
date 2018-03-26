@@ -27,6 +27,7 @@ public class Panel extends View implements View.OnTouchListener{
     public static final int TRACK = 3;
     public static final int DAMAGE = 4;
     public static final int CENTERLINE = 5;
+    public static final int ERASER = 6;
     private Canvas canvas;
     private Path path;
     private Paint paint;
@@ -91,6 +92,10 @@ public class Panel extends View implements View.OnTouchListener{
         if(!ligado)return false;
         float x = event.getX();
         float y = event.getY();
+        if(style==ERASER) {
+            if(event.getAction()==MotionEvent.ACTION_UP) erase(x,y);
+            return true;
+        }
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 touch_start(x, y);
@@ -107,6 +112,35 @@ public class Panel extends View implements View.OnTouchListener{
         }
         return true;
     }
+
+    private void erase(float x, float y) {
+        int n=-1;
+        double d=99999999999d;
+        json_paths=getJSONPaths();
+        for(int i=0;i<paths.size();i++){
+            JSONArray p=json_paths.optJSONObject(i).optJSONArray("points");
+            for(int j=0;j<p.length();j++){
+                JSONArray pu = p.optJSONArray(j);
+                double distance=Math.pow(Math.pow(pu.optDouble(0)-x,2d)+Math.pow(pu.optDouble(1)-y,2d),0.5d);
+                if(distance<d){
+                    d=distance;
+                    n=i;
+                }
+            }
+        }
+        if(n>=0){
+            paths.remove(n);
+            paints.remove(n);
+            serializable.remove(n);
+            styles.remove(n);
+            synchronized(this){
+                canvas=new Canvas();
+                canvas.save();
+            }
+            invalidate();
+        }
+    }
+
     public float getStrokeWidth(){
         return paint.getStrokeWidth();
     }
@@ -183,16 +217,16 @@ public class Panel extends View implements View.OnTouchListener{
 
     private static Path makePathDash(double r) {
         Path p = new Path();
-        r/=20;
+        r/=10d;
         p.moveTo(Math.round((-6)*r), Math.round(4*r));
         p.lineTo(Math.round(6*r),Math.round(4*r));
-        p.lineTo(Math.round(6*r),Math.round(3*r));
-        p.lineTo(Math.round((-6)*r), Math.round(3*r));
+        p.lineTo(Math.round(6*r),Math.round(2*r));
+        p.lineTo(Math.round((-6)*r), Math.round(2*r));
         p.close();
         p.moveTo(Math.round((-6)*r), Math.round((-4)*r));
         p.lineTo(Math.round(6*r), Math.round((-4)*r));
-        p.lineTo(Math.round(6*r),Math.round((-3*r)));
-        p.lineTo(Math.round((-6)*r),Math.round((-3*r)));
+        p.lineTo(Math.round(6*r),Math.round((-2*r)));
+        p.lineTo(Math.round((-6)*r),Math.round((-2*r)));
         return p;
     }
 

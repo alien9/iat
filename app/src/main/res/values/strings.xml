@@ -81,7 +81,7 @@
     <string name="conv_proibida">Fazia conversão proibida</string>
     <string name="retorno_proibido">Fazia retorno proibido</string>
     <string name="desrespeitou_vermelho">Desrespeitou o vermelho</string>
-    <string name="nao_parou_pref">Não parou na preferencial</string>
+    <string name="nao_parou_pref">Não parou para preferencial</string>
     <string name="colado_veic_fr">Estava colado veículo da frente</string>
     <string name="freiou_brusca">Freou bruscamente</string>
     <string name="parou_proib">Parou / estacionou em lugar proibido</string>
@@ -136,6 +136,11 @@
     <string name="modelo">Modelo</string>
     <string name="placa_padrao">Placa - padrão</string>
     <string name="centerline">Linha Central</string>
+    <string name="nao_identificado">Não Identificado</string>
+    <string name="nao_identificada">Não Identificada</string>
+    <string name="remove">Remover Linha</string>
+    <string name="instructions">Instruções</string>
+    <string name="touch_to_erase">Toque para apagar linha</string>
     <string-array name="vehicle_type">
         <item>Auto</item>
         <item>Caminhão</item>

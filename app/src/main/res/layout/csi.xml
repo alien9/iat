@@ -13,7 +13,6 @@
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         />
-
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
@@ -37,58 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" />
-        <LinearLayout
-            android:id="@+id/info_box"
-            android:layout_marginTop="72dp"
-            android:layout_marginLeft="14dp"
-            android:layout_marginRight="14dp"
-            android:background="@drawable/basic_box"
-            android:padding="6dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:text="@string/carro"
-                    android:id="@+id/vehicle_description_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="7"
-                    android:padding="6dp"
-                    />
-                <TextView
-                    android:visibility="gone"
-                    android:id="@+id/vehicle_id_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:padding="0dp"
-                    android:layout_weight="3">
-                    <ImageButton
-                        android:id="@+id/edit_vehicle_rotate"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/rotate"
-                        android:layout_margin="0dp"
-                        android:scaleType="fitCenter"
-                        />
-                    <ImageButton
-                        android:id="@+id/edit_vehicle_butt"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/edit"
-                        android:layout_margin="0dp"
-                        android:scaleType="fitCenter"
-                        />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
+        <include layout="@layout/info_box" />
         <br.com.cetsp.iat.util.Pega
             android:id="@+id/pegador"
             android:layout_height="match_parent"

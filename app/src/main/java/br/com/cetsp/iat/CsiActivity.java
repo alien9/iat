@@ -379,6 +379,12 @@ public class CsiActivity extends AppCompatActivity {
                 findViewById(R.id.palette_layout).setVisibility(View.GONE);
             }
         };
+        findViewById(R.id.cancel_eraser).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stopEraser();
+            }
+        });
         setDescendentOnClickListener((ViewGroup) findViewById(R.id.palette_container),cl);
         findViewById(R.id.vehicles_layout).setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -1125,6 +1131,9 @@ public class CsiActivity extends AppCompatActivity {
             case R.id.new_path:
                 startDraw(Panel.TRACK);
                 break;
+            case R.id.remove_line:
+                startEraser();
+                break;
             case R.id.new_impact:
                 plot(R.layout.fields_colisao);
                 break;
@@ -1208,6 +1217,21 @@ public class CsiActivity extends AppCompatActivity {
                 */
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void startEraser() {
+        ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
+        findViewById(R.id.vehicle_details).setVisibility(View.GONE);
+        findViewById(R.id.vehicle_details_inicial).setVisibility(View.GONE);
+        findViewById(R.id.info_box).setVisibility(View.VISIBLE);
+        findViewById(R.id.tool_instructions).setVisibility(View.VISIBLE);
+        ((TextView)findViewById(R.id.tool_tip_text)).setText(getString(R.string.touch_to_erase));
+        ((Panel)findViewById(R.id.drawing_panel)).setLigado(true);
+        ((Panel)findViewById(R.id.drawing_panel)).setStyle(Panel.ERASER,getResolution());
+    }
+    private void stopEraser() {
+        ((Panel)findViewById(R.id.drawing_panel)).setLigado(false);
+        findViewById(R.id.info_box).setVisibility(View.GONE);
     }
 
     private void setTiles(boolean show_semaforos) {
@@ -1369,6 +1393,7 @@ public class CsiActivity extends AppCompatActivity {
             findViewById(R.id.edit_vehicle_rotate).setVisibility(veiculo.has("tipo_veiculo")?View.VISIBLE:View.GONE);
             ((TextView)findViewById(R.id.vehicle_id_text)).setText(""+xid);
             findViewById(R.id.info_box).setVisibility(View.VISIBLE);
+            findViewById(R.id.tool_instructions).setVisibility(View.GONE);
         }else{
             Log.d("IAT", "nada a fazer aqui");
             pegador.setVisibility(View.GONE);
@@ -1390,6 +1415,7 @@ public class CsiActivity extends AppCompatActivity {
     }
 
     public void setCurrentMode(int mode) {
+        stopEraser();
         if(mode==current_mode)return;
         MapView map = (MapView) findViewById(R.id.map);
         map.setEnabled(false);
@@ -1431,6 +1457,7 @@ public class CsiActivity extends AppCompatActivity {
         }
         current_mode=mode;
     }
+
 
     private void savePaths(Panel panel) {
         paths=panel.getJSONPaths();
@@ -2358,7 +2385,9 @@ public class CsiActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> getMarcas(){
         modelos=new Hashtable<>();
+        modelos.put(getString(R.string.nao_identificado), new ArrayList());
         todos=new ArrayList();
+        todos.add(getString(R.string.nao_identificado));
         try {
             Resources res = getResources();
             InputStream in_s = res.openRawResource(R.raw.marcas);
@@ -2366,6 +2395,7 @@ public class CsiActivity extends AppCompatActivity {
             in_s.read(b);
             JSONObject jm = new JSONObject(new String(b));
             List<String> mks=new ArrayList<>();
+            mks.add(getString(R.string.nao_identificada));
             Iterator<?> keys = jm.keys();
             while( keys.hasNext() ) {
                 String key = (String)keys.next();
@@ -2373,6 +2403,7 @@ public class CsiActivity extends AppCompatActivity {
                 mks.add(nome);
                 if(!modelos.containsKey(nome)){
                     modelos.put(nome,new ArrayList());
+                    modelos.get(nome).add(getString(R.string.nao_identificado));
                 }
                 JSONArray m=jm.optJSONObject(key).optJSONArray("MODELS");
                 for(int i=0;i<m.length();i++){

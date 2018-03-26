@@ -17,6 +17,7 @@
         <item android:id="@+id/new_centerline" android:title="@string/centerline" android:icon="@drawable/centerline" />
         <item android:id="@+id/new_mark" android:title="@string/mark" android:icon="@drawable/freada" />
         <item android:id="@+id/new_path" android:title="@string/trajetoria" android:icon="@drawable/trajetoria" />
+        <item android:id="@+id/remove_line" android:title="@string/remove" android:icon="@drawable/apagar" />
         <item android:id="@+id/move_map" android:title="@string/movemap" android:icon="@drawable/move_map" />
         <item android:id="@+id/move_car" android:title="@string/edit" android:icon="@drawable/move_car" />
         <item android:id="@+id/end" android:title="@string/exit" android:icon="@drawable/finish" />
