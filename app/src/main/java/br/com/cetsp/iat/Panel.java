@@ -171,7 +171,7 @@ public class Panel extends View implements View.OnTouchListener{
                 paint.setPathEffect(new DashPathEffect(new float[]{(float) (1*resolution), (float) (0.6*resolution)},(float) (0.4*resolution)));
                 break;
             case CENTERLINE:
-                paint.setColor(Color.YELLOW);
+                paint.setColor(Color.argb(255,204,204,204));
                 paint.setStrokeWidth((float) (4*resolution));
                 PathEffect ee = new CornerPathEffect((float) (10*resolution));
                 PathEffect ef = new PathDashPathEffect(makePathDash(resolution), 12, 30, PathDashPathEffect.Style.MORPH);
@@ -183,10 +183,11 @@ public class Panel extends View implements View.OnTouchListener{
 
     private static Path makePathDash(double r) {
         Path p = new Path();
+        r/=20;
         p.moveTo(Math.round((-6)*r), Math.round(4*r));
-        p.lineTo(Math.round(6*r),Math.round(4));
-        p.lineTo(Math.round(6*r),Math.round(3));
-        p.lineTo(Math.round((-6)*r), Math.round(3));
+        p.lineTo(Math.round(6*r),Math.round(4*r));
+        p.lineTo(Math.round(6*r),Math.round(3*r));
+        p.lineTo(Math.round((-6)*r), Math.round(3*r));
         p.close();
         p.moveTo(Math.round((-6)*r), Math.round((-4)*r));
         p.lineTo(Math.round(6*r), Math.round((-4)*r));
