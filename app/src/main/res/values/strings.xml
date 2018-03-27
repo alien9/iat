@@ -141,6 +141,8 @@
     <string name="remove">Remover Linha</string>
     <string name="instructions">Instruções</string>
     <string name="touch_to_erase">Toque para apagar linha</string>
+    <string name="desenhar">Desenho</string>
+    <string name="objects">Objetos</string>
     <string-array name="vehicle_type">
         <item>Auto</item>
         <item>Caminhão</item>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/new_zebra" android:title="@string/crosswalk" android:icon="@drawable/btn_faixa" />
+    <item android:id="@+id/new_centerline" android:title="@string/centerline" android:icon="@drawable/centerline" />
+    <item android:id="@+id/new_mark" android:title="@string/mark" android:icon="@drawable/freada" />
+    <item android:id="@+id/new_path" android:title="@string/trajetoria" android:icon="@drawable/trajetoria" />
+    <item android:id="@+id/remove_line" android:title="@string/remove" android:icon="@drawable/apagar" />
+</menu>

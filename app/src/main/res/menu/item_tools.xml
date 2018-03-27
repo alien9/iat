@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/new_vehicle" android:title="@string/veiculo" android:icon="@drawable/carro" />
+    <item android:id="@+id/new_bicycle" android:title="@string/bicicleta" android:icon="@drawable/bici" />
+    <item android:id="@+id/new_walker" android:title="@string/pessoa" android:icon="@drawable/pessoa" />
+    <item android:id="@+id/new_obstacle" android:title="@string/obstaculo" android:icon="@drawable/obstaculo" />
+    <item android:id="@+id/new_impact" android:title="@string/impacto" android:icon="@drawable/explode" />
+</menu>

@@ -1078,7 +1078,11 @@ public class CsiActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.drawing_controls, menu);
+        inflater.inflate(R.menu.controls, menu);
+        MenuItem sub = menu.findItem(R.id.desenhar_sub);
+        inflater.inflate(R.menu.freehand_tools, sub.getSubMenu());
+        sub = menu.findItem(R.id.objects_sub);
+        inflater.inflate(R.menu.item_tools, sub.getSubMenu());
         return true;
     }
 
@@ -1275,7 +1279,8 @@ public class CsiActivity extends AppCompatActivity {
                     southeast[0],
                     northwest[1]
             );
-            new LayerLoader(url, bb, "labels").execute();//degrees2pixels(bb.getLonWest(), bb.getLatNorth(),map.getZoomLevel()),degrees2pixels(bb.getLonEast(), bb.getLatSouth(),map.getZoomLevel())).execute();
+            new LayerLoader(url, bb, "labels").execute();
+
         }else{
             if(overlays.containsKey("labels")) {
                 if (overlays.get("labels") != null) {
