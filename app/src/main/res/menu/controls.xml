@@ -10,6 +10,7 @@
         <menu>
             <item android:id="@+id/move_map" android:title="@string/movemap" android:icon="@drawable/move_map" />
             <item android:id="@+id/move_car" android:title="@string/edit" android:icon="@drawable/move_car" />
+            <item android:id="@+id/preview" android:title="@string/review" android:icon="@drawable/down" />
             <item android:id="@+id/end" android:title="@string/exit" android:icon="@drawable/finish" />
             <item android:id="@+id/center_here" android:title="@string/center_map" android:icon="@drawable/center"/>
             <item android:title="@string/objects"

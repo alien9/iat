@@ -27,6 +27,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.Html;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextWatcher;
@@ -43,6 +44,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -81,11 +84,13 @@ import org.osmdroid.views.Projection;
 import org.osmdroid.views.overlay.Overlay;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -101,6 +106,8 @@ import br.com.cetsp.iat.util.Pega;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
+import static br.com.cetsp.iat.R.id.map;
 
 /**
  * Created by tiago on 27/03/17.
@@ -285,6 +292,12 @@ public class CsiActivity extends AppCompatActivity {
                 return true;
             }
         });
+        findViewById(R.id.cancel_review_butt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                exitReview();
+            }
+        });
         ((ImageButton)findViewById(R.id.show_pallette)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -303,89 +316,12 @@ public class CsiActivity extends AppCompatActivity {
             }
         });
         findViewById(R.id.palette_layout).setVisibility(View.GONE);
-        View.OnClickListener cl = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setSelectedVehicle(null);
-                int id=view.getId();
-                switch(id){
-                    case R.id.tools_veiculo:
-                        plot(R.layout.fields_vehicle);
-                        break;
-                    case R.id.tools_carro:
-                        createVehicle(VehicleFix.AUTO,1.9,3.8);
-                        Log.d("IAT","deve ter criado");
-                        break;
-                    case R.id.tools_moto:
-                        createVehicle(VehicleFix.MOTO,2.8,4.4);
-                        break;
-                    case R.id.tools_onibus:
-                        createVehicle(VehicleFix.ONIBUS,3.8,10.4);
-                        break;
-                    case R.id.tools_vuc:
-                        createVehicle(VehicleFix.CAMINHAO,3.9,11.4);
-                        break;
-                    case R.id.tools_bici:
-                        createVehicle(VehicleFix.BICI,1.8,2.2);
-                        break;
-                    case R.id.tools_pessoa:
-                        createVehicle(VehicleFix.PEDESTRE,1.7,2.5);
-                        break;
-                    case R.id.tools_colisao:
-                        createVehicle(VehicleFix.COLISAO,4.0,4.0);
-                        break;
-                    case R.id.tools_obstaculo:
-                        plot(R.layout.fields_obstaculo);
-                        break;
-                    case R.id.tools_freada:
-                        startDraw(Panel.SKID);
-                        break;
-                    case R.id.tools_zebra:
-                        startDraw(Panel.ZEBRA);
-                        break;
-                    case R.id.tools_trajetoria:
-                        startDraw(Panel.TRACK);
-                        break;
-
-                    case R.id.move_map_command:
-                        ((RadioButton)findViewById(R.id.radio_mapa)).setChecked(true);
-                        break;
-                    case R.id.edit_command:
-                        ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
-                        break;
-                    case R.id.exit_command:
-                        //TODO: teoricamente isso impede o "pulo" do mapa
-                        ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
-
-                        Intent data=new Intent();
-                        savePaths();
-                        saveVehicles();
-                        JSONObject o=new JSONObject();
-                        try {
-                            JSONObject dj=new JSONObject();
-                            o = getPicture();
-                            dj.put("vehicles",vehicles);
-                            dj.put("paths",paths);
-                            o.put("info",dj);
-                        } catch (JSONException ignore) {
-                        }
-                        data.putExtra("data",o.toString());
-                        Log.d("IAT send result", "enviando croqui para o eGO");
-                        setResult(RESULT_OK, data);
-                        finish();
-                        break;
-                }
-                findViewById(R.id.show_pallette).setVisibility(View.VISIBLE);
-                findViewById(R.id.palette_layout).setVisibility(View.GONE);
-            }
-        };
         findViewById(R.id.cancel_eraser).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 stopEraser();
             }
         });
-        setDescendentOnClickListener((ViewGroup) findViewById(R.id.palette_container),cl);
         findViewById(R.id.vehicles_layout).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -464,7 +400,25 @@ public class CsiActivity extends AppCompatActivity {
         if((existent_vehicles.length()>0)||(existent_paths.length()>0)){
             map.getViewTreeObserver().addOnGlobalLayoutListener(vehicleLoader);
         }
+        ((WebView)findViewById(R.id.digest_webview)).getSettings().setJavaScriptEnabled(true);
+        ((WebView)findViewById(R.id.digest_webview)).setWebViewClient(new WebViewClient(){
+            public void onPageFinished(WebView view, String url) {
+                view.evaluateJavascript("document.getElementById('title').innerHTML='peganingas';",null);
+                JSONObject d = collectData();
+                JSONArray jv= d.optJSONObject("info").optJSONArray("vehicles");
+                for(int i=0;i<jv.length();i++){
+                    JSONObject v=jv.optJSONObject(i);
+                    switch(v.optInt("model")){
+                        case(VehicleFix.COLISAO):
+                            view.evaluateJavascript(String.format("document.getElementById('incidente').innerHTML+='<li>%s</li>'",new String[]{v.optString("tipo_impacto")}),null);
+                            break;
+                    }
+                }
+                view.evaluateJavascript(String.format("document.getElementById('croqui').setAttribute('src','data:image/png;base64,%s');",new String[]{d.optString("thumbnail")}),null);
+            }
+        });
     }
+
 
     private void refresh() {
         setCurrentMode(VEHICLES);
@@ -1147,24 +1101,12 @@ public class CsiActivity extends AppCompatActivity {
             case R.id.move_car:
                 ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
                 break;
+            case R.id.preview:
+                review();
+                break;
             case R.id.end:
-                ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
-                MapView map=((MapView)findViewById(R.id.map));
-                savePaths();
-                saveVehicles();
                 Intent data=new Intent();
-                JSONObject o=new JSONObject();
-                try {
-                    JSONObject dj=new JSONObject();
-                    o = getPicture();
-                    dj.put("vehicles",vehicles);
-                    dj.put("paths",paths);
-                    dj.put("zoom",map.getZoomLevel());
-                    dj.put("latitude",map.getMapCenter().getLatitude());
-                    dj.put("longitude",map.getMapCenter().getLongitude());
-                    o.put("info",dj);
-                } catch (JSONException ignore) {}
-                data.putExtra("data",o.toString());
+                data.putExtra("data",collectData().toString());
                 Log.d("IAT send result", "enviando croqui para o eGO");
                 setResult(RESULT_OK, data);
                 finish();
@@ -1172,10 +1114,9 @@ public class CsiActivity extends AppCompatActivity {
 
             case R.id.center_here:
                 ((RadioButton)findViewById(R.id.radio_mapa)).setChecked(true);
-                map = (MapView) findViewById(R.id.map);
                 JSONObject point = ((Iat) getApplicationContext()).getLastKnownPosition();
                 if (point.has("latitude")) {
-                    map.getController().setCenter(new GeoPoint(point.optDouble("latitude"), point.optDouble("longitude")));
+                    ((MapView) findViewById(R.id.map)).getController().setCenter(new GeoPoint(point.optDouble("latitude"), point.optDouble("longitude")));
                 }
                 break;
 /*
@@ -1222,6 +1163,61 @@ public class CsiActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private JSONObject collectData() {
+        ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
+        MapView map=((MapView)findViewById(R.id.map));
+        savePaths();
+        saveVehicles();
+        JSONObject o=new JSONObject();
+        try {
+            JSONObject dj=new JSONObject();
+            o = getPicture();
+            dj.put("vehicles",vehicles);
+            dj.put("paths",paths);
+            dj.put("zoom",map.getZoomLevel());
+            dj.put("latitude",map.getMapCenter().getLatitude());
+            dj.put("longitude",map.getMapCenter().getLongitude());
+            o.put("info",dj);
+        } catch (JSONException ignore) {}
+        return o;
+    }
+
+    public static String readRawTextFile(Context ctx, int resId)
+    {
+        InputStream inputStream = ctx.getResources().openRawResource(resId);
+
+        InputStreamReader inputreader = new InputStreamReader(inputStream);
+        BufferedReader buffreader = new BufferedReader(inputreader);
+        String line;
+        StringBuilder text = new StringBuilder();
+
+        try {
+            while (( line = buffreader.readLine()) != null) {
+                text.append(line);
+                text.append('\n');
+            }
+        } catch (IOException e) {
+            return null;
+        }
+        return text.toString();
+    }
+    private void review() {
+        findViewById(R.id.digest_view).setVisibility(View.VISIBLE);
+        findViewById(R.id.my_toolbar).setVisibility(View.GONE);
+        String h   = readRawTextFile(this, R.raw.digest);
+        WebView w = (WebView) findViewById(R.id.digest_webview);
+        w.loadData(h.toString(),"text/html; charset=utf-8", "utf-8");
+        //w.evaluateJavascript("document.getElementById('title').innerHTML='peganingas';",null);
+    }
+
+
+
+    private void exitReview() {
+        findViewById(R.id.digest_view).setVisibility(View.GONE);
+        findViewById(R.id.my_toolbar).setVisibility(View.VISIBLE);
+    }
+
 
     private void startEraser() {
         ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
