@@ -1,10 +1,21 @@
 <html>
 <head>
 <style type="text/css">
-body{background-color:green;}
+body{
+    background-color:white;
+}
+#croqui{
+    width:300px;
+    height:300px;
+}
 </style>
+<script type="text/javascript" src="file:///android_asset/jquery"></script>
+<script type="text/javascript">
+
+</script>
+
 </head>
-<body>
+<body onload="document.getElementById('title').innerHTML=$;document.getElementById('incidente').innerHTML='incidentes'">
 <p id="title">
 Resumo do Relatório
 </p>
@@ -13,6 +24,8 @@ Resumo do Relatório
 <ul id="veiculos"></ul>
 <p>Vítimas</p>
 <ul id="vitimas"></ul>
+<div>
 <img id="croqui" src="">
+</div>
 </body>
 </html>

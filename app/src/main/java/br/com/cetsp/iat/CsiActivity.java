@@ -403,7 +403,6 @@ public class CsiActivity extends AppCompatActivity {
         ((WebView)findViewById(R.id.digest_webview)).getSettings().setJavaScriptEnabled(true);
         ((WebView)findViewById(R.id.digest_webview)).setWebViewClient(new WebViewClient(){
             public void onPageFinished(WebView view, String url) {
-                view.evaluateJavascript("document.getElementById('title').innerHTML='peganingas';",null);
                 JSONObject d = collectData();
                 JSONArray jv= d.optJSONObject("info").optJSONArray("vehicles");
                 for(int i=0;i<jv.length();i++){
@@ -411,6 +410,25 @@ public class CsiActivity extends AppCompatActivity {
                     switch(v.optInt("model")){
                         case(VehicleFix.COLISAO):
                             view.evaluateJavascript(String.format("document.getElementById('incidente').innerHTML+='<li>%s</li>'",new String[]{v.optString("tipo_impacto")}),null);
+                            break;
+                        case VehicleFix.AUTO:
+                        case VehicleFix.BICI:
+                        case VehicleFix.CAMINHAO:
+                        case VehicleFix.CAMINHONETE:
+                        case VehicleFix.CAMIONETA:
+                        case VehicleFix.CARROCA:
+                        case VehicleFix.MICROONIBUS:
+                        case VehicleFix.MOTO:
+                        case VehicleFix.REBOQUE:
+                        case VehicleFix.SEMI:
+                        case VehicleFix.TAXI:
+                        case VehicleFix.TRAILER:
+                        case VehicleFix.VIATURA:
+                            view.evaluateJavascript(String.format("document.getElementById('veiculos').innerHTML+='<li>%s</li>'",new String[]{v.optString("tipo_veiculo")}),null);
+                            break;
+                        case VehicleFix.PEDESTRE:
+                            break;
+                        case VehicleFix.OBSTACULO:
                             break;
                     }
                 }
@@ -444,16 +462,12 @@ public class CsiActivity extends AppCompatActivity {
         draw.destroyDrawingCache();
         draw.buildDrawingCache();
         Bitmap bi_d = Bitmap.createBitmap(draw.getDrawingCache());
-
         Bitmap bo = Bitmap.createBitmap(bi.getWidth(), bi.getHeight(), bi.getConfig());
         Canvas c=new Canvas(bo);
         c.drawColor(ContextCompat.getColor(context, R.color.white));
         c.drawBitmap(bi,0,0,null);
         c.drawBitmap(bi_d,0,0,null);
-
-
         View cars = findViewById(R.id.vehicles_canvas);
-
         cars.setWillNotCacheDrawing(false);
         cars.destroyDrawingCache();
         cars.buildDrawingCache();
@@ -1026,6 +1040,10 @@ public class CsiActivity extends AppCompatActivity {
             toolbar.setVisibility(View.VISIBLE);
             return;
         }
+        if(findViewById(R.id.digest_view).getVisibility()==View.VISIBLE){
+            exitReview();
+            return;
+        }
         ((Panel) findViewById(R.id.drawing_panel)).back();
     }
 
@@ -1208,14 +1226,15 @@ public class CsiActivity extends AppCompatActivity {
         String h   = readRawTextFile(this, R.raw.digest);
         WebView w = (WebView) findViewById(R.id.digest_webview);
         w.loadData(h.toString(),"text/html; charset=utf-8", "utf-8");
-        //w.evaluateJavascript("document.getElementById('title').innerHTML='peganingas';",null);
     }
 
 
 
     private void exitReview() {
+        ((WebView)findViewById(R.id.digest_webview)).loadUrl("about:blank");
         findViewById(R.id.digest_view).setVisibility(View.GONE);
         findViewById(R.id.my_toolbar).setVisibility(View.VISIBLE);
+        setCurrentMode(VEHICLES);
     }
 
 
