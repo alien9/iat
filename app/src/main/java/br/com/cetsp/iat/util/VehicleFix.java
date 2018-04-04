@@ -211,15 +211,8 @@ public class VehicleFix extends RelativeLayout {
             Log.d("IAT  diferencial ",""+diferencial[0]+" "+diferencial[1]);
 
             float angulinho = (float) (180d/Math.PI*Math.atan((ponta[0] - diferencial[0]) / (ponta[1] - diferencial[1])));
-            //indo para cima
-            if(Math.abs(angulinho-angle)<45){
-                rabo.setRotation(angulinho+180f);
-            }else{
-                rabo.setRotation(angulinho);
-            }
             Log.d("IAT  ang rabo",""+angulinho);
-            double delta_teta = angle;//0.5*(angle - rabo.getRotation());//180d/Math.PI*Math.acos((Math.pow(dista, 2) - Math.pow(a, 2)-Math.pow(b, 2)) / (-2 * a*b));
-            rabo.setRotation(angulinho);//(float....................................................    ) (rabo.getRotation()+delta_teta));
+            rabo.setRotation(angulinho);
             float a_v = this.findViewById(R.id.vehicle_body).getRotation() % 360;
             r_v=rabo.getRotation() % 360;
             while(a_v<0) a_v+=360;
