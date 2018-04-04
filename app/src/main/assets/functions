@@ -1,0 +1,9 @@
+function pasrseVehicle(v, template){
+    var h=$(template);
+
+    var t="<li><div>";
+    for(var k in ul){
+        t+="<p>"+k+"</p>";
+    }
+    ul.html("</div></li>"+t);
+}

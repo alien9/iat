@@ -9,11 +9,6 @@ body{
     height:300px;
 }
 </style>
-<script type="text/javascript" src="file:///android_asset/jquery"></script>
-<script type="text/javascript">
-
-</script>
-
 </head>
 <body onload="document.getElementById('title').innerHTML=$;document.getElementById('incidente').innerHTML='incidentes'">
 <p id="title">

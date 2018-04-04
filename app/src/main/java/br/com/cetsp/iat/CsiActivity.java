@@ -91,6 +91,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -403,6 +404,9 @@ public class CsiActivity extends AppCompatActivity {
         ((WebView)findViewById(R.id.digest_webview)).getSettings().setJavaScriptEnabled(true);
         ((WebView)findViewById(R.id.digest_webview)).setWebViewClient(new WebViewClient(){
             public void onPageFinished(WebView view, String url) {
+                view.evaluateJavascript(readFromAsset("jquery"),null);
+                view.evaluateJavascript(readFromAsset("functions"),null);
+                view.evaluateJavascript("$('#title').html('acknowledge');",null);
                 JSONObject d = collectData();
                 JSONArray jv= d.optJSONObject("info").optJSONArray("vehicles");
                 for(int i=0;i<jv.length();i++){
@@ -435,6 +439,35 @@ public class CsiActivity extends AppCompatActivity {
                 view.evaluateJavascript(String.format("document.getElementById('croqui').setAttribute('src','data:image/png;base64,%s');",new String[]{d.optString("thumbnail")}),null);
             }
         });
+    }
+
+    private String readFromAsset(String filename) {
+        StringBuilder buf=new StringBuilder();
+        InputStream json= null;
+        try {
+            json = getAssets().open(filename);
+        } catch (IOException e) {
+            Log.e("IAT", String.format("Arquivo [[[%s]]] NÃO EXISTE",new String[]{filename}));
+            return null;
+        }
+        BufferedReader in=null;
+        try {
+            in = new BufferedReader(new InputStreamReader(json, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            Log.e("IAT", String.format("Encoding problemático em Arquivo [[[%s]]]",new String[]{filename}));
+            return null;
+        }
+        String str;
+        try {
+            while ((str=in.readLine()) != null) {
+              buf.append(str);
+            }
+            in.close();
+        } catch (IOException e) {
+            Log.e("IAT", String.format("I/O error em Arquivo [[[%s]]]",new String[]{filename}));
+            return null;
+        }
+        return buf.toString();
     }
 
 
@@ -1226,6 +1259,7 @@ public class CsiActivity extends AppCompatActivity {
         String h   = readRawTextFile(this, R.raw.digest);
         WebView w = (WebView) findViewById(R.id.digest_webview);
         w.loadData(h.toString(),"text/html; charset=utf-8", "utf-8");
+
     }
 
 
