@@ -8,9 +8,13 @@ body{
     width:300px;
     height:300px;
 }
+.thumbnail{
+    width:64px;
+    height:64px;
+}
 </style>
 </head>
-<body onload="document.getElementById('title').innerHTML=$;document.getElementById('incidente').innerHTML='incidentes'">
+<body>
 <p id="title">
 Resumo do Relatório
 </p>

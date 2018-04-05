@@ -44,6 +44,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.ValueCallback;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ArrayAdapter;
@@ -428,7 +429,14 @@ public class CsiActivity extends AppCompatActivity {
                         case VehicleFix.TAXI:
                         case VehicleFix.TRAILER:
                         case VehicleFix.VIATURA:
-                            view.evaluateJavascript(String.format("document.getElementById('veiculos').innerHTML+='<li>%s</li>'",new String[]{v.optString("tipo_veiculo")}),null);
+                            String script=String.format("(function() { return evaluate(%s) })();", new String[]{v.toString()});
+                            view.evaluateJavascript(script,
+                                    new ValueCallback<String>() {
+                                        @Override
+                                        public void onReceiveValue(String value) {
+                                            Log.d("IAT JS ",":: "+value);
+                                        }
+                                    });
                             break;
                         case VehicleFix.PEDESTRE:
                             break;

@@ -7,3 +7,16 @@ function pasrseVehicle(v, template){
     }
     ul.html("</div></li>"+t);
 }
+
+function evaluate(xj){
+    var template=$("<div><img class='thumbnail'><span class='tipo_veiculo'></span></div>");
+    if(xj.damage){
+        template.find('.thumbnail').attr('src',"data:image/png;base64,"+xj.damage);
+        //template.find('.tipo_veiculo').html(v.tipo_veiculo);
+    }
+    //for(var k in xj){
+        //template.append(k+'<br>');
+    //}
+    $("#veiculos").append(template);
+    return 1;
+}
