@@ -9,14 +9,23 @@ function pasrseVehicle(v, template){
 }
 
 function evaluate(xj){
-    var template=$("<div><img class='thumbnail'><span class='tipo_veiculo'></span></div>");
+    var template=$("<div><div class='subtitle'><img class='thumbnail'><span class='tipo_veiculo'>VEÍCULO</span></div></div>");
     if(xj.damage){
         template.find('.thumbnail').attr('src',"data:image/png;base64,"+xj.damage);
-        //template.find('.tipo_veiculo').html(v.tipo_veiculo);
     }
-    //for(var k in xj){
-        //template.append(k+'<br>');
-    //}
+    template.find('.tipo_veiculo').html(xj.label+". "+xj.tipo_veiculo);
+    var fields=['marca','modelo','placa','municipio','uf'];
+    for(var i=0;i<fields.length;i++){
+        template.append("<span class='fieldname'>"+fields[i]+":</span> "+xj[fields[i]]+"<br>");
+    }
+    if(xj.fatores_contribuintes_text && (xj.fatores_contribuintes_text.length>0)){
+        template.append('<div class="subtitle fc">Fatores Contribuintes</div>');
+        for(var i=0;i<xj.fatores_contribuintes_text.length;i++){
+            template.append(xj.fatores_contribuintes_text[i]+"<br>");
+        }
+    }
+    for(var k in xj){
+        template.append(k+'<br>');
+    }
     $("#veiculos").append(template);
-    return 1;
 }

@@ -405,11 +405,19 @@ public class CsiActivity extends AppCompatActivity {
         ((WebView)findViewById(R.id.digest_webview)).getSettings().setJavaScriptEnabled(true);
         ((WebView)findViewById(R.id.digest_webview)).setWebViewClient(new WebViewClient(){
             public void onPageFinished(WebView view, String url) {
+                if(findViewById(R.id.digest_view).getVisibility()!=View.VISIBLE) return;
                 view.evaluateJavascript(readFromAsset("jquery"),null);
                 view.evaluateJavascript(readFromAsset("functions"),null);
-                view.evaluateJavascript("$('#title').html('acknowledge');",null);
                 JSONObject d = collectData();
                 JSONArray jv= d.optJSONObject("info").optJSONArray("vehicles");
+
+                ValueCallback<String> callback = new ValueCallback<String>() {
+                    @Override
+                    public void onReceiveValue(String value) {
+                        Log.d("IAT JS ", ":: " + value);
+                    }
+                };
+
                 for(int i=0;i<jv.length();i++){
                     JSONObject v=jv.optJSONObject(i);
                     switch(v.optInt("model")){
@@ -429,14 +437,8 @@ public class CsiActivity extends AppCompatActivity {
                         case VehicleFix.TAXI:
                         case VehicleFix.TRAILER:
                         case VehicleFix.VIATURA:
-                            String script=String.format("(function() { return evaluate(%s) })();", new String[]{v.toString()});
-                            view.evaluateJavascript(script,
-                                    new ValueCallback<String>() {
-                                        @Override
-                                        public void onReceiveValue(String value) {
-                                            Log.d("IAT JS ",":: "+value);
-                                        }
-                                    });
+                            String script=String.format("evaluate(%s);", new String[]{v.toString()});
+                            view.evaluateJavascript(script,null);
                             break;
                         case VehicleFix.PEDESTRE:
                             break;
@@ -922,6 +924,7 @@ public class CsiActivity extends AppCompatActivity {
     }
 
     private void placaTrick(final View v) {
+        final View numbers = v.findViewById(R.id.placa_numeros);
         v.findViewById(R.id.is_placa_padrao).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -946,9 +949,13 @@ public class CsiActivity extends AppCompatActivity {
                 }
             }
         });
+
         InputFilter filter = new InputFilter() {
             public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend)
             {
+                if((dest.length()+source.length()>2)&&(source.length()>0)){
+                    numbers.requestFocus();
+                }
                 for (int i = start; i < end; i++) {
                     if (!Character.isLetter(source.charAt(i))) {
                         return "";
@@ -1224,7 +1231,7 @@ public class CsiActivity extends AppCompatActivity {
     }
 
     private JSONObject collectData() {
-        ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
+        //((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
         MapView map=((MapView)findViewById(R.id.map));
         savePaths();
         saveVehicles();
@@ -1262,21 +1269,21 @@ public class CsiActivity extends AppCompatActivity {
         return text.toString();
     }
     private void review() {
+        ((RadioButton)findViewById(R.id.radio_mapa)).setChecked(true);
         findViewById(R.id.digest_view).setVisibility(View.VISIBLE);
         findViewById(R.id.my_toolbar).setVisibility(View.GONE);
         String h   = readRawTextFile(this, R.raw.digest);
         WebView w = (WebView) findViewById(R.id.digest_webview);
         w.loadData(h.toString(),"text/html; charset=utf-8", "utf-8");
-
     }
 
 
 
     private void exitReview() {
-        ((WebView)findViewById(R.id.digest_webview)).loadUrl("about:blank");
         findViewById(R.id.digest_view).setVisibility(View.GONE);
         findViewById(R.id.my_toolbar).setVisibility(View.VISIBLE);
-        setCurrentMode(VEHICLES);
+        ((WebView)findViewById(R.id.digest_webview)).loadUrl("about:blank");
+        //((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
     }
 
 

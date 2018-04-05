@@ -1,5 +1,6 @@
 <html>
 <head>
+<meta charset="UTF-8">
 <style type="text/css">
 body{
     background-color:white;
@@ -11,6 +12,13 @@ body{
 .thumbnail{
     width:64px;
     height:64px;
+}
+.fieldname{
+    font-weight:bold;
+}
+.subtitle{
+    font-weight:bold;
+    font-size:bigger;
 }
 </style>
 </head>

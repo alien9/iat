@@ -97,35 +97,35 @@
             android:id="@+id/vehicle_details"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-        <LinearLayout
-            android:background="#333333"
-            android:visibility="gone"
-            android:id="@+id/digest_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
-            <LinearLayout
-                android:weightSum="2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <Button
-                    android:text="@string/ok"
-                    android:id="@+id/ok_review_butt"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_width="0dp" />
-                <Button
-                    android:text="@string/cancel"
-                    android:id="@+id/cancel_review_butt"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_width="0dp" />
-            </LinearLayout>
-            <WebView
-                android:id="@+id/digest_webview"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="10"></WebView>
-        </LinearLayout>
     </FrameLayout>
+    <LinearLayout
+        android:background="#333333"
+        android:visibility="gone"
+        android:id="@+id/digest_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+        <LinearLayout
+            android:weightSum="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:text="@string/ok"
+                android:id="@+id/ok_review_butt"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp" />
+            <Button
+                android:text="@string/cancel"
+                android:id="@+id/cancel_review_butt"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp" />
+        </LinearLayout>
+        <WebView
+            android:id="@+id/digest_webview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"></WebView>
+    </LinearLayout>
 </RelativeLayout>
