@@ -24,8 +24,5 @@ function evaluate(xj){
             template.append(xj.fatores_contribuintes_text[i]+"<br>");
         }
     }
-    for(var k in xj){
-        template.append(k+'<br>');
-    }
     $("#veiculos").append(template);
 }

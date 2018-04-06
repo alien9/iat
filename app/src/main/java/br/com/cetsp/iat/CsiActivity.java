@@ -410,14 +410,12 @@ public class CsiActivity extends AppCompatActivity {
                 view.evaluateJavascript(readFromAsset("functions"),null);
                 JSONObject d = collectData();
                 JSONArray jv= d.optJSONObject("info").optJSONArray("vehicles");
-
                 ValueCallback<String> callback = new ValueCallback<String>() {
                     @Override
                     public void onReceiveValue(String value) {
                         Log.d("IAT JS ", ":: " + value);
                     }
                 };
-
                 for(int i=0;i<jv.length();i++){
                     JSONObject v=jv.optJSONObject(i);
                     switch(v.optInt("model")){
@@ -786,10 +784,7 @@ public class CsiActivity extends AppCompatActivity {
                                 try {
                                     String placa= String.valueOf(((EditText)v.findViewById(R.id.placa_text)).getText());
                                     if(((CheckedTextView)v.findViewById(R.id.is_placa_padrao)).isChecked()){
-                                        placa=String.format("%s%s",new String[]{
-                                                String.valueOf(((EditText)v.findViewById(R.id.placa_letras)).getText()),
-                                                String.valueOf(((EditText)v.findViewById(R.id.placa_numeros)).getText())
-                                        });
+                                        placa=String.format("%s%s",((EditText)v.findViewById(R.id.placa_letras)).getText().toString(),((EditText)v.findViewById(R.id.placa_numeros)).getText().toString());
                                     }
                                     int tipo_veiculo= ((Spinner)v.findViewById(R.id.tipo_veiculo_spinner)).getSelectedItemPosition();
                                     String marca= String.valueOf(((EditText)v.findViewById(R.id.marca_text_auto)).getText());
