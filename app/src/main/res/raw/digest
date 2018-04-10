@@ -19,6 +19,14 @@ body{
 .subtitle{
     font-weight:bold;
     font-size:bigger;
+    display:table;
+}
+.tipo_veiculo{
+    display:table-cell;
+    vertical-align:middle;
+}
+.croqui{
+    text-align:center;
 }
 </style>
 </head>
@@ -26,12 +34,10 @@ body{
 <p id="title">
 Resumo do Relatório
 </p>
-<ul id="incidente"></ul>
-<p>Veículos</p>
-<ul id="veiculos"></ul>
-<p>Vítimas</p>
-<ul id="vitimas"></ul>
-<div>
+<div id="incidente"></div>
+<p>Envolvidos</p>
+<div id="veiculos"></div>
+<div class="croqui">
 <img id="croqui" src="">
 </div>
 </body>

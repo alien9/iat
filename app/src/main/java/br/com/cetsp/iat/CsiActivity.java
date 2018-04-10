@@ -420,7 +420,7 @@ public class CsiActivity extends AppCompatActivity {
                     JSONObject v=jv.optJSONObject(i);
                     switch(v.optInt("model")){
                         case(VehicleFix.COLISAO):
-                            view.evaluateJavascript(String.format("document.getElementById('incidente').innerHTML+='<li>%s</li>'",new String[]{v.optString("tipo_impacto")}),null);
+                            view.evaluateJavascript(String.format("document.getElementById('incidente').innerHTML+='<div>%s</div>'",new String[]{v.optString("tipo_impacto")}),null);
                             break;
                         case VehicleFix.AUTO:
                         case VehicleFix.BICI:
@@ -435,10 +435,12 @@ public class CsiActivity extends AppCompatActivity {
                         case VehicleFix.TAXI:
                         case VehicleFix.TRAILER:
                         case VehicleFix.VIATURA:
-                            String script=String.format("evaluate(%s);", new String[]{v.toString()});
+                            String script=String.format("veiculo(%s);",v.toString());
                             view.evaluateJavascript(script,null);
                             break;
                         case VehicleFix.PEDESTRE:
+                            script=String.format("pedestre(%s);", v.toString());
+                            view.evaluateJavascript(script,null);
                             break;
                         case VehicleFix.OBSTACULO:
                             break;
@@ -468,7 +470,7 @@ public class CsiActivity extends AppCompatActivity {
         String str;
         try {
             while ((str=in.readLine()) != null) {
-              buf.append(str);
+                buf.append(str);
             }
             in.close();
         } catch (IOException e) {
@@ -968,6 +970,7 @@ public class CsiActivity extends AppCompatActivity {
                 return getNextPedestrianLabel();
             case VehicleFix.OBSTACULO:
                 return getNextObstacleLabel();
+            case VehicleFix.SENTIDO:
             case VehicleFix.COLISAO:
                 return "";
             default:
@@ -1134,6 +1137,9 @@ public class CsiActivity extends AppCompatActivity {
                     d.put("tipo_veiculo","Bicicleta");
                 } catch (JSONException ignore) {}
                 createVehicle(VehicleFix.BICI,1.8,2.2,d);
+                break;
+            case R.id.new_direction:
+                createVehicle(VehicleFix.SENTIDO,3.0,3.8,new JSONObject());
                 break;
             case R.id.new_obstacle:
                 plot(R.layout.fields_obstaculo);

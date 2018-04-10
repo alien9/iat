@@ -145,6 +145,8 @@
     <string name="objects">Objetos</string>
     <string name="review">Revisar</string>
     <string name="ok">OK</string>
+    <string name="sentido_da_via">Sentido</string>
+    <string name="go_back">Voltar</string>
     <string-array name="vehicle_type">
         <item>Auto</item>
         <item>Caminhão</item>

@@ -1,25 +1,28 @@
-function pasrseVehicle(v, template){
-    var h=$(template);
-
-    var t="<li><div>";
-    for(var k in ul){
-        t+="<p>"+k+"</p>";
-    }
-    ul.html("</div></li>"+t);
-}
-
-function evaluate(xj){
+function veiculo(xj){
     var template=$("<div><div class='subtitle'><img class='thumbnail'><span class='tipo_veiculo'>VEÍCULO</span></div></div>");
     if(xj.damage){
         template.find('.thumbnail').attr('src',"data:image/png;base64,"+xj.damage);
+    }else{
+        template.find('.thumbnail').hide();
     }
     template.find('.tipo_veiculo').html(xj.label+". "+xj.tipo_veiculo);
-    var fields=['marca','modelo','placa','municipio','uf'];
-    for(var i=0;i<fields.length;i++){
-        template.append("<span class='fieldname'>"+fields[i]+":</span> "+xj[fields[i]]+"<br>");
+    parse(xj, template, {'marca':'Marca','modelo':'Modelo','placa':'placa','municipio':'Município','uf':'UF'});
+}
+
+function pedestre(xj){
+    var template=$("<div><div class='subtitle'><span class='tipo_veiculo'>Pedestre</span></div><div class='subtitle details'></div></div>");
+    template.find('.tipo_veiculo').html(xj.label+". Pedestre");
+    parse(xj, template, {'nome':"Nome",'sexo':"Gênero",'idade':"Idade",'ferimento':"Ferimento"});
+}
+
+function parse(xj, template, fields){
+    for(var k in fields){
+        if(xj[k])
+            template.append("<span class='fieldname'>"+fields[k]+":</span> "+xj[k]+"<br>");
     }
+
     if(xj.fatores_contribuintes_text && (xj.fatores_contribuintes_text.length>0)){
-        template.append('<div class="subtitle fc">Fatores Contribuintes</div>');
+        template.append('<div class="subtitle fc">Fatores Contribuintes:</div>');
         for(var i=0;i<xj.fatores_contribuintes_text.length;i++){
             template.append(xj.fatores_contribuintes_text[i]+"<br>");
         }
