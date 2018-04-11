@@ -61,6 +61,9 @@ public class VehicleFix extends RelativeLayout {
     public static final int COLISAO = 15;
     public static final int OBSTACULO = 16;
     public static final int SENTIDO = 17;
+    public static final int ARVORE = 18;
+    public static final int SPU = 19;
+
     private float width;
     private float height;
     private Context context;
@@ -483,6 +486,12 @@ public class VehicleFix extends RelativeLayout {
                 break;
             case COLISAO:
                 body.setBackground(ContextCompat.getDrawable(context,R.drawable.explode));
+                break;
+            case ARVORE:
+                body.setBackground(ContextCompat.getDrawable(context,R.drawable.albero_000));
+                break;
+            case SPU:
+                body.setBackground(ContextCompat.getDrawable(context,R.drawable.poste_000));
                 break;
             case OBSTACULO:
                 Box c = new Box(context);

@@ -15,12 +15,10 @@
             <item android:id="@+id/center_here" android:title="@string/center_map" android:icon="@drawable/center"/>
             <item android:title="@string/objects"
                 android:id="@+id/objects_sub">
-                <!-- A empty SubMenu -->
                 <menu></menu>
             </item>
             <item android:title="@string/desenhar"
                 android:id="@+id/desenhar_sub">
-                <!-- A empty SubMenu -->
                 <menu></menu>
             </item>
         </menu>

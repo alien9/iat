@@ -10,14 +10,13 @@
         android:layout_height="fill_parent"
         android:orientation="vertical"
         android:scaleType="center" >
-
         <ImageView
             android:id="@+id/imageView0"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:src="@drawable/desenhe" />
-
         <LinearLayout
+            android:orientation="vertical"
             android:id="@+id/bgzinho"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">

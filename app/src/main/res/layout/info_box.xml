@@ -34,6 +34,14 @@
             android:padding="0dp"
             android:layout_weight="3">
             <ImageButton
+                android:id="@+id/bt_delete"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_menu_delete"
+                android:layout_margin="0dp"
+                android:scaleType="fitCenter"
+                />
+            <ImageButton
                 android:id="@+id/edit_vehicle_rotate"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
