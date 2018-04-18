@@ -1253,7 +1253,7 @@ public class CsiActivity extends AppCompatActivity {
     private JSONObject collectData() {
         //((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
         MapView map=((MapView)findViewById(R.id.map));
-        savePaths();
+        //savePaths();
         saveVehicles();
         JSONObject o=new JSONObject();
         try {
@@ -1309,6 +1309,7 @@ public class CsiActivity extends AppCompatActivity {
 
     private void startEraser() {
         ((RadioButton)findViewById(R.id.radio_desenho)).setChecked(true);
+        setCurrentMode(FREEHAND);
         findViewById(R.id.vehicle_details).setVisibility(View.GONE);
         findViewById(R.id.vehicle_details_inicial).setVisibility(View.GONE);
         findViewById(R.id.info_box).setVisibility(View.VISIBLE);
@@ -1316,9 +1317,12 @@ public class CsiActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.tool_tip_text)).setText(getString(R.string.touch_to_erase));
         ((Panel)findViewById(R.id.drawing_panel)).setLigado(true);
         ((Panel)findViewById(R.id.drawing_panel)).setStyle(Panel.ERASER,getResolution());
+        ((Panel)findViewById(R.id.drawing_panel)).setVisibility(View.VISIBLE);
+
     }
     private void stopEraser() {
         ((Panel)findViewById(R.id.drawing_panel)).setLigado(false);
+        findViewById(R.id.vehicle_details_inicial).setVisibility(View.VISIBLE);
         findViewById(R.id.info_box).setVisibility(View.GONE);
     }
 
@@ -1506,6 +1510,7 @@ public class CsiActivity extends AppCompatActivity {
             //findViewById(R.id.edit_vehicle_rotate).setVisibility(veiculo.has("tipo_veiculo")?View.VISIBLE:View.GONE);
             ((TextView)findViewById(R.id.vehicle_id_text)).setText(""+xid);
             findViewById(R.id.info_box).setVisibility(View.VISIBLE);
+            findViewById(R.id.vehicle_details_inicial).setVisibility(View.VISIBLE);
             findViewById(R.id.tool_instructions).setVisibility(View.GONE);
         }else{
             Log.d("IAT", "nada a fazer aqui");
