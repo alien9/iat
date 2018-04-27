@@ -144,6 +144,7 @@ public class CsiActivity extends AppCompatActivity {
     private ArrayList<String> todos;
     private int[] labelOffset;
     private ViewTreeObserver.OnGlobalLayoutListener vehicleLoader;
+    private ArrayList<String> placas;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -228,8 +229,13 @@ public class CsiActivity extends AppCompatActivity {
                 point.put("latitude",-23.533773);
             } catch (JSONException ignore) {}
         }
+        placas=new ArrayList<String>();
+if(intent.hasExtra("placas")){
+    placas= (ArrayList<String>) Arrays.asList(intent.getStringExtra("placas").split("[,\\s]+"));
+}
         JSONArray existent_vehicles=new JSONArray();
         JSONArray existent_paths=new JSONArray();
+
         if(intent.hasExtra("info")){
             try{
                 Log.d("IAT recebe parâmetros",intent.getStringExtra("info"));
