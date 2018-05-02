@@ -110,6 +110,17 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import static br.com.cetsp.iat.R.id.map;
+import static br.com.cetsp.iat.util.VehicleFix.AUTO;
+import static br.com.cetsp.iat.util.VehicleFix.BICI;
+import static br.com.cetsp.iat.util.VehicleFix.CAMINHAO;
+import static br.com.cetsp.iat.util.VehicleFix.CAMINHONETE;
+import static br.com.cetsp.iat.util.VehicleFix.CAMIONETA;
+import static br.com.cetsp.iat.util.VehicleFix.CARROCA;
+import static br.com.cetsp.iat.util.VehicleFix.MICROONIBUS;
+import static br.com.cetsp.iat.util.VehicleFix.MOTO;
+import static br.com.cetsp.iat.util.VehicleFix.ONIBUS;
+import static br.com.cetsp.iat.util.VehicleFix.TAXI;
+import static br.com.cetsp.iat.util.VehicleFix.VIATURA;
 
 /**
  * Created by tiago on 27/03/17.
@@ -144,7 +155,7 @@ public class CsiActivity extends AppCompatActivity {
     private ArrayList<String> todos;
     private int[] labelOffset;
     private ViewTreeObserver.OnGlobalLayoutListener vehicleLoader;
-    private ArrayList<String> placas;
+    private List<String> placas;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -231,9 +242,9 @@ public class CsiActivity extends AppCompatActivity {
         }
         placas=new ArrayList<String>();
         if(intent.hasExtra("placas")){
-            placas= (ArrayList<String>) Arrays.asList(intent.getStringExtra("placas").split("[,\\s]+"));
+            placas= (List<String>) Arrays.asList(intent.getStringExtra("placas").split("[,\\s]+"));
         }else{
-            placas= (ArrayList<String>) Arrays.asList("NG-2472,ABGDS98876, UHH9000".split("[,\\s]+"));
+            placas= (List<String>) Arrays.asList("NG-2472,ABGDS98876, UHH9000".split("[,\\s]+"));
 
 
         }
@@ -308,6 +319,17 @@ public class CsiActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 exitReview();
+            }
+        });
+        findViewById(R.id.ok_review_butt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                exitReview();
+                Intent data=new Intent();
+                data.putExtra("data",collectData().toString());
+                Log.d("IAT send result", "enviando croqui para o eGO");
+                setResult(RESULT_OK, data);
+                finish();
             }
         });
         ((ImageButton)findViewById(R.id.show_pallette)).setOnClickListener(new View.OnClickListener() {
@@ -456,7 +478,7 @@ public class CsiActivity extends AppCompatActivity {
                             view.evaluateJavascript(String.format("document.getElementById('incidente').innerHTML+='<div>%s</div>'",new String[]{v.optString("tipo_impacto")}),null);
                             break;
                         case VehicleFix.AUTO:
-                        case VehicleFix.BICI:
+                        case BICI:
                         case VehicleFix.CAMINHAO:
                         case VehicleFix.CAMINHONETE:
                         case VehicleFix.CAMIONETA:
@@ -1042,7 +1064,7 @@ public class CsiActivity extends AppCompatActivity {
     private String getNextVehicleLabel() {
         int label=1;
         int[] kinds=new int[]{
-                VehicleFix.BICI,
+                BICI,
                 VehicleFix.SEMI,
                 VehicleFix.REBOQUE,
                 VehicleFix.MICROONIBUS,
@@ -1165,7 +1187,7 @@ public class CsiActivity extends AppCompatActivity {
                 try {
                     d.put("tipo_veiculo","Bicicleta");
                 } catch (JSONException ignore) {}
-                createVehicle(VehicleFix.BICI,1.8,2.2,d);
+                createVehicle(BICI,1.8,2.2,d);
                 break;
             case R.id.new_direction:
                 createVehicle(VehicleFix.SENTIDO,3.0,3.8,new JSONObject());
@@ -1280,6 +1302,46 @@ public class CsiActivity extends AppCompatActivity {
             dj.put("zoom",map.getZoomLevel());
             dj.put("latitude",map.getMapCenter().getLatitude());
             dj.put("longitude",map.getMapCenter().getLongitude());
+            JSONArray placas=new JSONArray();
+            JSONObject q=new JSONObject();
+            for(int i=0;i<vehicles.length();i++){
+                JSONObject v = vehicles.optJSONObject(i);
+                if(v.has("placa")){
+                    placas.put(v.optString("placa"));
+                }
+                switch(v.optInt("model")){
+                    case BICI:
+                        q.put("QBIKE",q.optInt("QBIKE",0)+1);
+                        break;
+                    case AUTO:
+                        q.put("QAUTO",q.optInt("QAUTO",0)+1);
+                        break;
+                    case TAXI:
+                        q.put("QTAXI",q.optInt("QTAXI",0)+1);
+                        break;
+                    case CAMINHAO:
+                        q.put("QCAM",q.optInt("QCAM",0)+1);
+                        break;
+                    case CARROCA:
+                        q.put("QCARR",q.optInt("QCARR",0)+1);
+                        break;
+                    case CAMINHONETE:
+                    case CAMIONETA:
+                        q.put("QCNTE",q.optInt("QCNTE",0)+1);
+                        break;
+                    case MICROONIBUS:
+                        q.put("QMBUS",q.optInt("QMBUS",0)+1);
+                        break;
+                    case ONIBUS:
+                        q.put("QBUS",q.optInt("QBUS",0)+1);
+                        break;
+                    case VIATURA:
+                        q.put("QVTR",q.optInt("QVTR",0)+1);
+                        break;
+                }
+            }
+            o.put("quantidades",q);
+            o.put("placas",placas);
             o.put("info",dj);
         } catch (JSONException ignore) {}
         return o;
@@ -2225,7 +2287,7 @@ public class CsiActivity extends AppCompatActivity {
                                     case VehicleFix.REBOQUE:
                                         ((ImageView) v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.reboque_000, null));
                                         break;
-                                    case VehicleFix.BICI:
+                                    case BICI:
                                         ((ImageView) v.findViewById(R.id.damage_bg)).setImageDrawable(getResources().getDrawable(R.drawable.bici000, null));
                                         break;
                                     case VehicleFix.CARROCA:
@@ -2305,7 +2367,7 @@ public class CsiActivity extends AppCompatActivity {
                     ((EditText)layout.findViewById(R.id.largura_text)).setText(vehicle.optString("largura"));
                     ((EditText)layout.findViewById(R.id.comprimento_text)).setText(vehicle.optString("comprimento"));
                     break;
-                case VehicleFix.BICI:
+                case BICI:
                     layout=(ViewGroup) inflater.inflate(R.layout.form_bici_data, collection, false);
                     ((EditText)layout.findViewById(R.id.marca_text)).setText(vehicle.optString("marca"));
                     final ViewGroup finalLayoutbi = layout;
@@ -2431,7 +2493,7 @@ public class CsiActivity extends AppCompatActivity {
                                     if (rid >= 0)
                                         vehicle.put("dano", ((RadioButton) finalLayout.findViewById(rid)).getText().toString());
                                     break;
-                                case VehicleFix.BICI:
+                                case BICI:
                                     vehicle.put("marca", ((EditText) finalLayout.findViewById(R.id.marca_text)).getText());
                                     pes = ((ViewGroup) finalLayout.findViewById(R.id.pessoas_layout));
                                     ja = new JSONArray();
