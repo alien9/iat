@@ -230,9 +230,13 @@ public class CsiActivity extends AppCompatActivity {
             } catch (JSONException ignore) {}
         }
         placas=new ArrayList<String>();
-if(intent.hasExtra("placas")){
-    placas= (ArrayList<String>) Arrays.asList(intent.getStringExtra("placas").split("[,\\s]+"));
-}
+        if(intent.hasExtra("placas")){
+            placas= (ArrayList<String>) Arrays.asList(intent.getStringExtra("placas").split("[,\\s]+"));
+        }else{
+            placas= (ArrayList<String>) Arrays.asList("NG-2472,ABGDS98876, UHH9000".split("[,\\s]+"));
+
+
+        }
         JSONArray existent_vehicles=new JSONArray();
         JSONArray existent_paths=new JSONArray();
 
@@ -991,6 +995,12 @@ if(intent.hasExtra("placas")){
             }
         };
         ((EditText)v.findViewById(R.id.placa_letras)).setFilters(new InputFilter[]{filter});
+        ((Button)v.findViewById(R.id.listaplaca_button)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                v.setVisibility(View.GONE);
+            }
+        });
     }
 
     private String getLabel(JSONObject v) {
