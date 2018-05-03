@@ -244,11 +244,9 @@ public class CsiActivity extends AppCompatActivity {
                 point.put("latitude",-23.533773);
             } catch (JSONException ignore) {}
         }
-        placas=new String[]{};//new ArrayList<String>();
+        placas=new String[]{};
         if(intent.hasExtra("placas")){
             placas= intent.getStringExtra("placas").split("[,\\s]+");
-        }else{
-            placas= "NG-2472,ABGDS98876, UHH9000".split("[,\\s]+");
         }
         JSONArray existent_vehicles=new JSONArray();
         JSONArray existent_paths=new JSONArray();
