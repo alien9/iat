@@ -5,9 +5,13 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ComposePathEffect;
+import android.graphics.CornerPathEffect;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PathDashPathEffect;
+import android.graphics.PathEffect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -22,6 +26,8 @@ public class Panel extends View implements View.OnTouchListener{
     public static final int ZEBRA = 2;
     public static final int TRACK = 3;
     public static final int DAMAGE = 4;
+    public static final int CENTERLINE = 5;
+    public static final int ERASER = 6;
     private Canvas canvas;
     private Path path;
     private Paint paint;
@@ -86,6 +92,10 @@ public class Panel extends View implements View.OnTouchListener{
         if(!ligado)return false;
         float x = event.getX();
         float y = event.getY();
+        if(style==ERASER) {
+            if(event.getAction()==MotionEvent.ACTION_UP) erase(x,y);
+            return true;
+        }
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 touch_start(x, y);
@@ -102,6 +112,35 @@ public class Panel extends View implements View.OnTouchListener{
         }
         return true;
     }
+
+    private void erase(float x, float y) {
+        int n=-1;
+        double d=99999999999d;
+        json_paths=getJSONPaths();
+        for(int i=0;i<paths.size();i++){
+            JSONArray p=json_paths.optJSONObject(i).optJSONArray("points");
+            for(int j=0;j<p.length();j++){
+                JSONArray pu = p.optJSONArray(j);
+                double distance=Math.pow(Math.pow(pu.optDouble(0)-x,2d)+Math.pow(pu.optDouble(1)-y,2d),0.5d);
+                if(distance<d){
+                    d=distance;
+                    n=i;
+                }
+            }
+        }
+        if(n>=0){
+            paths.remove(n);
+            paints.remove(n);
+            serializable.remove(n);
+            styles.remove(n);
+            synchronized(this){
+                canvas=new Canvas();
+                canvas.save();
+            }
+            invalidate();
+        }
+    }
+
     public float getStrokeWidth(){
         return paint.getStrokeWidth();
     }
@@ -165,9 +204,33 @@ public class Panel extends View implements View.OnTouchListener{
                 paint.setStrokeWidth((float) (0.5*resolution));
                 paint.setPathEffect(new DashPathEffect(new float[]{(float) (1*resolution), (float) (0.6*resolution)},(float) (0.4*resolution)));
                 break;
+            case CENTERLINE:
+                paint.setColor(Color.argb(255,204,204,204));
+                paint.setStrokeWidth((float) (4*resolution));
+                PathEffect ee = new CornerPathEffect((float) (10*resolution));
+                PathEffect ef = new PathDashPathEffect(makePathDash(resolution), 12, 30, PathDashPathEffect.Style.MORPH);
+                paint.setPathEffect(new ComposePathEffect(ef,ee));
+                break;
         }
         return paint;
     }
+
+    private static Path makePathDash(double r) {
+        Path p = new Path();
+        r/=10d;
+        p.moveTo(Math.round((-6)*r), Math.round(4*r));
+        p.lineTo(Math.round(6*r),Math.round(4*r));
+        p.lineTo(Math.round(6*r),Math.round(2*r));
+        p.lineTo(Math.round((-6)*r), Math.round(2*r));
+        p.close();
+        p.moveTo(Math.round((-6)*r), Math.round((-4)*r));
+        p.lineTo(Math.round(6*r), Math.round((-4)*r));
+        p.lineTo(Math.round(6*r),Math.round((-2*r)));
+        p.lineTo(Math.round((-6)*r),Math.round((-2*r)));
+        return p;
+    }
+
+
     public void reset(){
         paths=new ArrayList<>();
         paints=new ArrayList<>();
@@ -246,6 +309,6 @@ public class Panel extends View implements View.OnTouchListener{
     }
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-            return false;
+        return false;
     }
 }

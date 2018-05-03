@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="4dp"    >
+    android:padding="4dp">
     <LinearLayout
         android:padding="8dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <CheckedTextView
-            android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+        <TextView
+            android:text="@string/placa"
             android:layout_width="0dp"
             android:layout_weight="2"
-            android:layout_height="wrap_content"
-            android:text="@string/placa_padrao"
-            android:checked="true"
-            android:id="@+id/is_placa_padrao"
-            />
+            android:layout_height="wrap_content" />
         <EditText
             android:visibility="gone"
             android:id="@+id/placa_text"
             android:inputType="textCapCharacters"
             android:layout_width="0dp"
-            android:layout_weight="2"
+            android:layout_weight="6"
             android:layout_height="wrap_content" />
         <LinearLayout
             android:id="@+id/placa_padrao_layout"
             android:layout_width="0dp"
-            android:layout_weight="2"
+            android:layout_weight="6"
             android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/placa_letras"
-                android:inputType="textCapCharacters"
+                android:inputType="textCapCharacters|textNoSuggestions|textVisiblePassword"
                 android:layout_width="0dp"
                 android:layout_weight="3"
                 android:maxLength="3"
@@ -44,6 +44,33 @@
                 android:maxLength="4"
                 android:layout_height="wrap_content" />
         </LinearLayout>
+        <Button
+            android:id="@+id/listaplaca_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="+" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <CheckedTextView
+            android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:text="@string/placa_padrao"
+            android:checked="true"
+            android:id="@+id/is_placa_padrao"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
     </LinearLayout>
     <LinearLayout
         android:id="@+id/veiculo_tipo_edit"
@@ -140,10 +167,21 @@
             android:layout_width="0dp"
             android:layout_weight="4"
             android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:padding="8dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="@string/uf"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content" />
         <Spinner
             android:id="@+id/uf_spinner"
             android:layout_width="0dp"
-            android:layout_weight="2"
+            android:layout_weight="4"
             android:layout_height="wrap_content"
             android:entries="@array/ufs"/>
     </LinearLayout>

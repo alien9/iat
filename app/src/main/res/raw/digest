@@ -1,0 +1,44 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<style type="text/css">
+body{
+    background-color:white;
+}
+#croqui{
+    width:300px;
+    height:300px;
+}
+.thumbnail{
+    width:64px;
+    height:64px;
+}
+.fieldname{
+    font-weight:bold;
+}
+.subtitle{
+    font-weight:bold;
+    font-size:bigger;
+    display:table;
+}
+.tipo_veiculo{
+    display:table-cell;
+    vertical-align:middle;
+}
+.croqui{
+    text-align:center;
+}
+</style>
+</head>
+<body>
+<p id="title">
+Resumo do Relatório
+</p>
+<div id="incidente"></div>
+<p>Envolvidos</p>
+<div id="veiculos"></div>
+<div class="croqui">
+<img id="croqui" src="">
+</div>
+</body>
+</html>

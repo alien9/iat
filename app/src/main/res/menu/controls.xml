@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="br.com.cetsp.iat.CsiActivity"
+    app:showAsAction="always"
+    >
+    <item android:title="@string/veiculo" android:icon="@android:drawable/ic_menu_more"
+        app:showAsAction="always">
+        <menu>
+            <item android:id="@+id/move_map" android:title="@string/movemap" android:icon="@drawable/move_map" />
+            <item android:id="@+id/move_car" android:title="@string/edit" android:icon="@drawable/move_car" />
+            <item android:id="@+id/preview" android:title="@string/review" android:icon="@drawable/down" />
+            <!--item android:id="@+id/end" android:title="@string/exit" android:icon="@drawable/finish" /-->
+            <item android:id="@+id/center_here" android:title="@string/center_map" android:icon="@drawable/center"/>
+            <item android:title="@string/objects"
+                android:id="@+id/objects_sub">
+                <menu></menu>
+            </item>
+            <item android:title="@string/desenhar"
+                android:id="@+id/desenhar_sub">
+                <menu></menu>
+            </item>
+        </menu>
+    </item>
+
+</menu>

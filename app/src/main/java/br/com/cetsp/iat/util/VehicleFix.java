@@ -2,6 +2,7 @@ package br.com.cetsp.iat.util;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -59,6 +60,10 @@ public class VehicleFix extends RelativeLayout {
     public static final int BICI = 14;
     public static final int COLISAO = 15;
     public static final int OBSTACULO = 16;
+    public static final int SENTIDO = 17;
+    public static final int ARVORE = 18;
+    public static final int SPU = 19;
+
     private float width;
     private float height;
     private Context context;
@@ -105,6 +110,7 @@ public class VehicleFix extends RelativeLayout {
     }
     public VehicleFix(Context c, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(c, attrs, defStyleAttr, defStyleRes);
+
         context=c;
         init(context);
     }
@@ -481,9 +487,31 @@ public class VehicleFix extends RelativeLayout {
             case COLISAO:
                 body.setBackground(ContextCompat.getDrawable(context,R.drawable.explode));
                 break;
+            case ARVORE:
+                body.setBackground(ContextCompat.getDrawable(context,R.drawable.albero_000));
+                break;
+            case SPU:
+                body.setBackground(ContextCompat.getDrawable(context,R.drawable.poste_000));
+                break;
             case OBSTACULO:
                 Box c = new Box(context);
                 ((ViewGroup) body).addView(c);
+                break;
+            case SENTIDO:
+                switch(roll) {
+                    case 0:
+                        body.setBackground(ContextCompat.getDrawable(context, R.drawable.sentido000));
+                        break;
+                    case 1:
+                        body.setBackground(ContextCompat.getDrawable(context, R.drawable.sentido090));
+                        break;
+                    case 2:
+                        body.setBackground(ContextCompat.getDrawable(context, R.drawable.sentido000));
+                        break;
+                    case 3:
+                        body.setBackground(ContextCompat.getDrawable(context, R.drawable.sentido180));
+                        break;
+                }
                 break;
         }
     }
