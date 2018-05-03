@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.database.DataSetObserver;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -56,6 +57,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -155,7 +158,8 @@ public class CsiActivity extends AppCompatActivity {
     private ArrayList<String> todos;
     private int[] labelOffset;
     private ViewTreeObserver.OnGlobalLayoutListener vehicleLoader;
-    private List<String> placas;
+    private CharSequence[] placas;
+    //private List<String> placas;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -240,13 +244,11 @@ public class CsiActivity extends AppCompatActivity {
                 point.put("latitude",-23.533773);
             } catch (JSONException ignore) {}
         }
-        placas=new ArrayList<String>();
+        placas=new String[]{};//new ArrayList<String>();
         if(intent.hasExtra("placas")){
-            placas= (List<String>) Arrays.asList(intent.getStringExtra("placas").split("[,\\s]+"));
+            placas= intent.getStringExtra("placas").split("[,\\s]+");
         }else{
-            placas= (List<String>) Arrays.asList("NG-2472,ABGDS98876, UHH9000".split("[,\\s]+"));
-
-
+            placas= "NG-2472,ABGDS98876, UHH9000".split("[,\\s]+");
         }
         JSONArray existent_vehicles=new JSONArray();
         JSONArray existent_paths=new JSONArray();
@@ -1017,10 +1019,36 @@ public class CsiActivity extends AppCompatActivity {
             }
         };
         ((EditText)v.findViewById(R.id.placa_letras)).setFilters(new InputFilter[]{filter});
+        final CsiActivity a = this;
+        final View formic=v;
         ((Button)v.findViewById(R.id.listaplaca_button)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                v.setVisibility(View.GONE);
+                AlertDialog.Builder builder = new AlertDialog.Builder(a);
+                builder.setTitle(R.string.choose_license)
+                        .setItems(placas, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                String chosen= (String) placas[i];
+                                if(chosen.matches("\\w{3}\\d{4}")){
+                                    ((CheckedTextView)formic.findViewById(R.id.is_placa_padrao)).setChecked(true);
+                                    formic.findViewById(R.id.placa_padrao_layout).setVisibility(View.VISIBLE);
+                                    formic.findViewById(R.id.placa_text).setVisibility(View.GONE);
+                                    ((EditText)formic.findViewById(R.id.placa_letras)).setText(chosen.substring(0,3));
+                                    ((EditText)formic.findViewById(R.id.placa_numeros)).setText(chosen.substring(3));
+                                }else{
+                                    ((CheckedTextView)formic.findViewById(R.id.is_placa_padrao)).setChecked(false);
+                                    formic.findViewById(R.id.placa_padrao_layout).setVisibility(View.GONE);
+                                    formic.findViewById(R.id.placa_text).setVisibility(View.VISIBLE);
+                                    ((EditText)formic.findViewById(R.id.placa_text)).setText(chosen);
+
+                                }
+
+                            }
+                        });
+
+                AlertDialog ad = builder.create();
+                ad.show();
             }
         });
     }

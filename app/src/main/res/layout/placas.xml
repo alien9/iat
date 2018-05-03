@@ -7,5 +7,9 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="carrega" />
+        android:text="carrega placas" />
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/placas_listview" />
 </LinearLayout>
