@@ -246,16 +246,10 @@ public class CsiActivity extends AppCompatActivity {
         }
         placas=new String[]{};
         if(intent.hasExtra("placas")){
-<<<<<<< HEAD
-            placas= (ArrayList<String>) Arrays.asList(intent.getStringExtra("placas").split("[,\\s]+"));
-        }else{
-            placas= new ArrayList<String>(Arrays.asList("NG-2472,ABGDS98876, UHH9000".split("[,\\s]+")));
-
-
-=======
             placas= intent.getStringExtra("placas").split("[,\\s]+");
->>>>>>> c6c2f4ed116ce54f25110d0240d208dbc317fd31
-        }
+        }else{
+	    placas="NG-2472, GUAA98877, BUF8888".split("[,\\s]+");
+	}
         JSONArray existent_vehicles=new JSONArray();
         JSONArray existent_paths=new JSONArray();
 
