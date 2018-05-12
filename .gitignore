@@ -10,3 +10,4 @@
 .idea/gradle.xml
 .idea/misc.xml
 *.log
+.idea

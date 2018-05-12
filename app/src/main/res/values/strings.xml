@@ -149,6 +149,7 @@
     <string name="go_back">Voltar</string>
     <string name="arvore">Árvore</string>
     <string name="outros">outro...</string>
+    <string name="choose_license">Escolha</string>
     <string-array name="vehicle_type">
         <item>Auto</item>
         <item>Caminhão</item>
