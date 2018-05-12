@@ -113,4 +113,5 @@
         android:layout_height="wrap_content"
         android:padding="16dp"
         />
+    <include layout="@layout/outros"/>
 </LinearLayout>

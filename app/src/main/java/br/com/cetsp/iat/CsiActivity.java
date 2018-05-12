@@ -233,7 +233,7 @@ public class CsiActivity extends AppCompatActivity {
         if(intent.hasExtra("placas")){
             placas= (ArrayList<String>) Arrays.asList(intent.getStringExtra("placas").split("[,\\s]+"));
         }else{
-            placas= (ArrayList<String>) Arrays.asList("NG-2472,ABGDS98876, UHH9000".split("[,\\s]+"));
+            placas= new ArrayList<String>(Arrays.asList("NG-2472,ABGDS98876, UHH9000".split("[,\\s]+")));
 
 
         }
