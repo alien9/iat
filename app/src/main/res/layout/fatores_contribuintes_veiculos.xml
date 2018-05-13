@@ -85,6 +85,13 @@
         android:layout_height="wrap_content"
         android:padding="16dp"
         />
+
+    <EditText
+        android:tag="@string/outros_fatores_ambientais"
+        android:hint="@string/outros"
+        android:id="@+id/outros_ambientais_text"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        />
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -221,6 +228,12 @@
         android:layout_height="wrap_content"
         android:padding="16dp"
         />
+    <EditText
+        android:tag="@string/outros_fatores_humanos"
+        android:hint="@string/outros"
+        android:id="@+id/outros_humanos_text"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        />
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -259,5 +272,11 @@
         android:layout_height="wrap_content"
         android:padding="16dp"
         />
-    <include layout="@layout/outros"/>
+
+    <EditText
+        android:tag="@string/outros_fatores_veiculares"
+        android:hint="@string/outros"
+        android:id="@+id/outros_veiculares_text"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        />
 </LinearLayout>

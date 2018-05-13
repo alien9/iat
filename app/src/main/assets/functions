@@ -20,12 +20,23 @@ function parse(xj, template, fields){
         if(xj[k])
             template.append("<span class='fieldname'>"+fields[k]+":</span> "+xj[k]+"<br>");
     }
-
     if(xj.fatores_contribuintes_text && (xj.fatores_contribuintes_text.length>0)){
-        template.append('<div class="subtitle fc">Fatores Contribuintes:</div>');
-        for(var i=0;i<xj.fatores_contribuintes_text.length;i++){
-            template.append(xj.fatores_contribuintes_text[i]+"<br>");
+        template.append('<div class="fcdiv"><span class="fieldname">Fatores Contribuintes:</span><p>');
+        template.append(xj.fatores_contribuintes_text.join(";<br>"));
+        template.append("</p></div>");
+    }
+    if(xj.pessoas && (xj.pessoas.length>0)){
+        var traits={"nome":"Nome","tipo_usuario":"Tipo de Usuário","ferimento":"Gravidade de Ferimento","sexo":"Gênero","idade":"Idade","posicao_no_veiculo":"Posição no Veículo","cinto_ou_capacete":"Cinto / Capacete", "airbag":"Airbag"};
+        template.append('<div class="pesdiv"><span class="fieldname">Pessoas:</span><p>');
+
+        for(var i=0;i<xj.pessoas.length;i++){
+            for(var k in traits){
+                if(xj.pessoas[i][k] && (xj.pessoas[i][k].length>0)){
+        template.append("<span class='fieldname'>"+traits[k]+":</span> "+xj.pessoas[i][k]+"<br>");
+                }
+            }
         }
+        template.append("</p></div>");
     }
     $("#veiculos").append(template);
 }

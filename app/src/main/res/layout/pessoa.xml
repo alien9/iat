@@ -85,6 +85,35 @@
             android:background="@android:color/darker_gray"/>
         <TextView
             android:padding="8dp"
+            android:text="@string/airbag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <RadioGroup
+            android:id="@+id/airbag_r"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/airbag_inexistente"
+                android:text="@string/inexistente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <RadioButton
+                android:id="@+id/airbag_nao"
+                android:text="@string/nao_deflagrado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <RadioButton
+                android:id="@+id/airbag_sim"
+                android:text="@string/deflagrado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RadioGroup>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+        <TextView
+            android:padding="8dp"
             android:text="@string/cinto_capacete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

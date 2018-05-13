@@ -150,6 +150,13 @@
     <string name="arvore">Árvore</string>
     <string name="outros">outro...</string>
     <string name="choose_license">Escolha</string>
+    <string name="airbag">Airbag</string>
+    <string name="inexistente">Inexistente</string>
+    <string name="deflagrado">Deflagrado</string>
+    <string name="nao_deflagrado">Intacto</string>
+    <string name="outros_fatores_humanos">Outros Fatores Humanos</string>
+    <string name="outros_fatores_ambientais">Outros Fatores Ambientais</string>
+    <string name="outros_fatores_veiculares">Outros Fatores Veiculares</string>
     <string-array name="vehicle_type">
         <item>Auto</item>
         <item>Caminhão</item>

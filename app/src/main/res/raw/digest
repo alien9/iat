@@ -38,6 +38,7 @@ Resumo do Relatório
 <p>Envolvidos</p>
 <div id="veiculos"></div>
 <div class="croqui">
+<p>Croqui</p>
 <img id="croqui" src="">
 </div>
 </body>

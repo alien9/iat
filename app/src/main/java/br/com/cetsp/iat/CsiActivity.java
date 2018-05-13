@@ -72,6 +72,7 @@ import br.com.cetsp.iat.util.VehicleFix;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.bonuspack.overlays.GroundOverlay;
 import org.osmdroid.config.Configuration;
@@ -248,8 +249,8 @@ public class CsiActivity extends AppCompatActivity {
         if(intent.hasExtra("placas")){
             placas= intent.getStringExtra("placas").split("[,\\s]+");
         }else{
-	    placas="NG-2472, GUAA98877, BUF8888".split("[,\\s]+");
-	}
+            placas="NG-2472, GUAA98877, BUF8888".split("[,\\s]+");
+        }
         JSONArray existent_vehicles=new JSONArray();
         JSONArray existent_paths=new JSONArray();
 
@@ -688,7 +689,9 @@ public class CsiActivity extends AppCompatActivity {
                     f=((RadioGroup)v.findViewById(R.id.cinto_r)).getCheckedRadioButtonId();
                     if(f>=0)
                         p.put("cinto_ou_capacete", ((RadioButton)((RadioGroup)v.findViewById(R.id.cinto_r)).findViewById(f)).getText());
-
+                    f=((RadioGroup)v.findViewById(R.id.airbag_r)).getCheckedRadioButtonId();
+                    if(f>=0)
+                        p.put("airbag",((RadioButton)((RadioGroup)v.findViewById(R.id.airbag_r)).findViewById(f)).getText());
                 } catch (JSONException ignore) {}
                 if(pessoa_detalhe==null) {
                     pd = addPessoaResumo(p,parent);
@@ -745,6 +748,13 @@ public class CsiActivity extends AppCompatActivity {
                     r = (RadioGroup) v.findViewById(R.id.cinto_r);
                     for(int i=0;i<r.getChildCount();i++){
                         if(((RadioButton)r.getChildAt(i)).getText().toString().equals(pessoa.optString("cinto_ou_capacete","")))
+                            r.check(r.getChildAt(i).getId());
+                    }
+                }
+                if(pessoa.has("airbag")){
+                    r=(RadioGroup)v.findViewById(R.id.airbag_r);
+                    for(int i=0;i<r.getChildCount();i++){
+                        if(((RadioButton)r.getChildAt(i)).getText().toString().equals(pessoa.optString("airbag","")))
                             r.check(r.getChildAt(i).getId());
                     }
                 }
@@ -2418,13 +2428,29 @@ public class CsiActivity extends AppCompatActivity {
                 ViewGroup fg= (ViewGroup) layout.findViewById(R.id.fatores_contribuintes_layout);
                 int j=0;
                 JSONArray fca=vehicle.optJSONArray("fatores_contribuintes");
+                JSONArray fta=vehicle.optJSONArray("fatores_contribuintes_text");
+                int k=0;
                 for(int i=0;i<fg.getChildCount();i++){
                     View fu= fg.getChildAt(i);
                     try{
                         CheckBox ch=(CheckBox)fu;
-                        ch.setChecked(fca.optBoolean(j));
+                        boolean isset = fca.optBoolean(j);
+                        ch.setChecked(isset);
                         j++;
-                    }catch(ClassCastException xu){}
+                        if(isset)
+                            k++;
+                    }catch(ClassCastException xu){
+                        try{
+                            EditText ed=(EditText) fu;
+                            String c=fta.optString(k);
+                            boolean isset = fca.optBoolean(j);
+                            if(isset) {
+                                ed.setText(c);
+                                k++;
+                            }
+                            j++;
+                        }catch (ClassCastException xuxu){}
+                    }
                 }
             }
             if(vehicle.has("tipo_veiculo_id")){
@@ -2569,6 +2595,15 @@ public class CsiActivity extends AppCompatActivity {
                                             ft.put(((CheckBox) fu).getText().toString());
                                         }
                                     } catch (ClassCastException xu) {
+                                        try {
+                                            String outros=((EditText) fu).getText().toString();
+                                            if(outros.length()>0) {
+                                                ft.put(outros);
+                                                fc.put(true);
+                                            }else{
+                                                fc.put(false);
+                                            }
+                                        }catch(ClassCastException xuxu){}
                                     }
                                 }
                                 vehicle.put("fatores_contribuintes", fc);
