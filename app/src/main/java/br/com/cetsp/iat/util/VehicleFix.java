@@ -196,7 +196,9 @@ public class VehicleFix extends RelativeLayout {
         setPivotX(height/2);
     }
 */
-
+    public int getModel(){
+        return model;
+    }
     public void zinit(int m,int p) {
         model=m;
         roll = p;

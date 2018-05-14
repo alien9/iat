@@ -113,6 +113,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static br.com.cetsp.iat.R.id.default_activity_button;
 import static br.com.cetsp.iat.R.id.map;
 import static br.com.cetsp.iat.R.id.text;
 import static br.com.cetsp.iat.util.VehicleFix.AUTO;
@@ -1551,7 +1552,12 @@ public class CsiActivity extends AppCompatActivity {
         if(body==null)return;
         //float[] ce = {l.getX(),l.getY()};
         //Log.d("IAT","POSICAO: "+body.getX()+", "+body.getY()+" - ponta pegada "+ponta[0]+" "+ponta[1]+" centro "+ce[0]+" "+ce[1]);
-        body.setRotation(l.getRodRotation());
+        switch(((VehicleFix) r).getModel()) {
+            case REFERENCE:
+                break;
+            default:
+                body.setRotation(l.getRodRotation());
+        }
         chassi.setX(ponta[0] - convertDpToPixel(150));
         chassi.setY(ponta[1] - convertDpToPixel(150));
         updateLabelPosition((VehicleFix) r);
