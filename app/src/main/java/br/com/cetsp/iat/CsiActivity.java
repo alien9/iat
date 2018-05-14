@@ -256,7 +256,7 @@ public class CsiActivity extends AppCompatActivity {
         if(intent.hasExtra("placas")){
             placas= intent.getStringExtra("placas").split("[,\\s]+");
         }else{
-            placas="NG-2472, GUAA98877, BUF8888".split("[,\\s]+");
+            //placas="NG-2472, GUAA98877, BUF8888".split("[,\\s]+");
         }
         JSONArray existent_vehicles=new JSONArray();
         JSONArray existent_paths=new JSONArray();
