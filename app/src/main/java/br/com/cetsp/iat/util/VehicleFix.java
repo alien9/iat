@@ -63,7 +63,7 @@ public class VehicleFix extends RelativeLayout {
     public static final int SENTIDO = 17;
     public static final int ARVORE = 18;
     public static final int SPU = 19;
-
+    public static final int REFERENCE=20;
     private float width;
     private float height;
     private Context context;
@@ -512,6 +512,9 @@ public class VehicleFix extends RelativeLayout {
                         body.setBackground(ContextCompat.getDrawable(context, R.drawable.sentido180));
                         break;
                 }
+                break;
+            case REFERENCE:
+                body.setBackground(ContextCompat.getDrawable(context,R.drawable.referencia));
                 break;
         }
     }

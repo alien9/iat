@@ -8,4 +8,5 @@
     <item android:id="@+id/new_direction" android:title="@string/sentido_da_via" android:icon="@drawable/btn_direction" />
     <item android:id="@+id/new_post" android:title="@string/poste" android:icon="@drawable/btn_spu" />
     <item android:id="@+id/new_tree" android:title="@string/arvore" android:icon="@drawable/btn_albero" />
+    <item android:id="@+id/new_reference" android:title="@string/reference" android:icon="@drawable/referencia" />
 </menu>

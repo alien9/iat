@@ -114,6 +114,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import static br.com.cetsp.iat.R.id.map;
+import static br.com.cetsp.iat.R.id.text;
 import static br.com.cetsp.iat.util.VehicleFix.AUTO;
 import static br.com.cetsp.iat.util.VehicleFix.BICI;
 import static br.com.cetsp.iat.util.VehicleFix.CAMINHAO;
@@ -123,6 +124,7 @@ import static br.com.cetsp.iat.util.VehicleFix.CARROCA;
 import static br.com.cetsp.iat.util.VehicleFix.MICROONIBUS;
 import static br.com.cetsp.iat.util.VehicleFix.MOTO;
 import static br.com.cetsp.iat.util.VehicleFix.ONIBUS;
+import static br.com.cetsp.iat.util.VehicleFix.REFERENCE;
 import static br.com.cetsp.iat.util.VehicleFix.TAXI;
 import static br.com.cetsp.iat.util.VehicleFix.VIATURA;
 
@@ -160,6 +162,7 @@ public class CsiActivity extends AppCompatActivity {
     private int[] labelOffset;
     private ViewTreeObserver.OnGlobalLayoutListener vehicleLoader;
     private CharSequence[] placas;
+    private String referencia;
     //private List<String> placas;
 
     @Override
@@ -221,7 +224,11 @@ public class CsiActivity extends AppCompatActivity {
         if(intent.hasExtra("size")){
             croqui_size=intent.getIntExtra("size",500);
         }
+        referencia="";
         JSONObject point=new JSONObject();
+        if(intent.hasExtra("referencia")){
+            referencia=intent.getStringExtra("referencia");
+        }
         if(intent.hasExtra("latitude") && intent.hasExtra("longitude")){
             Log.d("IAT", "Application with a parameter");
             try {
@@ -1071,6 +1078,7 @@ public class CsiActivity extends AppCompatActivity {
                 return getNextObstacleLabel();
             case VehicleFix.SENTIDO:
             case VehicleFix.COLISAO:
+            case VehicleFix.REFERENCE:
                 return "";
             default:
                 return getNextVehicleLabel();
@@ -1235,6 +1243,9 @@ public class CsiActivity extends AppCompatActivity {
                 break;
             case R.id.new_tree:
                 createVehicle(VehicleFix.ARVORE,5.0,5.0,new JSONObject());
+                break;
+            case R.id.new_reference:
+                createVehicle(REFERENCE,3,3,new JSONObject());
                 break;
             case R.id.new_obstacle:
                 plot(R.layout.fields_obstaculo);
@@ -1573,6 +1584,12 @@ public class CsiActivity extends AppCompatActivity {
                 l=getString(R.string.sentido_da_via);
                 findViewById(R.id.edit_vehicle_rotate).setVisibility(View.VISIBLE);
                 findViewById(R.id.edit_vehicle_butt).setVisibility(View.GONE);
+                break;
+            case VehicleFix.REFERENCE:
+                findViewById(R.id.bt_delete).setVisibility(View.VISIBLE);
+                l=ve.optString("nome",getString(R.string.reference));
+                findViewById(R.id.edit_vehicle_rotate).setVisibility(View.GONE);
+                findViewById(R.id.edit_vehicle_butt).setVisibility(View.VISIBLE);
                 break;
             case VehicleFix.OBSTACULO:
                 l=l+ve.optString("nome");
@@ -2399,6 +2416,17 @@ public class CsiActivity extends AppCompatActivity {
                         }
                     }
                     break;
+                case VehicleFix.REFERENCE:
+                    layout=(ViewGroup) inflater.inflate(R.layout.form_reference_data, collection, false);
+                    if(referencia.length()>0){
+                        try {
+                            vehicle.put("nome", referencia);
+                        } catch (JSONException ignore) {}
+                        referencia="";
+                    }
+                    ((EditText)layout.findViewById(R.id.referencia_text)).setText(vehicle.optString("nome"));
+                    break;
+
                 case VehicleFix.OBSTACULO:
                     layout=(ViewGroup) inflater.inflate(R.layout.form_obstaculo_data, collection, false);
                     ((EditText)layout.findViewById(R.id.tipo_obstaculo_text)).setText(vehicle.optString("nome"));
@@ -2581,6 +2609,9 @@ public class CsiActivity extends AppCompatActivity {
                                     break;
                                 case VehicleFix.OBSTACULO:
                                     vehicle.put("nome", ((EditText) finalLayout.findViewById(R.id.tipo_obstaculo_text)).getText().toString());
+                                    break;
+                                case VehicleFix.REFERENCE:
+                                    vehicle.put("nome",((EditText)finalLayout.findViewById(R.id.referencia_text)).getText());
                                     break;
                             }
                             if (finalLayout.findViewById(R.id.fatores_contribuintes_layout) != null) {

@@ -157,6 +157,8 @@
     <string name="outros_fatores_humanos">Outros Fatores Humanos</string>
     <string name="outros_fatores_ambientais">Outros Fatores Ambientais</string>
     <string name="outros_fatores_veiculares">Outros Fatores Veiculares</string>
+    <string name="reference">Referência</string>
+    <string name="add_description">Referência</string>
     <string-array name="vehicle_type">
         <item>Auto</item>
         <item>Caminhão</item>
