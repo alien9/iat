@@ -201,6 +201,7 @@ public class CsiActivity extends AppCompatActivity {
         clear_source = new GeoServerTileSource("quadras_e_logradouros", 17, 21, 512, ".png", new String[]{u});
         great_source = new GeoServerTileSource("cidade_com_semaforos_e_lotes", 17, 21, 512, ".png", new String[]{u});
         map.setTileSource(great_source);
+
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
         map.setClickable(true);
