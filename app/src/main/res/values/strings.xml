@@ -150,6 +150,10 @@
     <string name="go_back">Voltar</string>
     <string name="arvore">Árvore</string>
     <string name="choose_license">Escolha</string>
+    <string name="password">Senha</string>
+    <string name="login">Login</string>
+    <string name="username">tiago</string>
+    <string name="pass">Senha</string>
     <string-array name="vehicle_type">
         <item>Auto</item>
         <item>Caminhão</item>

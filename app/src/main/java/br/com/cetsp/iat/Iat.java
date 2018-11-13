@@ -100,4 +100,9 @@ public class Iat extends Application {
     public String getStarter() {
         return starter;
     }
+
+    public boolean isAuthenticated() {
+        
+        return false;
+    }
 }
