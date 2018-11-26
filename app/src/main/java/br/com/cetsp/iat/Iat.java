@@ -9,13 +9,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
 import br.com.cetsp.iat.util.VehicleFix;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,11 +27,15 @@ import java.util.List;
  */
 public class Iat extends Application {
     private static final int IAT_REQUEST_GPS_PERMISSION = 0;
+    public static final int FORMULARIO_SPTRANS = 99;
     private static JSONObject lastKnownPosition;
     private static LocationManager locationManager;
     private static Iat singleton;
     private VehicleFix selectedVehicle;
     private String starter;
+    private JSONObject session;
+
+    private ArrayList<String> reports;
 
     public static Iat getInstance() {
         return singleton;
@@ -46,7 +54,14 @@ public class Iat extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        reports= new ArrayList<>();
+        SharedPreferences prefs = getSharedPreferences("PRATT", MODE_PRIVATE);
+        int i=0;
+        while(prefs.getString(String.format("prat_%09d", i),null)!=null){
+            reports.add(prefs.getString(String.format("prat_%09d", i),null));
+            i++;
+        };
+        session=null;
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         singleton = this;
     }
@@ -59,6 +74,7 @@ public class Iat extends Application {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void startGPS(Activity a) {
         Log.d("IAT SERVICE", "should start");
         if ((ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)||(ActivityCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED)) {
@@ -99,5 +115,23 @@ public class Iat extends Application {
 
     public String getStarter() {
         return starter;
+    }
+
+    public boolean isAuthenticated() {
+        return session!=null;
+    }
+
+    public void setSession(JSONObject j) {
+        session=j;
+    }
+
+    public void append(String data) {
+        SharedPreferences.Editor editor = getSharedPreferences("PRATT", MODE_PRIVATE).edit();
+        editor.putString(String.format("prat_%09d", reports.size()), data);
+        editor.apply();
+        reports.add(data);
+    }
+    public ArrayList<String> getReport(){
+        return reports;
     }
 }

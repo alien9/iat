@@ -165,6 +165,11 @@ public class CsiActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Iat iat = (Iat) getApplicationContext();
+        if(!iat.isAuthenticated()){
+            Intent intent = new Intent(this, Login.class);
+            startActivity(intent);
+            return;
+        }
         if ((ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)||(ActivityCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED)) {
             Intent intent=new Intent(this,PermissionRequest.class);
             Bundle b=getIntent().getExtras();
