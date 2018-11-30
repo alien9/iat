@@ -94,6 +94,9 @@ public class PratList extends ListActivity {
                     }
                     TextView t = (TextView) convertView.findViewById(R.id.textView_item);
                     t.setText(TextUtils.join(", ", misshaps));
+
+                    ((TextView) convertView.findViewById(R.id.textView_item_data)).setText("test ");
+
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

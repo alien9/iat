@@ -53,6 +53,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CheckedTextView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -64,6 +65,7 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -96,10 +98,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
@@ -159,6 +167,8 @@ public class CsiActivity extends AppCompatActivity {
     private int[] labelOffset;
     private ViewTreeObserver.OnGlobalLayoutListener vehicleLoader;
     private CharSequence[] placas;
+    private AlertDialog datetime_picker;
+    private AlertDialog alert;
     //private List<String> placas;
 
     @Override
@@ -1743,6 +1753,10 @@ public class CsiActivity extends AppCompatActivity {
 
     }
 
+    public void pickdate(View view) {
+
+    }
+
 
     public class GeoServerTileSource extends OnlineTileSourceBase {
         private final String[] base_url;
@@ -2371,6 +2385,17 @@ public class CsiActivity extends AppCompatActivity {
                     }
                     break;
                 case VehicleFix.COLISAO:
+                    final Calendar cal = Calendar. getInstance();
+                    final DateFormat dateFormat = new SimpleDateFormat("dd/M/YYYY HH:mm");
+                    Date da=new Date();
+                    if(vehicle.has("data_e_hora")){
+                        try {
+                            da=dateFormat.parse(vehicle.optString("data_e_hora"));
+                        } catch (ParseException ignore) {
+                        }
+                    }
+                    final Date date=da;
+                    cal.setTime(date);
                     layout=(ViewGroup) inflater.inflate(R.layout.form_colisao_data, collection, false);
                     int c= Arrays.asList(getResources().getStringArray(R.array.impact_type)).indexOf(vehicle.optString("tipo_impacto"));
                     if(c>=0)
@@ -2379,7 +2404,8 @@ public class CsiActivity extends AppCompatActivity {
                     String inv="";
                     if(vehicle.has("envolvidos"))
                         inv=vehicle.optJSONArray("envolvidos").toString();
-                    //if(inv==null) inv=new JSONArray();
+                    final Button dh=((Button)layout.findViewById(R.id.data_e_hora));
+                    dh.setText(vehicle.optString("data_e_hora",dateFormat.format(date)));
                     for(int i=0;i<vehicles.length();i++){
                         JSONObject vc = vehicles.optJSONObject(i);
                         if(vc.optInt("model")!=VehicleFix.COLISAO) {
@@ -2391,6 +2417,39 @@ public class CsiActivity extends AppCompatActivity {
                             ((ViewGroup)layout.findViewById(R.id.itens_envolvidos)).addView(cc);
                         }
                     }
+                    dh.setText(dateFormat.format(date));
+                    dh.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            AlertDialog.Builder bu = new AlertDialog.Builder(context);
+                            LayoutInflater inflater = getLayoutInflater();
+                            final View l = inflater.inflate(R.layout.dialog_datetimepicker, null);
+                            ((DatePicker)l.findViewById(R.id.datepicker)).init(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), new DatePicker.OnDateChangedListener() {
+                                @Override
+                                public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
+                                    l.findViewById(R.id.datepicker).setVisibility(View.GONE);
+                                    l.findViewById(R.id.timepicker).setVisibility(View.VISIBLE);
+                                    l.findViewById(R.id.datetime_confirm).setVisibility(View.VISIBLE);
+                                }
+                            });
+                            ((TimePicker)l.findViewById(R.id.timepicker)).setCurrentHour(cal.get(Calendar.HOUR));
+                            ((TimePicker)l.findViewById(R.id.timepicker)).setCurrentMinute(cal.get(Calendar.MINUTE));
+
+                            bu.setView(l);
+                            final AlertDialog al = bu.create();
+                            l.findViewById(R.id.datetime_confirm).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    DatePicker d=(DatePicker)l.findViewById(R.id.datepicker);
+                                    TimePicker t=(TimePicker) l.findViewById(R.id.timepicker);
+                                    cal.set(d.getYear(),d.getMonth(),d.getDayOfMonth(),t.getCurrentHour(),t.getCurrentMinute());
+                                    dh.setText(dateFormat.format(cal.getTime()));
+                                    al.dismiss();
+                                }
+                            });
+                            al.show();
+                        }
+                    });
                     break;
                 case VehicleFix.OBSTACULO:
                     layout=(ViewGroup) inflater.inflate(R.layout.form_obstaculo_data, collection, false);
@@ -2546,6 +2605,7 @@ public class CsiActivity extends AppCompatActivity {
                                 case VehicleFix.COLISAO:
                                     vehicle.put("tipo_impacto", ((Spinner) finalLayout.findViewById(R.id.impacto_spinner)).getSelectedItem().toString());
                                     vehicle.put("descricao", ((EditText) finalLayout.findViewById(R.id.description)).getText().toString());
+                                    vehicle.put("data_e_hora", ((Button)finalLayout.findViewById(R.id.data_e_hora)).getText());
                                     ViewGroup vu = (ViewGroup) finalLayout.findViewById(R.id.itens_envolvidos);
                                     JSONArray involved = new JSONArray();
                                     for (int i = 0; i < vu.getChildCount(); i++) {

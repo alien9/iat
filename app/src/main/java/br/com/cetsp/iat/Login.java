@@ -77,7 +77,7 @@ public class Login  extends AppCompatActivity{
                 MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
                 OkHttpClient client = FormControl.getHttpClient(context);
                 Request request = new Request.Builder()
-                        .url(getString(R.string.backend_url) + "webservices/FTT/api/login")
+                        .url(getString(R.string.backend_url_dev) + "webservices/FTT/api/login")
                         .post(RequestBody.create(MEDIA_TYPE_JSON, strings[0]))
                         .build();
 
