@@ -4,7 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="start|center"
-    android:padding="4dp">
+    android:padding="4dp"
+    android:id="@+id/item_layout"
+    android:background="@color/red"
+    >
     <ImageView
         android:id="@+id/thumbnail"
         android:layout_width="wrap_content"
@@ -27,7 +30,6 @@
         android:id="@+id/textView_item_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textSize="16sp"
         android:paddingStart="12dp"
         />

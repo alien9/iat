@@ -125,13 +125,33 @@ public class Iat extends Application {
         session=j;
     }
 
-    public void append(String data) {
+    public void append(String data, int position) {
         SharedPreferences.Editor editor = getSharedPreferences("PRATT", MODE_PRIVATE).edit();
-        editor.putString(String.format("prat_%09d", reports.size()), data);
+        if(position>=0) {
+            reports.set(position, data);
+        }else {
+            reports.add(data);
+        }
+        for(int i=0;i<reports.size();i++){
+            editor.putString(String.format("prat_%09d", i), reports.get(i));
+        }
         editor.apply();
-        reports.add(data);
     }
     public ArrayList<String> getReport(){
         return reports;
+    }
+
+    public String getReport(int n){
+        return reports.get(n);
+    }
+
+    public void markAsSent(int index) {
+        try {
+            JSONObject j=new JSONObject(reports.get(index));
+            j.put("sent", true);
+            append(j.toString(),index);
+        } catch (JSONException ignore) {
+
+        }
     }
 }

@@ -279,7 +279,8 @@ public class CsiActivity extends AppCompatActivity {
                 }
                 if(j.has("longitude")&&j.has("latitude"))
                     map.getController().setCenter(new GeoPoint(point.optDouble("latitude"), point.optDouble("longitude")));
-                existent_vehicles = j.optJSONArray("vehicles");
+                if(j.has("vehicles"))
+                    existent_vehicles = j.optJSONArray("vehicles");
             } catch (JSONException e) {}
         }
         map.getController().setCenter(new GeoPoint(point.optDouble("latitude"), point.optDouble("longitude")));
@@ -765,8 +766,11 @@ public class CsiActivity extends AppCompatActivity {
         }
 
     }
+    private void plot(int t){
+        plot(t, null);
+    }
 
-    private void plot(int t) {
+    private void plot(int t, final String dt) {
         final int tipo=t;
         LayoutInflater inflater = this.getLayoutInflater();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -938,6 +942,7 @@ public class CsiActivity extends AppCompatActivity {
                             case R.layout.fields_colisao:
                                 JSONObject d=new JSONObject();
                                 try {
+                                    d.put("data_e_hora", dt);
                                     d.put("tipo_impacto_id",((Spinner)v.findViewById(R.id.impacto_spinner)).getSelectedItemPosition());
                                     d.put("tipo_impacto",String.valueOf(((Spinner)v.findViewById(R.id.impacto_spinner)).getSelectedItem()));
                                 } catch (JSONException ignored) {}
@@ -1176,6 +1181,7 @@ public class CsiActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
+        if(findViewById(R.id.palette_layout)==null)return;
         if(findViewById(R.id.palette_layout).getVisibility()==View.VISIBLE){
             findViewById(R.id.palette_layout).setVisibility(View.GONE);
             findViewById(R.id.show_pallette).setVisibility(View.VISIBLE);
@@ -1258,7 +1264,8 @@ public class CsiActivity extends AppCompatActivity {
                 startEraser();
                 break;
             case R.id.new_impact:
-                plot(R.layout.fields_colisao);
+                prepareImpact();
+                //plot(R.layout.fields_colisao);
                 break;
             case R.id.move_map:
                 ((RadioButton)findViewById(R.id.radio_mapa)).setChecked(true);
@@ -1327,6 +1334,43 @@ public class CsiActivity extends AppCompatActivity {
                 */
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void prepareImpact() {
+        // coletar a data e hora do evento
+        final Calendar cal = Calendar.getInstance();
+        final DateFormat dateFormat = new SimpleDateFormat("dd/M/yyyy HH:mm");
+        final Date date=new Date();
+        cal.setTime(date);
+
+        AlertDialog.Builder bu = new AlertDialog.Builder(context);
+        LayoutInflater inflater = getLayoutInflater();
+        final View l = inflater.inflate(R.layout.dialog_datetimepicker, null);
+        ((DatePicker)l.findViewById(R.id.datepicker)).init(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
+                l.findViewById(R.id.datepicker).setVisibility(View.GONE);
+                l.findViewById(R.id.timepicker).setVisibility(View.VISIBLE);
+                l.findViewById(R.id.datetime_confirm).setVisibility(View.VISIBLE);
+            }
+        });
+        ((TimePicker)l.findViewById(R.id.timepicker)).setCurrentHour(cal.get(Calendar.HOUR));
+        ((TimePicker)l.findViewById(R.id.timepicker)).setCurrentMinute(cal.get(Calendar.MINUTE));
+
+        bu.setView(l);
+        final AlertDialog al = bu.create();
+        l.findViewById(R.id.datetime_confirm).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePicker d=(DatePicker)l.findViewById(R.id.datepicker);
+                TimePicker t=(TimePicker) l.findViewById(R.id.timepicker);
+                cal.set(d.getYear(),d.getMonth(),d.getDayOfMonth(),t.getCurrentHour(),t.getCurrentMinute());
+                //dh.setText(dateFormat.format(cal.getTime()));
+                plot(R.layout.fields_colisao, dateFormat.format(cal.getTime()));
+                al.dismiss();
+            }
+        });
+        al.show();
     }
 
     private JSONObject collectData() {
@@ -1832,6 +1876,7 @@ public class CsiActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults){
         Intent intent=new Intent(this,CsiActivity.class);
         startActivity(intent);
+        finish();
     }
     protected void savePaths() {
         MapView map = (MapView) findViewById(R.id.map);
@@ -2386,7 +2431,7 @@ public class CsiActivity extends AppCompatActivity {
                     break;
                 case VehicleFix.COLISAO:
                     final Calendar cal = Calendar. getInstance();
-                    final DateFormat dateFormat = new SimpleDateFormat("dd/M/YYYY HH:mm");
+                    final DateFormat dateFormat = new SimpleDateFormat("dd/M/yyyy HH:mm");
                     Date da=new Date();
                     if(vehicle.has("data_e_hora")){
                         try {

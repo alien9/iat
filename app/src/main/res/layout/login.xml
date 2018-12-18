@@ -73,8 +73,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginLeft="75dp"
-                android:layout_marginStart="75dp"
+                android:layout_marginLeft="45dp"
+                android:layout_marginStart="45dp"
                 android:onClick="login"
                 />
 

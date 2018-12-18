@@ -18,7 +18,8 @@ public class PermissionRequest extends AppCompatActivity {
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults){
-        Intent intent=new Intent(this,CsiActivity.class);
+        Intent intent=new Intent(this,PratList.class);
         startActivity(intent);
+        finish();
     }
 }

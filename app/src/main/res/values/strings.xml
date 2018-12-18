@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">IAT</string>
-    <string name="backend_url_dev">http://192.168.167.217:5000/</string>
+    <string name="backend_url_dev">http://192.168.0.107:5000/</string>
     <string name="backend_url">http://192.168.0.107:5000/</string>
     <string name="hello">Hello World, DedosActivity!</string>
     <string name="share">Share</string>
@@ -158,6 +158,8 @@
     <string name="new_report">Novo</string>
     <string name="data_e_hora">Data e hora</string>
     <string name="next">Próximo</string>
+    <string name="not_found">Item não encontrado</string>
+    <string name="sync">Sincronizar</string>
     <string-array name="vehicle_type">
         <item>Auto</item>
         <item>Caminhão</item>
