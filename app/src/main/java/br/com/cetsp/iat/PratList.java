@@ -47,6 +47,7 @@ import okhttp3.Response;
 
 public class PratList extends AppCompatActivity{
     private int currentPosition;
+    private boolean mark_to_exit=false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,10 +71,12 @@ public class PratList extends AppCompatActivity{
                 Iat iat = (Iat) getApplicationContext();
                 try {
                     JSONObject d=new JSONObject(iat.getReport(position));
-                    Intent intent = new Intent(context, CsiActivity.class);
-                    currentPosition=position;
-                    intent.putExtra("info", d.optJSONObject("info").toString());
-                    startActivityForResult(intent, 1);
+                    if(!d.has("sent")) {
+                        Intent intent = new Intent(context, CsiActivity.class);
+                        currentPosition = position;
+                        intent.putExtra("info", d.optJSONObject("info").toString());
+                        startActivityForResult(intent, 1);
+                    }
                 } catch (JSONException e) {
                     Toast.makeText(context, getString(R.string.not_found), Toast.LENGTH_LONG);
                 }
@@ -166,9 +169,8 @@ public class PratList extends AppCompatActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.logout_menu:
-                Iat iat= (Iat) getApplicationContext();
-                iat.setSession(null);
-                finish();
+                mark_to_exit=true;
+                sync();
                 return true;
             case R.id.sync:
                 sync();
@@ -183,7 +185,13 @@ public class PratList extends AppCompatActivity{
     private void sync(int k) {
         Iat iat= (Iat) getApplicationContext();
         ArrayList<String> r = iat.getReport();
-        if(k>=r.size()) return;
+        if(k>=r.size()) {
+            if(mark_to_exit) {
+                iat.setSession(null);
+                finish();
+            }
+            return;
+        }
         try {
             JSONObject j = new JSONObject(r.get(k));
             if(!j.has("sent")){

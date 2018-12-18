@@ -17,8 +17,8 @@
     <application
         android:hardwareAccelerated="true"
         android:largeHeap="true"
-        android:icon="@drawable/text3336"
-        android:label="CET IAT"
+        android:icon="@mipmap/sptrans_textless"
+        android:label="@string/app_name"
         android:name=".Iat"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         >

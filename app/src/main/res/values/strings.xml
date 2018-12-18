@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">IAT</string>
+    <string name="app_name">PRAT</string>
     <string name="backend_url_dev">http://192.168.0.107:5000/</string>
     <string name="backend_url">http://192.168.0.107:5000/</string>
     <string name="hello">Hello World, DedosActivity!</string>
