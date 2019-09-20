@@ -12,11 +12,14 @@ import org.osmdroid.views.Projection;
  * Created by tiago on 18/04/17.
  */
 
-class CsiGroundOverlay extends GroundOverlay {
+public class CsiGroundOverlay extends GroundOverlay {
     private BoundingBox bounds;
-    public GroundOverlay setBounds(BoundingBox b){
+    public CsiGroundOverlay setBounds(BoundingBox b){
         bounds=b;
         return this;
+    }
+    public void adjustBounds(BoundingBox b){
+        bounds=b;
     }
     @Override
     public void draw(Canvas canvas, MapView mapView, boolean shadow) {

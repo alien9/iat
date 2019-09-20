@@ -7,10 +7,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.database.DataSetObserver;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
@@ -28,7 +30,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
-import android.text.Html;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextWatcher;
@@ -58,8 +59,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -81,10 +80,10 @@ import org.osmdroid.events.DelayedMapListener;
 import org.osmdroid.events.MapListener;
 import org.osmdroid.events.ScrollEvent;
 import org.osmdroid.events.ZoomEvent;
-import org.osmdroid.tileprovider.MapTile;
 import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase;
 import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
+import org.osmdroid.util.MapTileIndex;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.Projection;
 import org.osmdroid.views.overlay.Overlay;
@@ -92,13 +91,13 @@ import org.osmdroid.views.overlay.ScaleBarOverlay;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -116,11 +115,13 @@ import java.util.regex.Pattern;
 
 import br.com.cetsp.iat.util.Pega;
 
+import jsqlite.Constants;
+import jsqlite.Database;
+import jsqlite.Exception;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import static br.com.cetsp.iat.R.id.map;
 import static br.com.cetsp.iat.util.VehicleFix.AUTO;
 import static br.com.cetsp.iat.util.VehicleFix.BICI;
 import static br.com.cetsp.iat.util.VehicleFix.CAMINHAO;
@@ -128,7 +129,6 @@ import static br.com.cetsp.iat.util.VehicleFix.CAMINHONETE;
 import static br.com.cetsp.iat.util.VehicleFix.CAMIONETA;
 import static br.com.cetsp.iat.util.VehicleFix.CARROCA;
 import static br.com.cetsp.iat.util.VehicleFix.MICROONIBUS;
-import static br.com.cetsp.iat.util.VehicleFix.MOTO;
 import static br.com.cetsp.iat.util.VehicleFix.ONIBUS;
 import static br.com.cetsp.iat.util.VehicleFix.TAXI;
 import static br.com.cetsp.iat.util.VehicleFix.VIATURA;
@@ -169,17 +169,22 @@ public class CsiActivity extends AppCompatActivity {
     private CharSequence[] placas;
     private AlertDialog datetime_picker;
     private AlertDialog alert;
+    private CsiGroundOverlay local_map_overlay;
+    private int localmap_updates;
+    private boolean isMoving;
     //private List<String> placas;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Iat iat = (Iat) getApplicationContext();
+        /*
         if(!iat.isAuthenticated()){
             Intent intent = new Intent(this, Login.class);
             startActivity(intent);
             return;
         }
+        */
         if ((ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)||(ActivityCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED)) {
             Intent intent=new Intent(this,PermissionRequest.class);
             Bundle b=getIntent().getExtras();
@@ -215,16 +220,24 @@ public class CsiActivity extends AppCompatActivity {
         String u="http://bigrs.alien9.net:8080/geoserver/gwc/service/tms/1.0.0/";
         clear_source = new GeoServerTileSource("quadras_e_logradouros", 17, 21, 512, ".png", new String[]{u});
         great_source = new GeoServerTileSource("cidade_com_semaforos_e_lotes", 17, 21, 512, ".png", new String[]{u});
+
+
         map.setTileSource(great_source);
+        local_map_overlay = new CsiGroundOverlay().setBounds(map.getBoundingBox());
+        local_map_overlay.setPosition((GeoPoint) map.getMapCenter());
+        map.getOverlays().add(local_map_overlay);
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
         map.setClickable(true);
         map.setUseDataConnection(true);
+        //(new KmlLoader(map)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        isMoving=false;
+        updateLocalMap();
         ScaleBarOverlay sbo = new ScaleBarOverlay(map);
         sbo.setCentred(false);
         sbo.setScaleBarOffset(10, 10);
         map.getController().setZoom(20);
-        map.setMaxZoomLevel(21);
+        map.setMaxZoomLevel((double) 21);
         map.setTilesScaledToDpi(true);
         map.getOverlays().add(sbo);
         overlays=new Hashtable<>();
@@ -244,8 +257,8 @@ public class CsiActivity extends AppCompatActivity {
                 Log.d("IAT", "latitude é "+l);
                 point.put("latitude",Double.parseDouble(intent.getStringExtra("latitude")));
                 point.put("longitude",Double.parseDouble(intent.getStringExtra("longitude")));
-            }catch (JSONException ignore) {
-            }catch(NumberFormatException ignore){}
+            }catch (JSONException | NumberFormatException ignore) {
+            }
         }
         gps=false;
         if(!point.has("latitude") || !point.has("longitude") ){
@@ -284,7 +297,7 @@ public class CsiActivity extends AppCompatActivity {
             } catch (JSONException e) {}
         }
         map.getController().setCenter(new GeoPoint(point.optDouble("latitude"), point.optDouble("longitude")));
-        map.setMapListener(new DelayedMapListener(new MapListener() {
+        map.addMapListener(new DelayedMapListener(new MapListener() {
             public boolean onZoom(final ZoomEvent e) {
                 MapView map = (MapView) findViewById(R.id.map);
                 if(show_labels){
@@ -300,18 +313,31 @@ public class CsiActivity extends AppCompatActivity {
                     }
                 }
                 refresh();
+                isMoving=false;
+                updateLocalMap();
                 return true;
             }
             public boolean onScroll(final ScrollEvent e) {
                 if(show_labels){
                     updateLabels();
                 }
+                isMoving=false;
+                Log.d("IAT DRAG", e.toString());
+                updateLocalMap();
                 return true;
             }
         }, 1000 ));
+        map.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                isMoving=true;
+                return false;
+            }
+        });
         is_updating_labels =false;
         update_labels_after =false;
         is_updating_closeup=false;
+        localmap_updates=0;
         findViewById(R.id.vehicles_canvas).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -714,12 +740,7 @@ public class CsiActivity extends AppCompatActivity {
             }
         });
 
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialog, int which){
-                dialog.dismiss();
-            }
-        });
+        builder.setNegativeButton(getText(R.string.cancelar), (dialog, which) -> dialog.dismiss());
         builder.create().show();
         if(pessoa_detalhe!=null){
             try {
@@ -1812,8 +1833,8 @@ public class CsiActivity extends AppCompatActivity {
             layer=aName;
         }
         @Override
-        public String getTileURLString(MapTile aTile) {
-            String u = "http://bigrs.alien9.net:8080/geoserver/gwc/service/tms/1.0.0/BIGRS%3A"+layer+"@3857@png" + "/" + aTile.getZoomLevel() + "/" + aTile.getX() + "/" + (int)(Math.pow(2.0,aTile.getZoomLevel())-aTile.getY()-1) + ".png";
+        public String getTileURLString(long tileIndex) {
+            String u = "http://bigrs.alien9.net:8080/geoserver/gwc/service/tms/1.0.0/BIGRS%3A"+layer+"@3857@png" + "/" + MapTileIndex.getZoom(tileIndex) + "/" + MapTileIndex.getX(tileIndex) + "/" + (int)(Math.pow(2.0,MapTileIndex.getZoom(tileIndex))-MapTileIndex.getY(tileIndex)-1) + ".png";
             Log.d("IAT request",u);
             return u;
         }
@@ -1947,9 +1968,6 @@ public class CsiActivity extends AppCompatActivity {
             //o.removeAllViews();
             o.setVisibility(View.GONE);
             BoundingBox b = map.getBoundingBox();
-            Double[] p1 = degrees2meters(b.getLonEast(), b.getLatSouth());
-            Double[] p2 = degrees2meters(b.getLonWest(), b.getLatNorth());
-            Double[] p3 = degrees2meters(b.getLonWest(), b.getLatSouth());
             vehicles_zooming_over = new CsiGroundOverlay().setBounds(b);
             IGeoPoint position = map.getMapCenter();
             vehicles_zooming_over.setImage(new BitmapDrawable(getResources(), bi));
@@ -2760,6 +2778,167 @@ public class CsiActivity extends AppCompatActivity {
         }else{
             return new ArrayAdapter<String>
                     (this, android.R.layout.select_dialog_item, todos);
+        }
+    }
+
+    class SpatialLoader extends AsyncTask<Void, Void, Boolean>{
+        private final BoundingBox bb;
+
+        SpatialLoader(BoundingBox bob) {
+            this.bb=bob;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            Database jdb = new Database();
+            try {
+                File quadras=new File(context.getFilesDir().getPath() + "mapas");
+                if(!quadras.exists()){
+                   InputStream in = getResources().openRawResource(R.raw.db);
+                   FileOutputStream out = new FileOutputStream(context.getFilesDir().getPath() + "mapas");
+                    byte[] buff = new byte[1024];
+                    int read = 0;
+                    try {
+                        while ((read = in.read(buff)) > 0) {
+                            out.write(buff, 0, read);
+                        }
+                    } finally {
+                        in.close();
+                        out.close();
+                    }
+                }
+                jdb.open(context.getFilesDir().getPath() + "mapas", Constants.SQLITE_OPEN_READONLY);
+                //String query=String.format(Locale.US, "select MakePoint (%.5f, %.5f, %s)", (float) bb.getLonWest(), (float) bb.getLatSouth(), ""+4326);
+                String query="select asText(geometry) as quadra from quadras where intersects(buildmbr(%q, %q, %q, %q, 4326),geometry)=1";
+
+                Log.d("IAT DATABASE QUERY", query);
+                SpatialCallback cb = new SpatialCallback(bb);
+
+                jdb.exec(query,cb,new String[]{
+                        Double.toString(bb.getLonWest()),Double.toString(bb.getLatSouth()),
+                        Double.toString(bb.getLonEast()),Double.toString(bb.getLatNorth()),
+                });
+                jdb.exec("select ''", cb);
+                jdb.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("PROBLEMA ABRINDO DB", e.getLocalizedMessage());
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.d("ERR FECHANDO ARQUIVO", e.getLocalizedMessage());
+            }
+            return true;
+        }
+    }
+    private void updateLocalMap(){
+        MapView map=(MapView)findViewById(R.id.map);
+        BoundingBox bb = map.getBoundingBox();
+        if(bb.getLonWest()==bb.getLonEast())return;
+        //local_map_overlay.adjustBounds(bb);
+        IGeoPoint position = map.getMapCenter();
+        //local_map_overlay.setPosition((GeoPoint) position);
+        Log.d("IAT DATABASE UPDATE MAP", ""+bb.getActualNorth());
+        localmap_updates++;
+        (new SpatialLoader(bb.increaseByScale((float) 4.0))).execute();
+
+    }
+
+    private String getExternalPath() {
+        String dir = Environment.getExternalStorageDirectory()
+                .getAbsolutePath();
+        if (android.os.Build.DEVICE.contains("samsung")
+                || android.os.Build.MANUFACTURER.contains("samsung")) {
+            File f = new File(Environment.getExternalStorageDirectory()
+                    .getParent() + "/extSdCard" + "/myDirectory");
+            if (f.exists() && f.isDirectory()) {
+                dir = Environment.getExternalStorageDirectory()
+                        .getParent() + "/extSdCard";
+            } else {
+                f = new File(Environment.getExternalStorageDirectory()
+                        .getAbsolutePath() + "/external_sd" + "/myDirectory");
+                if (f.exists() && f.isDirectory()) {
+                    dir= Environment
+                            .getExternalStorageDirectory().getAbsolutePath()
+                            + "/external_sd";
+                }
+            }
+        }
+        return dir;
+
+    }
+
+    private class SpatialCallback implements jsqlite.Callback {
+        private final BoundingBox bb;
+        private Point corner;
+        private Canvas canvas;
+        private Bitmap bitmap;
+
+        public SpatialCallback(BoundingBox b) {
+            this.bb=b;
+            MapView map = (MapView) findViewById(R.id.map);
+            Projection projection = map.getProjection();
+            GeoPoint korner = new GeoPoint(bb.getLatNorth(), bb.getLonWest());
+            corner=new Point();
+            projection.toPixels(korner, corner);
+            GeoPoint sudeste = new GeoPoint(bb.getLatSouth(), bb.getLonEast());
+            Point southeast = new Point();
+            projection.toPixels(sudeste, southeast);
+            View draw = findViewById(R.id.drawing_panel);
+            //bitmap = Bitmap.createBitmap(draw.getDrawingCache());
+            bitmap = Bitmap.createBitmap(southeast.x-corner.x,southeast.y-corner.y, Bitmap.Config.ARGB_8888);
+            canvas = new Canvas(bitmap);
+            //bitmap.eraseColor(getResources().getColor(R.color.white));
+        }
+
+        @Override
+        public void columns(String[] coldata) {
+            Log.d("IAT RETURN COLUMNS", coldata[0].toString());
+        }
+
+        @Override
+        public void types(String[] types) {
+            Log.d("IAT RETURN TYPES", types.toString());
+        }
+
+        @Override
+        public boolean newrow(String[] rowdata) {
+            MapView map = (MapView) findViewById(R.id.map);
+            if(rowdata[0].length()==0){
+                localmap_updates--;
+                if((localmap_updates==0)&&(!isMoving)) { // only redraws if this is the last update call
+                    local_map_overlay.setPosition((GeoPoint) map.getMapCenter());
+                    local_map_overlay.adjustBounds(bb);
+                    local_map_overlay.setImage(new BitmapDrawable(getResources(), bitmap));
+                    map.invalidate();
+                }
+                return false;
+            }
+            Pattern p= Pattern.compile("[\\d\\s\\.\\-\\,]+");
+            Matcher m=p.matcher(rowdata[0]);
+            Paint wallpaint = new Paint();
+            wallpaint.setColor(getColor(R.color.light_gray));
+            wallpaint.setStyle(Paint.Style.FILL_AND_STROKE);
+            Projection projection = map.getProjection();
+            Point point = new Point();
+            while(m.find()) {
+                    Path block = new Path();
+                    String[] pts = m.group().split(",\\s?");
+                    if (pts.length > 1) {
+                        String[] cords = pts[0].split(" ");
+                        projection.toPixels(new GeoPoint(Float.parseFloat(cords[1]), Float.parseFloat(cords[0])),point);
+                        block.moveTo(point.x-corner.x,point.y-corner.y);
+                        for (int j = 0; j < pts.length; j++) {
+                            cords = pts[j].split(" ");
+                            projection.toPixels(new GeoPoint(Float.parseFloat(cords[1]), Float.parseFloat(cords[0])),point);
+                            block.lineTo(point.x-corner.x,point.y-corner.y);
+
+                        }
+                        canvas.drawPath(block, wallpaint);
+                    }
+
+            }
+            return false;
         }
     }
 }

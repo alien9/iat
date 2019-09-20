@@ -22,19 +22,28 @@ android {
         checkReleaseBuilds false
         abortOnError false
     }
+    packagingOptions {
+        exclude 'META-INF/INDEX.LIST'
+    }
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
 }
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:24.2.1'
     implementation 'com.android.support:design:24.2.1'
-    implementation 'com.android.volley:volley:1.0.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.7.0'
+    implementation 'com.android.volley:volley:1.1.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'junit:junit:4.12'
-    implementation 'org.osmdroid:osmdroid-android:5.6.4'
-    implementation 'com.github.MKergall:osmbonuspack:6.3'
+    implementation 'org.osmdroid:osmdroid-android:6.1.0'
+    implementation 'com.github.MKergall:osmbonuspack:6.6.0'
+/*    implementation 'com.esri.arcgisruntime:arcgis-android:100.5.0' */
 }
 repositories {
     mavenCentral()
-    maven { url "https://jitpack.io" }
+    maven { url 'https://jitpack.io' }
+    mavenLocal()
 }
 

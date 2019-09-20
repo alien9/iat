@@ -15,6 +15,7 @@ import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
 import br.com.cetsp.iat.util.VehicleFix;
+import jsqlite.Database;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,6 +37,7 @@ public class Iat extends Application {
     private JSONObject session;
 
     private ArrayList<String> reports;
+    private Database jdb;
 
     public static Iat getInstance() {
         return singleton;
@@ -64,6 +66,7 @@ public class Iat extends Application {
         session=null;
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         singleton = this;
+        jdb = new Database();
     }
     public void setLastKnownPosition(JSONObject l) {
         lastKnownPosition = l;
@@ -73,11 +76,18 @@ public class Iat extends Application {
         editor.commit();
 
     }
-
+    public Database getDatabase(){
+        if(jdb==null){
+            Log.d("IAT DATABASE CREATION ", "It's out of place.");
+            jdb=new Database();
+        }
+        return jdb;
+    }
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void startGPS(Activity a) {
         Log.d("IAT SERVICE", "should start");
-        if ((ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)||(ActivityCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED)) {
+        if ((ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)||(ActivityCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED)) {
             Log.d("IAT SERVICE", "permission nort granted");
             ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
             List<ActivityManager.AppTask> tasks = activityManager.getAppTasks();

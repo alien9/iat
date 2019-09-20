@@ -53,9 +53,18 @@ public class PratList extends AppCompatActivity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Iat iat = (Iat) getApplicationContext();
+        /*
         if(!iat.isAuthenticated()){
             Intent intent = new Intent(this, Login.class);
             startActivity(intent);
+            return;
+        }
+        */
+        Intent intent=getIntent();
+        if(intent.hasExtra("info")){
+            Intent i= new Intent(this, CsiActivity.class);
+            i.putExtras(intent.getExtras());
+            startActivity(i);
             return;
         }
         setContentView(R.layout.lista_prat);
