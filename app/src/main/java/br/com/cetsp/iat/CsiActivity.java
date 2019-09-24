@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.os.Debug;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
@@ -178,6 +179,7 @@ public class CsiActivity extends AppCompatActivity {
     private SpatialTileSource local_source;
     //private List<String> placas;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -197,7 +199,9 @@ public class CsiActivity extends AppCompatActivity {
             startActivity(intent);
             return;
         }
-        iat.startGPS(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            iat.startGPS(this);
+        }
         setContentView(R.layout.csi);
 
         findViewById(R.id.info_box).setVisibility(View.GONE);
@@ -243,13 +247,13 @@ public class CsiActivity extends AppCompatActivity {
         tilesOverlay.setLoadingBackgroundColor(Color.TRANSPARENT);
         map.getOverlays().add(tilesOverlay);
 */
+
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
         map.setClickable(true);
         map.setUseDataConnection(true);
         //(new KmlLoader(map)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         isMoving=false;
-        updateLocalMap();
         ScaleBarOverlay sbo = new ScaleBarOverlay(map);
         sbo.setCentred(false);
         sbo.setScaleBarOffset(10, 10);
@@ -331,7 +335,6 @@ public class CsiActivity extends AppCompatActivity {
                 }
                 refresh();
                 isMoving=false;
-                updateLocalMap();
                 return true;
             }
             public boolean onScroll(final ScrollEvent e) {
@@ -340,7 +343,6 @@ public class CsiActivity extends AppCompatActivity {
                 }
                 isMoving=false;
                 Log.d("IAT DRAG", e.toString());
-                updateLocalMap();
                 return true;
             }
         }, 1000 ));
@@ -536,19 +538,19 @@ public class CsiActivity extends AppCompatActivity {
                         case(VehicleFix.COLISAO):
                             view.evaluateJavascript(String.format("document.getElementById('incidente').innerHTML+='<div>%s</div>'",new String[]{v.optString("tipo_impacto")}),null);
                             break;
-                        case VehicleFix.AUTO:
+                        case AUTO:
                         case BICI:
-                        case VehicleFix.CAMINHAO:
-                        case VehicleFix.CAMINHONETE:
-                        case VehicleFix.CAMIONETA:
-                        case VehicleFix.CARROCA:
-                        case VehicleFix.MICROONIBUS:
+                        case CAMINHAO:
+                        case CAMINHONETE:
+                        case CAMIONETA:
+                        case CARROCA:
+                        case MICROONIBUS:
                         case VehicleFix.MOTO:
                         case VehicleFix.REBOQUE:
                         case VehicleFix.SEMI:
-                        case VehicleFix.TAXI:
+                        case TAXI:
                         case VehicleFix.TRAILER:
-                        case VehicleFix.VIATURA:
+                        case VIATURA:
                             String script=String.format("veiculo(%s);",v.toString());
                             view.evaluateJavascript(script,null);
                             break;
@@ -2797,70 +2799,6 @@ public class CsiActivity extends AppCompatActivity {
                     (this, android.R.layout.select_dialog_item, todos);
         }
     }
-
-    class SpatialLoader extends AsyncTask<Void, Void, Boolean>{
-        private final BoundingBox bb;
-
-        SpatialLoader(BoundingBox bob) {
-            this.bb=bob;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... voids) {
-            Database jdb = new Database();
-            try {
-                File quadras=new File(context.getFilesDir().getPath() + "mapas");
-                if(!quadras.exists()){
-                    InputStream in = getResources().openRawResource(R.raw.db);
-                    FileOutputStream out = new FileOutputStream(context.getFilesDir().getPath() + "mapas");
-                    byte[] buff = new byte[1024];
-                    int read = 0;
-                    try {
-                        while ((read = in.read(buff)) > 0) {
-                            out.write(buff, 0, read);
-                        }
-                    } finally {
-                        in.close();
-                        out.close();
-                    }
-                }
-                jdb.open(context.getFilesDir().getPath() + "mapas", Constants.SQLITE_OPEN_READONLY);
-                //String query=String.format(Locale.US, "select MakePoint (%.5f, %.5f, %s)", (float) bb.getLonWest(), (float) bb.getLatSouth(), ""+4326);
-                String query="select asText(geometry) as quadra from quadras where intersects(buildmbr(%q, %q, %q, %q, 4326),geometry)=1";
-
-                Log.d("IAT DATABASE QUERY", query);
-                SpatialCallback cb = new SpatialCallback(bb);
-
-                jdb.exec(query,cb,new String[]{
-                        Double.toString(bb.getLonWest()),Double.toString(bb.getLatSouth()),
-                        Double.toString(bb.getLonEast()),Double.toString(bb.getLatNorth()),
-                });
-                jdb.exec("select ''", cb);
-                jdb.close();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.d("PROBLEMA ABRINDO DB", e.getLocalizedMessage());
-            } catch (IOException e) {
-                e.printStackTrace();
-                Log.d("ERR FECHANDO ARQUIVO", e.getLocalizedMessage());
-            }
-            return true;
-        }
-    }
-    private void updateLocalMap(){
-        //MapView map=(MapView)findViewById(R.id.map);
-        //BoundingBox bb = map.getBoundingBox();
-        //if(bb.getLonWest()==bb.getLonEast())return;
-        //local_map_overlay.adjustBounds(bb);
-        //IGeoPoint position = map.getMapCenter();
-        //local_map_overlay.setPosition((GeoPoint) position);
-        //Log.d("IAT DATABASE UPDATE MAP", ""+bb.getActualNorth());
-        //localmap_updates++;
-        //(new SpatialLoader(bb.increaseByScale((float) 4.0))).execute();
-
-    }
-
     private String getExternalPath() {
         String dir = Environment.getExternalStorageDirectory()
                 .getAbsolutePath();
@@ -2883,79 +2821,5 @@ public class CsiActivity extends AppCompatActivity {
         }
         return dir;
 
-    }
-
-    private class SpatialCallback implements jsqlite.Callback {
-        private final BoundingBox bb;
-        private Point corner;
-        private Canvas canvas;
-        private Bitmap bitmap;
-
-        public SpatialCallback(BoundingBox b) {
-            this.bb=b;
-            MapView map = (MapView) findViewById(R.id.map);
-            Projection projection = map.getProjection();
-            GeoPoint korner = new GeoPoint(bb.getLatNorth(), bb.getLonWest());
-            corner=new Point();
-            projection.toPixels(korner, corner);
-            GeoPoint sudeste = new GeoPoint(bb.getLatSouth(), bb.getLonEast());
-            Point southeast = new Point();
-            projection.toPixels(sudeste, southeast);
-            View draw = findViewById(R.id.drawing_panel);
-            //bitmap = Bitmap.createBitmap(draw.getDrawingCache());
-            bitmap = Bitmap.createBitmap(southeast.x-corner.x,southeast.y-corner.y, Bitmap.Config.ARGB_8888);
-            canvas = new Canvas(bitmap);
-            //bitmap.eraseColor(getResources().getColor(R.color.white));
-        }
-
-        @Override
-        public void columns(String[] coldata) {
-            Log.d("IAT RETURN COLUMNS", coldata[0].toString());
-        }
-
-        @Override
-        public void types(String[] types) {
-            Log.d("IAT RETURN TYPES", types.toString());
-        }
-
-        @Override
-        public boolean newrow(String[] rowdata) {
-            MapView map = (MapView) findViewById(R.id.map);
-            if(rowdata[0].length()==0){
-                localmap_updates--;
-                if((localmap_updates==0)&&(!isMoving)) { // only redraws if this is the last update call
-                    local_map_overlay.setPosition((GeoPoint) map.getMapCenter());
-                    local_map_overlay.adjustBounds(bb);
-                    local_map_overlay.setImage(new BitmapDrawable(getResources(), bitmap));
-                    map.invalidate();
-                }
-                return false;
-            }
-            Pattern p= Pattern.compile("[\\d\\s\\.\\-\\,]+");
-            Matcher m=p.matcher(rowdata[0]);
-            Paint wallpaint = new Paint();
-            wallpaint.setColor(getColor(R.color.light_gray));
-            wallpaint.setStyle(Paint.Style.FILL_AND_STROKE);
-            Projection projection = map.getProjection();
-            Point point = new Point();
-            while(m.find()) {
-                Path block = new Path();
-                String[] pts = m.group().split(",\\s?");
-                if (pts.length > 1) {
-                    String[] cords = pts[0].split(" ");
-                    projection.toPixels(new GeoPoint(Float.parseFloat(cords[1]), Float.parseFloat(cords[0])),point);
-                    block.moveTo(point.x-corner.x,point.y-corner.y);
-                    for (int j = 0; j < pts.length; j++) {
-                        cords = pts[j].split(" ");
-                        projection.toPixels(new GeoPoint(Float.parseFloat(cords[1]), Float.parseFloat(cords[0])),point);
-                        block.lineTo(point.x-corner.x,point.y-corner.y);
-
-                    }
-                    canvas.drawPath(block, wallpaint);
-                }
-
-            }
-            return false;
-        }
     }
 }
