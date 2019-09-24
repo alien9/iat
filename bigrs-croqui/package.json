@@ -1,0 +1,11 @@
+{
+  "name": "bigrs-croqui",
+  "version": "1.0.0",
+  "cordova": {
+    "id": "bigrs-croqui",
+    "platforms": [
+      "android"
+    ]
+  },
+  "description": "A plugin for traffic crash crime scene investigation"
+}

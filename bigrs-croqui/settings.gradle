@@ -1,0 +1,2 @@
+include ':croqui'
+project(':croqui').projectDir = new File('../Dedos')

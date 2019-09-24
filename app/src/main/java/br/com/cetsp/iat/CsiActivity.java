@@ -80,7 +80,9 @@ import org.osmdroid.events.DelayedMapListener;
 import org.osmdroid.events.MapListener;
 import org.osmdroid.events.ScrollEvent;
 import org.osmdroid.events.ZoomEvent;
+import org.osmdroid.tileprovider.MapTileProviderBasic;
 import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.util.MapTileIndex;
@@ -88,6 +90,7 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.Projection;
 import org.osmdroid.views.overlay.Overlay;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
+import org.osmdroid.views.overlay.TilesOverlay;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -172,6 +175,7 @@ public class CsiActivity extends AppCompatActivity {
     private CsiGroundOverlay local_map_overlay;
     private int localmap_updates;
     private boolean isMoving;
+    private SpatialTileSource local_source;
     //private List<String> placas;
 
     @Override
@@ -217,15 +221,28 @@ public class CsiActivity extends AppCompatActivity {
         //((Panel) findViewById(R.id.drawing_panel)).setVisibility(View.GONE);
         findViewById(R.id.vehicles_canvas).setDrawingCacheEnabled(true);
         final MapView map = (MapView) findViewById(R.id.map);
+        map.setTileSource(TileSourceFactory.USGS_SAT);
+        map.setTilesScaledToDpi(false);
         String u="http://bigrs.alien9.net:8080/geoserver/gwc/service/tms/1.0.0/";
-        clear_source = new GeoServerTileSource("quadras_e_logradouros", 17, 21, 512, ".png", new String[]{u});
+        //clear_source = new GeoServerTileSource("quadras_e_logradouros", 17, 21, 512, ".png", new String[]{u});
         great_source = new GeoServerTileSource("cidade_com_semaforos_e_lotes", 17, 21, 512, ".png", new String[]{u});
-
-
         map.setTileSource(great_source);
-        local_map_overlay = new CsiGroundOverlay().setBounds(map.getBoundingBox());
-        local_map_overlay.setPosition((GeoPoint) map.getMapCenter());
-        map.getOverlays().add(local_map_overlay);
+/* local mapa - bugfix
+        local_source = new SpatialTileSource("cidade_local", 17, 21, 512, ".png");
+        MapTileProviderBasic tileProvider=null;
+        try {
+            tileProvider = new MapTileProviderSpatial(getApplicationContext(),map);
+            tileProvider.setTileSource(local_source);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        final TilesOverlay tilesOverlay = new TilesOverlay(tileProvider, this.getBaseContext());
+        tilesOverlay.setLoadingBackgroundColor(Color.TRANSPARENT);
+        map.getOverlays().add(tilesOverlay);
+*/
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
         map.setClickable(true);
@@ -2794,8 +2811,8 @@ public class CsiActivity extends AppCompatActivity {
             try {
                 File quadras=new File(context.getFilesDir().getPath() + "mapas");
                 if(!quadras.exists()){
-                   InputStream in = getResources().openRawResource(R.raw.db);
-                   FileOutputStream out = new FileOutputStream(context.getFilesDir().getPath() + "mapas");
+                    InputStream in = getResources().openRawResource(R.raw.db);
+                    FileOutputStream out = new FileOutputStream(context.getFilesDir().getPath() + "mapas");
                     byte[] buff = new byte[1024];
                     int read = 0;
                     try {
@@ -2832,15 +2849,15 @@ public class CsiActivity extends AppCompatActivity {
         }
     }
     private void updateLocalMap(){
-        MapView map=(MapView)findViewById(R.id.map);
-        BoundingBox bb = map.getBoundingBox();
-        if(bb.getLonWest()==bb.getLonEast())return;
+        //MapView map=(MapView)findViewById(R.id.map);
+        //BoundingBox bb = map.getBoundingBox();
+        //if(bb.getLonWest()==bb.getLonEast())return;
         //local_map_overlay.adjustBounds(bb);
-        IGeoPoint position = map.getMapCenter();
+        //IGeoPoint position = map.getMapCenter();
         //local_map_overlay.setPosition((GeoPoint) position);
-        Log.d("IAT DATABASE UPDATE MAP", ""+bb.getActualNorth());
-        localmap_updates++;
-        (new SpatialLoader(bb.increaseByScale((float) 4.0))).execute();
+        //Log.d("IAT DATABASE UPDATE MAP", ""+bb.getActualNorth());
+        //localmap_updates++;
+        //(new SpatialLoader(bb.increaseByScale((float) 4.0))).execute();
 
     }
 
@@ -2922,20 +2939,20 @@ public class CsiActivity extends AppCompatActivity {
             Projection projection = map.getProjection();
             Point point = new Point();
             while(m.find()) {
-                    Path block = new Path();
-                    String[] pts = m.group().split(",\\s?");
-                    if (pts.length > 1) {
-                        String[] cords = pts[0].split(" ");
+                Path block = new Path();
+                String[] pts = m.group().split(",\\s?");
+                if (pts.length > 1) {
+                    String[] cords = pts[0].split(" ");
+                    projection.toPixels(new GeoPoint(Float.parseFloat(cords[1]), Float.parseFloat(cords[0])),point);
+                    block.moveTo(point.x-corner.x,point.y-corner.y);
+                    for (int j = 0; j < pts.length; j++) {
+                        cords = pts[j].split(" ");
                         projection.toPixels(new GeoPoint(Float.parseFloat(cords[1]), Float.parseFloat(cords[0])),point);
-                        block.moveTo(point.x-corner.x,point.y-corner.y);
-                        for (int j = 0; j < pts.length; j++) {
-                            cords = pts[j].split(" ");
-                            projection.toPixels(new GeoPoint(Float.parseFloat(cords[1]), Float.parseFloat(cords[0])),point);
-                            block.lineTo(point.x-corner.x,point.y-corner.y);
+                        block.lineTo(point.x-corner.x,point.y-corner.y);
 
-                        }
-                        canvas.drawPath(block, wallpaint);
                     }
+                    canvas.drawPath(block, wallpaint);
+                }
 
             }
             return false;

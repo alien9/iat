@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -46,6 +47,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class PratList extends AppCompatActivity{
+    private static final int SKETCH_REQUEST = 1000;
     private int currentPosition;
     private boolean mark_to_exit=false;
 
@@ -64,7 +66,7 @@ public class PratList extends AppCompatActivity{
         if(intent.hasExtra("info")){
             Intent i= new Intent(this, CsiActivity.class);
             i.putExtras(intent.getExtras());
-            startActivity(i);
+            startActivityForResult(i,SKETCH_REQUEST);
             return;
         }
         setContentView(R.layout.lista_prat);
@@ -103,6 +105,19 @@ public class PratList extends AppCompatActivity{
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==SKETCH_REQUEST){
+            Log.d("Cordova IAT Plugin", "returned from");
+            if(data!=null){
+                Log.d("Cordova IAT Croqui", data.toString());
+            }else{
+                Log.d("Cordova IAT Croqui", "dados null");
+            }
+            String jay=data.getStringExtra("data");
+            Log.d("IAT Croqui Plugin one", jay);
+            setResult(RESULT_OK, data);
+            finish();
+            return;
+        }
         Iat iat = (Iat) getApplicationContext();
         iat.append(data.getStringExtra("data"), currentPosition);
         Toast.makeText(this,"Mensagem Recebida ", Toast.LENGTH_LONG).show();

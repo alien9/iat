@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="org.bigrs.croqui.plugin" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>BigrsCroqui</name>
+    <js-module name="BigrsCroqui" src="www/bigrs-croqui.js">
+        <clobbers target="window.plugins.croqui"/>
+    </js-module>
+
+
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="BigrsCroqui">
+                <param name="android-package" value="org.bigrs.croqui.BigrsCroqui"/>
+            </feature>
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+
+        </config-file>
+        <config-file parent="/*" target="AndroidManifest.xml"></config-file>
+        <source-file src="src/android/BigrsCroqui.java" target-dir="src/org/bigrs/croqui.plugin" />
+    </platform>
+</plugin>
