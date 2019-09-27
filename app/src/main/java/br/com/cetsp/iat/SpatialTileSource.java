@@ -65,5 +65,4 @@ public class SpatialTileSource extends BitmapTileSourceBase {
         return null;
     }
 
-
 }

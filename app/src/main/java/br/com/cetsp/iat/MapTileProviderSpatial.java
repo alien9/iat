@@ -2,6 +2,7 @@ package br.com.cetsp.iat;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -12,6 +13,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Environment;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -22,6 +24,7 @@ import org.osmdroid.tileprovider.ExpirableBitmapDrawable;
 import org.osmdroid.tileprovider.MapTileProviderBase;
 import org.osmdroid.tileprovider.MapTileProviderBasic;
 import org.osmdroid.tileprovider.modules.IFilesystemCache;
+import org.osmdroid.tileprovider.tilesource.BitmapTileSourceBase;
 import org.osmdroid.tileprovider.tilesource.ITileSource;
 import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
@@ -51,9 +54,11 @@ class MapTileProviderSpatial extends MapTileProviderBasic {
     private final Database jdb;
     private final ArrayList<Long> making;
     private final Hashtable<Integer, ArrayList<Long>> maker;
+    private final float scale;
 
-    public MapTileProviderSpatial(Context applicationContext, MapView p) throws Exception, IOException {
+    public MapTileProviderSpatial(Context applicationContext, MapView p, float s) throws Exception, IOException {
         super(applicationContext);
+        scale=s;
         making= new ArrayList<>();
         maker=new Hashtable<>();
         for(int i=0;i<23;i++){
@@ -84,35 +89,50 @@ class MapTileProviderSpatial extends MapTileProviderBasic {
 
     @Override
     public Drawable getMapTile(long pMapTileIndex) {
-        Log.d("IAT GET TILE", ""+ pMapTileIndex);
+        Log.d("IAT GET TILE", "" + pMapTileIndex);
         Drawable t = getTileCache().getMapTile(pMapTileIndex);
+        int z = MapTileIndex.getZoom(pMapTileIndex);
         if(t!=null) return t;
-
-        if(maker.get((int)map.getZoomLevelDouble()).contains(pMapTileIndex))
-            return null;
-        maker.get((int)map.getZoomLevelDouble()).add(pMapTileIndex);
-        Projection projection = map.getProjection();
-        final TileSystem tileSystem = org.osmdroid.views.MapView.getTileSystem();
         ITileSource s = getTileSource();
-        int px = 380;//s.getTile();
+        try {
+//            t = s.getDrawable(context.getFilesDir().getPath() + "/" + z + "/" + MapTileIndex.getX(pMapTileIndex) + "_" + MapTileIndex.getY(pMapTileIndex));
+            t = s.getDrawable(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).getPath() + "/" + z + "/" + MapTileIndex.getX(pMapTileIndex) + "_" + MapTileIndex.getY(pMapTileIndex));
+        } catch (BitmapTileSourceBase.LowMemoryException e) {
+            e.printStackTrace();
+            return null;
+        }
+        if (t != null){
+            if (z != map.getZoomLevelDouble()) {
+                Log.d("IAT", "wrong zoom layer for this");
+            } else {
+                return t;
+            }
+        }
+        if(maker.get(z).contains(pMapTileIndex))
+            return null;
+        maker.get(z).add(pMapTileIndex);
+        int px = Math.round((s.getTileSizePixels() >> 1) * scale);
+        //map.getProjection();
+        final TileSystem tileSystem = org.osmdroid.views.MapView.getTileSystem();
+
         int x = MapTileIndex.getX(pMapTileIndex);
         int y = MapTileIndex.getY(pMapTileIndex);
-        int z = MapTileIndex.getZoom(pMapTileIndex);
+        Projection projection = new Projection(z, px, px, new GeoPoint(tileSystem.getLatitudeFromTileY(y, z),tileSystem.getLongitudeFromTileX(x, z)), 0, true, true);
+
         BoundingBox bb = new BoundingBox(
-            tileSystem.getLatitudeFromTileY(y, z),
-            tileSystem.getLongitudeFromTileX(x + 1, z),
-            tileSystem.getLatitudeFromTileY(y + 1, z),
-            tileSystem.getLongitudeFromTileX(x, z)
+                tileSystem.getLatitudeFromTileY(y, z),
+                tileSystem.getLongitudeFromTileX(x + 1, z),
+                tileSystem.getLatitudeFromTileY(y + 1, z),
+                tileSystem.getLongitudeFromTileX(x, z)
         );
         Rect rect = projection.getPixelFromTile(x, y, null);
-        IGeoPoint nw = projection.fromPixels(rect.left, rect.top);
-        IGeoPoint se = projection.fromPixels(rect.right, rect.bottom);
+        //IGeoPoint nw = projection.fromPixels(rect.left, rect.top);
+        //IGeoPoint se = projection.fromPixels(rect.right, rect.bottom);
         Bitmap b=Bitmap.createBitmap(px,px, Bitmap.Config.ARGB_8888);
-        final BitmapDrawable drawable = new BitmapDrawable(context.getResources(), b);
-
+        //final BitmapDrawable drawable = new BitmapDrawable(context.getResources(), b);
         //b.eraseColor(context.getColor(R.color.red));
-        Canvas canvas = new Canvas(b);
-        (new SpatialLoader(bb,tileSystem,rect, nw, se, b, pMapTileIndex, projection)).execute();
+        //Canvas canvas = new Canvas(b);
+        (new SpatialLoader(bb,tileSystem,rect, b, pMapTileIndex, projection)).execute();
         return null;
 
     }
@@ -128,18 +148,14 @@ class MapTileProviderSpatial extends MapTileProviderBasic {
     }
 
     class SpatialLoader extends AsyncTask<Void, Void, Boolean> {
-        private final Bitmap bitmap;
-        private final long index;
-        private final Projection projection;
-        private final BoundingBox bb;
-        private final TileSystem tileSystem;
+        private Bitmap bitmap;
+        private long index;
+        private Projection projection;
+        private BoundingBox bb;
+        private TileSystem tileSystem;
         private Rect rect;
-        private IGeoPoint northwest;
-        private IGeoPoint southeast;
 
-        public SpatialLoader(BoundingBox boundingbox, TileSystem ts, Rect r, IGeoPoint nw, IGeoPoint se, Bitmap c, long pMapTileIndex, Projection p) {
-            this.northwest=nw;
-            this.southeast=se;
+        public SpatialLoader(BoundingBox boundingbox, TileSystem ts, Rect r, Bitmap c, long pMapTileIndex, Projection p) {
             this.rect=r;
             this.bitmap=c;
             this.index=pMapTileIndex;
@@ -160,8 +176,6 @@ class MapTileProviderSpatial extends MapTileProviderBasic {
                         Double.toString(bb.getLatSouth()),
                         Double.toString(bb.getLonEast()),
                         Double.toString(bb.getLatNorth())
-  //                      Double.toString(northwest.getLongitude()),Double.toString(southeast.getLatitude()),
-//                        Double.toString(southeast.getLongitude()),Double.toString(northwest.getLatitude()),
                 });
                 jdb.exec("select ''", cb);
             } catch (Exception e) {
@@ -173,13 +187,14 @@ class MapTileProviderSpatial extends MapTileProviderBasic {
         }
     }
     private class SpatialCallback implements jsqlite.Callback {
-        private final Bitmap bitmap;
-        private final Canvas canvas;
-        private final long index;
-        private final Projection projection;
-        private final TileSystem tileSystem;
+        private Bitmap bitmap;
+        private Canvas canvas;
+        private long index;
+        private Projection projection;
+        private TileSystem tileSystem;
+        private int zoom;
         private Point corner;
-        private final BoundingBox boundingbox;
+        private BoundingBox boundingbox;
         private Rect rect;
 
 
@@ -191,6 +206,9 @@ class MapTileProviderSpatial extends MapTileProviderBasic {
             this.projection=p;
             this.tileSystem=ts;
             this.boundingbox=bb;
+            this.zoom=MapTileIndex.getZoom(i);
+            Log.d("IAT database callback ",""+projection.getZoomLevel());
+            Log.d("IAT", "zoom real:"+zoom);
             corner=new Point();
             GeoPoint gcorner=new GeoPoint(bb.getLatNorth(),bb.getLonWest());
             projection.toPixels(gcorner,corner);
@@ -228,18 +246,16 @@ class MapTileProviderSpatial extends MapTileProviderBasic {
 
 //            MapView map = (MapView) findViewById(R.id.map);
             if(rowdata[0].length()==0){
-
                 final BitmapDrawable drawable = new BitmapDrawable(context.getResources(), bitmap);
-                putTileIntoCache(index,drawable, ExpirableBitmapDrawable.UP_TO_DATE);
-                maker.get((int)map.getZoomLevelDouble()).remove(index);
-                /* localmap_updates--;
-                if((localmap_updates==0)&&(!isMoving)) { // only redraws if this is the last update call
-                    local_map_overlay.setPosition((GeoPoint) map.getMapCenter());
-                    local_map_overlay.adjustBounds(bb);
-                    local_map_overlay.setImage(new BitmapDrawable(getResources(), bitmap));
-                    map.invalidate();
+                if(map.getZoomLevelDouble()!=zoom){
+                    Log.d("IAT", "writing cache at wrong zoom");
+                }else {
+                    putTileIntoCache(index, drawable, ExpirableBitmapDrawable.UP_TO_DATE);
                 }
-                return false; */
+                maker.get(zoom).remove(index);
+                saveBitmapToFile("/"+zoom+"/", ""+MapTileIndex.getX(index)+"_"+MapTileIndex.getY(index),bitmap);
+                map.invalidate();
+                return false;
             }
 
             Pattern p= Pattern.compile("[\\d\\s\\.\\-\\,]+");
@@ -266,6 +282,29 @@ class MapTileProviderSpatial extends MapTileProviderBasic {
                 }
             }
             return false;
+        }
+    }
+
+    private void saveBitmapToFile(String path, String fileName, Bitmap bitmap) {
+
+//        File dir = new File(context.getFilesDir().getPath()+path);
+        File dir = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).getPath()+path);
+        dir.mkdirs();
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(dir+"/"+fileName);
+            bitmap.compress(Bitmap.CompressFormat.PNG,66,fos);
+            fos.close();
+        }
+        catch (IOException e) {
+            Log.e("app",e.getMessage());
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
         }
     }
 }

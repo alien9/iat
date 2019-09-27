@@ -225,19 +225,22 @@ public class CsiActivity extends AppCompatActivity {
         //((Panel) findViewById(R.id.drawing_panel)).setVisibility(View.GONE);
         findViewById(R.id.vehicles_canvas).setDrawingCacheEnabled(true);
         final MapView map = (MapView) findViewById(R.id.map);
-        map.setTileSource(TileSourceFactory.USGS_SAT);
-        map.setTilesScaledToDpi(false);
+        //map.setTileSource(TileSourceFactory.USGS_SAT);
+        //map.setTilesScaledToDpi(false);
         String u="http://bigrs.alien9.net:8080/geoserver/gwc/service/tms/1.0.0/";
         //clear_source = new GeoServerTileSource("quadras_e_logradouros", 17, 21, 512, ".png", new String[]{u});
-        great_source = new GeoServerTileSource("cidade_com_semaforos_e_lotes", 17, 21, 512, ".png", new String[]{u});
-        map.setTileSource(great_source);
+  //      great_source = new GeoServerTileSource("cidade_com_semaforos_e_lotes", 17, 21, 512, ".png", new String[]{u});
+//        map.setTileSource(great_source);
 /* local mapa - bugfix
-        local_source = new SpatialTileSource("cidade_local", 17, 21, 512, ".png");
+*
+* */
+        final float scale = getBaseContext().getResources().getDisplayMetrics().density;
+float size=map.getTilesScaleFactor();
+        local_source = new SpatialTileSource("cidade_local", 17, 21, 512,".png");
         MapTileProviderBasic tileProvider=null;
         try {
-            tileProvider = new MapTileProviderSpatial(getApplicationContext(),map);
+            tileProvider = new MapTileProviderSpatial(getApplicationContext(),map,scale);
             tileProvider.setTileSource(local_source);
-
         } catch (Exception e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -246,7 +249,11 @@ public class CsiActivity extends AppCompatActivity {
         final TilesOverlay tilesOverlay = new TilesOverlay(tileProvider, this.getBaseContext());
         tilesOverlay.setLoadingBackgroundColor(Color.TRANSPARENT);
         map.getOverlays().add(tilesOverlay);
-*/
+        map.setTileSource(local_source);
+        map.setMinZoomLevel(18d);
+/*
+*SpatialTi
+* */
 
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
