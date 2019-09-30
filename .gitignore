@@ -12,3 +12,4 @@
 *.log
 .idea
 db
+app/src/main/res/raw/db
