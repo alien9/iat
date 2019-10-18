@@ -22,6 +22,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Debug;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
@@ -239,7 +241,7 @@ float size=map.getTilesScaleFactor();
         local_source = new SpatialTileSource("cidade_local", 17, 21, 512,".png");
         MapTileProviderBasic tileProvider=null;
         try {
-            tileProvider = new MapTileProviderSpatial(getApplicationContext(),map,scale);
+            tileProvider = new MapTileProviderSpatial(getApplicationContext(),map,scale,new CsiHandler(map));
             tileProvider.setTileSource(local_source);
         } catch (Exception e) {
             e.printStackTrace();
@@ -2828,5 +2830,24 @@ float size=map.getTilesScaleFactor();
         }
         return dir;
 
+    }
+
+    private class CsiHandler extends Handler {
+        private final MapView map;
+
+        public CsiHandler(MapView m) {
+            this.map=m;
+        }
+
+        @Override
+        public void handleMessage(Message m){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    map.invalidate();
+                }
+            });
+
+        }
     }
 }

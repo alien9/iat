@@ -13,3 +13,5 @@
 .idea
 db
 app/src/main/res/raw/db
+/extras
+/app/release

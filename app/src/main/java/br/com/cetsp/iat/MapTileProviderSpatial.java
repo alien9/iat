@@ -2,9 +2,7 @@ package br.com.cetsp.iat;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
@@ -12,24 +10,21 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Environment;
-import android.support.annotation.RequiresApi;
+import android.os.Handler;
+import android.os.Message;
+import android.os.StatFs;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.View;
 
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.tileprovider.ExpirableBitmapDrawable;
-import org.osmdroid.tileprovider.MapTileProviderBase;
 import org.osmdroid.tileprovider.MapTileProviderBasic;
-import org.osmdroid.tileprovider.modules.IFilesystemCache;
 import org.osmdroid.tileprovider.tilesource.BitmapTileSourceBase;
 import org.osmdroid.tileprovider.tilesource.ITileSource;
 import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.util.MapTileIndex;
-import org.osmdroid.util.PointL;
 import org.osmdroid.util.TileSystem;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.Projection;
@@ -40,7 +35,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -55,9 +49,12 @@ class MapTileProviderSpatial extends MapTileProviderBasic {
     private final ArrayList<Long> making;
     private final Hashtable<Integer, ArrayList<Long>> maker;
     private final float scale;
+    private final Handler mapHandler;
+    private boolean externalStorage;
 
-    public MapTileProviderSpatial(Context applicationContext, MapView p, float s) throws Exception, IOException {
+    public MapTileProviderSpatial(Context applicationContext, MapView p, float s, Handler h) throws Exception, IOException {
         super(applicationContext);
+        mapHandler=h;
         scale=s;
         making= new ArrayList<>();
         maker=new Hashtable<>();
@@ -96,6 +93,7 @@ class MapTileProviderSpatial extends MapTileProviderBasic {
         ITileSource s = getTileSource();
         try {
 //            t = s.getDrawable(context.getFilesDir().getPath() + "/" + z + "/" + MapTileIndex.getX(pMapTileIndex) + "_" + MapTileIndex.getY(pMapTileIndex));
+
             t = s.getDrawable(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).getPath() + "/" + z + "/" + MapTileIndex.getX(pMapTileIndex) + "_" + MapTileIndex.getY(pMapTileIndex));
         } catch (BitmapTileSourceBase.LowMemoryException e) {
             e.printStackTrace();
@@ -166,12 +164,14 @@ class MapTileProviderSpatial extends MapTileProviderBasic {
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            String query="select asText(geometry) as quadra from quadras where intersects(buildmbr(%q, %q, %q, %q, 4326),geometry)=1";
+            double threshold=getThreshold(projection);
+            String query="select asText(simplify(geometry,%q)) as quadra from quadras where intersects(buildmbr(%q, %q, %q, %q, 4326),geometry)=1";
 
             Log.d("IAT DATABASE QUERY", query);
             SpatialCallback cb = new SpatialCallback(rect,tileSystem,bitmap,index,projection,bb);
             try {
                 jdb.exec(query,cb,new String[]{
+                        Double.toString(threshold),
                         Double.toString(bb.getLonWest()),
                         Double.toString(bb.getLatSouth()),
                         Double.toString(bb.getLonEast()),
@@ -186,6 +186,13 @@ class MapTileProviderSpatial extends MapTileProviderBasic {
             return true;
         }
     }
+
+    private double getThreshold(Projection projection) {
+        IGeoPoint px0 = projection.fromPixels(0, 0);
+        IGeoPoint px1 = projection.fromPixels(1, 1);
+        return Math.sqrt(Math.pow(px0.getLongitude()-px1.getLongitude(),2)+Math.pow(px0.getLatitude()-px1.getLatitude(),2));
+    }
+
     private class SpatialCallback implements jsqlite.Callback {
         private Bitmap bitmap;
         private Canvas canvas;
@@ -254,7 +261,10 @@ class MapTileProviderSpatial extends MapTileProviderBasic {
                 }
                 maker.get(zoom).remove(index);
                 saveBitmapToFile("/"+zoom+"/", ""+MapTileIndex.getX(index)+"_"+MapTileIndex.getY(index),bitmap);
-                map.invalidate();
+//                map.invalidate();
+                Message m = new Message();
+                m.what=1;
+                mapHandler.dispatchMessage(m);
                 return false;
             }
 
@@ -289,7 +299,14 @@ class MapTileProviderSpatial extends MapTileProviderBasic {
 
 //        File dir = new File(context.getFilesDir().getPath()+path);
         File dir = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).getPath()+path);
-        dir.mkdirs();
+        StatFs stat = new StatFs(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).getPath());
+        if(stat.getAvailableBytes()>0){
+            externalStorage =true;
+            dir.mkdirs();
+        }else{
+            dir=new File(context.getFilesDir()+path);
+            dir.mkdirs();
+        }
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(dir+"/"+fileName);
