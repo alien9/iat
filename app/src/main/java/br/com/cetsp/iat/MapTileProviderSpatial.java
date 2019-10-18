@@ -115,7 +115,15 @@ class MapTileProviderSpatial extends MapTileProviderBasic {
 
         int x = MapTileIndex.getX(pMapTileIndex);
         int y = MapTileIndex.getY(pMapTileIndex);
-        Projection projection = new Projection(z, px, px, new GeoPoint(tileSystem.getLatitudeFromTileY(y, z),tileSystem.getLongitudeFromTileX(x, z)), 0, true, true);
+        Projection projection = new Projection(
+                (double) z,
+                px, px,
+                new GeoPoint(tileSystem.getLatitudeFromTileY(y, z), tileSystem.getLongitudeFromTileX(x, z)),
+                (float) 0,
+                true,
+                true,
+                0,0
+        );
 
         BoundingBox bb = new BoundingBox(
                 tileSystem.getLatitudeFromTileY(y, z),

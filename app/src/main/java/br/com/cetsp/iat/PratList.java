@@ -119,7 +119,8 @@ public class PratList extends AppCompatActivity{
             return;
         }
         Iat iat = (Iat) getApplicationContext();
-        iat.append(data.getStringExtra("data"), currentPosition);
+        if(data!=null)
+            iat.append(data.getStringExtra("data"), currentPosition);
         Toast.makeText(this,"Mensagem Recebida ", Toast.LENGTH_LONG).show();
         ((ListView) findViewById(R.id.listview)).setAdapter(new IatAdapter(this, iat.getReport()));
     }

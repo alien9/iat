@@ -545,7 +545,7 @@ float size=map.getTilesScaleFactor();
                     JSONObject v=jv.optJSONObject(i);
                     switch(v.optInt("model")){
                         case(VehicleFix.COLISAO):
-                            view.evaluateJavascript(String.format("document.getElementById('incidente').innerHTML+='<div>%s</div>'",new String[]{v.optString("tipo_impacto")}),null);
+                            view.evaluateJavascript(String.format("document.getElementById('incidente').innerHTML+='<div>%s</div>'", (Object[]) new String[]{v.optString("tipo_impacto")}),null);
                             break;
                         case AUTO:
                         case BICI:
@@ -571,7 +571,7 @@ float size=map.getTilesScaleFactor();
                             break;
                     }
                 }
-                view.evaluateJavascript(String.format("document.getElementById('croqui').setAttribute('src','data:image/png;base64,%s');",new String[]{d.optString("thumbnail")}),null);
+                view.evaluateJavascript(String.format("document.getElementById('croqui').setAttribute('src','data:image/png;base64,%s');", (Object[]) new String[]{d.optString("thumbnail")}),null);
             }
         });
     }
@@ -582,14 +582,14 @@ float size=map.getTilesScaleFactor();
         try {
             json = getAssets().open(filename);
         } catch (IOException e) {
-            Log.e("IAT", String.format("Arquivo [[[%s]]] NÃO EXISTE",new String[]{filename}));
+            Log.e("IAT", String.format("Arquivo [[[%s]]] NÃO EXISTE", (Object[]) new String[]{filename}));
             return null;
         }
         BufferedReader in=null;
         try {
             in = new BufferedReader(new InputStreamReader(json, "UTF-8"));
         } catch (UnsupportedEncodingException e) {
-            Log.e("IAT", String.format("Encoding problemático em Arquivo [[[%s]]]",new String[]{filename}));
+            Log.e("IAT", String.format("Encoding problemático em Arquivo [[[%s]]]", (Object[]) new String[]{filename}));
             return null;
         }
         String str;
@@ -599,7 +599,7 @@ float size=map.getTilesScaleFactor();
             }
             in.close();
         } catch (IOException e) {
-            Log.e("IAT", String.format("I/O error em Arquivo [[[%s]]]",new String[]{filename}));
+            Log.e("IAT", String.format("I/O error em Arquivo [[[%s]]]", (Object[]) new String[]{filename}));
             return null;
         }
         return buf.toString();
@@ -1063,7 +1063,7 @@ float size=map.getTilesScaleFactor();
 
                     }
                 }else{
-                    ((TextView)v.findViewById(R.id.placa_text)).setText(String.format("%s%s",new String[]{
+                    ((TextView)v.findViewById(R.id.placa_text)).setText(String.format("%s%s", (Object[]) (Object) new String[]{
                             ((TextView) v.findViewById(R.id.placa_letras)).getText().toString(),
                             ((TextView) v.findViewById(R.id.placa_numeros)).getText().toString()
                     }));
@@ -2639,7 +2639,7 @@ float size=map.getTilesScaleFactor();
                                 case VehicleFix.CARROCA:
                                 case VehicleFix.TRAILER:
                                     if (((CheckedTextView) finalLayout.findViewById(R.id.is_placa_padrao)).isChecked()) {
-                                        vehicle.put("placa", String.format("%s%s", new String[]{((EditText) finalLayout.findViewById(R.id.placa_letras)).getText().toString(), ((EditText) finalLayout.findViewById(R.id.placa_numeros)).getText().toString()}));
+                                        vehicle.put("placa", String.format("%s%s", (Object[]) new String[]{((EditText) finalLayout.findViewById(R.id.placa_letras)).getText().toString(), ((EditText) finalLayout.findViewById(R.id.placa_numeros)).getText().toString()}));
                                     } else {
                                         vehicle.put("placa", ((EditText) finalLayout.findViewById(R.id.placa_text)).getText());
                                     }

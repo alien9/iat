@@ -49,7 +49,7 @@ public class FormControl {
 
         } catch (IOException |NoSuchAlgorithmException |CertificateException |KeyStoreException |KeyManagementException e) {
             e.printStackTrace();
-            Log.e("E-BI SPTRANS", String.format("Erro ao carregar certificado: %s", new String[]{e.getMessage()}));
+            Log.e("E-BI SPTRANS", String.format("Erro ao carregar certificado: %s", (Object[]) new String[]{e.getMessage()}));
             Toast.makeText(context, "Certificado de segurança inválido. Por favor entrar em contato com a regional", Toast.LENGTH_LONG).show();
         }
         return client;

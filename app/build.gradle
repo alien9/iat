@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
+    compileSdkVersion 26
     buildToolsVersion '27.0.3'
 
     defaultConfig {
@@ -10,6 +10,7 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -32,13 +33,15 @@ android {
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:24.2.1'
-    implementation 'com.android.support:design:24.2.1'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
     implementation 'com.android.volley:volley:1.1.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.2.2'
     implementation 'junit:junit:4.12'
-    implementation 'org.osmdroid:osmdroid-android:6.1.0'
+    implementation 'org.osmdroid:osmdroid-android:6.1.2'
     implementation 'com.github.MKergall:osmbonuspack:6.6.0'
+    implementation 'com.github.sevar83:android-spatialite:2.0.0'
+
 }
 repositories {
     mavenCentral()
