@@ -12,6 +12,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathDashPathEffect;
 import android.graphics.PathEffect;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -28,6 +29,7 @@ public class Panel extends View implements View.OnTouchListener{
     public static final int DAMAGE = 4;
     public static final int CENTERLINE = 5;
     public static final int ERASER = 6;
+    private final Context context;
     private Canvas canvas;
     private Path path;
     private Paint paint;
@@ -45,13 +47,14 @@ public class Panel extends View implements View.OnTouchListener{
                                int height) {
     }
 
-    public Panel(Context context, AttributeSet attrs) {
-        super(context, attrs);
+    public Panel(Context c, AttributeSet attrs) {
+        super(c, attrs);
         setFocusable(true);
         setFocusableInTouchMode(true);
         this.setOnTouchListener(this);
         canvas = new Canvas();
         setDrawingCacheEnabled(true);
+        context=c;
     }
     @Override
     public void onDraw(Canvas canvas) {
@@ -195,7 +198,7 @@ public class Panel extends View implements View.OnTouchListener{
                 paint.setStrokeWidth((float) (0.5*resolution));
                 break;
             case ZEBRA:
-                paint.setColor(Color.argb(255,204,204,204));
+                paint.setColor(ContextCompat.getColor(context, R.color.medium_gray));
                 paint.setStrokeWidth((float) (3*resolution));
                 paint.setPathEffect(new DashPathEffect(new float[]{(float) (0.6*resolution), (float) (0.3*resolution)},(float) (0.3*resolution)));
                 break;

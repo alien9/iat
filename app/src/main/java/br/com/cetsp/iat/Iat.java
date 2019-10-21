@@ -20,6 +20,11 @@ import jsqlite.Database;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,13 +81,32 @@ public class Iat extends Application {
         editor.commit();
 
     }
-    public Database getDatabase(){
+    public Database getDatabase(String path) {
         if(jdb==null){
             Log.d("IAT DATABASE CREATION ", "It's out of place.");
             jdb=new Database();
         }
+        File quadras=new File(path);
+        if(!quadras.exists()){
+            InputStream in = this.getApplicationContext().getResources().openRawResource(R.raw.db);
+            FileOutputStream out = null;
+            try {
+                out = new FileOutputStream(path);
+                byte[] buff = new byte[1024];
+                int read = 0;
+                while ((read = in.read(buff)) > 0) {
+                    out.write(buff, 0, read);
+                }
+                in.close();
+                out.close();
+            } catch (IOException e) {
+                return jdb;
+            }
+        }
         return jdb;
+
     }
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void startGPS(Activity a) {
         Log.d("IAT SERVICE", "should start");

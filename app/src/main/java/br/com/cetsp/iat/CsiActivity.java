@@ -83,12 +83,14 @@ import org.osmdroid.events.DelayedMapListener;
 import org.osmdroid.events.MapListener;
 import org.osmdroid.events.ScrollEvent;
 import org.osmdroid.events.ZoomEvent;
+import org.osmdroid.tileprovider.ExpirableBitmapDrawable;
 import org.osmdroid.tileprovider.MapTileProviderBasic;
 import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.util.MapTileIndex;
+import org.osmdroid.util.TileSystem;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.Projection;
 import org.osmdroid.views.overlay.Overlay;
@@ -121,6 +123,7 @@ import java.util.regex.Pattern;
 
 import br.com.cetsp.iat.util.Pega;
 
+import jsqlite.Callback;
 import jsqlite.Constants;
 import jsqlite.Database;
 import jsqlite.Exception;
@@ -231,13 +234,13 @@ public class CsiActivity extends AppCompatActivity {
         //map.setTilesScaledToDpi(false);
         String u="http://bigrs.alien9.net:8080/geoserver/gwc/service/tms/1.0.0/";
         //clear_source = new GeoServerTileSource("quadras_e_logradouros", 17, 21, 512, ".png", new String[]{u});
-  //      great_source = new GeoServerTileSource("cidade_com_semaforos_e_lotes", 17, 21, 512, ".png", new String[]{u});
+        //      great_source = new GeoServerTileSource("cidade_com_semaforos_e_lotes", 17, 21, 512, ".png", new String[]{u});
 //        map.setTileSource(great_source);
-/* local mapa - bugfix
-*
-* */
+        /* local mapa - bugfix
+         *
+         * */
         final float scale = getBaseContext().getResources().getDisplayMetrics().density;
-float size=map.getTilesScaleFactor();
+        float size=map.getTilesScaleFactor();
         local_source = new SpatialTileSource("cidade_local", 17, 21, 512,".png");
         MapTileProviderBasic tileProvider=null;
         try {
@@ -253,9 +256,9 @@ float size=map.getTilesScaleFactor();
         map.getOverlays().add(tilesOverlay);
         map.setTileSource(local_source);
         map.setMinZoomLevel(18d);
-/*
-*SpatialTi
-* */
+        /*
+         *SpatialTi
+         * */
 
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
@@ -1501,6 +1504,9 @@ float size=map.getTilesScaleFactor();
         return text.toString();
     }
     private void review() {
+        if(current_mode==MAP){
+            reloadVehiclesAndPaths();
+        }
         ((RadioButton)findViewById(R.id.radio_mapa)).setChecked(true);
         findViewById(R.id.digest_view).setVisibility(View.VISIBLE);
         findViewById(R.id.my_toolbar).setVisibility(View.GONE);
@@ -1569,24 +1575,50 @@ float size=map.getTilesScaleFactor();
         MapView map = (MapView) findViewById(R.id.map);
         if (b) {
             BoundingBox bb = map.getBoundingBox();
-            Double[] northwest = degrees2meters(bb.getLonWest(), bb.getLatNorth());
-            Double[] southeast = degrees2meters(bb.getLonEast(), bb.getLatSouth());
-            String url = String.format("%s?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image/png&TRANSPARENT=true&STYLES&LAYERS=BIGRS:logradouros_3857&SRS=EPSG:3857&WIDTH=%s&HEIGHT=%s&BBOX=%s,%s,%s,%s",
-                    getResources().getString(R.string.wms_url),
-                    map.getWidth(),map.getHeight(),
-                    northwest[0],
-                    southeast[1],
-                    southeast[0],
-                    northwest[1]
-            );
-            new LayerLoader(url, bb, "labels").execute();
-
+//            Double[] northwest = degrees2meters(bb.getLonWest(), bb.getLatNorth());
+//            Double[] southeast = degrees2meters(bb.getLonEast(), bb.getLatSouth());
+//            String url = String.format("%s?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image/png&TRANSPARENT=true&STYLES&LAYERS=BIGRS:logradouros_3857&SRS=EPSG:3857&WIDTH=%s&HEIGHT=%s&BBOX=%s,%s,%s,%s",
+//                    getResources().getString(R.string.wms_url),
+//                    map.getWidth(),map.getHeight(),
+//                    northwest[0],
+ //                   southeast[1],
+   //                 southeast[0],
+     //               northwest[1]
+       //     );
+//
+//            final TileSystem tileSystem = org.osmdroid.views.MapView.getTileSystem();
+            //  new LayerLoader(url, bb, "labels").execute();
+            Bitmap bitlabel = Bitmap.createBitmap(map.getMeasuredWidth(), map.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+            new LabelLoader(context,bitlabel,bb,map.getProjection(),new CsiHandler(map)).execute();
+            is_updating_labels=false;
+            if(overlays.containsKey("labels")) {
+                map.getOverlays().remove(overlays.get("labels"));
+                overlays.remove("labels");
+            }
+            overlays.put("labels",new Overlay() {
+                @Override
+                public void draw(Canvas canvas, MapView mapView, boolean b) {
+                    Projection pj = map.getProjection();
+                    Point pixel_nw = null;
+                    pixel_nw=pj.toPixels(new GeoPoint(bb.getLatNorth(),bb.getLonWest()),pixel_nw);
+                    Point pixel_se = null;
+                    pixel_se=pj.toPixels(new GeoPoint(bb.getLatSouth(),bb.getLonEast()),pixel_se);
+                    Log.d("IAT DRAW", ""+pixel_nw.toString());
+                    canvas.drawBitmap(bitlabel,null,new Rect(pixel_nw.x,pixel_nw.y,pixel_se.x,pixel_se.y),null);
+                }
+            });
+            map.getOverlays().add(overlays.get("labels"));
+            map.invalidate();
+            if(update_labels_after){
+                update_labels_after=false;
+                setLabels(show_labels);
+            }
         }else{
             if(overlays.containsKey("labels")) {
                 if (overlays.get("labels") != null) {
                     map.getOverlays().remove(overlays.get("labels"));
                     overlays.remove("labels");
-                    map.invalidate();
+//                    map.invalidate();
                 }
             }
         }
@@ -1760,7 +1792,6 @@ float size=map.getTilesScaleFactor();
                 Log.d("IAT","will reload");
                 reloadVehiclesAndPaths();
                 ligaCarros(true);
-                //showLabels(true);
                 break;
             case FREEHAND:
                 findViewById(R.id.map_block).setVisibility(View.VISIBLE);
@@ -2850,4 +2881,6 @@ float size=map.getTilesScaleFactor();
 
         }
     }
+
+
 }

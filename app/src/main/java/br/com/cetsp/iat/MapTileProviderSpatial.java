@@ -63,23 +63,7 @@ class MapTileProviderSpatial extends MapTileProviderBasic {
         }
         context=applicationContext;
         map = p;
-        jdb = ((Iat)(context.getApplicationContext())).getDatabase();
-
-        File quadras=new File(context.getFilesDir().getPath() + "mapas");
-        if(!quadras.exists()){
-            InputStream in = context.getResources().openRawResource(R.raw.db);
-            FileOutputStream out = new FileOutputStream(context.getFilesDir().getPath() + "mapas");
-            byte[] buff = new byte[1024];
-            int read = 0;
-            try {
-                while ((read = in.read(buff)) > 0) {
-                    out.write(buff, 0, read);
-                }
-            } finally {
-                in.close();
-                out.close();
-            }
-        }
+        jdb = ((Iat)(context.getApplicationContext())).getDatabase(context.getFilesDir().getPath() + "mapas");
         jdb.open(context.getFilesDir().getPath() + "mapas", Constants.SQLITE_OPEN_READONLY);
 
     }
@@ -132,12 +116,8 @@ class MapTileProviderSpatial extends MapTileProviderBasic {
                 tileSystem.getLongitudeFromTileX(x, z)
         );
         Rect rect = projection.getPixelFromTile(x, y, null);
-        //IGeoPoint nw = projection.fromPixels(rect.left, rect.top);
-        //IGeoPoint se = projection.fromPixels(rect.right, rect.bottom);
         Bitmap b=Bitmap.createBitmap(px,px, Bitmap.Config.ARGB_8888);
-        //final BitmapDrawable drawable = new BitmapDrawable(context.getResources(), b);
-        //b.eraseColor(context.getColor(R.color.red));
-        //Canvas canvas = new Canvas(b);
+        b.eraseColor(ContextCompat.getColor(context,R.color.white));
         (new SpatialLoader(bb,tileSystem,rect, b, pMapTileIndex, projection)).execute();
         return null;
 
@@ -174,7 +154,6 @@ class MapTileProviderSpatial extends MapTileProviderBasic {
         protected Boolean doInBackground(Void... voids) {
             double threshold=getThreshold(projection);
             String query="select asText(simplify(geometry,%q)) as quadra from quadras where intersects(buildmbr(%q, %q, %q, %q, 4326),geometry)=1";
-
             Log.d("IAT DATABASE QUERY", query);
             SpatialCallback cb = new SpatialCallback(rect,tileSystem,bitmap,index,projection,bb);
             try {
@@ -209,7 +188,7 @@ class MapTileProviderSpatial extends MapTileProviderBasic {
         private TileSystem tileSystem;
         private int zoom;
         private Point corner;
-        private BoundingBox boundingbox;
+        //private BoundingBox boundingbox;
         private Rect rect;
 
 
@@ -220,30 +199,16 @@ class MapTileProviderSpatial extends MapTileProviderBasic {
             this.index=i;
             this.projection=p;
             this.tileSystem=ts;
-            this.boundingbox=bb;
+            //this.boundingbox=bb;
             this.zoom=MapTileIndex.getZoom(i);
             Log.d("IAT database callback ",""+projection.getZoomLevel());
             Log.d("IAT", "zoom real:"+zoom);
             corner=new Point();
             GeoPoint gcorner=new GeoPoint(bb.getLatNorth(),bb.getLonWest());
             projection.toPixels(gcorner,corner);
-            GeoPoint ponta=new GeoPoint(bb.getLatSouth(),bb.getLonEast());
-            Point pu=new Point();
-            projection.toPixels(ponta,pu);
-            int x=pu.x-corner.x;
-            //MapView map = (MapView) findViewById(R.id.map);
-            //Projection projection = map.getProjection();
-//            GeoPoint korner = new GeoPoint(bb.getLatNorth(), bb.getLonWest());
-            //corner=new Point();
-            //projection.toPixels(korner, corner);
-            //GeoPoint sudeste = new GeoPoint(bb.getLatSouth(), bb.getLonEast());
-            //Point southeast = new Point();
-            //projection.toPixels(sudeste, southeast);
-            //View draw = findViewById(R.id.drawing_panel);
-            //bitmap = Bitmap.createBitmap(draw.getDrawingCache());
-            //bitmap = Bitmap.createBitmap(southeast.x-corner.x,southeast.y-corner.y, Bitmap.Config.ARGB_8888);
-            //canvas = new Canvas(bitmap);
-            //bitmap.eraseColor(getResources().getColor(R.color.white));
+            //GeoPoint ponta=new GeoPoint(bb.getLatSouth(),bb.getLonEast());
+            //Point pu=new Point();
+            //projection.toPixels(ponta,pu);
         }
 
         @Override
@@ -258,8 +223,6 @@ class MapTileProviderSpatial extends MapTileProviderBasic {
 
         @Override
         public boolean newrow(String[] rowdata) {
-
-//            MapView map = (MapView) findViewById(R.id.map);
             if(rowdata[0].length()==0){
                 final BitmapDrawable drawable = new BitmapDrawable(context.getResources(), bitmap);
                 if(map.getZoomLevelDouble()!=zoom){
@@ -269,7 +232,6 @@ class MapTileProviderSpatial extends MapTileProviderBasic {
                 }
                 maker.get(zoom).remove(index);
                 saveBitmapToFile("/"+zoom+"/", ""+MapTileIndex.getX(index)+"_"+MapTileIndex.getY(index),bitmap);
-//                map.invalidate();
                 Message m = new Message();
                 m.what=1;
                 mapHandler.dispatchMessage(m);
@@ -279,8 +241,8 @@ class MapTileProviderSpatial extends MapTileProviderBasic {
             Pattern p= Pattern.compile("[\\d\\s\\.\\-\\,]+");
             Matcher m=p.matcher(rowdata[0]);
             Paint wallpaint = new Paint();
-            wallpaint.setColor(ContextCompat.getColor(context,R.color.red));
-            wallpaint.setStyle(Paint.Style.FILL_AND_STROKE);
+            wallpaint.setColor(ContextCompat.getColor(context,R.color.medium_gray));
+            wallpaint.setStyle(Paint.Style.FILL);
             Point point = new Point();
 
             while(m.find()) {
