@@ -1,12 +1,14 @@
 IAT
 
-#Investigação de Acidentes de Trânsito
+. Investigação de Acidentes de Trânsito
 
-Esta aplicação cria registros de incidentes de trânsito. 
-
-
-
-#Configurações
+Esta aplicação cria registros de incidentes de trânsito. O IAT pode ser acionado por uma outra aplicação no ambiente Android. Uma implementação possível é por meio do plugin *bigrs-croqui*, que é compatível com o ambiente Cordova.
+Tanto o plugin quanto qualquer outra aplicação Android acionam o IAT por meio do Intent action br.com.cetsp.iat.DRAW.
+A aplicação está preparada para ser receber alguns parâmetros e responder para o emissor com os dados produzidos.
+* Parâmetros de entrada: a aplicação é parametrizada com uma string extra com a chave _info_. Este dataset pode conter a posição atual (dada peo GPS, por exepmplo), bem como as instruções para carga de um relatório existente, que assim pode ser editado pela aplicação.
+   
+ 
+. Configurações
 * Dependências
     * Spatialite
         https://www.gaia-gis.it/fossil/libspatialite/wiki?name=splite-android
