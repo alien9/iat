@@ -50,7 +50,7 @@ class LabelLoader  extends AsyncTask<Void, Void, Boolean> {
                 "    else 360*(atan( (Y(A) - Y(B)) / (X(A) - X(B)) ) )/(2*3.141592653589793)\n" +
                 "    end from(\n" +
                 "select nome, transform(startpoint(g),3857) as a,transform(endpoint(g),3857) as b, Line_Interpolate_Point(g,0.5) as centro from (\n" +
-                "select get_lograd as nome,intersection(mbr,Geometry) as g from logradouros, (select buildmbr(\n" +
+                "select nome,intersection(mbr,Geometry) as g from logradouros, (select buildmbr(\n" +
                 "%q, %q, %q, %q" +
                 ", 4326) as mbr) bb\n" +
                 " where intersects(mbr,geometry)=1\n" +
