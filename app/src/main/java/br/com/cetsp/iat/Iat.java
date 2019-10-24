@@ -115,7 +115,9 @@ public class Iat extends Application {
             Log.d("IAT SERVICE", "permission nort granted");
             ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
             List<ActivityManager.AppTask> tasks = activityManager.getAppTasks();
-            tasks.get(0);
+            if(tasks.size()>0) {
+                tasks.get(0);
+            }
             ActivityCompat.requestPermissions(a,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     IAT_REQUEST_GPS_PERMISSION);

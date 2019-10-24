@@ -84,11 +84,11 @@ class MapTileProviderSpatial extends MapTileProviderBasic {
             return null;
         }
         if (t != null){
-            if (z != map.getZoomLevelDouble()) {
-                Log.d("IAT", "wrong zoom layer for this");
-            } else {
-                return t;
-            }
+            //if (Math.round(z) != Math.round(map.getZoomLevelDouble())) {
+            //    Log.d("IAT", "wrong zoom layer for this");
+            //} else {
+            return t;
+            //}
         }
         if(maker.get(z).contains(pMapTileIndex))
             return null;
@@ -225,11 +225,11 @@ class MapTileProviderSpatial extends MapTileProviderBasic {
         public boolean newrow(String[] rowdata) {
             if(rowdata[0].length()==0){
                 final BitmapDrawable drawable = new BitmapDrawable(context.getResources(), bitmap);
-                if(map.getZoomLevelDouble()!=zoom){
-                    Log.d("IAT", "writing cache at wrong zoom");
-                }else {
-                    putTileIntoCache(index, drawable, ExpirableBitmapDrawable.UP_TO_DATE);
-                }
+                //if(Math.round(map.getZoomLevelDouble())!=Math.round(zoom)){
+                //    Log.d("IAT", "writing cache at wrong zoom");
+                //}else {
+                putTileIntoCache(index, drawable, ExpirableBitmapDrawable.UP_TO_DATE);
+                //}
                 maker.get(zoom).remove(index);
                 saveBitmapToFile("/"+zoom+"/", ""+MapTileIndex.getX(index)+"_"+MapTileIndex.getY(index),bitmap);
                 Message m = new Message();
