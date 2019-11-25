@@ -11,8 +11,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
@@ -557,6 +555,7 @@ public class CsiActivity extends AppCompatActivity {
                         case CAMIONETA:
                         case CARROCA:
                         case MICROONIBUS:
+                        case ONIBUS:
                         case VehicleFix.MOTO:
                         case VehicleFix.REBOQUE:
                         case VehicleFix.SEMI:
@@ -2601,15 +2600,16 @@ public class CsiActivity extends AppCompatActivity {
             if(vehicle.has("fatores_contribuintes")){
                 ViewGroup fg= (ViewGroup) layout.findViewById(R.id.fatores_contribuintes_layout);
                 int j=0;
-                JSONArray fca=vehicle.optJSONArray("fatores_contribuintes");
+                JSONObject fco=vehicle.optJSONObject("fatores_contribuintes");
                 for(int i=0;i<fg.getChildCount();i++){
                     View fu= fg.getChildAt(i);
                     try{
                         CheckBox ch=(CheckBox)fu;
-                        ch.setChecked(fca.optBoolean(j));
+                        ch.setChecked(fco.optBoolean(ch.getText().toString()));
                         j++;
-                    }catch(ClassCastException xu){}
+                    }catch(ClassCastException | NullPointerException xu){}
                 }
+
             }
             if(vehicle.has("tipo_veiculo_id")){
                 int vid=vehicle.optInt("tipo_veiculo_id");
@@ -2743,21 +2743,16 @@ public class CsiActivity extends AppCompatActivity {
                                     break;
                             }
                             if (finalLayout.findViewById(R.id.fatores_contribuintes_layout) != null) {
-                                JSONArray fc = new JSONArray();
-                                JSONArray ft = new JSONArray();
+                                JSONObject fo=new JSONObject();
                                 ViewGroup fg = (ViewGroup) finalLayout.findViewById(R.id.fatores_contribuintes_layout);
                                 for (int i = 0; i < fg.getChildCount(); i++) {
                                     View fu = fg.getChildAt(i);
                                     try {
-                                        fc.put(((CheckBox) fu).isChecked());
-                                        if (((CheckBox) fu).isChecked()) {
-                                            ft.put(((CheckBox) fu).getText().toString());
-                                        }
+                                        fo.put(((CheckBox) fu).getText().toString(),((CheckBox) fu).isChecked());
                                     } catch (ClassCastException xu) {
                                     }
                                 }
-                                vehicle.put("fatores_contribuintes", fc);
-                                vehicle.put("fatores_contribuintes_text", ft);
+                                vehicle.put("fatores_contribuintes", fo);
                             }
                             vehicles.put(position, vehicle);
                         } catch (JSONException e) {

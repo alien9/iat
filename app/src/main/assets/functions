@@ -20,12 +20,17 @@ function parse(xj, template, fields){
         if(xj[k])
             template.append("<span class='fieldname'>"+fields[k]+":</span> "+xj[k]+"<br>");
     }
-
-    if(xj.fatores_contribuintes_text && (xj.fatores_contribuintes_text.length>0)){
-        template.append('<div class="subtitle fc">Fatores Contribuintes:</div>');
-        for(var i=0;i<xj.fatores_contribuintes_text.length;i++){
-            template.append(xj.fatores_contribuintes_text[i]+"<br>");
+    var fc="";
+    if(xj.fatores_contribuintes){
+        for(var k in xj.fatores_contribuintes){
+            if(xj.fatores_contribuintes[k]){
+                fc+=k+"<br>";
+            }
         }
+    }
+    if(fc.length){
+        template.append('<div class="subtitle fc">Fatores Contribuintes:</div>');
+        template.append(fc+"<br>");
     }
     $("#veiculos").append(template);
 }
