@@ -39,3 +39,13 @@ O layer de desenho de quadras é definido pela tabela _quadras_ com a geometria 
 O banco de dados pode ser gerado a partir dos arquivos ESRI Shapefile correspondentes ao mapa de quadras e logradouros. Para tanto pode-se empregar a aplicação [spatialite-gui](http://www.gaia-gis.it/gaia-sins/index.html) que permite importar os dados a partir dos arquivos ESRI Shapefile do mapa da cidade. O banco de dados faz oarte da compilação do aplicativo. Para alterar a versão dos mapas disponíveis no aparelho é preciso substituir o arquivo correspondente à base de dados em app/src/main/res/raw/db. 
 
 
+**Formato de Dados**
+Os relatórios produzidos com a ferramenta IAT Android são retornados para a aplicação acionadora serializados - isto é, o formato é texto JSON. Cada registro consiste em um conjunto de informações que descrevem o incidente e permitem reconstituir a cena retratada no relatório. 
+
+No primeiro nível da estrutura temos os parâmetros:
+
+image: em formato PNG, com as dimensões especificadas na chamada da aplicação (mencionado acima), padrão 300x300 pixels;
+info: detalhes do incidente e dos veículos e pessoas envolvidos
+placas: um array contendo as placas dos veículos envolvidos
+quantidades: um dicionário com as quantidades de cada tipo de veículo
+
