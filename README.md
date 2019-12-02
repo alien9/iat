@@ -39,3 +39,44 @@ O layer de desenho de quadras é definido pela tabela _quadras_ com a geometria 
 O banco de dados pode ser gerado a partir dos arquivos ESRI Shapefile correspondentes ao mapa de quadras e logradouros. Para tanto pode-se empregar a aplicação [spatialite-gui](http://www.gaia-gis.it/gaia-sins/index.html) que permite importar os dados a partir dos arquivos ESRI Shapefile do mapa da cidade. O banco de dados faz oarte da compilação do aplicativo. Para alterar a versão dos mapas disponíveis no aparelho é preciso substituir o arquivo correspondente à base de dados em app/src/main/res/raw/db. 
 
 
+**Formato de Dados**
+Os relatórios produzidos com a ferramenta IAT Android são retornados para a aplicação acionadora serializados - isto é, o formato é texto JSON. Cada registro consiste em um conjunto de informações que descrevem o incidente e permitem reconstituir a cena retratada no relatório. Todas as imagens são serializadas com o padrão base64.
+
+No primeiro nível da estrutura temos os parâmetros:
+
+**image**: em formato PNG, com as dimensões especificadas na chamada da aplicação (mencionado acima), padrão 300x300 pixels;
+
+**info**: detalhes do incidente e dos veículos e pessoas envolvidos
+
+**placas**: um array contendo as placas dos veículos envolvidos
+
+**quantidades**: um dicionário com as quantidades de cada tipo de veículo
+
+
+O campo **info** contém os seguintes atributos:
+
+**latitude**:
+
+**longitude**: posição do centro do mapa no relatório
+
+**zoom**: nível de zoom preferido para montagem do relatório
+
+**paths**: um array contendo as linhas desenhadas no relatório - isto inclui as linhas de trajeto aparente, faixas de pedestre e linha central desenhadas
+
+**vehicles**: este array contém não apenas os veículos, mas também os demais objetos presentes na cena: pedestres, obstáculos, indicadores de sentido na via, postes e árvores.
+
+
+
+######Paths
+Os traçados (produzidos com desenho a dedo) são estilizados de forma a representar diferentes marcações na cena do incidente bem como itens de infraestrutura.
+Atualmente há quatro estilos de linha:
+* marca de freada (1)
+* linha central dupla (5)
+* trajeto aparente (3)
+* faixa de pedestre (2)
+
+o estilo é definido em cada objeto JSON Path com o parâmetro **style**.
+Além disto há o campo **geom**, contendo um array de objetos com latitude e longitude. E também o array **points**, que define pares de valores correspondentes à posição de cada ponto no nível de zoom definido para  o relatório. Este array serve para tornar mais rápida a renderização do traçado, sem necessidade de converter cada par de coordenadas para as coordenadas da tela.
+
+
+
