@@ -162,6 +162,10 @@
     <string name="not_found">Item não encontrado</string>
     <string name="sync">Sincronizar</string>
     <string name="cancelar">Cancelar</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="quer_mesmo_terminar">Deseja encerrar o croqui?\nTodas as alterações serão perdidas.</string>
+    <string name="quer_mesmo_apagar">Deseja apagar todos os registros?</string>
+    <string name="erase_all">Apagar Tudo</string>
     <string name="pass">Senha</string>
     <string-array name="vehicle_type">
         <item>Auto</item>

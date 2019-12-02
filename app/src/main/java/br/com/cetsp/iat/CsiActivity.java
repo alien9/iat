@@ -1231,25 +1231,52 @@ public class CsiActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed(){
-        if(findViewById(R.id.palette_layout)==null)return;
-        if(findViewById(R.id.palette_layout).getVisibility()==View.VISIBLE){
+    public void onBackPressed() {
+        if (findViewById(R.id.palette_layout) == null) {
+
+        }
+
+        if (findViewById(R.id.palette_layout).getVisibility() == View.VISIBLE) {
             findViewById(R.id.palette_layout).setVisibility(View.GONE);
             findViewById(R.id.show_pallette).setVisibility(View.VISIBLE);
             return;
         }
-        if(findViewById(R.id.vehicle_details).getVisibility()==View.VISIBLE) {
+        if (findViewById(R.id.vehicle_details).getVisibility() == View.VISIBLE) {
             findViewById(R.id.vehicle_details).setVisibility(View.GONE);
-            Toolbar toolbar=(Toolbar)findViewById(R.id.my_toolbar);
+            Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
             setSupportActionBar(toolbar);
             toolbar.setVisibility(View.VISIBLE);
             return;
         }
-        if(findViewById(R.id.digest_view).getVisibility()==View.VISIBLE){
+        if (findViewById(R.id.digest_view).getVisibility() == View.VISIBLE) {
             exitReview();
             return;
         }
-        ((Panel) findViewById(R.id.drawing_panel)).back();
+        if (current_mode == FREEHAND) {
+            ((Panel) findViewById(R.id.drawing_panel)).back();
+        }else{
+
+            AlertDialog.Builder alert = new AlertDialog.Builder(CsiActivity.this);
+            alert.setTitle(getString(R.string.confirmar));
+            alert.setMessage(getString(R.string.quer_mesmo_terminar));
+            alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                    dialog.dismiss();
+                }
+            });
+
+            alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
+            alert.show();
+        }
     }
 
     @Override
@@ -1580,10 +1607,10 @@ public class CsiActivity extends AppCompatActivity {
 //                    getResources().getString(R.string.wms_url),
 //                    map.getWidth(),map.getHeight(),
 //                    northwest[0],
- //                   southeast[1],
-   //                 southeast[0],
-     //               northwest[1]
-       //     );
+            //                   southeast[1],
+            //                 southeast[0],
+            //               northwest[1]
+            //     );
 //
 //            final TileSystem tileSystem = org.osmdroid.views.MapView.getTileSystem();
             //  new LayerLoader(url, bb, "labels").execute();

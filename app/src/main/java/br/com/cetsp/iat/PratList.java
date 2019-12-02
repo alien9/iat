@@ -1,6 +1,8 @@
 package br.com.cetsp.iat;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -200,10 +202,39 @@ public class PratList extends AppCompatActivity{
             case R.id.sync:
                 sync();
                 return true;
+            case R.id.erase:
+                eraseAll();
+                Iat iat= (Iat) getApplicationContext();
+                ((ListView) findViewById(R.id.listview)).setAdapter(new IatAdapter(this, iat.getReport()));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    private void eraseAll() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(PratList.this);
+        alert.setTitle(getString(R.string.confirmar));
+        alert.setMessage(getString(R.string.quer_mesmo_apagar));
+        Context c=this;
+        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Iat iat= (Iat) getApplicationContext();
+                iat.eraseReports();
+                ((ListView) findViewById(R.id.listview)).setAdapter(new IatAdapter(c, iat.getReport()));
+                dialog.dismiss();
+            }
+        });
+        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alert.show();
+    }
+
     private void sync(){
         sync(0);
     }

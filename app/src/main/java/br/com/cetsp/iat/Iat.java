@@ -190,4 +190,16 @@ public class Iat extends Application {
 
         }
     }
+
+    public void eraseReports() {
+        reports=new ArrayList<>();
+        SharedPreferences prefs = getSharedPreferences("PRATT", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        int i=0;
+        while(prefs.contains(String.format("prat_%09d", i))){
+            editor.remove(String.format("prat_%09d", i));
+            i++;
+        }
+        editor.apply();
+    }
 }
