@@ -71,6 +71,7 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import br.com.cetsp.iat.util.VehicleFix;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -230,15 +231,27 @@ public class CsiActivity extends AppCompatActivity {
         final MapView map = (MapView) findViewById(R.id.map);
         //map.setTileSource(TileSourceFactory.USGS_SAT);
         //map.setTilesScaledToDpi(false);
-        String u="http://bigrs.alien9.net:8080/geoserver/gwc/service/tms/1.0.0/";
+        //String u="http://bigrs.alien9.net:8080/geoserver/gwc/service/tms/1.0.0/";
+        String u="http://cetsp1.cetsp.com.br:10084/geoserver/gwc/service/tms/1.0.0/";
         //clear_source = new GeoServerTileSource("quadras_e_logradouros", 17, 21, 512, ".png", new String[]{u});
-        //      great_source = new GeoServerTileSource("cidade_com_semaforos_e_lotes", 17, 21, 512, ".png", new String[]{u});
-//        map.setTileSource(great_source);
+        great_source = new GeoServerTileSource("cetmdc:mdcViario_lg", 17, 21, 512, ".png", new String[]{u}, "EPSG:900913");
+        map.setTileSource(great_source);
+
+
+
+        final MapTileProviderBasic labelTileProvider = new MapTileProviderBasic(getApplicationContext());
+        final GeoServerTileSource labels_source = new GeoServerTileSource("cetmdc:mdcRotulos_lg", 17, 21, 512, ".png", new String[]{u}, "EPSG:900913");
+        labelTileProvider.setTileSource(labels_source);
+        final TilesOverlay labelTilesOverlay = new TilesOverlay(labelTileProvider, this.getBaseContext());
+        labelTilesOverlay.setLoadingBackgroundColor(Color.TRANSPARENT);
+
+        map.getOverlays().add(labelTilesOverlay);
         /* local mapa - bugfix
          *
          * */
+
         final float scale = getBaseContext().getResources().getDisplayMetrics().density;
-        float size=map.getTilesScaleFactor();
+        /*
         local_source = new SpatialTileSource("cidade_local", 17, 21, 512,".png");
         MapTileProviderBasic tileProvider=null;
         try {
@@ -253,11 +266,8 @@ public class CsiActivity extends AppCompatActivity {
         tilesOverlay.setLoadingBackgroundColor(Color.TRANSPARENT);
         map.getOverlays().add(tilesOverlay);
         map.setTileSource(local_source);
+        */
         map.setMinZoomLevel(18d);
-        /*
-         *SpatialTi
-         * */
-
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
         map.setClickable(true);
@@ -547,6 +557,8 @@ public class CsiActivity extends AppCompatActivity {
                     switch(v.optInt("model")){
                         case(VehicleFix.COLISAO):
                             view.evaluateJavascript(String.format("document.getElementById('incidente').innerHTML+='<div>%s</div>'", (Object[]) new String[]{v.optString("tipo_impacto")}),null);
+                            view.evaluateJavascript(String.format("document.getElementById('descricao').innerHTML+='%s'", StringEscapeUtils.escapeEcmaScript(v.optString("descricao"))),null);
+                            view.evaluateJavascript(String.format("document.getElementById('data_e_hora').innerHTML+='%s'", (Object[]) new String[]{v.optString("data_e_hora")}),null);
                             break;
                         case AUTO:
                         case BICI:
@@ -996,6 +1008,7 @@ public class CsiActivity extends AppCompatActivity {
                                     d.put("data_e_hora", dt);
                                     d.put("tipo_impacto_id",((Spinner)v.findViewById(R.id.impacto_spinner)).getSelectedItemPosition());
                                     d.put("tipo_impacto",String.valueOf(((Spinner)v.findViewById(R.id.impacto_spinner)).getSelectedItem()));
+                                    d.put("clima",String.valueOf(((Spinner)v.findViewById(R.id.clima_spinner)).getSelectedItem()));
                                 } catch (JSONException ignored) {}
                                 createVehicle(VehicleFix.COLISAO,4.0,4.0,d);
                         }
@@ -1911,15 +1924,18 @@ public class CsiActivity extends AppCompatActivity {
     public class GeoServerTileSource extends OnlineTileSourceBase {
         private final String[] base_url;
         private final String layer;
+        private final String projection;
 
-        public GeoServerTileSource(String aName, int aZoomMinLevel, int aZoomMaxLevel, int aTileSizePixels, String aImageFilenameEnding, String[] aBaseUrl) {
+        public GeoServerTileSource(String aName, int aZoomMinLevel, int aZoomMaxLevel, int aTileSizePixels, String aImageFilenameEnding, String[] aBaseUrl, String s) {
             super(aName, aZoomMinLevel, aZoomMaxLevel, aTileSizePixels, aImageFilenameEnding, aBaseUrl);
             base_url = aBaseUrl;
             layer=aName;
+            projection=s;
         }
         @Override
         public String getTileURLString(long tileIndex) {
-            String u = "http://bigrs.alien9.net:8080/geoserver/gwc/service/tms/1.0.0/BIGRS%3A"+layer+"@3857@png" + "/" + MapTileIndex.getZoom(tileIndex) + "/" + MapTileIndex.getX(tileIndex) + "/" + (int)(Math.pow(2.0,MapTileIndex.getZoom(tileIndex))-MapTileIndex.getY(tileIndex)-1) + ".png";
+            //String u = "http://bigrs.alien9.net:8080/geoserver/gwc/service/tms/1.0.0/BIGRS%3A"+layer+"@3857@png" + "/" + MapTileIndex.getZoom(tileIndex) + "/" + MapTileIndex.getX(tileIndex) + "/" + (int)(Math.pow(2.0,MapTileIndex.getZoom(tileIndex))-MapTileIndex.getY(tileIndex)-1) + ".png";
+            String u = base_url[0]+layer+"@"+projection+"@png" + "/" + MapTileIndex.getZoom(tileIndex) + "/" + MapTileIndex.getX(tileIndex) + "/" + (int)(Math.pow(2.0,MapTileIndex.getZoom(tileIndex))-MapTileIndex.getY(tileIndex)-1) + ".png";
             Log.d("IAT request",u);
             return u;
         }
@@ -2548,6 +2564,9 @@ public class CsiActivity extends AppCompatActivity {
                     int c= Arrays.asList(getResources().getStringArray(R.array.impact_type)).indexOf(vehicle.optString("tipo_impacto"));
                     if(c>=0)
                         ((Spinner)layout.findViewById(R.id.impacto_spinner)).setSelection(c);
+                    c= Arrays.asList(getResources().getStringArray(R.array.clima)).indexOf(vehicle.optString("clima"));
+                    if(c>=0)
+                        ((Spinner)layout.findViewById(R.id.clima_spinner)).setSelection(c);
                     ((EditText)layout.findViewById(R.id.description)).setText(vehicle.optString("descricao"));
                     String inv="";
                     if(vehicle.has("envolvidos"))
@@ -2753,6 +2772,7 @@ public class CsiActivity extends AppCompatActivity {
                                     break;
                                 case VehicleFix.COLISAO:
                                     vehicle.put("tipo_impacto", ((Spinner) finalLayout.findViewById(R.id.impacto_spinner)).getSelectedItem().toString());
+                                    vehicle.put("clima", ((Spinner) finalLayout.findViewById(R.id.clima_spinner)).getSelectedItem().toString());
                                     vehicle.put("descricao", ((EditText) finalLayout.findViewById(R.id.description)).getText().toString());
                                     vehicle.put("data_e_hora", ((Button)finalLayout.findViewById(R.id.data_e_hora)).getText());
                                     ViewGroup vu = (ViewGroup) finalLayout.findViewById(R.id.itens_envolvidos);

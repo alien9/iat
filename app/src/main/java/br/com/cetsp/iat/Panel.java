@@ -198,7 +198,7 @@ public class Panel extends View implements View.OnTouchListener{
                 paint.setStrokeWidth((float) (0.5*resolution));
                 break;
             case ZEBRA:
-                paint.setColor(ContextCompat.getColor(context, R.color.medium_gray));
+                paint.setColor(ContextCompat.getColor(context, R.color.zebra_gray));
                 paint.setStrokeWidth((float) (3*resolution));
                 paint.setPathEffect(new DashPathEffect(new float[]{(float) (0.6*resolution), (float) (0.3*resolution)},(float) (0.3*resolution)));
                 break;

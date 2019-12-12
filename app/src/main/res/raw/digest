@@ -35,6 +35,8 @@ body{
 Resumo do Relatório
 </p>
 <div id="incidente"></div>
+<div id="data_e_hora"></div>
+<div id="descricao"></div>
 <p>Envolvidos</p>
 <div id="veiculos"></div>
 <div class="croqui">

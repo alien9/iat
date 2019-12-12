@@ -167,6 +167,7 @@
     <string name="quer_mesmo_apagar">Deseja apagar todos os registros?</string>
     <string name="erase_all">Apagar Tudo</string>
     <string name="pass">Senha</string>
+    <string name="clima">Clima</string>
     <string-array name="vehicle_type">
         <item>Auto</item>
         <item>Caminhão</item>
@@ -201,5 +202,13 @@
     </string-array>
     <string-array name="ufs">
         <item/><item>AC</item><item>AL</item><item>AP</item><item>AM</item><item>BA</item><item>CE</item><item>DF</item><item>ES</item><item>GO</item><item>MA</item><item>MT</item><item>MS</item><item>MG</item><item>PA</item><item>PB</item><item>PR</item><item>PE</item><item>PI</item><item>RJ</item><item>RN</item><item>RS</item><item>RO</item><item>RR</item><item>SC</item><item>SP</item><item>SE</item><item>TO</item>
+    </string-array>
+    <string-array name="clima">
+        <item>Claro</item>
+        <item>Nublado</item>
+        <item>Garoa</item>
+        <item>Chuva</item>
+        <item>Chuva forte</item>
+        <item>Neve</item>
     </string-array>
 </resources>
