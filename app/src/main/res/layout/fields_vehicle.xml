@@ -31,7 +31,7 @@
             android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/placa_letras"
-                android:inputType="textCapCharacters|textNoSuggestions|textVisiblePassword"
+                android:inputType="textCapCharacters"
                 android:layout_width="0dp"
                 android:layout_weight="3"
                 android:maxLength="3"
@@ -49,7 +49,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="+" />
+            android:text="▾" />
 
     </LinearLayout>
     <LinearLayout

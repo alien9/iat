@@ -168,6 +168,12 @@
     <string name="erase_all">Apagar Tudo</string>
     <string name="pass">Senha</string>
     <string name="clima">Clima</string>
+    <string name="congestionamento">Tráfego</string>
+    <string name="km">km</string>
+    <string name="fonte">Fonte</string>
+    <string name="m">m</string>
+    <string name="ps">PS</string>
+    <string name="quem_socorreu">Quem socorreu?</string>
     <string-array name="vehicle_type">
         <item>Auto</item>
         <item>Caminhão</item>

@@ -908,6 +908,7 @@ public class CsiActivity extends AppCompatActivity {
                                     try {
                                         d.put("comprimento",comprimento);
                                         d.put("largura",largura);
+                                        d.put("descricao", ((EditText)v.findViewById(R.id.descricao_text)).getText().toString());
                                         d.put("nome",((EditText) v.findViewById(R.id.tipo_obstaculo_text)).getText().toString());
                                     } catch (JSONException ignored) {
                                     }
@@ -1195,7 +1196,7 @@ public class CsiActivity extends AppCompatActivity {
                 label++;
             }
         }
-        return ""+label;
+        return String.format("%c",64+label);
     }
     private String getNextPedestrianLabel() {
         int label=1;
@@ -2623,6 +2624,7 @@ public class CsiActivity extends AppCompatActivity {
                     ((EditText)layout.findViewById(R.id.tipo_obstaculo_text)).setText(vehicle.optString("nome"));
                     ((EditText)layout.findViewById(R.id.largura_text)).setText(vehicle.optString("largura"));
                     ((EditText)layout.findViewById(R.id.comprimento_text)).setText(vehicle.optString("comprimento"));
+                    ((EditText)layout.findViewById(R.id.descricao_text)).setText(vehicle.optString("descricao"));
                     break;
                 case BICI:
                     layout=(ViewGroup) inflater.inflate(R.layout.form_bici_data, collection, false);
