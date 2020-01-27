@@ -71,7 +71,7 @@ public class Iat extends Application {
         session=null;
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         singleton = this;
-        jdb = new Database();
+//        jdb = new Database();
     }
     public void setLastKnownPosition(JSONObject l) {
         lastKnownPosition = l;

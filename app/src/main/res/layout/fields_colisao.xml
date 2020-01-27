@@ -52,13 +52,13 @@
             android:id="@+id/congestionamento_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1.2"
             android:inputType="number"
             />
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.1"
+            android:layout_weight="0.8"
             android:text="@string/m" />
     </LinearLayout>
     <LinearLayout

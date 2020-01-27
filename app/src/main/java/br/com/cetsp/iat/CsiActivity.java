@@ -148,7 +148,7 @@ public class CsiActivity extends AppCompatActivity {
     private static final double MAP_SIZE = 20037508.34789244 * 2;
     private static final double[] TILE_ORIGIN = {-20037508.34789244,20037508.34789244};
     private static final int LABEL_SIZE = 20;
-    private boolean show_labels=true;
+    private boolean show_labels=false;
     private Overlay closeup;
     private Hashtable<String,Overlay> overlays;
     private static final int FREEHAND = 1;
@@ -335,6 +335,8 @@ public class CsiActivity extends AppCompatActivity {
                     map.getController().setCenter(new GeoPoint(point.optDouble("latitude"), point.optDouble("longitude")));
                 if(j.has("vehicles"))
                     existent_vehicles = j.optJSONArray("vehicles");
+                if(j.has("zoom"))
+                    map.getController().setZoom(j.optDouble("zoom", 20d));
             } catch (JSONException e) {}
         }
         map.getController().setCenter(new GeoPoint(point.optDouble("latitude"), point.optDouble("longitude")));
@@ -1010,6 +1012,10 @@ public class CsiActivity extends AppCompatActivity {
                                     d.put("tipo_impacto_id",((Spinner)v.findViewById(R.id.impacto_spinner)).getSelectedItemPosition());
                                     d.put("tipo_impacto",String.valueOf(((Spinner)v.findViewById(R.id.impacto_spinner)).getSelectedItem()));
                                     d.put("clima",String.valueOf(((Spinner)v.findViewById(R.id.clima_spinner)).getSelectedItem()));
+                                    d.put("trafego", ((EditText)v.findViewById(R.id.congestionamento_text)).getText());
+                                    d.put("fonte", ((EditText)v.findViewById(R.id.fonte_text)).getText());
+                                    d.put("ps", ((EditText)v.findViewById(R.id.ps_text)).getText());
+                                    d.put("socorreu", ((EditText)v.findViewById(R.id.quem_socorreu_text)).getText());
                                 } catch (JSONException ignored) {}
                                 createVehicle(VehicleFix.COLISAO,4.0,4.0,d);
                         }
@@ -2568,6 +2574,10 @@ public class CsiActivity extends AppCompatActivity {
                     c= Arrays.asList(getResources().getStringArray(R.array.clima)).indexOf(vehicle.optString("clima"));
                     if(c>=0)
                         ((Spinner)layout.findViewById(R.id.clima_spinner)).setSelection(c);
+                    ((EditText)layout.findViewById(R.id.congestionamento_text)).setText(vehicle.optString("trafego"));
+                    ((EditText)layout.findViewById(R.id.fonte_text)).setText(vehicle.optString("fonte"));
+                    ((EditText)layout.findViewById(R.id.ps_text)).setText(vehicle.optString("ps"));
+                    ((EditText)layout.findViewById(R.id.quem_socorreu_text)).setText(vehicle.optString("socorreu"));
                     ((EditText)layout.findViewById(R.id.description)).setText(vehicle.optString("descricao"));
                     String inv="";
                     if(vehicle.has("envolvidos"))
@@ -2775,6 +2785,10 @@ public class CsiActivity extends AppCompatActivity {
                                 case VehicleFix.COLISAO:
                                     vehicle.put("tipo_impacto", ((Spinner) finalLayout.findViewById(R.id.impacto_spinner)).getSelectedItem().toString());
                                     vehicle.put("clima", ((Spinner) finalLayout.findViewById(R.id.clima_spinner)).getSelectedItem().toString());
+                                    vehicle.put("trafego", ((EditText) finalLayout.findViewById(R.id.congestionamento_text)).getText().toString());
+                                    vehicle.put("fonte", ((EditText) finalLayout.findViewById(R.id.fonte_text)).getText().toString());
+                                    vehicle.put("ps", ((EditText) finalLayout.findViewById(R.id.ps_text)).getText().toString());
+                                    vehicle.put("socorreu", ((EditText) finalLayout.findViewById(R.id.quem_socorreu_text)).getText().toString());
                                     vehicle.put("descricao", ((EditText) finalLayout.findViewById(R.id.description)).getText().toString());
                                     vehicle.put("data_e_hora", ((Button)finalLayout.findViewById(R.id.data_e_hora)).getText());
                                     ViewGroup vu = (ViewGroup) finalLayout.findViewById(R.id.itens_envolvidos);
