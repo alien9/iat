@@ -232,7 +232,7 @@ public class CsiActivity extends AppCompatActivity {
         //map.setTileSource(TileSourceFactory.USGS_SAT);
         //map.setTilesScaledToDpi(false);
         //String u="http://bigrs.alien9.net:8080/geoserver/gwc/service/tms/1.0.0/";
-        String u="http://cetsp1.cetsp.com.br:10084/geoserver/gwc/service/tms/1.0.0/";
+        String u=iat.getGeoserver()+"/geoserver/gwc/service/tms/1.0.0/";
         //clear_source = new GeoServerTileSource("quadras_e_logradouros", 17, 21, 512, ".png", new String[]{u});
         great_source = new GeoServerTileSource("cetmdc:mdcViario_lg", 17, 21, 512, ".png", new String[]{u}, "EPSG:900913");
         map.setTileSource(great_source);

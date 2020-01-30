@@ -202,4 +202,16 @@ public class Iat extends Application {
         }
         editor.apply();
     }
+
+    public String getGeoserver() {
+        SharedPreferences sharedpreferences = getSharedPreferences("PRATT", Context.MODE_PRIVATE);
+        return sharedpreferences.getString("geoserver", getString(R.string.geoserver));
+    }
+
+    public void setGeoserver(String toString) {
+        SharedPreferences prefs = getSharedPreferences("PRATT", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("geoserver", toString);
+        editor.apply();
+    }
 }

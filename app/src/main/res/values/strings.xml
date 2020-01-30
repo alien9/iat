@@ -217,4 +217,6 @@
         <item>Chuva forte</item>
         <item>Neve</item>
     </string-array>
+    <string name="geoserver">http://cetsp1.cetsp.com.br:10084"</string>
+    <string name="geoserver_setup">Geoserver</string>
 </resources>
