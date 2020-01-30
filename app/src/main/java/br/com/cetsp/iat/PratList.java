@@ -114,7 +114,7 @@ public class PratList extends AppCompatActivity{
             }else{
                 Log.d("Cordova IAT Croqui", "dados null");
             }
-            if(data.hasExtra("data")){
+            if(data!=null){
                 String jay=data.getStringExtra("data");
                 Log.d("IAT Croqui Plugin one", jay);
             }
