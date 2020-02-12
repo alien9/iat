@@ -125,8 +125,11 @@ public class BigrsCroqui extends CordovaPlugin {
         }else{
             Log.d("Cordova IAT Croqui Plugin", "dados null");
         }
-        String jay=data.getStringExtra("data");
-        Log.d("IAT Croqui Plugin one", jay);
+        String jay = null;
+        if(data != null) {
+        	jay = data.getStringExtra("data");
+	        Log.d("IAT Croqui Plugin one", jay);
+	      }
         PluginResult.Status status = PluginResult.Status.OK;
         Log.d("IAT Croqui Plugin prepare", "executando callback");
         cc.sendPluginResult(new PluginResult(status, jay));
