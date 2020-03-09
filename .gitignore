@@ -15,7 +15,7 @@ db
 app/src/main/res/raw/db
 /extras
 /app/release
-./iat_backend/node_modules
-./iat_backend/dist
-./iat_backend/ol
+iat_backend/node_modules
+iat_backend/dist
+iat_backend/ol
 .cache
