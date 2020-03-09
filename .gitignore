@@ -18,3 +18,4 @@ app/src/main/res/raw/db
 ./iat_backend/node_modules
 ./iat_backend/dist
 ./iat_backend/ol
+.cache
