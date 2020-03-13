@@ -8,11 +8,7 @@
     <item android:title="@string/veiculo" android:icon="@android:drawable/ic_menu_more"
         app:showAsAction="always">
         <menu>
-            <item android:id="@+id/move_map" android:title="@string/movemap" android:icon="@drawable/move_map" />
-            <item android:id="@+id/move_car" android:title="@string/edit" android:icon="@drawable/move_car" />
-            <item android:id="@+id/preview" android:title="@string/review" android:icon="@drawable/down" />
-            <!--item android:id="@+id/end" android:title="@string/exit" android:icon="@drawable/finish" /-->
-            <item android:id="@+id/center_here" android:title="@string/center_map" android:icon="@drawable/center"/>
+            1-objetos, 2-desenho, 3-editar veículos, 4-mover mapa, 5-revisar e 6- Impacto (sugestão mencionada no item 4 acima).
             <item android:title="@string/objects"
                 android:id="@+id/objects_sub">
                 <menu></menu>
@@ -21,6 +17,11 @@
                 android:id="@+id/desenhar_sub">
                 <menu></menu>
             </item>
+            <item android:id="@+id/move_car" android:title="@string/edit" android:icon="@drawable/move_car" />
+            <item android:id="@+id/move_map" android:title="@string/movemap" android:icon="@drawable/move_map" />
+            <item android:id="@+id/preview" android:title="@string/review" android:icon="@drawable/down" />
+            <!--item android:id="@+id/end" android:title="@string/exit" android:icon="@drawable/finish" /-->
+            <item android:id="@+id/center_here" android:title="@string/center_map" android:icon="@drawable/center"/>
             <item android:id="@+id/new_impact" android:title="@string/impacto" android:icon="@drawable/explode"/>
         </menu>
     </item>
