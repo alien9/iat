@@ -15,7 +15,6 @@ import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
 import br.com.cetsp.iat.util.VehicleFix;
-import jsqlite.Database;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,7 +41,6 @@ public class Iat extends Application {
     private JSONObject session;
 
     private ArrayList<String> reports;
-    private Database jdb;
 
     public static Iat getInstance() {
         return singleton;
@@ -81,31 +79,7 @@ public class Iat extends Application {
         editor.commit();
 
     }
-    public Database getDatabase(String path) {
-        if(jdb==null){
-            Log.d("IAT DATABASE CREATION ", "It's out of place.");
-            jdb=new Database();
-        }
-        File quadras=new File(path);
-        if(!quadras.exists()){
-            InputStream in = this.getApplicationContext().getResources().openRawResource(R.raw.db);
-            FileOutputStream out = null;
-            try {
-                out = new FileOutputStream(path);
-                byte[] buff = new byte[1024];
-                int read = 0;
-                while ((read = in.read(buff)) > 0) {
-                    out.write(buff, 0, read);
-                }
-                in.close();
-                out.close();
-            } catch (IOException e) {
-                return jdb;
-            }
-        }
-        return jdb;
 
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void startGPS(Activity a) {

@@ -122,10 +122,6 @@ import java.util.regex.Pattern;
 
 import br.com.cetsp.iat.util.Pega;
 
-import jsqlite.Callback;
-import jsqlite.Constants;
-import jsqlite.Database;
-import jsqlite.Exception;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -1635,7 +1631,6 @@ public class CsiActivity extends AppCompatActivity {
 //            final TileSystem tileSystem = org.osmdroid.views.MapView.getTileSystem();
             //  new LayerLoader(url, bb, "labels").execute();
             Bitmap bitlabel = Bitmap.createBitmap(map.getMeasuredWidth(), map.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
-            new LabelLoader(context,bitlabel,bb,map.getProjection(),new CsiHandler(map)).execute();
             is_updating_labels=false;
             if(overlays.containsKey("labels")) {
                 map.getOverlays().remove(overlays.get("labels"));
