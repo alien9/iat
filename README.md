@@ -8,8 +8,7 @@ A aplicação está preparada para ser receber alguns parâmetros e responder pa
 
 **Ambiente**
 
-A versão atual foi compilada com o Android SDK 26. Foi utilizada a biblioteca nativa jsqlite com a extensão [Spatialite](https://www.gaia-gis.it/fossil/libspatialite/wiki?name=splite-android).
-
+A versão atual foi compilada com o Android SDK 26. 
 
 **Parâmetros de entrada**
 
@@ -78,5 +77,29 @@ Atualmente há quatro estilos de linha:
 o estilo é definido em cada objeto JSON Path com o parâmetro **style**.
 Além disto há o campo **geom**, contendo um array de objetos com latitude e longitude. E também o array **points**, que define pares de valores correspondentes à posição de cada ponto no nível de zoom definido para  o relatório. Este array serve para tornar mais rápida a renderização do traçado, sem necessidade de converter cada par de coordenadas para as coordenadas da tela.
 
+######Vehicles
+O array vehicles contém todos os objetos colocados no diagrama: veículos, pedestres, postes, árvores e obstáculos.
+Cada objeto é definido com a propriedade model, que indica qual é o tipo de objeto:
 
+*  AUTO = 0;
+*  CAMINHAO = 1;
+*  CAMINHONETE=2;
+*  CAMIONETA=3;
+*  CARROCA=4;
+*  MICROONIBUS=5;
+*  MOTO = 6;
+*  ONIBUS = 7;
+*  REBOQUE=8;
+*  SEMI=9;
+*  TAXI=10;
+*  TRAILER=11;
+*  VIATURA=12;
+*  PEDESTRE = 13;
+*  BICI = 14;
+*  COLISAO = 15;
+*  OBSTACULO = 16;
+*  SENTIDO = 17;
+*  ARVORE = 18;
+*  SPU = 19;
 
+Além deste parâmetro também há os valores de width e height, que definem o tamanho do objeto, em metros, para ser renderizado no mapa, e o heading, que indica o ângulo, em graus no sentido horário, em que o objeto é girado.
