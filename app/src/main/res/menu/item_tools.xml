@@ -4,7 +4,6 @@
     <item android:id="@+id/new_bicycle" android:title="@string/bicicleta" android:icon="@drawable/bici" />
     <item android:id="@+id/new_walker" android:title="@string/pessoa" android:icon="@drawable/pessoa" />
     <item android:id="@+id/new_obstacle" android:title="@string/obstaculo" android:icon="@drawable/obstaculo" />
-    <item android:id="@+id/new_impact" android:title="@string/impacto" android:icon="@drawable/explode" />
     <item android:id="@+id/new_direction" android:title="@string/sentido_da_via" android:icon="@drawable/btn_direction" />
     <item android:id="@+id/new_post" android:title="@string/poste" android:icon="@drawable/btn_spu" />
     <item android:id="@+id/new_tree" android:title="@string/arvore" android:icon="@drawable/btn_albero" />
